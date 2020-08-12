@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -31,13 +32,15 @@ public class studentBatchesController implements Initializable {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BatchForm/batchForm.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
+
             Stage stage = new Stage();
-
-            stage.setTitle("Add batch");
-            stage.initStyle(StageStyle.TRANSPARENT);
-
+            stage.setTitle("Add a new batch");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(studentsPane.getScene().getWindow());
+            stage.setResizable(false);
             stage.setScene(new Scene(root1));
             stage.show();
+
 
         }catch (Exception e){
             System.out.println("can't load new window");
