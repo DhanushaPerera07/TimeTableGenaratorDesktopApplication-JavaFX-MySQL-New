@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchForm"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchFormController">
+    <children>
+        <VBox layoutX="47.0" layoutY="63.0" prefHeight="235.0" prefWidth="63.0" spacing="18.0">
+            <children>
+                <Label text="Batch">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+<!--      <ComboBox fx:id="batchCB" layoutX="119.0" layoutY="63.0" onAction="#clickBatch" prefWidth="150.0" promptText="Select" />-->
+        <ComboBox fx:id="comboBox" layoutX="125.0" layoutY="63.0" onAction="#getBatchType" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:id="Y1S1" fx:value="Y1S1" />
+                    <String fx:id="Y1S2" fx:value="Y2S2" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+
+    </children>
+
 
 </AnchorPane>
