@@ -14,13 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #26408B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchFormController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #e3e3e3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchFormController">
     <children>
-      <Rectangle fill="#fbfdff" height="299.0" layoutX="11.0" layoutY="65.0" stroke="WHITE" strokeType="INSIDE" width="578.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
-         <effect>
-            <DropShadow />
-         </effect>
-      </Rectangle>
+      <Rectangle fill="#fbfdff" height="410.0" layoutX="11.0" layoutY="65.0" stroke="WHITE" strokeType="INSIDE" width="578.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="65.0" />
         <VBox layoutX="210.0" layoutY="85.0" prefHeight="317.0" prefWidth="164.0" spacing="14.0">
             <children>
       <!--      <ComboBox fx:id="batchCB" layoutX="119.0" layoutY="63.0" onAction="#clickBatch" prefWidth="150.0" promptText="Select" />-->
@@ -95,36 +91,36 @@
             <Cursor fx:constant="HAND" />
          </cursor>
         </VBox>
-      <VBox layoutX="41.0" layoutY="85.0" prefHeight="236.0" prefWidth="164.0" spacing="17.0">
+      <VBox layoutX="41.0" layoutY="85.0" prefHeight="236.0" prefWidth="164.0" spacing="25.0">
          <children>
                 <Label prefHeight="27.0" prefWidth="168.0" text="Academic Year">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
             <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Academic Semester">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
             <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Intake">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
             <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Faculty">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
             <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Programme">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
             <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Center">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
          </children>
@@ -140,7 +136,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <VBox layoutX="447.0" layoutY="241.0" prefHeight="95.0" prefWidth="100.0">
+      <VBox layoutX="249.0" layoutY="364.0" prefHeight="95.0" prefWidth="100.0">
          <children>
             <Button fx:id="submitAddBatch" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitForm" prefHeight="37.0" prefWidth="100.0" text="Submit">
                <VBox.margin>
@@ -152,17 +148,9 @@
                <effect>
                   <DropShadow color="#4c29fc" height="12.0" radius="5.5" width="12.0" />
                </effect>
-            </Button>
-            <Button fx:id="closeButton" alignment="CENTER" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="103.0" text="Cancel">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-               <effect>
-                  <DropShadow color="#972020" height="12.0" radius="5.5" width="12.0" />
-               </effect>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </Button>
          </children>
       </VBox>
@@ -170,7 +158,7 @@
          <children>
             <Label prefHeight="27.0" prefWidth="168.0" text="No of Students">
                <font>
-                  <Font size="18.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
             <TextField />
@@ -179,9 +167,6 @@
 
 
     </children>
-   <effect>
-      <DropShadow height="44.72" radius="35.2025" spread="0.5" width="98.09" />
-   </effect>
 
 
 </AnchorPane>

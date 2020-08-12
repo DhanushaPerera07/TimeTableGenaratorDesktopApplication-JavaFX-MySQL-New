@@ -32,8 +32,7 @@ public class BatchFormController implements Initializable {
     @FXML
     private ComboBox<String> comBoxCen;
 
-    @FXML
-    public Button closeButton;
+
 
     @FXML
     public Button submitAddBatch;
@@ -113,10 +112,6 @@ public class BatchFormController implements Initializable {
     }
 
 
-    public void closeWindow(ActionEvent actionEvent){
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
 
     public void submitForm(ActionEvent actionEvent){
         Stage stage = (Stage) submitAddBatch.getScene().getWindow();
