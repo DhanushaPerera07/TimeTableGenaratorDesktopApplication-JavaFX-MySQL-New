@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyDepartments">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyDepartmentsController">
    <top>
       <GridPane prefHeight="105.0" prefWidth="804.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -64,6 +65,9 @@
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="SEARCH" />
+                     </graphic>
                   </Button>
                   <Label text="Filter By" GridPane.columnIndex="2">
                      <GridPane.margin>
@@ -75,10 +79,13 @@
                         <Insets />
                      </GridPane.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4">
+                  <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="4">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="PLUS" />
+                     </graphic>
                   </Button>
                   <ComboBox prefWidth="141.0" GridPane.columnIndex="5">
                      <GridPane.margin>
@@ -91,6 +98,10 @@
       </GridPane>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <ScrollPane prefHeight="430.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="facultyVBox" />
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>

@@ -20,7 +20,7 @@ public class FxmlLoader {
             view = new FXMLLoader().load(fileURL);
 
         } catch (Exception e){
-            System.out.println("No page" + fileName + "please check FxmlLoader.java");
+            System.out.println("No page " + fileName + ", please check FxmlLoader.java");
         }
 
         return view;
