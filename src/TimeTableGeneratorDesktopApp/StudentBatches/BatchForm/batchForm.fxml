@@ -26,7 +26,7 @@
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:id="Y1S1" fx:value="Y1S1" />
-                    <String fx:id="Y1S1" fx:value="Y2S2" />
+                    <String fx:id="Y1S2" fx:value="Y2S2" />
                 </FXCollections>
             </items>
         </ComboBox>
