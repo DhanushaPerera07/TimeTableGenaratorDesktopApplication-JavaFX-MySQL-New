@@ -1,0 +1,13 @@
+.leftsideMainVbox{
+    -fx-background-color:  #26408B;
+}
+
+.btnDashboard{
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI";
+}
+
+.btnDashboard:hover{
+    -fx-border-color: #fff;
+    -fx-border-width: 0.5;
+}
