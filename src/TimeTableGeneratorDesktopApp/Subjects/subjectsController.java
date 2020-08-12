@@ -34,7 +34,7 @@ public class subjectsController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
         }catch (Exception e){
-            System.out.println("can't load new window");
+            e.printStackTrace();
         }
     }
 }
