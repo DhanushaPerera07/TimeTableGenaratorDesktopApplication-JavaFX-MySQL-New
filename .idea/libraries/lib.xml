@@ -3,8 +3,28 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/Libraries used in/fontawesomefx-8.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/Libraries used in/jfoenix-9.0.10.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx-swt.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.base.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.controls.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.fxml.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.graphics.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.media.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.swing.jar!/" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/javafx.web.jar!/" />
+      <root url="file://C:/javafx-sdk-11.0.2/lib" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.base" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.controls" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.fxml" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.graphics" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.media" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.swing" />
+      <root url="jar://C:/javafx-sdk-11.0.2/lib/src.zip!/javafx.web" />
+      <root url="file://C:/javafx-sdk-11.0.2/lib" />
+    </SOURCES>
+    <jarDirectory url="file://C:/javafx-sdk-11.0.2/lib" recursive="false" />
+    <jarDirectory url="file://C:/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
   </library>
 </component>
