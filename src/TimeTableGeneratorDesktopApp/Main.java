@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("TimeTableGeneratorMainView.fxml"));
         primaryStage.setTitle("Time Table Generator -  Code 4V2");
-        primaryStage.setScene(new Scene(root, 1200, 800));
+        primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
     }
 
