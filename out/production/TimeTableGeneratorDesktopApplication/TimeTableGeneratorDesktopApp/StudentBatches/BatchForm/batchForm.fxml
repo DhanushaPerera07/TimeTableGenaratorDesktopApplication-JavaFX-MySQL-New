@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -10,26 +14,156 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchFormController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #e3e3e3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchFormController">
     <children>
-        <VBox layoutX="47.0" layoutY="63.0" prefHeight="235.0" prefWidth="63.0" spacing="18.0">
+      <Rectangle fill="#fbfdff" height="410.0" layoutX="11.0" layoutY="65.0" stroke="WHITE" strokeType="INSIDE" width="578.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="65.0" />
+        <VBox layoutX="210.0" layoutY="85.0" prefHeight="317.0" prefWidth="164.0" spacing="14.0">
             <children>
-                <Label text="Batch">
+      <!--      <ComboBox fx:id="batchCB" layoutX="119.0" layoutY="63.0" onAction="#clickBatch" prefWidth="150.0" promptText="Select" />-->
+              <ComboBox fx:id="comboBoxYear" onAction="#selectBatchYear" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+<!--                  <items>-->
+<!--                      <FXCollections fx:factory="observableArrayList">-->
+<!--                          <String fx:id="Y1S1" fx:value="Y1S1" />-->
+<!--                          <String fx:id="Y1S2" fx:value="Y2S2" />-->
+<!--                      </FXCollections>-->
+<!--                  </items>-->
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+              </ComboBox>
+            <ComboBox fx:id="comBoxSem" onAction="#selectBatchSem" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+<!--               <items>-->
+<!--                  <FXCollections fx:factory="observableArrayList">-->
+<!--                     <String fx:id="Y1S11" fx:value="Y1S1" />-->
+<!--                     <String fx:id="Y1S21" fx:value="Y2S2" />-->
+<!--                  </FXCollections>-->
+<!--               </items>-->
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </ComboBox>
+            <ComboBox fx:id="comBoxIntake" onAction="#selectBatchIntake" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+<!--               <items>-->
+<!--                  <FXCollections fx:factory="observableArrayList">-->
+<!--                     <String fx:id="Y1S111" fx:value="Y1S1" />-->
+<!--                     <String fx:id="Y1S211" fx:value="Y2S2" />-->
+<!--                  </FXCollections>-->
+<!--               </items>-->
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </ComboBox>
+            <ComboBox fx:id="comBoxFac" onAction="#selectBatchFac" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+<!--               <items>-->
+<!--                  <FXCollections fx:factory="observableArrayList">-->
+<!--                     <String fx:id="Y1S112" fx:value="Y1S1" />-->
+<!--                     <String fx:id="Y1S212" fx:value="Y2S2" />-->
+<!--                  </FXCollections>-->
+<!--               </items>-->
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </ComboBox>
+            <ComboBox fx:id="comBoxPro" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+<!--               <items>-->
+<!--                  <FXCollections fx:factory="observableArrayList">-->
+<!--                     <String fx:id="Y1S113" fx:value="Y1S1" />-->
+<!--                     <String fx:id="Y1S213" fx:value="Y2S2" />-->
+<!--                  </FXCollections>-->
+<!--               </items>-->
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </ComboBox>
+            <ComboBox fx:id="comBoxCen" onAction="#selectBatchCen" prefHeight="30.0" prefWidth="200.0" promptText="Select">
+<!--               <items>-->
+<!--                  <FXCollections fx:factory="observableArrayList">-->
+<!--                     <String fx:id="Y1S114" fx:value="Y1S1" />-->
+<!--                     <String fx:id="Y1S214" fx:value="Y2S2" />-->
+<!--                  </FXCollections>-->
+<!--               </items>-->
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </ComboBox>
+            </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </VBox>
+      <VBox layoutX="41.0" layoutY="85.0" prefHeight="236.0" prefWidth="164.0" spacing="25.0">
+         <children>
+                <Label prefHeight="27.0" prefWidth="168.0" text="Academic Year">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
-            </children>
-        </VBox>
-<!--      <ComboBox fx:id="batchCB" layoutX="119.0" layoutY="63.0" onAction="#clickBatch" prefWidth="150.0" promptText="Select" />-->
-        <ComboBox fx:id="comboBox" layoutX="125.0" layoutY="63.0" onAction="#getBatchType" prefHeight="30.0" prefWidth="200.0" promptText="Select">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:id="Y1S1" fx:value="Y1S1" />
-                    <String fx:id="Y1S1" fx:value="Y2S2" />
-                </FXCollections>
-            </items>
-        </ComboBox>
+            <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Academic Semester">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Intake">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Faculty">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Programme">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label lineSpacing="10.0" prefHeight="27.0" prefWidth="168.0" text="Center">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </VBox>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="30.0" prefHeight="27.0" prefWidth="578.0" style="-fx-background-color: #cbcdd4;" text="Add a new Batch">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <VBox layoutX="249.0" layoutY="364.0" prefHeight="95.0" prefWidth="100.0">
+         <children>
+            <Button fx:id="submitAddBatch" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitForm" prefHeight="37.0" prefWidth="100.0" text="Submit">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow color="#4c29fc" height="12.0" radius="5.5" width="12.0" />
+               </effect>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="407.0" layoutY="85.0" prefHeight="166.0" prefWidth="144.0" spacing="18.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="168.0" text="No of Students">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField />
+         </children>
+      </VBox>
 
 
     </children>
