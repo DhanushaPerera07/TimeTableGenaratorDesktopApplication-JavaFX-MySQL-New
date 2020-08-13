@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController">
+<VBox fx:id="facultyItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController">
    <children>
       <GridPane prefHeight="40.0" prefWidth="800.0">
         <columnConstraints>
@@ -33,12 +33,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" size="2em" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditFacultyPopUp" size="2em" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </FontAwesomeIcon>
-            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" size="2em" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteFacultyConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

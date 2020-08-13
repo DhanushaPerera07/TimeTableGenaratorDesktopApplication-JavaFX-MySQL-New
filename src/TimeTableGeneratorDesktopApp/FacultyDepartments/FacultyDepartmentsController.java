@@ -60,7 +60,7 @@ public class FacultyDepartmentsController implements  Initializable{
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
 
-            stage.setTitle("Add Faculty");
+            stage.setTitle("Add a Faculty");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(borderPaneFacultyMain.getScene().getWindow());
             stage.setResizable(false);
