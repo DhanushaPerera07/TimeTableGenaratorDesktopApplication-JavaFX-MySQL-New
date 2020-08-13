@@ -81,7 +81,7 @@
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnTimePeriods" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="149.0" mnemonicParsing="false" onAction="#handleActionOnTimePeriodsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Time Periods" textFill="WHITE">
+            <Button fx:id="btnTimePeriods" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="149.0" mnemonicParsing="false" onAction="#handleActionOnTimePeriodsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Working Days &amp; Hours " textFill="WHITE">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" />
                </graphic>
