@@ -67,7 +67,7 @@ public class FacultyDepartmentsController implements  Initializable{
             stage.setScene(new Scene(root1));
             stage.show();
         }catch (Exception e){
-            System.out.println("Exception - When Opening addFacultyPopUp.fxml as a pop up ");
+            System.out.println("Exception / Error - When Opening addFacultyPopUp.fxml as a pop up ==========================");
             e.printStackTrace();
         }
     }
