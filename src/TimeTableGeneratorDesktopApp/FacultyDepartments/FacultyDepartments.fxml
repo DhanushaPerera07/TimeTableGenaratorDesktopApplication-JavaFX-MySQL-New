@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyDepartmentsController">
+<BorderPane fx:id="borderPaneFacultyMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyDepartmentsController">
    <top>
       <GridPane prefHeight="105.0" prefWidth="804.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -79,7 +79,7 @@
                         <Insets />
                      </GridPane.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="4">
+                  <Button fx:id="btnAddFaculty" mnemonicParsing="false" onAction="#openAddFacultyPopUp" text="Add" GridPane.columnIndex="4">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
