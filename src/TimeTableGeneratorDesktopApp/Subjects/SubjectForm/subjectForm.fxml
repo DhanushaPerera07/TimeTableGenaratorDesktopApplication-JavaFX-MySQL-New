@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Subjects.SubjectForm.SubjectFormController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="584.0">
          <children>
@@ -33,9 +33,9 @@
                   <TextField />
                   <TextField />
                   <TextField />
+                  <Button mnemonicParsing="false" text="Add" />
                </children>
             </VBox>
-            <Button layoutX="491.0" layoutY="218.0" mnemonicParsing="false" text="Add" />
          </children></AnchorPane>
   </content>
 </ScrollPane>

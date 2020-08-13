@@ -1,4 +1,4 @@
-package TimeTableGeneratorDesktopApp.Subjects;
+package TimeTableGeneratorDesktopApp.Lecturers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,35 +14,39 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class subjectsController implements Initializable {
+public class lecturersController implements Initializable {
 
     @FXML
-    private Button addModuleBtn;
+    private Button addLecturerBtn;
 
     @FXML
-    private Pane subjectsPane;
+    private Pane lecturersPane;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+
     @FXML
-    void ActionEventAddModule(ActionEvent event) {
-        System.out.println("Add Module Button Clicked");
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SubjectForm/subjectForm.fxml"));
+    void ActionEventAddLecturer(ActionEvent event) {
+        System.out.println("Add Lecturer Button Clicked");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LecturerForm/lecturerForm.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
 
-            stage.setTitle("Add Module");
+            stage.setTitle("Add Lecturer");
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(subjectsPane.getScene().getWindow());
+            stage.initOwner(lecturersPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }
