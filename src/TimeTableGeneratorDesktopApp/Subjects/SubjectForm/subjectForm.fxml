@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Subjects.SubjectForm.SubjectFormController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Subjects.SubjectForm.SubjectFormController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="584.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="431.0" prefWidth="584.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Module - add a module" />
-            <VBox layoutX="14.0" layoutY="56.0" prefHeight="200.0" prefWidth="183.0" spacing="17.0">
+            <VBox layoutX="14.0" layoutY="56.0" prefHeight="287.0" prefWidth="192.0" spacing="17.0">
                <children>
                   <Label prefHeight="28.0" prefWidth="175.0" text="Module name" />
                   <Label prefHeight="21.0" prefWidth="180.0" text="Module code " />
                   <Label text="Offered year" />
                   <Label text="Offered semester" />
-                  <Label text="Nuber of lecture hours" />
+                  <Label text="Number of lecture hours" />
                   <Label text="Number of tutorial hours" />
                   <Label text="Number of lab hours" />
                   <Label text="Number of evaluation hours" />
                </children>
             </VBox>
-            <VBox layoutX="197.0" layoutY="59.0" prefHeight="256.0" prefWidth="256.0" spacing="8.0">
+            <VBox layoutX="223.0" layoutY="56.0" prefHeight="293.0" prefWidth="256.0" spacing="9.0">
                <children>
-                  <TextField />
-                  <TextField />
-                  <TextField />
-                  <TextField />
-                  <TextField />
-                  <TextField />
-                  <TextField />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Add" />
+                  <TextField fx:id="tfModuleName">
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin></TextField>
+                  <TextField fx:id="tfModuleCode" />
+                  <ComboBox fx:id="comboSelectYearBox" prefWidth="220.0" promptText="Select year" />
+                  <ComboBox fx:id="comboSelectSemesterBox" prefWidth="220.0" promptText="Select semester" />
+                  <ComboBox fx:id="comboSelectLecHourBox" prefWidth="220.0" promptText="Select lecture hours" />
+                  <ComboBox fx:id="comboSelectTuteHourBox" prefWidth="220.0" promptText="Select tutorial hours" />
+                  <ComboBox fx:id="comboSelectLabHourBox" prefWidth="220.0" promptText="Select lab hours" />
+                  <ComboBox fx:id="comboSelectEvaluationHourBox" prefWidth="220.0" promptText="Select evaluation hours" />
                </children>
             </VBox>
+            <Button fx:id="addModuleBtn" layoutX="223.0" layoutY="386.0" mnemonicParsing="false" onAction="#addModuleAction" text="Add" />
          </children></AnchorPane>
   </content>
 </ScrollPane>

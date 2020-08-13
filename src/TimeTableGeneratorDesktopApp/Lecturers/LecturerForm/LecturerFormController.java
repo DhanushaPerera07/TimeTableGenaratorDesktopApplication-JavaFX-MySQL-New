@@ -16,6 +16,9 @@ public class LecturerFormController implements Initializable {
     @FXML
     private ComboBox<?> comboCenterBox;
 
+    @FXML
+    private ComboBox<?> comboBuildingBox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -36,5 +39,13 @@ public class LecturerFormController implements Initializable {
         int i = comboCenterBox.getSelectionModel().getSelectedIndex() + 1;
         System.out.println(center);
         System.out.println(i);
+    }
+
+    public void selectLecturerBuilding(ActionEvent actionEvent) {
+        System.out.println("Selected the building");
+    }
+
+    public void selectLecturerFaculty(ActionEvent actionEvent) {
+        System.out.println("Selected the faculty");
     }
 }
