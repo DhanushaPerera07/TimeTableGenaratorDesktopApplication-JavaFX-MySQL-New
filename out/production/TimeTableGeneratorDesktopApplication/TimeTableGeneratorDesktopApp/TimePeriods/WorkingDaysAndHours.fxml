@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="workingPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHours">
    <children>
       <Pane layoutX="18.0" layoutY="33.0" prefHeight="61.0" prefWidth="766.0" style="-fx-background-color: #ffffffff;">
          <children>
@@ -14,7 +14,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button layoutX="599.0" layoutY="18.0" mnemonicParsing="false" text="Set Working Days" />
+            <Button fx:id="addWorkingDaysBtn" layoutX="602.0" layoutY="18.0" mnemonicParsing="false" onAction="#addWorkingDaysAction" text="Add Working Days" />
          </children>
       </Pane>
       <Pane layoutX="18.0" layoutY="116.0" prefHeight="460.0" prefWidth="766.0" style="-fx-background-color: #ffffffff;" />
