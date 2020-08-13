@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FacultyItemController implements Initializable {
@@ -61,5 +65,22 @@ public class FacultyItemController implements Initializable {
     // Opens up the Alert BOX then, user can Delete the faculty records - _____.fxml
     public void openDeleteFacultyConfirmationAlertBoxPopUp(MouseEvent mouseEvent) {
         System.out.println("Clicked - Open Confirmation AlertBOX before deleting a Faculty Record");
+
+        Alert deleteFacultyAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteFacultyAlert.setTitle("Confirmation");
+        deleteFacultyAlert.setHeaderText("Give Confirmation to delete this Faculty");
+        deleteFacultyAlert.setContentText("Do you want to delete the faculty? Click Delete to Delete the faculty, otherwise click Cancel");
+
+        ButtonType DeleteBtn = new ButtonType("Delete");
+        ButtonType CancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        deleteFacultyAlert.getButtonTypes().setAll(DeleteBtn,CancelBtn);
+
+        Optional<ButtonType> result = deleteFacultyAlert.showAndWait();
+        if (result.get() == DeleteBtn){
+            System.out.println("Faculty is deleted successfully");
+        } else {
+            System.out.println("Clicked Cancel Button - (Deleting a faculty)");
+        }
     }
 }

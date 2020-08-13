@@ -33,5 +33,17 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </Button>
+      <TableView fx:id="tvLecturers" layoutX="40.0" layoutY="140.0" prefHeight="416.0" prefWidth="757.0">
+         <columns>
+            <TableColumn fx:id="colLecturerName" prefWidth="150.0" text="Lecturer Name" />
+            <TableColumn fx:id="colEmplyeeID" prefWidth="98.0" text="Employee ID" />
+            <TableColumn fx:id="colFaculty" prefWidth="98.0" text="Faculty" />
+            <TableColumn fx:id="colDepartment" prefWidth="109.0" text="Department" />
+            <TableColumn fx:id="colCenter" prefWidth="74.0" text="Center" />
+            <TableColumn fx:id="colBuilding" prefWidth="96.0" text="Building" />
+            <TableColumn fx:id="colLevel" prefWidth="47.0" text="Level" />
+            <TableColumn fx:id="colRank" prefWidth="84.0" text="Rank" />
+         </columns>
+      </TableView>
    </children>
 </Pane>

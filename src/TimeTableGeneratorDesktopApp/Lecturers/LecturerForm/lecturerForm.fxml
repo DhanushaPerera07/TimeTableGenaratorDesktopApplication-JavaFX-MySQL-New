@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.collections.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -23,14 +24,17 @@
                   <Label text="Building" />
                   <Label text="Level" />
                </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </VBox>
             <VBox layoutX="197.0" layoutY="59.0" prefHeight="256.0" prefWidth="256.0" spacing="8.0">
                <children>
                   <TextField />
                   <TextField />
+                  <ComboBox fx:id="comboFacultyBox" onAction="#selectLecturerFaculty" prefWidth="200.0" promptText="Select faculty" />
                   <TextField />
-                  <TextField />
-                  <ComboBox fx:id="comboCenterBox" onAction="#selectLecturerCenter" prefWidth="150.0" promptText="Select center">
+                  <ComboBox fx:id="comboCenterBox" onAction="#selectLecturerCenter" prefWidth="200.0" promptText="Select center">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:id="malabe" fx:value="Malabe" />
@@ -42,8 +46,8 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <TextField />
-                  <ComboBox fx:id="comboLevelBox" onAction="#selectLecturerLevel" prefWidth="150.0" promptText="Select level">
+                  <ComboBox fx:id="comboBuildingBox" onAction="#selectLecturerBuilding" prefWidth="200.0" promptText="Select building" />
+                  <ComboBox fx:id="comboLevelBox" onAction="#selectLecturerLevel" prefWidth="200.0" promptText="Select level">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:id="1" fx:value="1 - Professor" />
