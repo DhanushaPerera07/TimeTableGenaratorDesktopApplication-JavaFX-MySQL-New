@@ -1,0 +1,23 @@
+Screen 1: FacultyDepartments.fxml
+// User clicks on Faculties & Departments Side navigation button
+// then user can see the Faculty screen.
+
+* Pop up - Add a Faculty
+
+=========================================================================================
+
+Screen 2: Departments.fxml
+// Then, user can view the department by clicking the View Department Button,
+// According to that faculty, right hand side of the screen updated with another screen (not a pop up)
+// Using the screen user can view all the departments under that Faculty.
+
+
+// User can add a new department using that screen.
+// So that new department will be added under the particular Faculty.
+
+* Pop up - Add a Department
+
+
+=========================================================================================
+
+
