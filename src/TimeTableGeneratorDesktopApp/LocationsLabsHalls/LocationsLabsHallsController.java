@@ -1,11 +1,11 @@
-package TimeTableGeneratorDesktopApp.Subjects.SubjectForm;
+package TimeTableGeneratorDesktopApp.LocationsLabsHalls;
 
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SubjectFormController implements Initializable {
+public class LocationsLabsHallsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
