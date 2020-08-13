@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -21,6 +23,33 @@ public class subjectsController implements Initializable {
 
     @FXML
     private Pane subjectsPane;
+
+    @FXML
+    private TableColumn<?, ?> colTuteHour;
+
+    @FXML
+    private TableColumn<?, ?> colModuleCode;
+
+    @FXML
+    private TableColumn<?, ?> colYear;
+
+    @FXML
+    private TableColumn<?, ?> colLecHour;
+
+    @FXML
+    private TableColumn<?, ?> colEvaluatonHour;
+
+    @FXML
+    private TableColumn<?, ?> colModuleName;
+
+    @FXML
+    private TableColumn<?, ?> colLabHour;
+
+    @FXML
+    private TableView<?> tvModules;
+
+    @FXML
+    private TableColumn<?, ?> colSemester;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
