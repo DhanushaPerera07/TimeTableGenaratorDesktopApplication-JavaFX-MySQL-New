@@ -1,4 +1,4 @@
 package TimeTableGeneratorDesktopApp.TimePeriods;
 
-public class TimePeriods {
+public class WorkingDaysAndHours {
 }

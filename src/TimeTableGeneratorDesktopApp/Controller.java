@@ -106,7 +106,7 @@ public class Controller implements Initializable {
     public void handleActionOnTimePeriodsButton(ActionEvent actionEvent) {
         System.out.println("clicked TimePeriods Button");
         FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPane("TimePeriods/TimePeriods");
+        Pane view = object.getPane("TimePeriods/WorkingDaysAndHours");
         mainPane.setCenter(view);
     }
 
