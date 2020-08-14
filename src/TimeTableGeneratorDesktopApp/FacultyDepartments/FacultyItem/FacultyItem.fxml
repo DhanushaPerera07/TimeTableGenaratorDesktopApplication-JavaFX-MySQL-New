@@ -87,7 +87,7 @@
                </GridPane.margin>
             </Label>
             <Label layoutX="10.0" layoutY="94.0" text="Active" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="btnViewDepartments" mnemonicParsing="false" text="View Department(s)" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Button fx:id="btnViewDepartments" mnemonicParsing="false" onAction="#openDepartmentScreen" text="View Department(s)" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label layoutX="495.0" layoutY="45.0" text="No of Dept:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label layoutX="486.0" layoutY="75.0" text="5" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>

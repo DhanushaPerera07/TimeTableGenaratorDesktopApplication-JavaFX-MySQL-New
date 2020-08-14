@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +32,8 @@ public class FacultyItemController implements Initializable {
     @FXML
     private Button btnViewDepartments;
 
+    // @Menura used a Pane here, I have use a VBOX here...
+    // this VBOX is used here, stage.initOwner(facultyItemVBOX.getScene().getWindow());
     @FXML
     private VBox facultyItemVBOX;
 
@@ -82,5 +85,8 @@ public class FacultyItemController implements Initializable {
         } else {
             System.out.println("Clicked Cancel Button - (Deleting a faculty)");
         }
+    }
+
+    public void openDepartmentScreen(ActionEvent actionEvent) {
     }
 }

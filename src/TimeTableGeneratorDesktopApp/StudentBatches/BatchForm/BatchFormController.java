@@ -7,12 +7,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -37,6 +41,8 @@ public class BatchFormController implements Initializable {
     public static String batchID = "";
     public static Integer noOfStudents = 0;
 
+    @FXML
+    private AnchorPane batchFormPane;
 
     @FXML
     private ComboBox<String> comboBoxYear;
@@ -318,7 +324,11 @@ public class BatchFormController implements Initializable {
                 "VALUES ('" +year+ "','" +semester+ "','" +intake+ "','" +faculty+
                 "','" +programme+ "','" +center+ "'," +tfNoOfStd.getText()+
                 ",'" +tfBatchID.getText()+ "') ";
+
         executeQuery(query);
+
+//        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +tfNoOfStd.getText()+ ")";
+//        executeQuery(queryBatchStats);
 
     }
 
@@ -334,6 +344,8 @@ public class BatchFormController implements Initializable {
         if(action.get() == ButtonType.OK){
             String query = "DELETE from studentbatches WHERE id =" +rowID+ "";
             executeQuery(query);
+            String query2 = "DELETE from batchstats WHERE batch =" +rowID+ "";
+            executeQuery(query2);
             Stage stage = (Stage) batchFormDelBtn.getScene().getWindow();
             stage.close();
         }
@@ -481,11 +493,49 @@ public class BatchFormController implements Initializable {
                     "' WHERE id = " +rowID+ "";
             executeQuery(query);
 
+
+//            String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ")";
+//            executeQuery(queryBatchStats);
+//
+
             Stage stage = (Stage) batchFormUpdtBtn.getScene().getWindow();
             stage.close();
         }
 
     }
+
+
+
+
+
+
+    @FXML
+    void ActionEventGroupBatchBtn(ActionEvent event) {
+
+        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ")";
+        executeQuery(queryBatchStats);
+
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/StudentBatches/subGroupForm/subGroupForm.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Manage sub groups of the batch");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(batchFormPane.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+
+        }catch (Exception e){
+            System.out.println("can't load new window");
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
 
