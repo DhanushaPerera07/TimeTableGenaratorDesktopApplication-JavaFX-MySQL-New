@@ -30,13 +30,71 @@ public class SetWorkingDaysController implements Initializable {
     private Button populateBtn;
 
     @FXML
-    private TextField labelnoDays;
+    private Label labelnoDays;
+
+    @FXML
+    private TextField field1noDays;
+
+    @FXML
+    private TextField field2noDays;
+
+    @FXML
+    private TextField field3noDays;
+
+    @FXML
+    private TextField field4noDays;
+
+    @FXML
+    private TextField field5noDays;
+
+    @FXML
+    private TextField field6noDays;
+
+    @FXML
+    private TextField field7noDays;
+
+    @FXML
+    private Label label1noDays;
+
+    @FXML
+    private Label label2noDays;
+
+    @FXML
+    private Label label4noDays;
+
+    @FXML
+    private Label label3noDays;
+
+    @FXML
+    private Label label5noDays;
+
+    @FXML
+    private Label label6noDays;
+
+    @FXML
+    private Label label7noDays;
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         labelnoDays.setVisible(false);
+
+        field1noDays.setVisible(false);
+        field2noDays.setVisible(false);
+        field3noDays.setVisible(false);
+        field4noDays.setVisible(false);
+        field5noDays.setVisible(false);
+        field6noDays.setVisible(false);
+        field7noDays.setVisible(false);
+
+        label1noDays.setVisible(false);
+        label2noDays.setVisible(false);
+        label3noDays.setVisible(false);
+        label4noDays.setVisible(false);
+        label5noDays.setVisible(false);
+        label6noDays.setVisible(false);
+        label7noDays.setVisible(false);
 
     }
 
@@ -76,11 +134,142 @@ public class SetWorkingDaysController implements Initializable {
         executeQuery(query);
 
         getWorkingDays();
-        labelnoDays.setText(String.valueOf("No of working days : " +noDaysDB));
+        labelnoDays.setText(String.valueOf(noDaysDB));
+
+        labelnoDays.setVisible(true);
 
         if(noDays ==1){
+            field1noDays.setVisible(true);
 
-            labelnoDays.setVisible(true);
+            field2noDays.setVisible(false);
+            field3noDays.setVisible(false);
+            field4noDays.setVisible(false);
+            field5noDays.setVisible(false);
+            field6noDays.setVisible(false);
+            field7noDays.setVisible(false);
+
+            label1noDays.setVisible(true);
+
+            label2noDays.setVisible(false);
+            label3noDays.setVisible(false);
+            label4noDays.setVisible(false);
+            label5noDays.setVisible(false);
+            label6noDays.setVisible(false);
+            label7noDays.setVisible(false);
+        }
+
+        if(noDays ==2){
+            field1noDays.setVisible(true);
+            field2noDays.setVisible(true);
+
+            field3noDays.setVisible(false);
+            field4noDays.setVisible(false);
+            field5noDays.setVisible(false);
+            field6noDays.setVisible(false);
+            field7noDays.setVisible(false);
+
+            label1noDays.setVisible(true);
+            label2noDays.setVisible(true);
+
+            label3noDays.setVisible(false);
+            label4noDays.setVisible(false);
+            label5noDays.setVisible(false);
+            label6noDays.setVisible(false);
+            label7noDays.setVisible(false);
+
+        }
+        if(noDays ==3){
+            field1noDays.setVisible(true);
+            field2noDays.setVisible(true);
+            field3noDays.setVisible(true);
+
+            field4noDays.setVisible(false);
+            field5noDays.setVisible(false);
+            field6noDays.setVisible(false);
+            field7noDays.setVisible(false);
+
+            label1noDays.setVisible(true);
+            label2noDays.setVisible(true);
+            label3noDays.setVisible(true);
+
+            label4noDays.setVisible(false);
+            label5noDays.setVisible(false);
+            label6noDays.setVisible(false);
+            label7noDays.setVisible(false);
+        }
+        if(noDays ==4){
+            field1noDays.setVisible(true);
+            field2noDays.setVisible(true);
+            field3noDays.setVisible(true);
+            field4noDays.setVisible(true);
+
+            field5noDays.setVisible(false);
+            field6noDays.setVisible(false);
+            field7noDays.setVisible(false);
+
+            label1noDays.setVisible(true);
+            label2noDays.setVisible(true);
+            label3noDays.setVisible(true);
+            label4noDays.setVisible(true);
+
+            label5noDays.setVisible(false);
+            label6noDays.setVisible(false);
+            label7noDays.setVisible(false);
+        }
+        if(noDays ==5){
+            field1noDays.setVisible(true);
+            field2noDays.setVisible(true);
+            field3noDays.setVisible(true);
+            field4noDays.setVisible(true);
+            field5noDays.setVisible(true);
+
+            field6noDays.setVisible(false);
+            field7noDays.setVisible(false);
+
+            label1noDays.setVisible(true);
+            label2noDays.setVisible(true);
+            label3noDays.setVisible(true);
+            label4noDays.setVisible(true);
+            label5noDays.setVisible(true);
+
+            label6noDays.setVisible(false);
+            label7noDays.setVisible(false);
+        }
+        if(noDays ==6){
+            field1noDays.setVisible(true);
+            field2noDays.setVisible(true);
+            field3noDays.setVisible(true);
+            field4noDays.setVisible(true);
+            field5noDays.setVisible(true);
+            field6noDays.setVisible(true);
+
+            field7noDays.setVisible(false);
+
+            label1noDays.setVisible(true);
+            label2noDays.setVisible(true);
+            label3noDays.setVisible(true);
+            label4noDays.setVisible(true);
+            label5noDays.setVisible(true);
+            label6noDays.setVisible(true);
+
+            label7noDays.setVisible(false);
+        }
+        if(noDays ==7){
+            field1noDays.setVisible(true);
+            field2noDays.setVisible(true);
+            field3noDays.setVisible(true);
+            field4noDays.setVisible(true);
+            field5noDays.setVisible(true);
+            field6noDays.setVisible(true);
+            field7noDays.setVisible(true);
+
+            label1noDays.setVisible(true);
+            label2noDays.setVisible(true);
+            label3noDays.setVisible(true);
+            label4noDays.setVisible(true);
+            label5noDays.setVisible(true);
+            label6noDays.setVisible(true);
+            label7noDays.setVisible(true);
         }
     }
 
