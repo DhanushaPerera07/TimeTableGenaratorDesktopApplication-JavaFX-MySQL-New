@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -106,5 +107,9 @@ public class FacultyDepartmentsController implements  Initializable{
             System.out.println("Exception / Error - When Opening addFacultyPopUp.fxml as a pop up ==========================");
             e.printStackTrace();
         }
+    }
+
+    public void setOnActionBtnSearch(MouseEvent mouseEvent) {
+        System.out.println("Clicked - Search Button on Faculty Screen");
     }
 }
