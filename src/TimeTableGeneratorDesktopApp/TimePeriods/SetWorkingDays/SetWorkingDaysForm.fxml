@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -13,7 +14,12 @@
    <children>
       <Pane layoutX="21.0" layoutY="91.0" prefHeight="299.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
          <children>
-            <Label fx:id="labelnoDays" layoutX="14.0" layoutY="14.0" text="No of days" />
+            <TextField fx:id="labelnoDays" layoutX="283.0" layoutY="37.0" />
+            <TextField layoutX="283.0" layoutY="74.0" />
+            <TextField layoutX="283.0" layoutY="112.0" />
+            <TextField layoutX="283.0" layoutY="150.0" />
+            <TextField layoutX="283.0" layoutY="192.0" />
+            <TextField layoutX="283.0" layoutY="228.0" />
          </children></Pane>
       <Pane layoutX="21.0" layoutY="14.0" prefHeight="67.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
          <children>
