@@ -7,6 +7,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="file://$USER_HOME$/Desktop/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2/lib" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/mysql-connector-java-8.0.21-sources.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2/lib" recursive="false" />
     <jarDirectory url="file://$USER_HOME$/Desktop/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
