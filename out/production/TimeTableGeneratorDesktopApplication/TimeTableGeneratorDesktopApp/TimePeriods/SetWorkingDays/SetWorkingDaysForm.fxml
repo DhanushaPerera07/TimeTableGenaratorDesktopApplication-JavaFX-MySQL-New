@@ -11,7 +11,10 @@
 
 <AnchorPane fx:id="workingPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.SetWorkingDaysController">
    <children>
-      <Pane layoutX="21.0" layoutY="91.0" prefHeight="299.0" prefWidth="565.0" style="-fx-background-color: #22222222;" />
+      <Pane layoutX="21.0" layoutY="91.0" prefHeight="299.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
+         <children>
+            <Label fx:id="labelnoDays" layoutX="14.0" layoutY="14.0" text="No of days" />
+         </children></Pane>
       <Pane layoutX="21.0" layoutY="14.0" prefHeight="67.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
          <children>
             <Pane layoutX="14.0" layoutY="21.0" prefHeight="26.0" prefWidth="252.0" style="-fx-background-color: #ffffffff;">
@@ -23,8 +26,8 @@
                   </Label>
                </children>
             </Pane>
-            <Button layoutX="434.0" layoutY="21.0" mnemonicParsing="false" text="Populate Rows" textAlignment="CENTER" textFill="#3f0bb9" />
-            <ComboBox layoutX="297.0" layoutY="22.0" prefHeight="29.0" prefWidth="105.0" promptText="Select">
+            <Button fx:id="populateBtn" layoutX="434.0" layoutY="21.0" mnemonicParsing="false" onAction="#insertRecord" text="Populate Rows" textAlignment="CENTER" textFill="#3f0bb9" />
+            <ComboBox fx:id="comboSelectDays" layoutX="297.0" layoutY="22.0" onAction="#selectWorkingDays" prefHeight="29.0" prefWidth="105.0" promptText="Select">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:id="day1" fx:value="1 Day" />
