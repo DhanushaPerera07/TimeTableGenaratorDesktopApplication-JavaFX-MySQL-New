@@ -37,6 +37,8 @@ public class LocationsLabsHallsController implements Initializable {
     private VBox locationsVBox;
 
 
+    // =======================================================================================================
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -51,6 +53,10 @@ public class LocationsLabsHallsController implements Initializable {
         // More combobox
         locationsMoreComboBox.getItems().addAll(
                 "Print",
+                "Add suitable room(s) for Lecturer",
+                "Add suitable room(s) for Group",
+                "Add suitable room(s) for Session",
+                "Add consecutive sessions in the same room",
                 "Do something new",
                 "Blah Blah"
         );
@@ -59,6 +65,11 @@ public class LocationsLabsHallsController implements Initializable {
         locationsMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
 
     }
+
+    // =======================================================================================================
+
+
+
 
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
         System.out.println("Clicked - Search Button on Locations - Building Screen");
