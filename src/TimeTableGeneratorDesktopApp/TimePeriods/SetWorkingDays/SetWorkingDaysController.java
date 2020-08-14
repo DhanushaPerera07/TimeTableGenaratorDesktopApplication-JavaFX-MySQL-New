@@ -35,8 +35,7 @@ public class SetWorkingDaysController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        getWorkingDays();
-        labelnoDays.setText(String.valueOf("No of working days : " +noDaysDB));
+
 
     }
 
@@ -74,11 +73,14 @@ public class SetWorkingDaysController implements Initializable {
         String query = "INSERT INTO nodays (noDays) " +
                 "VALUES (" +noDays +") ";
         executeQuery(query);
+
+        getWorkingDays();
+        labelnoDays.setText(String.valueOf("No of working days : " +noDaysDB));
     }
 
     public void getWorkingDays() {
         Connection conn = getConnection();
-        String query = "SELECT * FROM nodays WHERE idno = 1";
+        String query = "SELECT * FROM nodays";
         Statement st;
         ResultSet rs;
         try {
