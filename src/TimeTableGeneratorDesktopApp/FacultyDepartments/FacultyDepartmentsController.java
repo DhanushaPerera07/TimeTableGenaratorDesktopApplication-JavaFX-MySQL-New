@@ -7,6 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -30,10 +33,43 @@ public class FacultyDepartmentsController implements  Initializable{
     @FXML
     private BorderPane borderPaneFacultyMain;
 
+    @FXML
+    private TextField facultySearchTxtBox;
+
+    @FXML
+    private Button btnSearchFaculty;
+
+    @FXML
+    private ComboBox<String> facultyFilterByComboBox;
+
+
+    @FXML
+    private Button btnAddFaculty;
+
+    @FXML
+    private ComboBox<String> facultyMoreComboBox;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // filter by combobox
+        facultyFilterByComboBox.getItems().addAll(
+                "Select ALL",
+                "IT",
+                "Blah Blah"
+        );
+        facultyFilterByComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+
+        // More combobox
+        facultyMoreComboBox.getItems().addAll(
+                "Print",
+                "Do something new",
+                "Blah Blah"
+        );
+
+        // prompt text
+        facultyMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
 
         // Populate the rows like a table
         Node [] nodes = new Node[10];
@@ -47,7 +83,7 @@ public class FacultyDepartmentsController implements  Initializable{
                 e.printStackTrace();
             }
         }
-    }
+    } // end - initialize
 
     // ADD BUTTON - opens the pop up window, so user can add a faculty
     // Action event on ADD BUTTON
