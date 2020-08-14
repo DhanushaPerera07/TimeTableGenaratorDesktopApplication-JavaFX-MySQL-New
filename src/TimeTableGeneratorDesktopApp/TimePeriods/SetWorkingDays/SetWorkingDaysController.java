@@ -35,7 +35,7 @@ public class SetWorkingDaysController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        labelnoDays.setVisible(false);
 
     }
 
@@ -76,6 +76,11 @@ public class SetWorkingDaysController implements Initializable {
 
         getWorkingDays();
         labelnoDays.setText(String.valueOf("No of working days : " +noDaysDB));
+
+        if(noDays ==1){
+
+            labelnoDays.setVisible(true);
+        }
     }
 
     public void getWorkingDays() {
