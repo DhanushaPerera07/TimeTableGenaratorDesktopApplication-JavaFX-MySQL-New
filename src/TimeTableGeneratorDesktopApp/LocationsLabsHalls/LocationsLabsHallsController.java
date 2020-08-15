@@ -5,12 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,10 +60,6 @@ public class LocationsLabsHallsController implements Initializable {
         // More combobox
         locationsMoreComboBox.getItems().addAll(
                 "Print",
-                "Add suitable room(s) for Lecturer",
-                "Add suitable room(s) for Group",
-                "Add suitable room(s) for Session",
-                "Add consecutive sessions in the same room",
                 "Do something new",
                 "Blah Blah"
         );
@@ -94,5 +94,22 @@ public class LocationsLabsHallsController implements Initializable {
 
     public void openAddLocationsPopUp(ActionEvent actionEvent) {
         System.out.println("Clicked - Open Add Locations - Buildings Pop Up");
+
+        // open up the POP UP
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingPopUps/addLocationsBuildingPopUp.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Add a building");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(borderPaneLocationsMain.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }catch (Exception e){
+            System.out.println("Exception / Error - When Opening addLocationsBuildingPopUp.fxml as a pop up ==========================");
+            e.printStackTrace();
+        }
     }
 }

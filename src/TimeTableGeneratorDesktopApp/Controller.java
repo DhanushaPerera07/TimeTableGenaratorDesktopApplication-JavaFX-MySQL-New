@@ -12,8 +12,10 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+
     @FXML
     private BorderPane mainPane;
+
 
     /*
     @FXML
@@ -116,4 +118,18 @@ public class Controller implements Initializable {
         Pane view = object.getPane("TimeTableGeneration/TimeTableGeneration");
         mainPane.setCenter(view);
     }
+
+    /*
+    public void goToHallsAndLabsUI(int building_id) {
+        System.out.println("clicked View - Halls/Labs Button. Building ID: " + building_id);
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("LocationsHallsInsideBuildings/LocationsHallsInsideBuildings");
+        try {
+            mainPane.setCenter(view);
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+    }
+     */
 }

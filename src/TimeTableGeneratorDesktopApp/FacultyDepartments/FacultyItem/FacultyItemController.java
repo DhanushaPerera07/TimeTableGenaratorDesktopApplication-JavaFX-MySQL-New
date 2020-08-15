@@ -72,7 +72,7 @@ public class FacultyItemController implements Initializable {
         Alert deleteFacultyAlert = new Alert(Alert.AlertType.CONFIRMATION);
         deleteFacultyAlert.setTitle("Confirmation");
         deleteFacultyAlert.setHeaderText("Give Confirmation to delete this Faculty");
-        deleteFacultyAlert.setContentText("Do you want to delete the faculty? Click Delete to Delete the faculty, otherwise click Cancel");
+        deleteFacultyAlert.setContentText("Do you want to delete the faculty?\nClick Delete to Delete the faculty,\nOtherwise click Cancel");
 
         ButtonType DeleteBtn = new ButtonType("Delete");
         ButtonType CancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -88,5 +88,22 @@ public class FacultyItemController implements Initializable {
     }
 
     public void openDepartmentScreen(ActionEvent actionEvent) {
+
+        // open up the POP UP
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/Departments.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Departments");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(facultyItemVBOX.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }catch (Exception e){
+            System.out.println("Exception / Error - When Opening Departments.fxml as a pop up ==========================");
+            e.printStackTrace();
+        }
     }
 }

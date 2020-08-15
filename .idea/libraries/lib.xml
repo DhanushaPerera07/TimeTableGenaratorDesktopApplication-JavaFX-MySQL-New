@@ -4,6 +4,7 @@
       <root url="jar://$PROJECT_DIR$/Libraries used in/fontawesomefx-8.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/Libraries used in/jfoenix-9.0.10.jar!/" />
       <root url="file://C:/javafx-sdk-14.0.1/lib" />
+      <root url="jar://$PROJECT_DIR$/Libraries used in/mysql-connector-java-8.0.21.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

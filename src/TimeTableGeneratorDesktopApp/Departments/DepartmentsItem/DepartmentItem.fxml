@@ -1,14 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox fx:id="departmentItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController">
+    <children>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.4000244140625" minWidth="10.0" prefWidth="173.60003662109375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0000732421875" minWidth="10.0" prefWidth="504.7999633789062" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.20001220703125" minWidth="0.0" prefWidth="55.5999755859375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.20001220703125" minWidth="10.0" prefWidth="48.999926757812545" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Department Name">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="FOC - Main" GridPane.columnIndex="1">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditDepartmentPopUp" size="2em" GridPane.columnIndex="2" />
+                <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteDepartmentConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
+            </children>
+        </GridPane>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="105.5999984741211" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="375.2000015258789" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.20002441406245" minWidth="10.0" prefWidth="123.20000000000005" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.40001220703118" minWidth="10.0" prefWidth="156.800048828125" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Under Faculty of:" GridPane.rowIndex="3" />
+                <Label layoutX="10.0" layoutY="16.0" text="FOC" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label layoutX="10.0" layoutY="16.0" text="Head:" GridPane.rowIndex="1" />
+                <Label layoutX="10.0" layoutY="47.0" text="Dr. Nuwan Kodagoda" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label layoutX="10.0" layoutY="47.0" text="Condition:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Label layoutX="10.0" layoutY="77.0" text="Remark:" GridPane.rowIndex="4" />
+                <Label layoutX="10.0" layoutY="108.0" text="None" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label layoutX="210.0" layoutY="108.0" text="Floor:" GridPane.columnIndex="2" />
+                <Label layoutX="410.0" layoutY="16.0" text="6" GridPane.columnIndex="3" />
+                <Label layoutX="610.0" layoutY="16.0" text="Building:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Label layoutX="410.0" layoutY="47.0" text="FOC- Main" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label layoutX="610.0" layoutY="47.0" text="Dept. Short Name:" />
+                <Label layoutX="10.0" layoutY="16.0" text="IT" GridPane.columnIndex="1" />
+                <Label layoutX="10.0" layoutY="77.0" text="OK" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Label layoutX="10.0" layoutY="100.0" text="Status:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Label layoutX="10.0" layoutY="72.0" text="Active" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Label layoutX="541.0" layoutY="47.0" text="Speacialised for:" GridPane.rowIndex="2" />
+                <Label layoutX="541.0" layoutY="77.0" text="CS&amp;SE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</VBox>
