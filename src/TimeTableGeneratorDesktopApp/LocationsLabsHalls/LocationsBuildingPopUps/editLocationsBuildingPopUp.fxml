@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyPopUps.AddFacultyPopUpController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps.AddLocationsBuildingPopUpController">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="584.0">
             <children>
-                <Label layoutX="14.0" layoutY="14.0" text="Faculty - add a faculty" />
+                <Label layoutX="14.0" layoutY="14.0" text="Locations / Building - add a building" />
                 <VBox layoutX="14.0" layoutY="56.0" prefHeight="200.0" prefWidth="183.0" spacing="17.0">
                     <children>
-                        <Label prefHeight="28.0" prefWidth="175.0" text="Name of the Faculty:" />
+                        <Label prefHeight="28.0" prefWidth="175.0" text="Name of the building:" />
                         <Label prefHeight="21.0" prefWidth="180.0" text="Short Name:" />
                         <Label text="Specialised in:" />
                         <Label text="Building:" />
                         <Label text="Floor:" />
-                        <Label text="Head of the Faculty:" />
+                        <Label text="Head of the building:" />
                         <Label text="Status:" />
                         <Label text="Remark:" />
                     </children>
@@ -34,7 +34,7 @@
                         <TextField />
                         <TextField />
                         <TextField />
-                        <Button fx:id="btnAddFacultyPopUp" mnemonicParsing="false" onAction="#ActionEventAddFacultyPopUp" text="Add" />
+                        <Button fx:id="btnEditLocationsBuildingPopUp" mnemonicParsing="false" onAction="#ActionEventEditLocationsBuildingPopUp" text="Update" />
                     </children>
                 </VBox>
             </children></AnchorPane>

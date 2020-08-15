@@ -56,12 +56,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField>
+                  <TextField fx:id="facultySearchTxtBox">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Search" GridPane.columnIndex="1">
+                  <Button fx:id="btnSearchFaculty" mnemonicParsing="false" onMouseClicked="#setOnActionBtnSearch" text="Search" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -74,7 +74,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <ComboBox prefWidth="144.0" GridPane.columnIndex="3">
+                  <ComboBox fx:id="facultyFilterByComboBox" prefWidth="144.0" GridPane.columnIndex="3">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -87,7 +87,7 @@
                         <FontAwesomeIcon glyphName="PLUS" />
                      </graphic>
                   </Button>
-                  <ComboBox prefWidth="141.0" GridPane.columnIndex="5">
+                  <ComboBox fx:id="facultyMoreComboBox" prefWidth="141.0" GridPane.columnIndex="5">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
