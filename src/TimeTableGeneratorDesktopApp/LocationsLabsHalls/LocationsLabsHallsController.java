@@ -2,7 +2,9 @@ package TimeTableGeneratorDesktopApp.LocationsLabsHalls;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -10,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,7 +37,7 @@ public class LocationsLabsHallsController implements Initializable {
     private ComboBox<String> locationsMoreComboBox;
 
     @FXML
-    private VBox locationsVBox;
+    private VBox locationsVBox = null;
 
 
     // =======================================================================================================
@@ -63,6 +66,20 @@ public class LocationsLabsHallsController implements Initializable {
 
         // prompt text
         locationsMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
+
+
+        // Populate the rows like a table
+        Node[] nodes = new Node[10];
+
+        for (int i = 0;i< nodes.length;i++){
+            try {
+                nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItem.fxml"));
+                locationsVBox.getChildren().add(nodes[i]);
+            } catch (IOException e) {
+                System.out.println("Error - FacultyItem Loading ======================================");
+                e.printStackTrace();
+            }
+        }
 
     }
 
