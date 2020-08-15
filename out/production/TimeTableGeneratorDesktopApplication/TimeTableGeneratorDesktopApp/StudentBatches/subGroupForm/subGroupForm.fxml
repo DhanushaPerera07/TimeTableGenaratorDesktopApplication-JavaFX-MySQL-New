@@ -43,12 +43,12 @@
             <Label prefHeight="17.0" prefWidth="125.0" text="Sub Group ID" textFill="WHITE" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label layoutX="373.0" layoutY="57.0" text="Create sub groups" textFill="WHITE">
+      <Label fx:id="subGroupFormHead" alignment="CENTER" layoutX="327.0" layoutY="57.0" prefHeight="26.0" prefWidth="242.0" text="Create sub groups" textFill="WHITE">
          <font>
-            <Font name="System Bold Italic" size="17.0" />
+            <Font name="Baskerville Old Face" size="17.0" />
          </font>
       </Label>
-      <Button layoutX="420.0" layoutY="325.0" mnemonicParsing="false" onAction="#createSubGroup" text="Create" />
+      <Button fx:id="sgBtn" layoutX="422.0" layoutY="312.0" mnemonicParsing="false" onAction="#createSubGroup" text="Create" />
       <Pane layoutX="49.0" layoutY="70.0" />
       <GridPane layoutX="26.0" layoutY="59.0">
         <columnConstraints>
@@ -66,10 +66,10 @@
             <Label prefHeight="17.0" prefWidth="101.0" text="Remaining students:" GridPane.rowIndex="2" />
             <Label fx:id="labelAll" prefHeight="17.0" prefWidth="71.0" text="Label" GridPane.columnIndex="1" />
             <Label fx:id="labelGroup" prefHeight="17.0" prefWidth="71.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="labelRemain" prefHeight="17.0" prefWidth="71.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelRemain" prefHeight="17.0" prefWidth="71.0" text="Label" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <TableView fx:id="tvSubGroups" layoutX="21.0" layoutY="173.0" prefHeight="200.0" prefWidth="283.0">
+      <TableView fx:id="tvSubGroups" layoutX="21.0" layoutY="173.0" onMouseClicked="#handleMouseAction" prefHeight="200.0" prefWidth="283.0">
         <columns>
             <TableColumn fx:id="colSubId" prefWidth="151.0" text="Sub Group ID" />
           <TableColumn fx:id="colNoS" prefWidth="131.0" text="No of Students" />
@@ -81,6 +81,16 @@
             <Font size="9.0" />
          </font>
       </Button>
-      <Label fx:id="tempLabel" layoutX="92.0" layoutY="150.0" text="Label" />
+      <Label layoutX="458.0" layoutY="350.0" onMouseClicked="#handleLabelSG" text="Create new sub group" textFill="WHITE" underline="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Button fx:id="sgUpdateBtn" layoutX="422.0" layoutY="312.0" mnemonicParsing="false" onAction="#updateSubGroup" text="Update" />
+      <Button fx:id="deleteSub" layoutX="335.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteSubGroup" text="Delete sub group">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

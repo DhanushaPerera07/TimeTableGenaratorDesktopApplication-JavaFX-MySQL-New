@@ -1,7 +1,5 @@
 package TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm;
 
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
-import TimeTableGeneratorDesktopApp.StudentBatches.SubGroups.SubGroups;
 import TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -34,8 +31,9 @@ public class SubGroupFormController implements Initializable {
     public static int noOfGrpsStds = 0;
     public static int noOfRemsStds = 0;
     public static String subGroupID = "";
-    public static String tempo;
-
+    public static int subGroupRawID;
+    public static int TempNoOfRemainUpdate;
+    public static int TempNoOfGroupedUpdate;
 
 
     @FXML
@@ -66,16 +64,77 @@ public class SubGroupFormController implements Initializable {
     private TextField sgtfGN;
     @FXML
     private TextField subIDtf;
+    @FXML
+    private Button sgBtn;
 
+    @FXML
+    private Button sgUpdateBtn;
+
+    @FXML
+    private Label subGroupFormHead;
+
+    @FXML
+    private Button deleteSub;
 
     TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController studentBatchesController = new studentBatchesController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sgBtn.setVisible(true);
+        sgUpdateBtn.setVisible(false);
+        deleteSub.setVisible(false);
         rowID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.rowID;
         batchID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.batchID;
         getStats();
         showStats();
+        showSubGroups();
+    }
+
+
+    @FXML
+    void handleMouseAction(MouseEvent event) {
+        subGroups subGroups = tvSubGroups.getSelectionModel().getSelectedItem();
+        subIDtf.setText("" +subGroups.getSubGroupId());
+        sgtfNOF.setText(""+subGroups.getNofStudents());
+        subGroupRawID = subGroups.getId();
+
+        int NOF = Integer.parseInt(sgtfNOF.getText());
+
+        TempNoOfRemainUpdate = NOF+noOfRemsStds;
+        TempNoOfGroupedUpdate = noOfStudents - TempNoOfRemainUpdate;
+        labelRemain.setText(""+TempNoOfRemainUpdate);
+        labelGroup.setText(""+TempNoOfGroupedUpdate);
+
+
+
+        sgBtn.setVisible(false);
+        sgUpdateBtn.setVisible(true);
+        subGroupFormHead.setText("Edit sub group");
+        deleteSub.setVisible(true);
+
+
+//        sgtfGN.setText(""+subGroups.get());
+    }
+
+    @FXML
+    void handleLabelSG(MouseEvent event){
+
+        sgBtn.setVisible(true);
+        sgUpdateBtn.setVisible(false);
+        subGroupFormHead.setText("Create a sub Group");
+    }
+
+    @FXML
+    private void updateRecord(){
+
+        String query = "UPDATE subgroups SET subGroupId = '" +subIDtf.getText() + "', NofStudents = '" +sgtfNOF.getText() +
+                "'  WHERE id = " + subGroupRawID+ "";
+        executeQuery(query);
+    }
+
+    private void deleteRecord(){
+        String query = "DELETE from subgroups WHERE id =" +subGroupRawID+ "";
+        executeQuery(query);
         showSubGroups();
     }
 
@@ -93,27 +152,87 @@ public class SubGroupFormController implements Initializable {
             alert.show();
         }
         else{
-
             noOfGrpsStds = noOfGrpsStds + NOF;
-
             noOfRemsStds = noOfStudents - noOfGrpsStds;
-
-
             updateStats();
-
             getStats();
-
             insertRecord();
-
             showStats();
-
             showSubGroups();
+            sgtfGN.setText("");
+            sgtfNOF.setText("");
+            subIDtf.setText("");
 
+        }
+
+    }
+
+    @FXML
+    public void updateSubGroup(ActionEvent actionEvent){
+        int NOF = Integer.parseInt(sgtfNOF.getText());
+
+        if(NOF > TempNoOfRemainUpdate){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("The entered value is higher than the remaining students");
+            alert.show();
+        }
+        else{
+            noOfGrpsStds = TempNoOfGroupedUpdate+NOF;
+            noOfRemsStds = TempNoOfRemainUpdate - NOF;
+            updateStats();
+            getStats();
+            showStats();
+            updateRecord();
+            showSubGroups();
+            sgtfGN.setText("");
+            sgtfNOF.setText("");
+            subIDtf.setText("");
+
+
+            sgBtn.setVisible(true);
+            sgUpdateBtn.setVisible(false);
+            subGroupFormHead.setText("Create a sub Group");
         }
 
 
 
     }
+
+    @FXML
+    public void deleteSubGroup(ActionEvent actionEvent){
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation delete");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if(action.get() == ButtonType.OK){
+            noOfRemsStds = TempNoOfRemainUpdate ;
+            noOfGrpsStds=TempNoOfGroupedUpdate;
+
+            updateStats();
+            getStats();
+            showStats();
+            deleteRecord();
+            showSubGroups();
+            sgtfGN.setText("");
+            sgtfNOF.setText("");
+            subIDtf.setText("");
+
+
+            sgBtn.setVisible(true);
+            sgUpdateBtn.setVisible(false);
+            subGroupFormHead.setText("Create a sub Group");
+
+
+        }
+
+
+    }
+
 
     @FXML
     public void generateSubID(ActionEvent actionEvent){

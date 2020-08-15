@@ -12,13 +12,10 @@
    <children>
       <Pane layoutX="14.0" layoutY="23.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="797.0" style="-fx-background-color: trans;" text="Modules" textAlignment="CENTER" wrapText="true">
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="770.0" text="Modules">
                <font>
-                  <Font name="Berlin Sans FB Demi Bold" size="28.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
             </Label>
          </children>
       </Pane>

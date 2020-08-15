@@ -80,6 +80,9 @@ public class studentBatchesController implements Initializable {
     @FXML
     private Pane studentsPane;
 
+    @FXML
+    private Button statisticsBtn;
+
 
 
     @FXML
@@ -201,6 +204,7 @@ public class studentBatchesController implements Initializable {
         filterValue = CBFilter2.getSelectionModel().getSelectedItem().toString();
         CBFilter2.setPromptText("Select");
         System.out.println(filterValue);
+        showBatches();
     }
 
     @FXML
@@ -253,17 +257,10 @@ public class studentBatchesController implements Initializable {
                     });
                 }
             });
-
-
         }catch (Exception e){
             System.out.println("can't load new window");
         }
-
-
-
     }
-
-
 
 
     @FXML
@@ -287,19 +284,6 @@ public class studentBatchesController implements Initializable {
         }
     }
 
-    public void subGroupButtonAction(javafx.event.ActionEvent actionEvent) throws IOException {
-
-        URL fileURL = Main.class.getResource("/TimeTableGeneratorDesktopApp/StudentBatches/SubGroups/subGroups.fxml");
-        if (fileURL == null) {
-            throw new java.io.FileNotFoundException("FXML File can not be found");
-        }else{
-            Pane newPane = new FXMLLoader().load(fileURL);
-            studentsPane.getChildren().addAll(newPane);
-        }
-
-    }
-
-
 
     public void setTips(){
         Tooltip tt = new Tooltip();
@@ -318,7 +302,7 @@ public class studentBatchesController implements Initializable {
 
         batColYear.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("year"));
         batColSem.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("semester"));
-        batColIntake.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("intake"));
+        batColIntake.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("batchID"));
         batColFac.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("faculty"));
         batColPro.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("programme"));
         batColCen.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("center"));

@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Lecturers.LecturerForm.LecturerFormController">
+<ScrollPane fx:id="lecturersPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Lecturers.LecturerForm.LecturerFormController">
    <content>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="584.0">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Lecturer - add a lecturer" />
+            <Label fx:id="lecturerLabel" layoutX="14.0" layoutY="14.0" text="Lecturer - add a lecturer" />
             <VBox layoutX="14.0" layoutY="56.0" prefHeight="200.0" prefWidth="183.0" spacing="17.0">
                <children>
                   <Label prefHeight="28.0" prefWidth="175.0" text="Lecturer name" />
@@ -28,12 +28,14 @@
                   <Insets top="5.0" />
                </padding>
             </VBox>
+            <Button fx:id="addLecturerBtn" layoutX="197.0" layoutY="334.0" mnemonicParsing="false" onAction="#submitLecturerForm" text="Add" />
+            <Button fx:id="updateLecturerBtn" layoutX="197.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateLecturerForm" text="Update" />
             <VBox layoutX="197.0" layoutY="59.0" prefHeight="256.0" prefWidth="256.0" spacing="8.0">
                <children>
-                  <TextField />
-                  <TextField />
+                  <TextField fx:id="tfLecturerName" />
+                  <TextField fx:id="tfEmployeeID" />
                   <ComboBox fx:id="comboFacultyBox" onAction="#selectLecturerFaculty" prefWidth="200.0" promptText="Select faculty" />
-                  <TextField />
+                  <TextField fx:id="tfDepartment" />
                   <ComboBox fx:id="comboCenterBox" onAction="#selectLecturerCenter" prefWidth="200.0" promptText="Select center">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -60,9 +62,9 @@
                         </FXCollections>
                      </items>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Add" />
                </children>
             </VBox>
+            <Button fx:id="deleteLecturerBtn" layoutX="279.0" layoutY="334.0" mnemonicParsing="false" onAction="#deleteLecturerForm" text="Delete" />
          </children>
       </AnchorPane>
    </content>
