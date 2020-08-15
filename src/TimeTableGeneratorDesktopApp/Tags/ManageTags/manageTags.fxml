@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="MTagPane" prefHeight="333.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Tags.ManageTags.ManageTagsController">
+   <children>
+      <ListView fx:id="listMTag" layoutX="75.0" layoutY="67.0" onMouseClicked="#selectTag" prefHeight="200.0" prefWidth="90.0" />
+      <Label layoutX="165.0" layoutY="30.0" text="Manage Tags" />
+      <TextField fx:id="tfMTag" layoutX="189.0" layoutY="113.0" promptText="Type here!" />
+      <Button fx:id="submitMTag" layoutX="237.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#submitClick" text="Submit" />
+      <Button fx:id="updateMTag" layoutX="237.0" layoutY="161.0" mnemonicParsing="false" onAction="#update" text="Update" />
+   </children>
+</AnchorPane>

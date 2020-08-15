@@ -85,6 +85,7 @@ public class SubGroupFormController implements Initializable {
         deleteSub.setVisible(false);
         rowID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.rowID;
         batchID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.batchID;
+//        noOfStudents=TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.noofstd;
         getStats();
         showStats();
         showSubGroups();
@@ -121,16 +122,20 @@ public class SubGroupFormController implements Initializable {
 
         sgBtn.setVisible(true);
         sgUpdateBtn.setVisible(false);
+        deleteSub.setVisible(false);
+        subIDtf.setText("");
+        sgtfNOF.setText("");
+        sgtfGN.setText("");
         subGroupFormHead.setText("Create a sub Group");
     }
 
     @FXML
     private void updateRecord(){
-
         String query = "UPDATE subgroups SET subGroupId = '" +subIDtf.getText() + "', NofStudents = '" +sgtfNOF.getText() +
                 "'  WHERE id = " + subGroupRawID+ "";
         executeQuery(query);
     }
+
 
     private void deleteRecord(){
         String query = "DELETE from subgroups WHERE id =" +subGroupRawID+ "";
@@ -236,21 +241,18 @@ public class SubGroupFormController implements Initializable {
 
     @FXML
     public void generateSubID(ActionEvent actionEvent){
-
         String subNo = sgtfGN.getText();
         subGroupID = batchID+"."+ subNo;
-
         subIDtf.setText(subGroupID);
     }
 
-    public void insertRecord(){
 
+    public void insertRecord(){
         String query = "INSERT INTO subGroups (subGroupId,NofStudents,batchID) " +
                 "VALUES ('" +subGroupID+ "'," +sgtfNOF.getText()+ ",'" +rowID+"') ";
-
         executeQuery(query);
-
     }
+
 
     public void showStats(){
         subGrooupsTitle.setText("Manage sub groups of batch " +batchID );
@@ -263,7 +265,6 @@ public class SubGroupFormController implements Initializable {
         String queryBatchStats = "UPDATE batchStats SET nofGrouped = " +noOfGrpsStds+
                 ", nofRemain = " +noOfRemsStds+ " WHERE batch = " +rowID+ "";
         executeQuery(queryBatchStats);
-
     }
 
 
@@ -289,7 +290,10 @@ public class SubGroupFormController implements Initializable {
                 statsList.add(batchstats);
 
                 String  a = rs.getString("batch");
+
+
                 noOfStudents = rs.getInt("nofStudents");
+
                 noOfGrpsStds=rs.getInt("nofGrouped");
                 noOfRemsStds=rs.getInt("nofRemain");
 
