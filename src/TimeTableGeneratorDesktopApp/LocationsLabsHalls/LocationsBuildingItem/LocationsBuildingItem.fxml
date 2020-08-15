@@ -36,9 +36,8 @@
                </font>
             </Label>
             <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditHallPopUp" size="2em" GridPane.columnIndex="2" />
-            <FontAwesomeIcon glyphName="TRASH" onMouseClicked="#openDeleteHallConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
+            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteHallConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
             <FontAwesomeIcon fx:id="btnPrintIcon" glyphName="PRINT" onMouseClicked="#printTimeTableOfTheHall" size="2em" GridPane.columnIndex="4" />
-            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" layoutX="700.0" layoutY="28.0" size="2em" />
          </children>
       </GridPane>
       <GridPane>

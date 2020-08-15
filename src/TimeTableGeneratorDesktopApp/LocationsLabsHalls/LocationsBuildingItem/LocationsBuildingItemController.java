@@ -66,7 +66,7 @@ public class LocationsBuildingItemController implements Initializable {
         Alert deleteFacultyAlert = new Alert(Alert.AlertType.CONFIRMATION);
         deleteFacultyAlert.setTitle("Confirmation");
         deleteFacultyAlert.setHeaderText("Give Confirmation to delete this Hall / Lab");
-        deleteFacultyAlert.setContentText("Do you want to delete the Hall / Lab? Click Delete to Delete the Hall / Lab, otherwise click Cancel");
+        deleteFacultyAlert.setContentText("Do you want to delete the Hall / Lab? \nClick Delete to Delete the Hall / Lab, \nOtherwise click Cancel");
 
         ButtonType DeleteBtn = new ButtonType("Delete");
         ButtonType CancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
