@@ -11,9 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -30,6 +28,7 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class studentBatchesController implements Initializable {
+    public static int rowID = 0;
     public static String year = "";
     public static String semester = "";
     public static String intake = "";
@@ -37,6 +36,10 @@ public class studentBatchesController implements Initializable {
     public static String programme = "";
     public static String center = "";
     public static int noofstd = 0;
+    public static String batchID = "";
+    public static String filterType = "All";
+    public static String filterValue = "";
+    public static String query="";
 
 
     @FXML
@@ -78,16 +81,133 @@ public class studentBatchesController implements Initializable {
     private Pane studentsPane;
 
 
+
+    @FXML
+    private ComboBox<String> CBFilter;
+
+    @FXML
+    private ComboBox<String> CBFilter2;
+
+
     @FXML
     void actionRefreshButton(ActionEvent actionEvent){
         showBatches();
     }
 
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        CBFilter.getItems().removeAll(CBFilter.getItems());
+        CBFilter.getItems().addAll(
+                "All","Year", "Semester", "Intake", "Faculty", "Programme", "Center"
+        );
+
+
+        showBatches();
+    }
+
+    @FXML
+    public void selectFilterType(ActionEvent actionEvent){
+
+        filterType = CBFilter.getSelectionModel().getSelectedItem().toString();
+
+        if(filterType.equals("All")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "All"
+            );
+        }
+        else if(filterType.equals("Year")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "Year 1", "Year 2", "Year 3", "Year 4"
+            );
+        }else if(filterType.equals("Semester")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "Semester 1", "Semester 2"
+            );
+        }else if(filterType.equals("Faculty")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "Faculty of Computing",
+                    "Faculty of Business Management",
+                    "Faculty of Engineering",
+                    "Faculty of Humanities and sciences",
+                    "Faculty of Graduate Studies and sciences",
+                    "School of Architecture",
+                    "Faculty of Hospitatlity and Culnary",
+                    "School of Law"
+            );
+        }else if(filterType.equals("Programme")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "Software Engineering",
+                    "Computer Systems and Networking" ,
+                    "Cyber Security",
+                    "Interactive Media" ,
+                    "Information Technology",
+                    "Information Management System",
+                    "Data Science",
+                    "Accounting and Finance",
+                    "Human Capital Management",
+                    "Business Analytics",
+                    "Logistics and Supply Management",
+                    "Marketing Management",
+                    "Business Management",
+                    "Management Information Systems",
+                    "Accounting and Finance",
+                    "Human Capital Management",
+                    "Business Analytics",
+                    "Logistics and Supply Management",
+                    "Marketing Management",
+                    "Business Management",
+                    "Management Information Systems",
+                    "BED(Hons) in biological Sciences",
+                    "BED(Hons) in English",
+                    "BED(Hons) in physical sciences",
+                    "BSC(Hons) in Nursing",
+                    "Program 1",
+                    "Program 2",
+                    "Program 3",
+                    "Program 4"
+            );
+        }else if(filterType.equals("Center")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "Malabe", "Kandy" , "Matara", "Jaffna" , "Metro"
+            );
+        }else if(filterType.equals("Intake")){
+            CBFilter2.getItems().removeAll(CBFilter2.getItems());
+            CBFilter2.setPromptText("Select");
+            CBFilter2.getItems().addAll(
+                    "Regular Intake", "June Intake"
+            );
+        }
+
+    }
+
+
+    @FXML
+    void getFilterValue(ActionEvent actionEvent){
+        filterValue = CBFilter2.getSelectionModel().getSelectedItem().toString();
+        CBFilter2.setPromptText("Select");
+        System.out.println(filterValue);
+    }
+
     @FXML
     void handleMouseAction(MouseEvent event) {
         StudentBatches batch = tvBatches.getSelectionModel().getSelectedItem();
 
+        rowID = batch.getId();
         year = batch.getYear();
         semester = batch.getSemester();
         intake = batch.getIntake();
@@ -95,6 +215,7 @@ public class studentBatchesController implements Initializable {
         programme = batch.getProgramme();
         center = batch.getCenter();
         noofstd = batch.getNoofstd();
+        batchID = batch.getBatchID();
 
 
 
@@ -124,6 +245,10 @@ public class studentBatchesController implements Initializable {
                             faculty = "";
                             programme = "";
                             center = "";
+                            batchID = "";
+                            noofstd = 0;
+                            rowID=0;
+
                         }
                     });
                 }
@@ -174,10 +299,19 @@ public class studentBatchesController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        showBatches();
+
+
+    public void setTips(){
+        Tooltip tt = new Tooltip();
+        tt.setText("Add a new Batch");
+        tt.setStyle("-fx-font: normal bold 4 Langdon; "
+                + "-fx-base: #AE3522; "
+                + "-fx-text-fill: orange;");
+
+        addBathcBtn.setTooltip(tt);
     }
+
+
 
     public void showBatches() {
         ObservableList<StudentBatches> list = getBatchesList();
@@ -221,7 +355,14 @@ public class studentBatchesController implements Initializable {
     public ObservableList<StudentBatches> getBatchesList() {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
         Connection conn = getConnection();
-        String query = "SELECT * FROM studentBatches";
+
+        if(filterType.equals("All")){
+            query = "SELECT * FROM studentBatches ORDER BY year";
+        }else{
+            query = "SELECT * from studentbatches WHERE " +filterType+ " = '" +filterValue+ "'";
+        }
+
+//        String query = "SELECT * FROM studentBatches";
         Statement st;
         ResultSet rs;
 
