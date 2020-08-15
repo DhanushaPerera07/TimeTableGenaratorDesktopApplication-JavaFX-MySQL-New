@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class LecturerFormController implements Initializable {
 
+    public int lid;
     public static String lecturerName;
     public static int lecturerID;
     public static String lecturerFaculty;
@@ -89,6 +90,8 @@ public class LecturerFormController implements Initializable {
             deleteLecturerBtn.setVisible(true);
 
             lecturerLabel.setText("Lecturer - update a lecturer");
+            lid = lecturersController.lid;
+            System.out.println("here lid : " +lid);
             lecturerName = lecturersController.lecturerName;
             tfLecturerName.setText(lecturerName);
             lecturerID = lecturersController.lecturerID;
@@ -199,8 +202,15 @@ public class LecturerFormController implements Initializable {
     private void insertRecord(){
         rank =  lecturerLevel +"." +tfEmployeeID.getText().toString();
         System.out.println(rank);
-        String query = "INSERT INTO lecturer VALUES (" +tfEmployeeID.getText() +",'" +tfLecturerName.getText() +"','" +lecturerFaculty
-                +"','" +tfDepartment.getText() +"','" +lecturerCenter +"','" +lecturerBuilding +"','" +lecturerLevel  +"','" +rank +"')";
+
+//        String query = "INSERT INTO lecturer VALUES (" +tfEmployeeID.getText() +",'" +tfLecturerName.getText() +"','" +lecturerFaculty
+//                +"','" +tfDepartment.getText() +"','" +lecturerCenter +"','" +lecturerBuilding +"','" +lecturerLevel  +"','" +rank +"')";
+
+        String query = "INSERT INTO lecturer (lecturerID,lecturerName,lecturerFaculty,lecturerDepartment,lecturerCenter,lecturerBuilding,lecturerLevel,lecturerRank) " +
+                "VALUES (" +tfEmployeeID.getText()+ ",'" +tfLecturerName.getText()+ "','" +lecturerFaculty+ "','" +tfDepartment.getText()+
+                "','" +lecturerCenter+ "','" +lecturerBuilding+ "'," +lecturerLevel+
+                "," +rank+ ") ";
+
         executeQuery(query);
         System.out.println("Data Inserted");
     }
@@ -240,10 +250,10 @@ public class LecturerFormController implements Initializable {
     private void updateRecord(){
         rank =  lecturerLevel +"." +tfEmployeeID.getText().toString();
         System.out.println(rank);
-        String query = "UPDATE lecturer SET lecturerID = '" + lecturerID + "', lecturerName = '" + tfLecturerName.getText()
+        String query = "UPDATE lecturer SET lecturerID = '" + tfEmployeeID.getText() + "', lecturerName = '" + tfLecturerName.getText()
                 + "', lecturerFaculty = '" + lecturerFaculty + "', lecturerDepartment = '" + tfDepartment.getText() +"', lecturerCenter = '" + lecturerCenter
                 + "', lecturerBuilding = '" + lecturerBuilding +"', lecturerLevel = '" + lecturerLevel + "', lecturerRank = '" + rank
-                + "' WHERE lecturerID = " + lecturerID + "";
+                + "' WHERE lid = " + lid + "";
         executeQuery(query);
     }
 
@@ -254,7 +264,7 @@ public class LecturerFormController implements Initializable {
     }
 
     private void deleteRecord(){
-        String query = "DELETE FROM lecturer WHERE lecturerID =" + lecturerID + "";
+        String query = "DELETE FROM lecturer WHERE lid =" + lid + "";
         executeQuery(query);
     }
 }

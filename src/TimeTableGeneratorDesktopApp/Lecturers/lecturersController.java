@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 
 public class lecturersController implements Initializable {
 
+    public static int lid = 0;
     public static String lecturerName = "";
     public static int lecturerID = 0;
     public static String lecturerFaculty = "";
@@ -135,7 +136,7 @@ public class lecturersController implements Initializable {
             rs = st.executeQuery(query);
             Lecturers lecturers;
             while (rs.next()){
-                lecturers = new Lecturers(rs.getInt("lecturerID"), rs.getString("lecturerName"),
+                lecturers = new Lecturers(rs.getInt("lid"),rs.getInt("lecturerID"), rs.getString("lecturerName"),
                         rs.getString("lecturerFaculty"), rs.getString("lecturerDepartment"),
                         rs.getString("lecturerCenter"), rs.getString("lecturerBuilding"),
                         rs.getInt("lecturerLevel"), rs.getString("lecturerRank"));
@@ -166,7 +167,8 @@ public class lecturersController implements Initializable {
     public void handleMouseClicked(MouseEvent mouseEvent) {
         Lecturers lecturers = tvLecturers.getSelectionModel().getSelectedItem();
 
-
+        lid = lecturers.getLid();
+        System.out.println("lid :"+lid);
         lecturerName = lecturers.getLecturerName();
         lecturerID = lecturers.getLecturerID();
         lecturerFaculty = lecturers.getLecturerFaculty();
@@ -196,6 +198,7 @@ public class lecturersController implements Initializable {
 
                         @Override
                         public void run() {
+                            lid = 0;
                             lecturerName = "";
                             lecturerID = 0;
                             lecturerFaculty = "";

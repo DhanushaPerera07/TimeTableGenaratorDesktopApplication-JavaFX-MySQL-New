@@ -2,7 +2,7 @@ package TimeTableGeneratorDesktopApp.Lecturers;
 
 public class Lecturers {
 
-//    private int lid;
+    private int lid;
     private int lecturerID;
     private String lecturerName;
     private String lecturerFaculty;
@@ -12,7 +12,8 @@ public class Lecturers {
     private int lecturerLevel;
     private String lecturerRank;
 
-    public Lecturers(int lecturerID, String lecturerName, String lecturerFaculty, String lecturerDepartment, String lecturerCenter, String lecturerBuilding, int lecturerLevel, String lecturerRank) {
+    public Lecturers(int lid, int lecturerID, String lecturerName, String lecturerFaculty, String lecturerDepartment, String lecturerCenter, String lecturerBuilding, int lecturerLevel, String lecturerRank) {
+        this.lid = lid;
         this.lecturerID = lecturerID;
         this.lecturerName = lecturerName;
         this.lecturerFaculty = lecturerFaculty;
@@ -23,10 +24,9 @@ public class Lecturers {
         this.lecturerRank = lecturerRank;
     }
 
-//    public int getLid() {
-//        return lid;
-//    }
-
+    public int getLid() {
+        return lid;
+    }
 
     public int getLecturerID() {
         return lecturerID;
