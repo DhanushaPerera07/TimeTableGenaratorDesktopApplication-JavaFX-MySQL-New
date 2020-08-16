@@ -29,13 +29,13 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="FOC - Main" GridPane.columnIndex="1">
+            <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditBuildingPopUp" size="2em" GridPane.columnIndex="2" />
+            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteBuildingConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
+            <Label fx:id="txtBuildingName" layoutX="10.0" layoutY="12.0" style="-fx-font-weight: bold;" text="FOC -Main" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditBuildingPopUp" size="2em" GridPane.columnIndex="2" />
-            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteBuildingConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
          </children>
       </GridPane>
       <GridPane>

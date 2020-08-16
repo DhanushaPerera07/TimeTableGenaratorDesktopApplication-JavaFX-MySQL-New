@@ -1,5 +1,8 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments;
 
+import TimeTableGeneratorDesktopApp.Departments.Department;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class FacultyDepartmentsController implements  Initializable{
@@ -49,6 +56,17 @@ public class FacultyDepartmentsController implements  Initializable{
 
     @FXML
     private ComboBox<String> facultyMoreComboBox;
+
+
+
+    // ===================== VARIABLES CREATED FOR THE DATABASE PART =================================================================
+
+    String query = "";
+    String filterType = "";
+    String filterValue = "";
+
+    // ===================== VARIABLES CREATED FOR THE DATABASE PART =================================================================
+
 
 
     @Override
@@ -93,7 +111,7 @@ public class FacultyDepartmentsController implements  Initializable{
 
         // open up the POP UP
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FacultyPopUps/addFacultyPopUp.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyPopUps/addFacultyPopUp.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
 
@@ -112,4 +130,83 @@ public class FacultyDepartmentsController implements  Initializable{
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
         System.out.println("Clicked - Search Button on Faculty Screen");
     }
+
+
+
+    // ===================== DATABASE PART - STARTS HERE =============================================================================
+
+    /** get the database connection here
+     */
+    public Connection getConnection(){
+        Connection conn;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
+            return conn;
+        }catch(Exception ex){
+            System.out.println("Error: getConnection() :::: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    /** execute the query string
+     * @param query string is passed here
+     * this query will execute by this method
+     */
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * this method is to get all the departments in the department table...
+     * returns departmentList;
+     * */
+    public ObservableList<Faculty> getDepartmentsList() {
+        ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        // if the filter by combo box value is set as ALL, get all the departments
+        if(facultyFilterByComboBox.equals("Select ALL")){
+            query = "SELECT * FROM faculty ORDER BY faculty_name";
+        }else{
+            query = "SELECT * FROM faculty ORDER BY faculty_name";
+            // query = "SELECT * from faculty WHERE " +filterType+ " = '" +filterValue+ "'";
+        }
+
+//        String query = "SELECT * FROM department";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Faculty faculty;
+            while (rs.next()) {
+                faculty = new Faculty(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("shortName"),
+                        rs.getInt("specializedFor"),
+                        rs.getString("status"),
+                        rs.getInt("head")
+                );
+                facultyList.add(faculty);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return facultyList;
+    }
+
+
 }

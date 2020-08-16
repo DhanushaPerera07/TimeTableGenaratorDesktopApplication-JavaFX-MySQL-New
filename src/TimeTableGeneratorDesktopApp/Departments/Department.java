@@ -76,6 +76,11 @@ public class Department {
         this.facultyID = facultyID;
     }
 
+
+    /**
+     * to String method
+     * @return
+     */
     @Override
     public String toString() {
         return "Department{" +

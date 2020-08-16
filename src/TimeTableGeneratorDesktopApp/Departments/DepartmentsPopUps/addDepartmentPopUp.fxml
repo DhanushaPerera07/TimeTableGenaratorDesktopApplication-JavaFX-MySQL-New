@@ -27,7 +27,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Department - Add  Department" GridPane.rowIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Department - Add Department" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -60,11 +60,11 @@
                   <Label layoutX="25.0" layoutY="270.0" text="Department faculty" GridPane.rowIndex="2" />
                   <TextField fx:id="txtDepartmentName" GridPane.columnIndex="1" />
                   <TextField fx:id="txtDepartmentShortName" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="departmentFacultycomboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="departmentBuildingcomboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="departmentFacultyComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="departmentBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="txtDepartmentFloorNo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtDepartmentHead" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Button fx:id="btnAddDepartmentPopUp" mnemonicParsing="false" onAction="#ActionEventAddDepartmentPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="departmentHeadComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

@@ -58,10 +58,10 @@
                         <Label layoutX="25.0" layoutY="270.0" text="Specialized for:" GridPane.rowIndex="2" />
                         <TextField fx:id="txtDepartmentName" GridPane.columnIndex="1" />
                         <TextField fx:id="txtDepartmentShortName" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="departmentFacultycomboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="departmentBuildingcomboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button fx:id="btnAddFacultyPopUp" mnemonicParsing="false" onAction="#ActionEventAddFacultyPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="departmentStatuscomboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="departmentFacultyComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="departmentBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="departmentStatusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Button fx:id="btnAddFacultyPopUp" mnemonicParsing="false" onAction="#ActionEventAddFacultyPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

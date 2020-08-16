@@ -140,7 +140,7 @@ public class DepartmentsController implements Initializable {
     }
 
     /** execute the query string
-     * @param String query is passed here
+     * @param query (String) is passed here
      * this query will execute by this method
      */
     private void executeQuery(String query) {
@@ -165,7 +165,7 @@ public class DepartmentsController implements Initializable {
         Connection conn = getConnection();
 
         // if the filter by combo box value is set as ALL, get all the departments
-        if(departmentFilterByComboBox.equals("All")){
+        if(departmentFilterByComboBox.equals("Select ALL")){
             query = "SELECT * FROM department ORDER BY department_name";
         }else{
             query = "SELECT * from department WHERE " +filterType+ " = '" +filterValue+ "'";
