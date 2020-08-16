@@ -5,12 +5,13 @@ public class Faculty {
     private int id;
     private String name;
     private String shortName;
-    private int specializedFor;
+    private String specializedFor;
     private String status;
-    private int head; // FK
+    private String head; // FK
 
     // constructor with parameters
-    public Faculty(int id, String name, String shortName, int specializedFor, String status, int head) {
+
+    public Faculty(int id, String name, String shortName, String specializedFor, String status, String head) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
@@ -18,6 +19,7 @@ public class Faculty {
         this.status = status;
         this.head = head;
     }
+
 
     // setters and getters
 
@@ -46,11 +48,11 @@ public class Faculty {
         this.shortName = shortName;
     }
 
-    public int getSpecializedFor() {
+    public String getSpecializedFor() {
         return specializedFor;
     }
 
-    public void setSpecializedFor(int specializedFor) {
+    public void setSpecializedFor(String specializedFor) {
         this.specializedFor = specializedFor;
     }
 
@@ -62,27 +64,25 @@ public class Faculty {
         this.status = status;
     }
 
-    public int getHead() {
+    public String getHead() {
         return head;
     }
 
-    public void setHead(int head) {
+    public void setHead(String head) {
         this.head = head;
     }
 
+    // toString method
 
-    /**
-     * toString method
-     */
     @Override
     public String toString() {
         return "Faculty{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", shortName='" + shortName + '\'' +
-                ", specializedFor=" + specializedFor +
+                ", specializedFor='" + specializedFor + '\'' +
                 ", status='" + status + '\'' +
-                ", head=" + head +
+                ", head='" + head + '\'' +
                 '}';
     }
 }

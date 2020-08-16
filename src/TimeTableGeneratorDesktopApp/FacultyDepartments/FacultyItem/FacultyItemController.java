@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -37,11 +34,33 @@ public class FacultyItemController implements Initializable {
     @FXML
     private VBox facultyItemVBOX;
 
+    // label text fields to be replaced by data fetched from database
+    @FXML
+    private Label txtFacultyName;
+
+    @FXML
+    private Label txtFacultyHead;
+
+    @FXML
+    private Label txtFacultySpecializedFor;
+
+    @FXML
+    private Label txtFacultyShortName;
+
+    @FXML
+    private Label txtFacultyStatus;
+
+    @FXML
+    private Label txtFacultyNoOfDepartment;
+
+    // =========================================================================================================
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    // =========================================================================================================
 
     // Opens up the pop up then, user can edit and update the faculty records - EditFacultyPopUp.fxml
     public void openEditFacultyPopUp(MouseEvent mouseEvent) {
@@ -87,6 +106,12 @@ public class FacultyItemController implements Initializable {
         }
     }
 
+
+    /**
+     * open department screen as a pop by this button event,
+     * we have to pass the faculty id when we open the pop up.
+     * @param actionEvent
+     */
     public void openDepartmentScreen(ActionEvent actionEvent) {
 
         // open up the POP UP

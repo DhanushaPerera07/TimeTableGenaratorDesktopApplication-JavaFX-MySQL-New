@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments;
 
 import TimeTableGeneratorDesktopApp.Departments.Department;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,6 +73,36 @@ public class FacultyDepartmentsController implements  Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        initializeComboBoxes();
+
+        ObservableList<Faculty> facultyList = getDepartmentsList();
+
+        for (Faculty faculty : facultyList){
+            // sysout check
+            System.out.println("faculty table rec: " + faculty.toString());
+        }
+
+
+        // Populate the rows like a table
+        Node [] nodes = new Node[10];
+
+        for (int i = 0;i< nodes.length;i++){
+            try {
+                nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                facultyVBox.getChildren().add(nodes[i]);
+            } catch (IOException e) {
+                System.out.println("Error - FacultyItem Loading ======================================");
+                e.printStackTrace();
+            }
+        }
+    } // end - initialize
+
+
+    /**
+     * this method initialize the combobox(s) with the provided values
+     */
+    private void initializeComboBoxes() {
+
         // filter by combobox
         facultyFilterByComboBox.getItems().addAll(
                 "Select ALL",
@@ -89,20 +120,12 @@ public class FacultyDepartmentsController implements  Initializable{
 
         // prompt text
         facultyMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
+    }
 
-        // Populate the rows like a table
-        Node [] nodes = new Node[10];
 
-        for (int i = 0;i< nodes.length;i++){
-            try {
-                nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
-                facultyVBox.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                System.out.println("Error - FacultyItem Loading ======================================");
-                e.printStackTrace();
-            }
-        }
-    } // end - initialize
+
+
+
 
     // ADD BUTTON - opens the pop up window, so user can add a faculty
     // Action event on ADD BUTTON
@@ -191,12 +214,12 @@ public class FacultyDepartmentsController implements  Initializable{
             Faculty faculty;
             while (rs.next()) {
                 faculty = new Faculty(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("shortName"),
-                        rs.getInt("specializedFor"),
-                        rs.getString("status"),
-                        rs.getInt("head")
+                        rs.getInt("faculty_id"),
+                        rs.getString("faculty_name"),
+                        rs.getString("faculty_short_name"),
+                        rs.getString("faculty_specialized_for"),
+                        rs.getString("faculty_status"),
+                        rs.getString("faculty_head_name")
                 );
                 facultyList.add(faculty);
             }
@@ -207,6 +230,7 @@ public class FacultyDepartmentsController implements  Initializable{
         }
         return facultyList;
     }
+
 
 
 }
