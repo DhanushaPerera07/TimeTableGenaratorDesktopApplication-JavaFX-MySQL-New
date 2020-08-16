@@ -27,7 +27,7 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="FOC - Main" GridPane.columnIndex="1">
+                <Label layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="Computer Science and Software Engineering" GridPane.columnIndex="1">
                     <font>
                         <Font size="18.0" />
                     </font>

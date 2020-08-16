@@ -1,5 +1,8 @@
 package TimeTableGeneratorDesktopApp.Departments;
 
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class DepartmentsController implements Initializable {
@@ -42,6 +49,16 @@ public class DepartmentsController implements Initializable {
 
     @FXML
     private VBox DepartmentsVBox;
+
+
+    // ===================== VARIABLES CREATED FOR THE DATABASE PART =================================================================
+
+    String query = "";
+    String filterType = "faculty_id";
+    String filterValue = "";
+
+    // ===================== VARIABLES CREATED FOR THE DATABASE PART =================================================================
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -104,4 +121,84 @@ public class DepartmentsController implements Initializable {
         }
 
     }
+
+
+
+    // ===================== DATABASE PART - STARTS HERE =============================================================================
+
+    /** get the database connection here
+    */
+    public Connection getConnection(){
+        Connection conn;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
+            return conn;
+        }catch(Exception ex){
+            System.out.println("Error: getConnection() :::: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    /** execute the query string
+     * @param String query is passed here
+     * this query will execute by this method
+     */
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * this method is to get all the departments in the department table...
+     * returns departmentList;
+     * */
+    public ObservableList<Department> getDepartmentsList() {
+        ObservableList<Department> departmentList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        // if the filter by combo box value is set as ALL, get all the departments
+        if(departmentFilterByComboBox.equals("All")){
+            query = "SELECT * FROM department ORDER BY department_name";
+        }else{
+            query = "SELECT * from department WHERE " +filterType+ " = '" +filterValue+ "'";
+        }
+
+//        String query = "SELECT * FROM department";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Department department;
+            while (rs.next()) {
+                department = new Department(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("shortName"),
+                        rs.getInt("floor"),
+                        rs.getString("head"),
+                        rs.getInt("buildingID"),
+                        rs.getInt("facultyID")
+                );
+                departmentList.add(department);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return departmentList;
+    }
+
+
+
 }
