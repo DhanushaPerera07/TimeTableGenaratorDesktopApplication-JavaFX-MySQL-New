@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -9,5 +10,8 @@ public class AddDeptPopUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void ActionEventAddDepartmentPopUp(ActionEvent actionEvent) {
     }
 }

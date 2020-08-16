@@ -16,12 +16,15 @@ public class AddLocationsBuildingPopUpController implements Initializable {
 
     }
 
+
     // ==============================================================================================
 
+    public void ActionEventAddBuildingPopUp(ActionEvent actionEvent) {
 
-    public void ActionEventAddLocationsBuildingPopUp(ActionEvent actionEvent) {
+        // pop up - add a building action event on ADD BUTTON
+        System.out.println("clicked pop up - add a building action event on ADD BUTTON");
+
+
     }
 
-    public void ActionEventEditLocationsBuildingPopUp(ActionEvent actionEvent) {
-    }
 }

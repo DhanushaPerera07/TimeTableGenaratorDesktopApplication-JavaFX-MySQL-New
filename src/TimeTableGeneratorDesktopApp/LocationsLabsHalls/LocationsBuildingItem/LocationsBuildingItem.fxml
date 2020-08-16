@@ -40,8 +40,8 @@
       </GridPane>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="69.00001831054686" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="337.7999816894531" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="98.40001831054687" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="357.5999816894531" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.20002441406245" minWidth="10.0" prefWidth="123.20000000000005" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.40001220703118" minWidth="10.0" prefWidth="156.800048828125" />
         </columnConstraints>
@@ -55,25 +55,25 @@
         </rowConstraints>
          <children>
             <Label prefWidth="73.0" text="No of floors:" />
-            <Label layoutX="10.0" layoutY="16.0" text="15" GridPane.columnIndex="1" />
+            <Label fx:id="txtNoOfFloors" layoutX="10.0" layoutY="16.0" text="15" GridPane.columnIndex="1" />
             <Label layoutX="10.0" layoutY="16.0" text="Capasity:" GridPane.rowIndex="1" />
-            <Label layoutX="10.0" layoutY="47.0" text="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label layoutX="10.0" layoutY="47.0" text="Condition:" GridPane.rowIndex="3" />
-            <Label layoutX="10.0" layoutY="77.0" text="Remark:" GridPane.rowIndex="4" />
-            <Label layoutX="10.0" layoutY="108.0" text="None" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label layoutX="210.0" layoutY="108.0" text="Reserved Faculty:" GridPane.columnIndex="2" />
-            <Label layoutX="410.0" layoutY="16.0" text="FOC" GridPane.columnIndex="3" />
-            <Label layoutX="610.0" layoutY="16.0" text="No of Lecture Halls:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label layoutX="410.0" layoutY="47.0" text="60" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label layoutX="610.0" layoutY="47.0" text="Specialized for:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label layoutX="10.0" layoutY="16.0" text="IT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label layoutX="10.0" layoutY="77.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="txtCapasity" layoutX="10.0" layoutY="47.0" text="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label layoutX="10.0" layoutY="47.0" text="Condition:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label layoutX="210.0" layoutY="108.0" text="Reserved Faculty:" GridPane.rowIndex="4" />
+            <Label fx:id="txtReservedFaculty" layoutX="410.0" layoutY="16.0" text="FOC" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="610.0" layoutY="16.0" text="No of Lecture Halls:" GridPane.columnIndex="2" />
+            <Label fx:id="txtNoOfLectureHalls" layoutX="410.0" layoutY="47.0" text="60" GridPane.columnIndex="3" />
+            <Label layoutX="610.0" layoutY="47.0" text="Specialized for:" GridPane.rowIndex="3" />
+            <Label fx:id="txtSpecializedFor" layoutX="10.0" layoutY="16.0" text="IT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="txtCondition" layoutX="10.0" layoutY="77.0" text="OK" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <ComboBox fx:id="onActionsBuildingComboBox" prefWidth="150.0" promptText="Actions" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Button fx:id="btnViewHallsAndLabs" mnemonicParsing="false" onMouseClicked="#openHallsLabsUI" text="View Halls/Labs" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <Label layoutX="10.0" layoutY="100.0" text="Center:" GridPane.rowIndex="2" />
-            <Label layoutX="10.0" layoutY="72.0" text="Malabe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label layoutX="541.0" layoutY="47.0" text="No of PC Labs:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label layoutX="541.0" layoutY="77.0" text="30" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label fx:id="txtCenter" layoutX="10.0" layoutY="72.0" text="Malabe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label layoutX="541.0" layoutY="47.0" text="No of Tutorial Halls:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="txtNoOfTutorialHalls" layoutX="541.0" layoutY="77.0" text="25" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label layoutX="466.0" layoutY="77.0" text="No of PC Labs:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="txtNoOfLabs" layoutX="614.0" layoutY="77.0" text="30" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

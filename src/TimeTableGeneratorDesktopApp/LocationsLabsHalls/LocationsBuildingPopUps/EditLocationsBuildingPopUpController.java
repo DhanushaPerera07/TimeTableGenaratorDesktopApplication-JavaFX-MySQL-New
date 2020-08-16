@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -15,5 +16,13 @@ public class EditLocationsBuildingPopUpController implements Initializable {
 
     }
 
+
     // ======================================================================
+
+
+    public void ActionEventEditBuildingPopUp(ActionEvent actionEvent) {
+
+        // pop up - edit a building action event on ADD BUTTON
+        System.out.println("clicked pop up - edit a building action event on ADD BUTTON");
+    }
 }
