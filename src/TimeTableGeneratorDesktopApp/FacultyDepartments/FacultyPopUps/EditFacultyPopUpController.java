@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyPopUps;
 
+import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,9 @@ import java.util.ResourceBundle;
 public class EditFacultyPopUpController implements Initializable {
 
     // variable to keep the id of the faculty record (faculty id)
-    public String faculty_id_to_update;
+    private Faculty facultyInstance;
+    public int facultyIdToUpdate;
+
 
     // components
     @FXML
@@ -41,6 +44,7 @@ public class EditFacultyPopUpController implements Initializable {
     @FXML   // button
     private Button btnEditFacultyPopUp;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -48,11 +52,62 @@ public class EditFacultyPopUpController implements Initializable {
 
     }
 
+    public void initializeComboBoxes(){
+
+
+        // facultySpecializedForComboBox combobox
+        facultySpecializedForComboBox.getItems().addAll(
+                "IT",
+                "BM",
+                "Engineering",
+                "HTM"
+                /*
+                "Faculty of Computing",
+                "Faculty of Business Management",
+                "Faculty of Engineering"
+                */
+        );
+
+        facultyHeadComboBox.getItems().addAll(
+                "John Doe",
+                "Oliver Cruise"
+        );
+
+        // faculty Status combobox
+        facultyStatusComboBox.getItems().addAll(
+                "Active",
+                "Not Active"
+        );
+    }
+
     public void ActionEventEditFacultyPopUp(ActionEvent actionEvent) {
         // pop up - edit a faculty action event on EDIT BUTTON
         System.out.println("clicked pop up - edit a faculty action event on EDIT BUTTON");
 
         getPermissionToEditTheRecordFromConfirmBox(1100);
+    }
+
+    /**
+     * here we are getting the faculty instance which is selected by the user to edit
+     * @param faculty
+     */
+    public void getFacultyInstance(Faculty faculty){
+        this.facultyInstance = faculty;
+        this.facultyIdToUpdate = faculty.getId();
+        setFormFieldsToExistingValues();
+    }
+
+    /**
+     *  set the form fields to existing values
+     */
+    public void setFormFieldsToExistingValues(){
+        // set the form fields to existing values
+        txtFacultyName.setText(this.facultyInstance.getName());
+        txtFacultyShortName.setText(this.facultyInstance.getShortName());
+        facultySpecializedForComboBox.getSelectionModel().select(this.facultyInstance.getSpecializedFor());
+        facultyHeadComboBox.getSelectionModel().select(this.facultyInstance.getHead());
+        facultyStatusComboBox.getSelectionModel().select(this.facultyInstance.getStatus());
+
     }
 
 

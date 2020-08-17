@@ -1,6 +1,8 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments;
 
 import TimeTableGeneratorDesktopApp.Departments.Department;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
+import TimeTableGeneratorDesktopApp.FxmlLoader;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -75,21 +78,37 @@ public class FacultyDepartmentsController implements  Initializable{
 
         initializeComboBoxes();
 
-        ObservableList<Faculty> facultyList = getDepartmentsList();
+        ObservableList<Faculty> facultyList = getFacultyList();
 
         for (Faculty faculty : facultyList){
             // sysout check
             System.out.println("faculty table rec: " + faculty.toString());
         }
 
+        /**\
+         * Dynamically change the rows by getting data from the database
+         * facultyItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the faculty object to the facultyItem.fxml and populate the view
+         */
+        // Populate the rows like a table 
+        Node [] nodes = new Node[facultyList.size()];
 
-        // Populate the rows like a table
-        Node [] nodes = new Node[10];
-
-        for (int i = 0;i< nodes.length;i++){
+        for (int i = 0;i< facultyList.size();i++){
             try {
-                nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
-                facultyVBox.getChildren().add(nodes[i]);
+                //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                //facultyVBox.getChildren().addAll(nodes[i]);
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                //Parent newRoot = loader.load();
+                //Scene scene = new Scene(newRoot);
+                nodes[i] = (Node) loader.load();
+                FacultyItemController facultyItemController = loader.getController();
+                facultyItemController.showInformation(facultyList.get(i));
+                //facultyItemController = nodes[i].getController;
+                //nodes[i] = (Node) loader.load();
+
+                facultyVBox.getChildren().addAll(nodes[i]);
             } catch (IOException e) {
                 System.out.println("Error - FacultyItem Loading ======================================");
                 e.printStackTrace();
@@ -192,15 +211,15 @@ public class FacultyDepartmentsController implements  Initializable{
      * this method is to get all the departments in the department table...
      * returns departmentList;
      * */
-    public ObservableList<Faculty> getDepartmentsList() {
+    public ObservableList<Faculty> getFacultyList() {
         ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
         // if the filter by combo box value is set as ALL, get all the departments
         if(facultyFilterByComboBox.equals("Select ALL")){
-            query = "SELECT * FROM faculty ORDER BY faculty_name";
+            query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
         }else{
-            query = "SELECT * FROM faculty ORDER BY faculty_name";
+            query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
             // query = "SELECT * from faculty WHERE " +filterType+ " = '" +filterValue+ "'";
         }
 
@@ -229,6 +248,49 @@ public class FacultyDepartmentsController implements  Initializable{
             ex.printStackTrace();
         }
         return facultyList;
+    }
+
+
+    public void populateAndRefreshFacultyDataRow(){
+
+
+        ObservableList<Faculty> facultyList = getFacultyList();
+
+        for (Faculty faculty : facultyList){
+            // sysout check
+            System.out.println("faculty table rec: " + faculty.toString());
+        }
+
+        /**\
+         * Dynamically change the rows by getting data from the database
+         * facultyItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the faculty object to the facultyItem.fxml and populate the view
+         */
+        // Populate the rows like a table
+        Node [] nodes = new Node[facultyList.size()];
+
+        for (int i = 0;i< facultyList.size();i++){
+            try {
+                //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                //facultyVBox.getChildren().addAll(nodes[i]);
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
+                //Parent newRoot = loader.load();
+                //Scene scene = new Scene(newRoot);
+                nodes[i] = (Node) loader.load();
+                FacultyItemController facultyItemController = loader.getController();
+                facultyItemController.showInformation(facultyList.get(i));
+                //facultyItemController = nodes[i].getController;
+                //nodes[i] = (Node) loader.load();
+
+                facultyVBox.getChildren().addAll(nodes[i]);
+            } catch (IOException e) {
+                System.out.println("Error - FacultyItem Loading ======================================");
+                e.printStackTrace();
+            }
+        }
+
     }
 
 

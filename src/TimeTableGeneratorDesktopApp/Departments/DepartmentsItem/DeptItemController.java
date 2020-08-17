@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsItem;
 
+import TimeTableGeneratorDesktopApp.Departments.Department;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -21,6 +23,10 @@ import java.util.ResourceBundle;
 public class DeptItemController implements Initializable {
 
 
+    // holds the department id
+    public Department departmentInstance;
+    public int departmentID;
+
     @FXML
     private VBox departmentItemVBOX;
 
@@ -30,10 +36,36 @@ public class DeptItemController implements Initializable {
     @FXML
     private FontAwesomeIcon btnDeleteIcon;
 
+    @FXML
+    private Label txtDepartmentName;
+
+    @FXML
+    private Label txtDepartmentUnderFacultyOf;
+
+    @FXML
+    private Label txtDepartmentHead;
+
+    @FXML
+    private Label txtDepartmentFloor;
+
+    @FXML
+    private Label txtDepartmentBuilding;
+
+    @FXML
+    private Label txtDepartmentSpecializedFor;
+
+    @FXML
+    private Label txtDepartmentShortName;
+
+
+    // ============================================================================================================
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    // ============================================================================================================
 
     public void openEditDepartmentPopUp(MouseEvent mouseEvent) {
 
@@ -77,5 +109,29 @@ public class DeptItemController implements Initializable {
         } else {
             System.out.println("Clicked Cancel Button - (Deleting a Department)");
         }
+    }
+
+
+    /**
+     * We get the department instance as the parameter from DepartmentsController.java and
+     * we update the DepartmentItem.fxml UI using those data
+     * @param department
+     */
+    public void showInformation(Department department) {
+        // we get the department obj as the parameter.
+
+        // hold the department obj/instance, then we can use this instance when we open the edit pop up
+        this.departmentInstance = department;
+        this.departmentID = department.getId();
+
+        // using those data we update the DepartmentItem.fxml
+        txtDepartmentName.setText(department.getName());
+        txtDepartmentShortName.setText(department.getShortName());
+        txtDepartmentHead.setText(department.getHead());
+        txtDepartmentFloor.setText(Integer.toString(department.getFloor()));
+        txtDepartmentBuilding.setText(Integer.toString(department.getBuildingID()));
+        txtDepartmentSpecializedFor.setText(department.getSpecializedFor());
+        txtDepartmentUnderFacultyOf.setText(Integer.toString(department.getId()));
+        
     }
 }

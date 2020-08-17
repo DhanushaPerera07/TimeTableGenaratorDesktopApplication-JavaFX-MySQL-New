@@ -1,5 +1,8 @@
 package TimeTableGeneratorDesktopApp.Departments;
 
+import TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +32,10 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class DepartmentsController implements Initializable {
+
+    // holds the value retrieved from the Faculty
+    public int facultyID;
+    public String facultyName;
 
     @FXML
     private BorderPane borderPaneDepartmentMain;
@@ -50,6 +58,9 @@ public class DepartmentsController implements Initializable {
     @FXML
     private VBox DepartmentsVBox;
 
+    @FXML
+    private Label txtHeaderFaculty;
+
 
     // ===================== VARIABLES CREATED FOR THE DATABASE PART =================================================================
 
@@ -63,6 +74,46 @@ public class DepartmentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        initializeComboBoxes();
+
+        ObservableList<Department> departmentsList = getDepartmentsList();
+
+        for (Department department : departmentsList){
+            // sysout check
+            System.out.println("faculty table rec: " + department.toString());
+        }
+
+        /**\
+         * Dynamically change the rows by getting data from the database
+         * facultyItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the faculty object to the facultyItem.fxml and populate the view
+         */
+        // Populate the rows like a table
+        Node[] nodes = new Node[departmentsList.size()];
+
+        for (int i = 0;i< departmentsList.size();i++){
+            try {
+                //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
+                //DepartmentsVBox.getChildren().add(nodes[i]);
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
+
+                nodes[i] = (Node) loader.load();
+                DeptItemController deptItemController = loader.getController();
+                deptItemController.showInformation(departmentsList.get(i));
+
+            } catch (IOException e) {
+                System.out.println("Error - DepartmentItem Loading ======================================");
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+    public void initializeComboBoxes(){
         // filter by combobox
         departmentFilterByComboBox.getItems().addAll(
                 "Select ALL",
@@ -80,20 +131,6 @@ public class DepartmentsController implements Initializable {
 
         // prompt text
         departmentMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
-
-        // Populate the rows like a table
-        Node[] nodes = new Node[10];
-
-        for (int i = 0;i< nodes.length;i++){
-            try {
-                nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
-                DepartmentsVBox.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                System.out.println("Error - DepartmentItem Loading ======================================");
-                e.printStackTrace();
-            }
-        }
-
     }
 
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
@@ -118,6 +155,24 @@ public class DepartmentsController implements Initializable {
         }catch (Exception e){
             System.out.println("Exception - When Opening addDepartmentPopUp.fxml as a pop up ");
             e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * This method will get the faculty ID and faculty name from the faculty screen
+     * then we can use this id to show the related departments under than faculty.
+     * @param facultyID
+     * @param facultyName
+     */
+    public  void getFacultyIdFromFacultyScreen(int facultyID,String facultyName){
+        // find the relevant department under that faculty ID
+        this.facultyID = facultyID;
+        txtHeaderFaculty.setText(facultyName);
+        if(facultyName==null || facultyName=="") {
+            System.out.println("Department - Error: Faculty name is null or empty");
+        }else {
+            System.out.println("Department - Faculty Name shows as the header successfully");
         }
 
     }
@@ -166,9 +221,10 @@ public class DepartmentsController implements Initializable {
 
         // if the filter by combo box value is set as ALL, get all the departments
         if(departmentFilterByComboBox.equals("Select ALL")){
-            query = "SELECT * FROM department ORDER BY department_name";
+            // query = "SELECT * FROM department ORDER BY department_name";
+            query = "SELECT * FROM department WHERE department_delete_status = 'N' AND faculty_faculty_id = "+this.facultyID+" ORDER BY department_name";
         }else{
-            query = "SELECT * from department WHERE " +filterType+ " = '" +filterValue+ "'";
+            query = "SELECT * FROM department WHERE department_delete_status = 'N' AND faculty_faculty_id = "+this.facultyID+" ORDER BY department_name";
         }
 
 //        String query = "SELECT * FROM department";
@@ -181,19 +237,21 @@ public class DepartmentsController implements Initializable {
             Department department;
             while (rs.next()) {
                 department = new Department(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("shortName"),
-                        rs.getInt("floor"),
-                        rs.getString("head"),
-                        rs.getInt("buildingID"),
-                        rs.getInt("facultyID")
+                        rs.getInt("department_id"),
+                        rs.getString("department_name"),
+                        rs.getString("department_short_name"),
+                        rs.getInt("department_floor_no"),
+                        rs.getString("department_specialized_for"),
+                        rs.getString("department_head"),
+                        rs.getInt("department_building_id"),
+                        rs.getInt("faculty_faculty_id")
                 );
                 departmentList.add(department);
             }
 
         } catch (Exception ex) {
             // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
             ex.printStackTrace();
         }
         return departmentList;
