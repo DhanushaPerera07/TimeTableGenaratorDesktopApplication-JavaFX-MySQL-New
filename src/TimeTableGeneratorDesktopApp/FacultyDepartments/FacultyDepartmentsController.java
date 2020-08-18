@@ -224,7 +224,7 @@ public class FacultyDepartmentsController implements  Initializable{
 
 
     /**
-     * this method is to get all the departments in the department table...
+     * this method is to get all the faculties in the faculty table...
      * returns departmentList;
      * */
     public ObservableList<Faculty> getFacultyList() {

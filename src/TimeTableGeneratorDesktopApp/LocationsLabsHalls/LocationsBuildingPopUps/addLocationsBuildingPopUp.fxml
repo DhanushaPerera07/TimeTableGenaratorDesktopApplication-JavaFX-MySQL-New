@@ -49,6 +49,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
@@ -59,12 +60,14 @@
                         <Label layoutX="25.0" layoutY="270.0" text="Capasity (Approx.):" GridPane.rowIndex="2" />
                         <TextField fx:id="txtBuildingName" GridPane.columnIndex="1" />
                         <TextField fx:id="txtBuildingNoOfFloors" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button fx:id="btnAddBuildingPopUp" mnemonicParsing="false" onAction="#ActionEventAddBuildingPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Label layoutX="25.0" layoutY="233.0" text="Building Condition:" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtBuildingCapasicty" layoutX="196.0" layoutY="78.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="btnAddBuildingPopUp" mnemonicParsing="false" onAction="#ActionEventBtnAddBuildingPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label layoutX="25.0" layoutY="233.0" text="Building Condition:" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtBuildingCapacity" layoutX="196.0" layoutY="78.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <ComboBox fx:id="specializedForBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="conditionBuildingComboBox" layoutX="196.0" layoutY="229.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="conditionBuildingComboBox" layoutX="196.0" layoutY="229.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <ComboBox fx:id="centerBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label layoutX="25.0" layoutY="214.0" text="Faculty:" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="facultyForBuildingComboBox" layoutX="196.0" layoutY="210.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
