@@ -93,24 +93,40 @@ public class FacultyDepartmentsController implements  Initializable{
         // Populate the rows like a table 
         Node [] nodes = new Node[facultyList.size()];
 
-        for (int i = 0;i< facultyList.size();i++){
+        if (facultyList.size() != 0) {
+            for (int i = 0; i < facultyList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //facultyVBox.getChildren().addAll(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //Parent newRoot = loader.load();
+                    //Scene scene = new Scene(newRoot);
+                    nodes[i] = (Node) loader.load();
+                    FacultyItemController facultyItemController = loader.getController();
+                    facultyItemController.showInformation(facultyList.get(i));
+                    //facultyItemController = nodes[i].getController;
+                    //nodes[i] = (Node) loader.load();
+
+                    facultyVBox.getChildren().addAll(nodes[i]);
+                } catch (IOException e) {
+                    System.out.println("Error - FacultyItem Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // this means that no faculty is found
+            // so we gonna display that no faculties are found
+            Node nodeThatSaysNoFacultyFound;
             try {
-                //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
-                //facultyVBox.getChildren().addAll(nodes[i]);
 
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
-                //Parent newRoot = loader.load();
-                //Scene scene = new Scene(newRoot);
-                nodes[i] = (Node) loader.load();
-                FacultyItemController facultyItemController = loader.getController();
-                facultyItemController.showInformation(facultyList.get(i));
-                //facultyItemController = nodes[i].getController;
-                //nodes[i] = (Node) loader.load();
-
-                facultyVBox.getChildren().addAll(nodes[i]);
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItemNoContent.fxml"));
+                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                facultyVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
             } catch (IOException e) {
-                System.out.println("Error - FacultyItem Loading ======================================");
+                System.out.println("Error - FacultyItemNoContent Loading ======================================");
                 e.printStackTrace();
             }
         }
@@ -251,12 +267,12 @@ public class FacultyDepartmentsController implements  Initializable{
     }
 
 
-    public void populateAndRefreshFacultyDataRow(){
+    public void populateAndRefreshFacultyDataRow() {
 
 
         ObservableList<Faculty> facultyList = getFacultyList();
 
-        for (Faculty faculty : facultyList){
+        for (Faculty faculty : facultyList) {
             // sysout check
             System.out.println("faculty table rec: " + faculty.toString());
         }
@@ -267,32 +283,47 @@ public class FacultyDepartmentsController implements  Initializable{
          * I pass the faculty object to the facultyItem.fxml and populate the view
          */
         // Populate the rows like a table
-        Node [] nodes = new Node[facultyList.size()];
+        Node[] nodes = new Node[facultyList.size()];
 
-        for (int i = 0;i< facultyList.size();i++){
+        if (facultyList.size() != 0) {
+            for (int i = 0; i < facultyList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //facultyVBox.getChildren().addAll(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
+                    //Parent newRoot = loader.load();
+                    //Scene scene = new Scene(newRoot);
+                    nodes[i] = (Node) loader.load();
+                    FacultyItemController facultyItemController = loader.getController();
+                    facultyItemController.showInformation(facultyList.get(i));
+                    //facultyItemController = nodes[i].getController;
+                    //nodes[i] = (Node) loader.load();
+
+                    facultyVBox.getChildren().addAll(nodes[i]);
+                } catch (IOException e) {
+                    System.out.println("Error - FacultyItem Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+
+        } else {
+            // this means that no faculty is found
+            // so we gonna display that no faculties are found
+
             try {
-                //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
-                //facultyVBox.getChildren().addAll(nodes[i]);
-
+                Node nodeThatSaysNoFacultyFound;
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
-                //Parent newRoot = loader.load();
-                //Scene scene = new Scene(newRoot);
-                nodes[i] = (Node) loader.load();
-                FacultyItemController facultyItemController = loader.getController();
-                facultyItemController.showInformation(facultyList.get(i));
-                //facultyItemController = nodes[i].getController;
-                //nodes[i] = (Node) loader.load();
-
-                facultyVBox.getChildren().addAll(nodes[i]);
+                loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItemNoContent.fxml"));
+                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                facultyVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
             } catch (IOException e) {
-                System.out.println("Error - FacultyItem Loading ======================================");
+                System.out.println("Error - FacultyItemNoContent Loading ======================================");
                 e.printStackTrace();
             }
         }
-
     }
-
 
 
 }

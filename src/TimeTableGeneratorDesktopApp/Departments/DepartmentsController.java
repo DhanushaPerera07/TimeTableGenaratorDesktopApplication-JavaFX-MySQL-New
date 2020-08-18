@@ -92,20 +92,39 @@ public class DepartmentsController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[departmentsList.size()];
 
-        for (int i = 0;i< departmentsList.size();i++){
+        if(departmentsList.size() != 0) {
+            for (int i = 0; i < departmentsList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
+                    //DepartmentsVBox.getChildren().add(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
+
+                    nodes[i] = (Node) loader.load();
+                    DeptItemController deptItemController = loader.getController();
+                    deptItemController.showInformation(departmentsList.get(i));
+
+                    DepartmentsVBox.getChildren().addAll(nodes[i]);
+
+                } catch (IOException e) {
+                    System.out.println("Error - DepartmentItem Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // that means departmentList is empty, so no departments to display
+            // then we have to display that no departments found to display
+            System.out.println("Departments - No Department Found to display");
             try {
-                //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
-                //DepartmentsVBox.getChildren().add(nodes[i]);
-
+                Node nodeSaysThatDepartmentListIsEmpty;
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
-
-                nodes[i] = (Node) loader.load();
-                DeptItemController deptItemController = loader.getController();
-                deptItemController.showInformation(departmentsList.get(i));
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItemNoContent.fxml"));
+                nodeSaysThatDepartmentListIsEmpty = (Node) loader.load();
+                DepartmentsVBox.getChildren().addAll(nodeSaysThatDepartmentListIsEmpty);
 
             } catch (IOException e) {
-                System.out.println("Error - DepartmentItem Loading ======================================");
+                System.out.println("Error - DepartmentItemNoContent Loading ======================================");
                 e.printStackTrace();
             }
         }
