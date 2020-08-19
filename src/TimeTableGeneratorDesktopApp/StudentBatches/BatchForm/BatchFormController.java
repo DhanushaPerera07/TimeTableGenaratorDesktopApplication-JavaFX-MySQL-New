@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -186,7 +187,7 @@ public class BatchFormController implements Initializable {
                     "Malabe", "Kandy" , "Matara", "Jaffna" , "Metro"
             );
 
-            comBoxPro.setPromptText(programme);
+            setProgrammeList();
 
             tfNoOfStd.setText(noOfStudents.toString());
             tfBatchID.setText(batchID.toString());
@@ -195,10 +196,71 @@ public class BatchFormController implements Initializable {
     }
 
 
+
+
+    public void setProgrammeList(){
+        faculty = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.faculty;
+        System.out.println("testing the faculty :" +faculty);
+
+        comBoxPro.setPromptText(programme);
+
+
+        if(faculty.equals("Faculty of Computing") ){
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Software Engineering",
+                    "Computer Systems and Networking" ,
+                    "Cyber Security",
+                    "Interactive Media" ,
+                    "Information Technology",
+                    "Information Management System",
+                    "Data Science"
+            );
+
+        }else if(faculty.equals("Faculty of Business Management")){
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Accounting and Finance",
+                    "Human Capital Management",
+                    "Business Analytics",
+                    "Logistics and Supply Management",
+                    "Marketing Management",
+                    "Business Management",
+                    "Management Information Systems"
+            );
+        }else if(faculty.equals("Faculty of Engineering")){
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Civil Engineering",
+                    "Electrical and Electronic Engineering",
+                    "Mechanical Engineering",
+                    "Material Engineering"
+            );
+        }else if(faculty.equals("Faculty of Humanities and sciences")) {
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "BED(Hons) in biological Sciences",
+                    "BED(Hons) in English",
+                    "BED(Hons) in physical sciences",
+                    "BSC(Hons) in Nursing"
+            );
+        } else {
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Program 1",
+                    "Program 2",
+                    "Program 3",
+                    "Program 4"
+            );
+        }
+
+    }
+
+
     public void selectBatchFac(ActionEvent actionEvent){
         faculty = comBoxFac.getSelectionModel().getSelectedItem().toString();
         System.out.println(faculty);
-
+        comBoxPro.setPromptText("Select");
         if(faculty == "Faculty of Computing"){
             comBoxPro.getItems().removeAll(comBoxPro.getItems());
             comBoxPro.getItems().addAll(
@@ -273,7 +335,7 @@ public class BatchFormController implements Initializable {
 
     public void selectBatchPro(ActionEvent actionEvent){
         programme = comBoxPro.getSelectionModel().getSelectedItem().toString();
-        comBoxPro.setPromptText("Select");
+//        comBoxPro.setPromptText("Select");
         System.out.println(programme);
     }
 
@@ -500,6 +562,7 @@ public class BatchFormController implements Initializable {
 
             Stage stage = (Stage) batchFormUpdtBtn.getScene().getWindow();
             stage.close();
+
         }
 
     }
@@ -512,7 +575,8 @@ public class BatchFormController implements Initializable {
     @FXML
     void ActionEventGroupBatchBtn(ActionEvent event) {
 
-        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ")";
+        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ") ON DUPLICATE KEY UPDATE nofStudents ='" +noOfStudents+"'";
+
         executeQuery(queryBatchStats);
 
 
