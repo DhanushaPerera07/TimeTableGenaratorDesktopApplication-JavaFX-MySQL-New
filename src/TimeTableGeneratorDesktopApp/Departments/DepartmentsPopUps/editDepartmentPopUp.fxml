@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="-Infinity" prefWidth="520.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps.EditLocationsBuildingPopUpController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps.EditDepartmentPopUpController">
     <content>
-        <AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="431.0" prefWidth="584.0">
             <children>
                 <GridPane>
                     <columnConstraints>
@@ -27,7 +27,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building - Edit  Building" GridPane.rowIndex="1">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Department - Edit Department Details" GridPane.rowIndex="1">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -37,7 +37,7 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                     </padding>
                 </GridPane>
-                <GridPane layoutX="-2.0" layoutY="65.0" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.topAnchor="65.0">
+                <GridPane layoutX="-2.0" layoutY="65.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.topAnchor="65.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.199951171875" minWidth="10.0" prefWidth="170.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.999984741211" minWidth="10.0" prefWidth="299.6" />
@@ -48,26 +48,23 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Building name:" />
-                        <Label layoutX="25.0" layoutY="44.0" text="Specialized for:" GridPane.rowIndex="4" />
-                        <Label layoutX="25.0" layoutY="101.0" text="No of floors:" GridPane.rowIndex="1" />
-                        <Label layoutX="25.0" layoutY="214.0" text="Center:" GridPane.rowIndex="3" />
-                        <Label layoutX="25.0" layoutY="270.0" text="Capasity (Approx.):" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtBuildingName" GridPane.columnIndex="1" />
-                        <TextField fx:id="txtBuildingNoOfFloors" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button fx:id="btnEditBuildingPopUp" mnemonicParsing="false" onAction="#ActionEventEditBuildingPopUp" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label layoutX="25.0" layoutY="233.0" text="Building Condition:" GridPane.rowIndex="6" />
-                        <TextField fx:id="txtBuildingCapacity" layoutX="196.0" layoutY="78.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="specializedForBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="conditionBuildingComboBox" layoutX="196.0" layoutY="229.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <ComboBox fx:id="centerBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label layoutX="25.0" layoutY="214.0" text="Faculty:" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="facultyForBuildingComboBox" layoutX="196.0" layoutY="210.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Department name:" />
+                        <Label layoutX="25.0" layoutY="44.0" text="Department floor no:" GridPane.rowIndex="4" />
+                        <Label layoutX="25.0" layoutY="101.0" text="Department short name:" GridPane.rowIndex="1" />
+                        <Label layoutX="25.0" layoutY="101.0" text="Department head:" GridPane.rowIndex="5" />
+                        <Label layoutX="25.0" layoutY="214.0" text="Department Building:" GridPane.rowIndex="3" />
+                        <Label layoutX="25.0" layoutY="270.0" text="Department faculty" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtDepartmentName" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtDepartmentShortName" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="departmentFacultyComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="departmentBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtDepartmentFloorNo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtDepartmentHead" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Button fx:id="btnEditDepartmentPopUp" mnemonicParsing="false" onAction="#ActionEventEditDepartmentPopUp" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

@@ -9,9 +9,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddDeptPopUpController implements Initializable {
+public class EditDepartmentPopUpController implements Initializable {
 
-
+    // component
     @FXML
     private TextField txtDepartmentName;
 
@@ -28,13 +28,13 @@ public class AddDeptPopUpController implements Initializable {
     private TextField txtDepartmentFloorNo;
 
     @FXML
-    private ComboBox<String> departmentHeadComboBox;
+    private TextField txtDepartmentHead;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void ActionEventAddDepartmentPopUp(ActionEvent actionEvent) {
+    public void ActionEventEditDepartmentPopUp(ActionEvent actionEvent) {
     }
 }
