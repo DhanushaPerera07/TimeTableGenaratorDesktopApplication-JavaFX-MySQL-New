@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="locationsHallsInsideItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController">
+<VBox fx:id="locationsHallsInsideItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController">
     <children>
         <GridPane>
             <columnConstraints>
@@ -30,7 +30,7 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="B502" GridPane.columnIndex="1">
+                <Label fx:id="txtLocationHallLabName" layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="B502" GridPane.columnIndex="1">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -42,8 +42,8 @@
         </GridPane>
         <GridPane>
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="62.99999237060547" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="328.200048828125" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="75.60000152587891" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="364.3999984741211" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="128.39998779296877" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.40001220703118" minWidth="10.0" prefWidth="246.40001220703118" />
             </columnConstraints>
@@ -51,24 +51,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label text="Type:" />
-                <Label layoutX="10.0" layoutY="16.0" text="Lecture / Tutorial" GridPane.columnIndex="1" />
-                <Label layoutX="10.0" layoutY="16.0" text="Capasity:" GridPane.rowIndex="1" />
-                <Label layoutX="10.0" layoutY="47.0" text="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="txtLocationHallLabTag" layoutX="10.0" layoutY="16.0" text="Lecture / Tutorial" GridPane.columnIndex="1" />
+                <Label layoutX="10.0" layoutY="16.0" text="Capacity:" GridPane.rowIndex="1" />
+                <Label fx:id="txtLocationHallLabCapacity" layoutX="10.0" layoutY="47.0" text="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label layoutX="10.0" layoutY="47.0" text="Condition:" GridPane.rowIndex="2" />
-                <Label layoutX="10.0" layoutY="77.0" text="Remark:" GridPane.rowIndex="3" />
-                <Label layoutX="10.0" layoutY="108.0" text="None" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <Label layoutX="210.0" layoutY="108.0" text="Floor:" GridPane.columnIndex="2" />
-                <Label layoutX="410.0" layoutY="16.0" text="6" GridPane.columnIndex="3" />
+                <Label fx:id="txtLocationHallLabFloor" layoutX="410.0" layoutY="16.0" text="6" GridPane.columnIndex="3" />
                 <Label layoutX="610.0" layoutY="16.0" text="Building:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Label layoutX="410.0" layoutY="47.0" text="FOC - Main" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <Label layoutX="610.0" layoutY="47.0" text="Specialized for:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <Label layoutX="10.0" layoutY="16.0" text="IT" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                <Label layoutX="10.0" layoutY="77.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label fx:id="txtLocationHallLabBuilding" layoutX="410.0" layoutY="47.0" text="FOC - Main" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Label layoutX="610.0" layoutY="47.0" text="Specialized Module:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Label fx:id="txtLocationHallLabSpecializedModule" layoutX="10.0" layoutY="16.0" text="IT" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Label fx:id="txtLocationHallLabCondition" layoutX="10.0" layoutY="77.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <ComboBox fx:id="onActionsHallsComboBox" prefWidth="150.0" promptText="Actions" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                 <Button fx:id="btnViewHallTimeTable" mnemonicParsing="false" onMouseClicked="#openTimeTableOfTheHall" text="View Time Table" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             </children>

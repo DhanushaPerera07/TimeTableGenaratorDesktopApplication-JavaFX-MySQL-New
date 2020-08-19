@@ -29,7 +29,7 @@ public class AddLocationsBuildingPopUpController implements Initializable {
     @FXML
     private TextField txtBuildingNoOfFloors;
 
-    @FXML
+    @FXML   // button
     private Button btnAddBuildingPopUp;
 
     @FXML
@@ -113,13 +113,6 @@ public class AddLocationsBuildingPopUpController implements Initializable {
         );
         specializedForBuildingComboBox.setPromptText("Select Specialized For");
 
-        /*
-        // filter by combobox
-        facultyForBuildingComboBox.getItems().addAll("Batman","Superman"
-
-        );
-        facultyForBuildingComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
-        */
 
 
     }

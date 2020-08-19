@@ -138,7 +138,7 @@ public class FacultyItemController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/Departments.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             DepartmentsController departmentsController = fxmlLoader.getController();
-            departmentsController.getFacultyIdFromFacultyScreen(facultyID,facultyName);
+            departmentsController.getFacultyIdFromFacultyScreen(this.facultyID,this.facultyName);
 
             Stage stage = new Stage();
 
