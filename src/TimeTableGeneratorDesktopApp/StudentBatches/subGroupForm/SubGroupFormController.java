@@ -42,37 +42,26 @@ public class SubGroupFormController implements Initializable {
     private Label labelAll;
     @FXML
     private Label labelRemain;
-
-
     @FXML
     private Label subGrooupsTitle;
-
     @FXML
     private TableView<subGroups> tvSubGroups;
-
-
     @FXML
     private TableColumn<subGroups, String> colSubId;
-
     @FXML
     private TableColumn<subGroups, Integer> colNoS;
-
     @FXML
     private TextField sgtfNOF;
-
     @FXML
     private TextField sgtfGN;
     @FXML
     private TextField subIDtf;
     @FXML
     private Button sgBtn;
-
     @FXML
     private Button sgUpdateBtn;
-
     @FXML
     private Label subGroupFormHead;
-
     @FXML
     private Button deleteSub;
 
@@ -83,6 +72,7 @@ public class SubGroupFormController implements Initializable {
         sgBtn.setVisible(true);
         sgUpdateBtn.setVisible(false);
         deleteSub.setVisible(false);
+
         rowID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.rowID;
         batchID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.batchID;
 //        noOfStudents=TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.noofstd;
@@ -295,7 +285,7 @@ public class SubGroupFormController implements Initializable {
                 noOfStudents = rs.getInt("nofStudents");
 
                 noOfGrpsStds=rs.getInt("nofGrouped");
-                noOfRemsStds=rs.getInt("nofRemain");
+                noOfRemsStds=noOfStudents-noOfGrpsStds;
 
                 labelAll.setText(String.valueOf(noOfStudents));
                 labelGroup.setText(String.valueOf(noOfGrpsStds));

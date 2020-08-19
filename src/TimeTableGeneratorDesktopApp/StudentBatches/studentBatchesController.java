@@ -102,6 +102,7 @@ public class studentBatchesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        refreshBatches.setVisible(false);
         CBFilter.getItems().removeAll(CBFilter.getItems());
         CBFilter.getItems().addAll(
                 "All","Year", "Semester", "Intake", "Faculty", "Programme", "Center"
@@ -235,7 +236,6 @@ public class studentBatchesController implements Initializable {
             stage.setScene(new Scene(root1));
             stage.show();
 
-
             stage.setOnHidden(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
@@ -253,7 +253,9 @@ public class studentBatchesController implements Initializable {
                             noofstd = 0;
                             rowID=0;
 
+                            showBatches();
                         }
+
                     });
                 }
             });
@@ -276,7 +278,19 @@ public class studentBatchesController implements Initializable {
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
             stage.show();
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
 
+                        @Override
+                        public void run() {
+                            showBatches();
+                        }
+
+                    });
+                }
+            });
 
         }catch (Exception e){
             System.out.println("can't load new window");
