@@ -80,17 +80,26 @@
          <font>
             <Font size="9.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label layoutX="458.0" layoutY="350.0" onMouseClicked="#handleLabelSG" text="Create new sub group" textFill="WHITE" underline="true">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
-      <Button fx:id="sgUpdateBtn" layoutX="422.0" layoutY="312.0" mnemonicParsing="false" onAction="#updateSubGroup" text="Update" />
+      <Button fx:id="sgUpdateBtn" layoutX="422.0" layoutY="312.0" mnemonicParsing="false" onAction="#updateSubGroup" text="Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button fx:id="deleteSub" layoutX="335.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteSubGroup" text="Delete sub group">
          <font>
             <Font size="9.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
    </children>
 </AnchorPane>
