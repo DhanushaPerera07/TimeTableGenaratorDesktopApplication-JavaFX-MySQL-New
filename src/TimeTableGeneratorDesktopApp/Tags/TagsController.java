@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -99,6 +100,7 @@ public class TagsController implements Initializable {
             stage.initOwner(mainPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/tag.png"));
             stage.show();
             stage.setOnHidden(new EventHandler<WindowEvent>() {
                 @Override
