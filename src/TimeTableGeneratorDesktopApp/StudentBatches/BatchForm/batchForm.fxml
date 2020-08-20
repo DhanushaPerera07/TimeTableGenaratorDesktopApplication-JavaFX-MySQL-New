@@ -164,6 +164,7 @@
             <DropShadow color="WHITE" height="16.43" offsetX="2.0" offsetY="2.0" radius="8.115" width="18.03" />
          </effect>
       </Label>
+      <Label fx:id="errorMsg" layoutX="77.0" layoutY="406.0" text="*Please fill all the fields" textFill="#e30000" />
 
 
     </children>

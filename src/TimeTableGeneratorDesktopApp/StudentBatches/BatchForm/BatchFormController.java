@@ -13,7 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
@@ -41,6 +43,9 @@ public class BatchFormController implements Initializable {
     public static String center = "";
     public static String batchID = "";
     public static Integer noOfStudents = 0;
+
+    @FXML
+    private Label errorMsg;
 
     @FXML
     private AnchorPane batchFormPane;
@@ -91,6 +96,7 @@ public class BatchFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorMsg.setVisible(false);
 
         rowID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.rowID;
         year = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.year;
@@ -363,31 +369,61 @@ public class BatchFormController implements Initializable {
 
 
     public void BatchsubmitActionHandler(ActionEvent actionEvent){
-        insertRecord();
-        year = "";
-        semester = "";
-        intake = "";
-        faculty = "";
-        programme = "";
-        center = "";
-        noOfStudents = 0;
-        batchID = "";
+        if(validateForm()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Some fields are empty.");
+            alert.show();
 
-        System.out.println(tfNoOfStd.getText());
-        Stage stage = (Stage) submitAddBatch.getScene().getWindow();
-        stage.close();
+        }else{
+            insertRecord();
+            year = "";
+            semester = "";
+            intake = "";
+            faculty = "";
+            programme = "";
+            center = "";
+            noOfStudents = 0;
+            batchID = "";
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("The new Student Group added successfully!");
+            alert.show();
+
+            System.out.println(tfNoOfStd.getText());
+            Stage stage = (Stage) submitAddBatch.getScene().getWindow();
+            stage.close();
+
+        }
+
+
 
 
     }
 
+
+
+    public boolean validateForm(){
+        if (year.equals("") || semester.equals("") || intake.equals("") ||faculty.equals("") ||programme.equals("") ||center.equals("") ||tfNoOfStd.getText().equals("")||tfBatchID.getText().equals("")){
+            errorMsg.setVisible(true);
+            return true;
+        }else
+            return false;
+    }
+
     public void insertRecord(){
 
-        String query = "INSERT INTO studentbatches (year,semester,intake,faculty,programme,center,noofstd,batchID) " +
-                "VALUES ('" +year+ "','" +semester+ "','" +intake+ "','" +faculty+
-                "','" +programme+ "','" +center+ "'," +tfNoOfStd.getText()+
-                ",'" +tfBatchID.getText()+ "') ";
+            String query = "INSERT INTO studentbatches (year,semester,intake,faculty,programme,center,noofstd,batchID) " +
+                    "VALUES ('" +year+ "','" +semester+ "','" +intake+ "','" +faculty+
+                    "','" +programme+ "','" +center+ "'," +tfNoOfStd.getText()+
+                    ",'" +tfBatchID.getText()+ "') ";
 
-        executeQuery(query);
+            executeQuery(query);
+
+
 
 //        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +tfNoOfStd.getText()+ ")";
 //        executeQuery(queryBatchStats);
@@ -590,6 +626,7 @@ public class BatchFormController implements Initializable {
             stage.initOwner(batchFormPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/student.jpg"));
             stage.show();
 
 

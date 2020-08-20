@@ -5,9 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -16,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ManageTagsController implements Initializable {
@@ -36,12 +35,15 @@ public class ManageTagsController implements Initializable {
     @FXML
     private Button updateMTag;
 
+    @FXML
+    private Button deleteMTag;
 
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        deleteMTag.setVisible(false);
         updateMTag.setVisible(false);
         submitMTag.setVisible(true);
         getValues();
@@ -59,6 +61,7 @@ public class ManageTagsController implements Initializable {
     }
 
     public void selectTag(MouseEvent event){
+        deleteMTag.setVisible(true);
         submitMTag.setVisible(false);
         updateMTag.setVisible(true);
         tag = listMTag.getSelectionModel().getSelectedItem();
@@ -73,6 +76,29 @@ public class ManageTagsController implements Initializable {
         tfMTag.setText("");
         TagsController tagsController = new TagsController();
         tagsController.getValues();
+    }
+
+
+    public void delete(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation delete");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if(action.get() == ButtonType.OK){
+            String query = "Delete from systemTags where systemTag = '" +tag+ "'";
+            executeQuery(query);
+            getValues();
+            tfMTag.setText("");
+            TagsController tagsController = new TagsController();
+            tagsController.getValues();
+        }
+    }
+
+    @FXML
+    public void submitDelete(MouseEvent event) {
+        delete();
     }
 
 

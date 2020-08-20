@@ -75,5 +75,10 @@
             <Image url="@../icons/Group%201.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="52.0" layoutX="378.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/student.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
