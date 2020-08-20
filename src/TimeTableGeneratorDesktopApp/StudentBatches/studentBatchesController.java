@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.StudentBatches;
 
 import TimeTableGeneratorDesktopApp.Main;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -108,8 +110,6 @@ public class studentBatchesController implements Initializable {
         CBFilter.getItems().addAll(
                 "All","Year", "Semester", "Intake", "Faculty", "Programme", "Center"
         );
-
-
         showBatches();
     }
 

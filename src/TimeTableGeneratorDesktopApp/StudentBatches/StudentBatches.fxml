@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="studentsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController">
+<Pane fx:id="studentsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: trans;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController">
    <children>
       <HBox alignment="CENTER" layoutX="361.0" layoutY="526.0">
          <children>
@@ -43,7 +43,10 @@
             <TableColumn fx:id="batColNoOfStd" prefWidth="97.0" text="No.of Students" />
         </columns>
       </TableView>
-      <ComboBox fx:id="CBFilter" layoutX="50.0" layoutY="90.0" onAction="#selectFilterType" prefHeight="25.0" prefWidth="145.0" promptText="Filter By:" />
+      <ComboBox fx:id="CBFilter" layoutX="50.0" layoutY="90.0" onAction="#selectFilterType" prefHeight="25.0" prefWidth="145.0" promptText="Filter By:">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
       <Button fx:id="addBatchBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="660.0" layoutY="83.0" mnemonicParsing="false" onAction="#ActionEventAddBatchBtn" prefHeight="19.0" prefWidth="75.0" style="-fx-background-color: trans;" textAlignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -69,7 +72,10 @@
             </ImageView>
          </graphic>
       </Button>
-      <ComboBox fx:id="CBFilter2" layoutX="195.0" layoutY="90.0" onAction="#getFilterValue" prefHeight="25.0" prefWidth="111.0" promptText="Select" />
+      <ComboBox fx:id="CBFilter2" layoutX="195.0" layoutY="90.0" onAction="#getFilterValue" prefHeight="25.0" prefWidth="111.0" promptText="Select">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ComboBox>
       <ImageView fitHeight="81.0" fitWidth="514.0" layoutX="145.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/Group%201.png" />
