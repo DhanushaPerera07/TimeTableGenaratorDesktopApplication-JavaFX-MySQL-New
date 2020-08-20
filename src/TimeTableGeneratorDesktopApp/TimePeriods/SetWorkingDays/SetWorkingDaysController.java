@@ -22,9 +22,15 @@ public class SetWorkingDaysController implements Initializable {
 
     public static int noDays;
     public static int noDaysDB;
+    public static int noDaysIdDB;
+
+    public String day1;
 
     @FXML
     private ComboBox<String> comboSelectDays;
+
+    @FXML
+    private ComboBox<String> comboSelectDays1;
 
     @FXML
     private Button populateBtn;
@@ -79,6 +85,12 @@ public class SetWorkingDaysController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         labelnoDays.setVisible(false);
+        zoysa();
+
+    }
+
+    public void zoysa(){
+
 
         field1noDays.setVisible(false);
         field2noDays.setVisible(false);
@@ -95,7 +107,6 @@ public class SetWorkingDaysController implements Initializable {
         label5noDays.setVisible(false);
         label6noDays.setVisible(false);
         label7noDays.setVisible(false);
-
     }
 
     public Connection getConnection(){
@@ -125,106 +136,66 @@ public class SetWorkingDaysController implements Initializable {
     public void selectWorkingDays(ActionEvent actionEvent) {
         noDays = comboSelectDays.getSelectionModel().getSelectedIndex() + 1;
         System.out.println(noDays);
+        insertRecord();
     }
 
     @FXML
-    public void insertRecord(ActionEvent actionEvent){
+    public void insertRecord(){
         String query = "INSERT INTO nodays (noDays) " +
                 "VALUES (" +noDays +") ";
         executeQuery(query);
 
         getWorkingDays();
-        labelnoDays.setText(String.valueOf(noDaysDB));
+        labelnoDays.setText(String.valueOf(noDaysIdDB));
 
         labelnoDays.setVisible(true);
 
         if(noDays ==1){
+
+            zoysa();
             field1noDays.setVisible(true);
-
-            field2noDays.setVisible(false);
-            field3noDays.setVisible(false);
-            field4noDays.setVisible(false);
-            field5noDays.setVisible(false);
-            field6noDays.setVisible(false);
-            field7noDays.setVisible(false);
-
             label1noDays.setVisible(true);
-
-            label2noDays.setVisible(false);
-            label3noDays.setVisible(false);
-            label4noDays.setVisible(false);
-            label5noDays.setVisible(false);
-            label6noDays.setVisible(false);
-            label7noDays.setVisible(false);
         }
 
         if(noDays ==2){
+            zoysa();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
-
-            field3noDays.setVisible(false);
-            field4noDays.setVisible(false);
-            field5noDays.setVisible(false);
-            field6noDays.setVisible(false);
-            field7noDays.setVisible(false);
 
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
 
-            label3noDays.setVisible(false);
-            label4noDays.setVisible(false);
-            label5noDays.setVisible(false);
-            label6noDays.setVisible(false);
-            label7noDays.setVisible(false);
 
         }
         if(noDays ==3){
+            zoysa();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
-
-            field4noDays.setVisible(false);
-            field5noDays.setVisible(false);
-            field6noDays.setVisible(false);
-            field7noDays.setVisible(false);
 
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
             label3noDays.setVisible(true);
-
-            label4noDays.setVisible(false);
-            label5noDays.setVisible(false);
-            label6noDays.setVisible(false);
-            label7noDays.setVisible(false);
         }
         if(noDays ==4){
+            zoysa();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
             field4noDays.setVisible(true);
-
-            field5noDays.setVisible(false);
-            field6noDays.setVisible(false);
-            field7noDays.setVisible(false);
 
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
             label3noDays.setVisible(true);
             label4noDays.setVisible(true);
-
-            label5noDays.setVisible(false);
-            label6noDays.setVisible(false);
-            label7noDays.setVisible(false);
         }
         if(noDays ==5){
+            zoysa();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
             field4noDays.setVisible(true);
             field5noDays.setVisible(true);
-
-            field6noDays.setVisible(false);
-            field7noDays.setVisible(false);
 
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
@@ -232,18 +203,15 @@ public class SetWorkingDaysController implements Initializable {
             label4noDays.setVisible(true);
             label5noDays.setVisible(true);
 
-            label6noDays.setVisible(false);
-            label7noDays.setVisible(false);
         }
         if(noDays ==6){
+            zoysa();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
             field4noDays.setVisible(true);
             field5noDays.setVisible(true);
             field6noDays.setVisible(true);
-
-            field7noDays.setVisible(false);
 
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
@@ -252,7 +220,6 @@ public class SetWorkingDaysController implements Initializable {
             label5noDays.setVisible(true);
             label6noDays.setVisible(true);
 
-            label7noDays.setVisible(false);
         }
         if(noDays ==7){
             field1noDays.setVisible(true);
@@ -284,11 +251,19 @@ public class SetWorkingDaysController implements Initializable {
 
             while (rs.next()) {
                  noDaysDB= rs.getInt("noDays");
+                noDaysIdDB = rs.getInt("idno");
+
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+    }
+
+    private void deleteRecord(){
+        String query = "DELETE FROM nodays WHERE idno =" + noDaysIdDB + "";
+        executeQuery(query);
     }
 
 
