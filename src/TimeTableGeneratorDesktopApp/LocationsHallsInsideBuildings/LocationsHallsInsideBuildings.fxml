@@ -28,20 +28,7 @@
             <children>
                 <HBox prefHeight="92.0" prefWidth="805.0">
                     <children>
-                        <FontAwesomeIcon glyphName="ARROW_LEFT" size="2em">
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                        </FontAwesomeIcon>
-                        <Label text="Locations, Labs &amp; Halls - Buildings :">
-                            <HBox.margin>
-                                <Insets left="30.0" />
-                            </HBox.margin>
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                  <Label text="FOC - Main">
+                  <Label fx:id="txtHeaderLabsHalls" text="Location, Labs &amp; Halls Under:">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -49,6 +36,17 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
+                        <Label fx:id="txtHeaderBuildingName" text="Building Actual Name">
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                        </Label>
                     </children>
                 </HBox>
                 <GridPane GridPane.rowIndex="1">
@@ -87,7 +85,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </ComboBox>
-                        <Button fx:id="btnAddLocationsHallsInside" mnemonicParsing="false" onAction="#openAddLocationsHallsInsidePopUp" text="Add" GridPane.columnIndex="4">
+                        <Button fx:id="btnAddLocationsHallsInside" mnemonicParsing="false" onMouseClicked="#openAddLocationsHallsInsidePopUp" text="Add" GridPane.columnIndex="4">
                             <GridPane.margin>
                                 <Insets left="10.0" />
                             </GridPane.margin>

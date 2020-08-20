@@ -35,7 +35,7 @@
                   <TextField fx:id="tfLecturerName" />
                   <TextField fx:id="tfEmployeeID" />
                   <ComboBox fx:id="comboFacultyBox" onAction="#selectLecturerFaculty" prefWidth="200.0" promptText="Select faculty" />
-                  <TextField fx:id="tfDepartment" />
+                  <ComboBox fx:id="comboDepartmentBox" onAction="#selectLecturerDepartment" prefWidth="200.0" promptText="Select department" />
                   <ComboBox fx:id="comboCenterBox" onAction="#selectLecturerCenter" prefWidth="200.0" promptText="Select center">
                      <items>
                         <FXCollections fx:factory="observableArrayList">

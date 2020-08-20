@@ -148,13 +148,25 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="batchFormDelBtn" layoutX="340.0" layoutY="457.0" mnemonicParsing="false" onAction="#deleteRecord" text="Delete batch" />
-      <Button fx:id="batchFormUpdtBtn" layoutX="285.0" layoutY="457.0" mnemonicParsing="false" onAction="#updateRecord" text="Update" />
-      <Button fx:id="batchFormGrpBtn" layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#ActionEventGroupBatchBtn" text="Group batch" />
+      <Button fx:id="batchFormDelBtn" layoutX="340.0" layoutY="457.0" mnemonicParsing="false" onAction="#deleteRecord" text="Delete batch">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="batchFormUpdtBtn" layoutX="285.0" layoutY="457.0" mnemonicParsing="false" onAction="#updateRecord" text="Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="batchFormGrpBtn" layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#ActionEventGroupBatchBtn" text="Group batch">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Button fx:id="batchFormGenIDBtn" layoutX="280.0" layoutY="405.0" mnemonicParsing="false" onAction="#generateBatchID" text="Generate">
          <font>
             <Font size="8.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label layoutX="133.0" layoutY="14.0" text="Group Details">
          <font>
@@ -164,6 +176,7 @@
             <DropShadow color="WHITE" height="16.43" offsetX="2.0" offsetY="2.0" radius="8.115" width="18.03" />
          </effect>
       </Label>
+      <Label fx:id="errorMsg" layoutX="77.0" layoutY="406.0" text="*Please fill all the fields" textFill="#e30000" />
 
 
     </children>

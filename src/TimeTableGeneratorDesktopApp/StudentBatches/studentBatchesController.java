@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.StudentBatches;
 
 import TimeTableGeneratorDesktopApp.Main;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,11 +14,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -102,12 +105,11 @@ public class studentBatchesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        refreshBatches.setVisible(false);
         CBFilter.getItems().removeAll(CBFilter.getItems());
         CBFilter.getItems().addAll(
                 "All","Year", "Semester", "Intake", "Faculty", "Programme", "Center"
         );
-
-
         showBatches();
     }
 
@@ -233,8 +235,8 @@ public class studentBatchesController implements Initializable {
             stage.initOwner(studentsPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/student.png"));
             stage.show();
-
 
             stage.setOnHidden(new EventHandler<WindowEvent>() {
                 @Override
@@ -253,7 +255,9 @@ public class studentBatchesController implements Initializable {
                             noofstd = 0;
                             rowID=0;
 
+                            showBatches();
                         }
+
                     });
                 }
             });
@@ -275,8 +279,21 @@ public class studentBatchesController implements Initializable {
             stage.initOwner(studentsPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/student.png"));
             stage.show();
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
 
+                        @Override
+                        public void run() {
+                            showBatches();
+                        }
+
+                    });
+                }
+            });
 
         }catch (Exception e){
             System.out.println("can't load new window");

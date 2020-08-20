@@ -9,7 +9,7 @@
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="431.0" prefWidth="584.0">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Module - add a module" />
+            <Label fx:id="moduleLabel" layoutX="14.0" layoutY="14.0" text="Module - add a module" />
             <VBox layoutX="14.0" layoutY="56.0" prefHeight="287.0" prefWidth="192.0" spacing="17.0">
                <children>
                   <Label prefHeight="28.0" prefWidth="175.0" text="Module name" />
@@ -29,15 +29,17 @@
                         <Insets top="8.0" />
                      </VBox.margin></TextField>
                   <TextField fx:id="tfModuleCode" />
-                  <ComboBox fx:id="comboSelectYearBox" prefWidth="220.0" promptText="Select year" />
-                  <ComboBox fx:id="comboSelectSemesterBox" prefWidth="220.0" promptText="Select semester" />
-                  <ComboBox fx:id="comboSelectLecHourBox" prefWidth="220.0" promptText="Select lecture hours" />
-                  <ComboBox fx:id="comboSelectTuteHourBox" prefWidth="220.0" promptText="Select tutorial hours" />
-                  <ComboBox fx:id="comboSelectLabHourBox" prefWidth="220.0" promptText="Select lab hours" />
-                  <ComboBox fx:id="comboSelectEvaluationHourBox" prefWidth="220.0" promptText="Select evaluation hours" />
+                  <ComboBox fx:id="comboSelectYearBox" onAction="#selectOfferedYear" prefWidth="220.0" promptText="Select year" />
+                  <ComboBox fx:id="comboSelectSemesterBox" onAction="#selectOfferedSemester" prefWidth="220.0" promptText="Select semester" />
+                  <ComboBox fx:id="comboSelectLecHourBox" onAction="#selectLecHour" prefWidth="220.0" promptText="Select lecture hours" />
+                  <ComboBox fx:id="comboSelectTuteHourBox" onAction="#selectTuteHour" prefWidth="220.0" promptText="Select tutorial hours" />
+                  <ComboBox fx:id="comboSelectLabHourBox" onAction="#selectLabHour" prefWidth="220.0" promptText="Select lab hours" />
+                  <ComboBox fx:id="comboSelectEvaluationHourBox" onAction="#selectEvaluationHour" prefWidth="220.0" promptText="Select evaluation hours" />
                </children>
             </VBox>
             <Button fx:id="addModuleBtn" layoutX="223.0" layoutY="386.0" mnemonicParsing="false" onAction="#addModuleAction" text="Add" />
+            <Button fx:id="updateModuleBtn" layoutX="223.0" layoutY="386.0" mnemonicParsing="false" onAction="#updateModuleAction" text="Update" />
+            <Button fx:id="deleteModuleBtn" layoutX="304.0" layoutY="386.0" mnemonicParsing="false" onAction="#deleteModuleAction" text="Delete" />
          </children></AnchorPane>
   </content>
 </ScrollPane>

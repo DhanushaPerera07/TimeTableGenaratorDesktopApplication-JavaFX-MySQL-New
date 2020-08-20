@@ -13,11 +13,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +43,9 @@ public class BatchFormController implements Initializable {
     public static String center = "";
     public static String batchID = "";
     public static Integer noOfStudents = 0;
+
+    @FXML
+    private Label errorMsg;
 
     @FXML
     private AnchorPane batchFormPane;
@@ -90,6 +96,7 @@ public class BatchFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorMsg.setVisible(false);
 
         rowID = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.rowID;
         year = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.year;
@@ -186,7 +193,7 @@ public class BatchFormController implements Initializable {
                     "Malabe", "Kandy" , "Matara", "Jaffna" , "Metro"
             );
 
-            comBoxPro.setPromptText(programme);
+            setProgrammeList();
 
             tfNoOfStd.setText(noOfStudents.toString());
             tfBatchID.setText(batchID.toString());
@@ -195,10 +202,71 @@ public class BatchFormController implements Initializable {
     }
 
 
+
+
+    public void setProgrammeList(){
+        faculty = TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController.faculty;
+        System.out.println("testing the faculty :" +faculty);
+
+        comBoxPro.setPromptText(programme);
+
+
+        if(faculty.equals("Faculty of Computing") ){
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Software Engineering",
+                    "Computer Systems and Networking" ,
+                    "Cyber Security",
+                    "Interactive Media" ,
+                    "Information Technology",
+                    "Information Management System",
+                    "Data Science"
+            );
+
+        }else if(faculty.equals("Faculty of Business Management")){
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Accounting and Finance",
+                    "Human Capital Management",
+                    "Business Analytics",
+                    "Logistics and Supply Management",
+                    "Marketing Management",
+                    "Business Management",
+                    "Management Information Systems"
+            );
+        }else if(faculty.equals("Faculty of Engineering")){
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Civil Engineering",
+                    "Electrical and Electronic Engineering",
+                    "Mechanical Engineering",
+                    "Material Engineering"
+            );
+        }else if(faculty.equals("Faculty of Humanities and sciences")) {
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "BED(Hons) in biological Sciences",
+                    "BED(Hons) in English",
+                    "BED(Hons) in physical sciences",
+                    "BSC(Hons) in Nursing"
+            );
+        } else {
+            comBoxPro.getItems().removeAll(comBoxPro.getItems());
+            comBoxPro.getItems().addAll(
+                    "Program 1",
+                    "Program 2",
+                    "Program 3",
+                    "Program 4"
+            );
+        }
+
+    }
+
+
     public void selectBatchFac(ActionEvent actionEvent){
         faculty = comBoxFac.getSelectionModel().getSelectedItem().toString();
         System.out.println(faculty);
-
+        comBoxPro.setPromptText("Select");
         if(faculty == "Faculty of Computing"){
             comBoxPro.getItems().removeAll(comBoxPro.getItems());
             comBoxPro.getItems().addAll(
@@ -273,7 +341,7 @@ public class BatchFormController implements Initializable {
 
     public void selectBatchPro(ActionEvent actionEvent){
         programme = comBoxPro.getSelectionModel().getSelectedItem().toString();
-        comBoxPro.setPromptText("Select");
+//        comBoxPro.setPromptText("Select");
         System.out.println(programme);
     }
 
@@ -301,31 +369,61 @@ public class BatchFormController implements Initializable {
 
 
     public void BatchsubmitActionHandler(ActionEvent actionEvent){
-        insertRecord();
-        year = "";
-        semester = "";
-        intake = "";
-        faculty = "";
-        programme = "";
-        center = "";
-        noOfStudents = 0;
-        batchID = "";
+        if(validateForm()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Some fields are empty.");
+            alert.show();
 
-        System.out.println(tfNoOfStd.getText());
-        Stage stage = (Stage) submitAddBatch.getScene().getWindow();
-        stage.close();
+        }else{
+            insertRecord();
+            year = "";
+            semester = "";
+            intake = "";
+            faculty = "";
+            programme = "";
+            center = "";
+            noOfStudents = 0;
+            batchID = "";
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("The new Student Group added successfully!");
+            alert.show();
+
+            System.out.println(tfNoOfStd.getText());
+            Stage stage = (Stage) submitAddBatch.getScene().getWindow();
+            stage.close();
+
+        }
+
+
 
 
     }
 
+
+
+    public boolean validateForm(){
+        if (year.equals("") || semester.equals("") || intake.equals("") ||faculty.equals("") ||programme.equals("") ||center.equals("") ||tfNoOfStd.getText().equals("")||tfBatchID.getText().equals("")){
+            errorMsg.setVisible(true);
+            return true;
+        }else
+            return false;
+    }
+
     public void insertRecord(){
 
-        String query = "INSERT INTO studentbatches (year,semester,intake,faculty,programme,center,noofstd,batchID) " +
-                "VALUES ('" +year+ "','" +semester+ "','" +intake+ "','" +faculty+
-                "','" +programme+ "','" +center+ "'," +tfNoOfStd.getText()+
-                ",'" +tfBatchID.getText()+ "') ";
+            String query = "INSERT INTO studentbatches (year,semester,intake,faculty,programme,center,noofstd,batchID) " +
+                    "VALUES ('" +year+ "','" +semester+ "','" +intake+ "','" +faculty+
+                    "','" +programme+ "','" +center+ "'," +tfNoOfStd.getText()+
+                    ",'" +tfBatchID.getText()+ "') ";
 
-        executeQuery(query);
+            executeQuery(query);
+
+
 
 //        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +tfNoOfStd.getText()+ ")";
 //        executeQuery(queryBatchStats);
@@ -500,6 +598,7 @@ public class BatchFormController implements Initializable {
 
             Stage stage = (Stage) batchFormUpdtBtn.getScene().getWindow();
             stage.close();
+
         }
 
     }
@@ -512,7 +611,8 @@ public class BatchFormController implements Initializable {
     @FXML
     void ActionEventGroupBatchBtn(ActionEvent event) {
 
-        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ")";
+        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ") ON DUPLICATE KEY UPDATE nofStudents ='" +noOfStudents+"'";
+
         executeQuery(queryBatchStats);
 
 
@@ -526,6 +626,7 @@ public class BatchFormController implements Initializable {
             stage.initOwner(batchFormPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/student.jpg"));
             stage.show();
 
 
