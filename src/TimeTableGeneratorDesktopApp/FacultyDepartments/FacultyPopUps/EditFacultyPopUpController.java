@@ -47,6 +47,7 @@ public class EditFacultyPopUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeComboBoxes();
 
         // get the record id and assign it to the variable: faculty_id_to_update
 
@@ -84,7 +85,7 @@ public class EditFacultyPopUpController implements Initializable {
         // pop up - edit a faculty action event on EDIT BUTTON
         System.out.println("clicked pop up - edit a faculty action event on EDIT BUTTON");
 
-        getPermissionToEditTheRecordFromConfirmBox(1100);
+        getPermissionToEditTheRecordFromConfirmBox(this.facultyIdToUpdate);
     }
 
     /**
@@ -199,7 +200,7 @@ public class EditFacultyPopUpController implements Initializable {
         String query = "UPDATE `faculty` SET faculty_name = '" +faculty_name+ "', faculty_short_name = '" +faculty_short_name+
                 "', faculty_specialized_for = '" +faculty_specialized_for+ "', faculty_status = '" +faculty_status+ "', faculty_head_name = '"
                 +faculty_head_name+
-                "' WHERE id = " +facultyID+ "";
+                "' WHERE faculty_id = " +facultyID+ "";
 
 
         // execute the insert query

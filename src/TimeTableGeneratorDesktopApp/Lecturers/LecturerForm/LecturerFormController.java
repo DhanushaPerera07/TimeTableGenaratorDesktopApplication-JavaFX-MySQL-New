@@ -54,6 +54,9 @@ public class LecturerFormController implements Initializable {
     private ComboBox<String> comboFacultyBox;
 
     @FXML
+    private ComboBox<String> comboDepartmentBox;
+
+    @FXML
     private TextField tfLecturerName;
 
     @FXML
@@ -67,6 +70,16 @@ public class LecturerFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        lid = lecturersController.lid;
+        lecturerName = lecturersController.lecturerName;
+        lecturerID = lecturersController.lecturerID;
+        lecturerFaculty = lecturersController.lecturerFaculty;
+        lecturerDepartment = lecturersController.lecturerDepartment;
+        lecturerCenter = lecturersController.lecturerCenter;
+        lecturerBuilding = lecturersController.lecturerBuilding;
+        lecturerLevel = lecturersController.lecturerLevel;
+        rank = lecturersController.rank;
+
         if (lecturersController.lecturerBuilding.equals("")){
             updateLecturerBtn.setVisible(false);
             addLecturerBtn.setVisible(true);
@@ -75,12 +88,12 @@ public class LecturerFormController implements Initializable {
 
             comboBuildingBox.getItems().removeAll(comboBuildingBox.getItems());
             comboBuildingBox.getItems().addAll(
-                    "New Building", "D-Block", "etc"
+                    "New Building", "D-Block"
             );
 
             comboFacultyBox.getItems().removeAll(comboFacultyBox.getItems());
             comboFacultyBox.getItems().addAll(
-                    "Computing", "Engineering", "Business", "Humanities", "Science", "etc"
+                    "Faculty of Computing", "Faculty of Engineering", "Faculty of Business", "Faculty of Humanities & Science"
             );
         }
         else {
@@ -98,7 +111,8 @@ public class LecturerFormController implements Initializable {
             tfEmployeeID.setText(String.valueOf(lecturerID));
             lecturerFaculty = lecturersController.lecturerFaculty;
             lecturerDepartment = lecturersController.lecturerDepartment;
-            tfDepartment.setText(lecturerDepartment);
+            //tfDepartment.setText(lecturerDepartment);
+            comboDepartmentBox.setPromptText(lecturerDepartment);
             lecturerCenter = lecturersController.lecturerCenter;
             lecturerBuilding = lecturersController.lecturerBuilding;
             lecturerLevel = lecturersController.lecturerLevel;
@@ -107,14 +121,43 @@ public class LecturerFormController implements Initializable {
             comboBuildingBox.getItems().removeAll(comboBuildingBox.getItems());
             comboBuildingBox.setPromptText(lecturerBuilding);
             comboBuildingBox.getItems().addAll(
-                    "New Building", "D-Block", "etc"
+                    "New Building", "D-Block"
             );
 
             comboFacultyBox.getItems().removeAll(comboFacultyBox.getItems());
             comboFacultyBox.setPromptText(lecturerFaculty);
             comboFacultyBox.getItems().addAll(
-                    "Computing", "Engineering", "Business", "Humanities", "Science", "etc"
+                    "Faculty of Computing", "Faculty of Engineering", "Faculty of Business", "Faculty of Humanities & Science"
             );
+
+            if (lecturerFaculty.equals("Faculty of Computing")){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Computer Science and Software Engineering", "Information Technology", "Computer Science and Network Engineering",
+                        "Cyber Security", "Information System Engineering"
+                );
+            }
+            else if (lecturerFaculty.equals("Faculty of Engineering")){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Civil Engineering","Electrical Engineering"
+                );
+            }
+            else if (lecturerFaculty.equals("Faculty of Business")){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Logistic","Human Resources"
+                );
+            }
+            else if (lecturerFaculty.equals("Faculty of Humanities Studies")){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Mathematics","English","Law"
+                );
+            }
+
+
+
 
             comboCenterBox.setPromptText(lecturerCenter);
 //            comboLevelBox.setPromptText(String.valueOf(lecturerLevel));
@@ -145,6 +188,35 @@ public class LecturerFormController implements Initializable {
                 comboLevelBox.setPromptText("Something wrong");
             }
 
+
+
+            if (lecturerFaculty=="Faculty of Computing"){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Computer Science and Software Engineering", "Information Technology", "Computer Science and Network Engineering",
+                        "Cyber Security", "Information System Engineering"
+                );
+            }
+            else if (lecturerFaculty=="Faculty of Engineering"){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Civil Engineering","Electrical Engineering"
+                );
+            }
+            else if (lecturerFaculty=="Faculty of Business"){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Logistic","Human Resources"
+                );
+            }
+            else if (lecturerFaculty=="Faculty of Humanities & Science"){
+                comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+                comboDepartmentBox.getItems().addAll(
+                        "Mathematics","English","Law"
+                );
+            }
+
+
         }
 
     }
@@ -174,6 +246,39 @@ public class LecturerFormController implements Initializable {
         System.out.println("Selected the faculty");
         lecturerFaculty = comboFacultyBox.getSelectionModel().getSelectedItem().toString();
         System.out.println(lecturerFaculty);
+
+        if (lecturerFaculty=="Faculty of Computing"){
+            comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+            comboDepartmentBox.getItems().addAll(
+                    "Computer Science and Software Engineering", "Information Technology", "Computer Science and Network Engineering",
+                    "Cyber Security", "Information System Engineering"
+            );
+        }
+        else if (lecturerFaculty=="Faculty of Engineering"){
+            comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+            comboDepartmentBox.getItems().addAll(
+                    "Civil Engineering","Electrical Engineering"
+            );
+        }
+        else if (lecturerFaculty=="Faculty of Business"){
+            comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+            comboDepartmentBox.getItems().addAll(
+                    "Logistic","Human Resources"
+            );
+        }
+        else if (lecturerFaculty=="Faculty of Humanities & Science"){
+            comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
+            comboDepartmentBox.getItems().addAll(
+                    "Mathematics","English","Law"
+            );
+        }
+
+    }
+
+    public void selectLecturerDepartment(ActionEvent actionEvent) {
+        System.out.println("Selected the department");
+        lecturerDepartment = comboDepartmentBox.getSelectionModel().getSelectedItem().toString();
+        System.out.println(lecturerDepartment);
     }
 
     public Connection getConnection(){
@@ -207,7 +312,7 @@ public class LecturerFormController implements Initializable {
 //                +"','" +tfDepartment.getText() +"','" +lecturerCenter +"','" +lecturerBuilding +"','" +lecturerLevel  +"','" +rank +"')";
 
         String query = "INSERT INTO lecturer (lecturerID,lecturerName,lecturerFaculty,lecturerDepartment,lecturerCenter,lecturerBuilding,lecturerLevel,lecturerRank) " +
-                "VALUES (" +tfEmployeeID.getText()+ ",'" +tfLecturerName.getText()+ "','" +lecturerFaculty+ "','" +tfDepartment.getText()+
+                "VALUES (" +tfEmployeeID.getText()+ ",'" +tfLecturerName.getText()+ "','" +lecturerFaculty+ "','" +lecturerDepartment+
                 "','" +lecturerCenter+ "','" +lecturerBuilding+ "'," +lecturerLevel+
                 "," +rank+ ") ";
 
@@ -223,7 +328,7 @@ public class LecturerFormController implements Initializable {
         lecturerBuilding = "";
         lecturerCenter = "";
         rank = "";
-        tfDepartment.setText("");
+        lecturerDepartment = "";
         tfLecturerName.setText("");
         tfEmployeeID.setText("");
 
@@ -239,7 +344,7 @@ public class LecturerFormController implements Initializable {
         lecturerBuilding = "";
         lecturerCenter = "";
         rank = "";
-        tfDepartment.setText("");
+        lecturerDepartment = "";
         tfLecturerName.setText("");
         tfEmployeeID.setText("");
 
@@ -251,7 +356,7 @@ public class LecturerFormController implements Initializable {
         rank =  lecturerLevel +"." +tfEmployeeID.getText().toString();
         System.out.println(rank);
         String query = "UPDATE lecturer SET lecturerID = '" + tfEmployeeID.getText() + "', lecturerName = '" + tfLecturerName.getText()
-                + "', lecturerFaculty = '" + lecturerFaculty + "', lecturerDepartment = '" + tfDepartment.getText() +"', lecturerCenter = '" + lecturerCenter
+                + "', lecturerFaculty = '" + lecturerFaculty + "', lecturerDepartment = '" + lecturerDepartment +"', lecturerCenter = '" + lecturerCenter
                 + "', lecturerBuilding = '" + lecturerBuilding +"', lecturerLevel = '" + lecturerLevel + "', lecturerRank = '" + rank
                 + "' WHERE lid = " + lid + "";
         executeQuery(query);
@@ -267,4 +372,6 @@ public class LecturerFormController implements Initializable {
         String query = "DELETE FROM lecturer WHERE lid =" + lid + "";
         executeQuery(query);
     }
+
+
 }

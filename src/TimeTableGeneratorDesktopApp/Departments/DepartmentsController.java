@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.Departments;
 
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController;
+import TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps.AddDeptPopUpController;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
@@ -34,8 +35,8 @@ import java.util.ResourceBundle;
 public class DepartmentsController implements Initializable {
 
     // holds the value retrieved from the Faculty
-    public int facultyID;
-    public String facultyName;
+    public int facultyID = 0;
+    public String facultyName = "";
 
     @FXML
     private BorderPane borderPaneDepartmentMain;
@@ -77,57 +78,6 @@ public class DepartmentsController implements Initializable {
 
         initializeComboBoxes();
 
-        ObservableList<Department> departmentsList = getDepartmentsList();
-
-        for (Department department : departmentsList){
-            // sysout check
-            System.out.println("faculty table rec: " + department.toString());
-        }
-
-        /**\
-         * Dynamically change the rows by getting data from the database
-         * facultyItem.fxml is used as the UI, it acts as a customized data row
-         * I pass the faculty object to the facultyItem.fxml and populate the view
-         */
-        // Populate the rows like a table
-        Node[] nodes = new Node[departmentsList.size()];
-
-        if(departmentsList.size() != 0) {
-            for (int i = 0; i < departmentsList.size(); i++) {
-                try {
-                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
-                    //DepartmentsVBox.getChildren().add(nodes[i]);
-
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
-
-                    nodes[i] = (Node) loader.load();
-                    DeptItemController deptItemController = loader.getController();
-                    deptItemController.showInformation(departmentsList.get(i));
-
-                    DepartmentsVBox.getChildren().addAll(nodes[i]);
-
-                } catch (IOException e) {
-                    System.out.println("Error - DepartmentItem Loading ======================================");
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            // that means departmentList is empty, so no departments to display
-            // then we have to display that no departments found to display
-            System.out.println("Departments - No Department Found to display");
-            try {
-                Node nodeSaysThatDepartmentListIsEmpty;
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItemNoContent.fxml"));
-                nodeSaysThatDepartmentListIsEmpty = (Node) loader.load();
-                DepartmentsVBox.getChildren().addAll(nodeSaysThatDepartmentListIsEmpty);
-
-            } catch (IOException e) {
-                System.out.println("Error - DepartmentItemNoContent Loading ======================================");
-                e.printStackTrace();
-            }
-        }
 
     }
 
@@ -163,6 +113,11 @@ public class DepartmentsController implements Initializable {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsPopUps/addDepartmentPopUp.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
+
+            // pass necessary details to AddDeptPopUpController
+            AddDeptPopUpController addDeptPopUpController = fxmlLoader.getController();
+            addDeptPopUpController.getNecessaryDetails(this.facultyID,this.facultyName);
+
             Stage stage = new Stage();
 
             stage.setTitle("Add Department");
@@ -187,12 +142,69 @@ public class DepartmentsController implements Initializable {
     public  void getFacultyIdFromFacultyScreen(int facultyID,String facultyName){
         // find the relevant department under that faculty ID
         this.facultyID = facultyID;
+        this.facultyName = facultyName;
         txtHeaderFaculty.setText(facultyName);
         if(facultyName==null || facultyName=="") {
             System.out.println("Department - Error: Faculty name is null or empty");
         }else {
             System.out.println("Department - Faculty Name shows as the header successfully");
         }
+
+
+        ObservableList<Department> departmentsList = getDepartmentsList();
+
+        for (Department department : departmentsList){
+            // sysout check
+            System.out.println("faculty table rec: " + department.toString());
+        }
+
+        /**\
+         * Dynamically change the rows by getting data from the database
+         * facultyItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the faculty object to the facultyItem.fxml and populate the view
+         */
+        // Populate the rows like a table
+        Node[] nodes = new Node[departmentsList.size()];
+
+        if(departmentsList.size() != 0) {
+            for (int i = 0; i < departmentsList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
+                    //DepartmentsVBox.getChildren().add(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
+
+                    nodes[i] = (Node) loader.load();
+                    DeptItemController deptItemController = loader.getController();
+                    deptItemController.showInformation(departmentsList.get(i),this.facultyID,this.facultyName);
+
+                    DepartmentsVBox.getChildren().addAll(nodes[i]);
+
+                } catch (IOException e) {
+                    System.out.println("Error - DepartmentItem Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // that means departmentList is empty, so no departments to display
+            // then we have to display that no departments found to display
+            System.out.println("Departments - No Department Found to display");
+            try {
+                Node nodeSaysThatDepartmentListIsEmpty;
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItemNoContent.fxml"));
+                nodeSaysThatDepartmentListIsEmpty = (Node) loader.load();
+                DepartmentsVBox.getChildren().addAll(nodeSaysThatDepartmentListIsEmpty);
+
+            } catch (IOException e) {
+                System.out.println("Error - DepartmentItemNoContent Loading ======================================");
+                e.printStackTrace();
+            }
+        }
+
+
+
 
     }
 

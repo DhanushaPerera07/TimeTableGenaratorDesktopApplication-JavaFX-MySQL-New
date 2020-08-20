@@ -57,7 +57,7 @@
             <Label prefWidth="73.0" text="No of floors:" />
             <Label fx:id="txtNoOfFloors" layoutX="10.0" layoutY="16.0" text="15" GridPane.columnIndex="1" />
             <Label layoutX="10.0" layoutY="16.0" text="Capasity:" GridPane.rowIndex="1" />
-            <Label fx:id="txtCapasity" layoutX="10.0" layoutY="47.0" text="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="txtCapacity" layoutX="10.0" layoutY="47.0" text="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label layoutX="10.0" layoutY="47.0" text="Condition:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label layoutX="210.0" layoutY="108.0" text="Reserved Faculty:" GridPane.rowIndex="4" />
             <Label fx:id="txtReservedFaculty" layoutX="410.0" layoutY="16.0" text="FOC" GridPane.columnIndex="1" GridPane.rowIndex="4" />
