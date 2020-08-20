@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Controller">
+   <left>
+      <VBox fx:id="leftsideMainVbox" prefHeight="800.0" prefWidth="200.0" spacing="10.0" styleClass="leftsideMainVbox" stylesheets="@CSSStyles/navigationButtonStyles.css" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="35.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Pane>
+            <Button fx:id="btnDashboard" alignment="TOP_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleActionOnDashboardButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Dashboard" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnFacultyDepartments" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleActionOnFacultyDepartmentsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Faculty &amp; Department" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnLocationsLabsHalls" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="33.0" mnemonicParsing="false" onAction="#handleActionOnLocationsLabsHallsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Locations, Labs &amp; Halls" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnTags" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleActionOnTagsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Tags" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnSubjects" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleActionOnSubjectsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Subjects" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnLecturers" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleActionOnLecturersButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Lecturers" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnStudentBatches" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="103.0" mnemonicParsing="false" onAction="#handleActionOnStudentBatchesButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Student Batches" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnSessions" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleActionOnSessionsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Sessions" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnTimePeriods" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="149.0" mnemonicParsing="false" onAction="#handleActionOnTimePeriodsButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Working Days &amp; Hours " textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnTimeTableGenaration" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleActionOnTimeTimeTableGenerationButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Time Table Genaration" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow height="92.16" radius="39.65" width="68.44" />
+         </effect>
+      </VBox>
+   </left>
+</BorderPane>

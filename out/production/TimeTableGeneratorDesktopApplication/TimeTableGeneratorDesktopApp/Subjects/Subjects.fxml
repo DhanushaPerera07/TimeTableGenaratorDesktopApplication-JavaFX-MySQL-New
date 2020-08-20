@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="subjectsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Subjects.subjectsController">
+   <children>
+      <Pane layoutX="14.0" layoutY="23.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="770.0" text="Modules">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TextField layoutX="30.0" layoutY="65.0" prefHeight="37.0" prefWidth="220.0" promptText="search here!">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </TextField>
+      <Button fx:id="addModuleBtn" alignment="CENTER_RIGHT" layoutX="260.0" layoutY="65.0" mnemonicParsing="false" onAction="#ActionEventAddModule" text="Add Module">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
+      <TableView fx:id="tvModules" layoutX="30.0" layoutY="130.0" prefHeight="416.0" prefWidth="757.0">
+        <columns>
+          <TableColumn fx:id="colModuleName" prefWidth="150.0" text="Module Name" />
+          <TableColumn fx:id="colModuleCode" prefWidth="125.0" text="Module Code" />
+            <TableColumn fx:id="colYear" prefWidth="75.0" text="Year" />
+            <TableColumn fx:id="colSemester" prefWidth="75.0" text="Semester" />
+            <TableColumn fx:id="colLecHour" prefWidth="75.0" text="Lec (h)" />
+            <TableColumn fx:id="colTuteHour" prefWidth="75.0" text="Tute (h)" />
+            <TableColumn fx:id="colLabHour" prefWidth="75.0" text="Lab (h)" />
+            <TableColumn fx:id="colEvaluatonHour" prefWidth="106.0" text="Evaluation (h)" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>
