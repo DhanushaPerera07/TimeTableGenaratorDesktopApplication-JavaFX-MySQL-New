@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Tags.TagsController">
    <children>
       <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0">
@@ -19,10 +18,19 @@
             </Label>
             <Pane layoutX="209.0" layoutY="94.0">
                <children>
-                  <ListView fx:id="tagsList3" layoutX="265.0" onMouseClicked="#deleteTags" prefHeight="200.0" prefWidth="94.0" />
+                  <ListView fx:id="tagsList3" layoutX="265.0" onMouseClicked="#deleteTags" prefHeight="200.0" prefWidth="94.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ListView>
                   <ListView fx:id="tagsList2" layoutX="138.0" prefHeight="200.0" prefWidth="94.0" />
-                  <Button fx:id="tagSubmit" layoutX="158.0" layoutY="235.0" mnemonicParsing="false" onAction="#submitTags" onMouseClicked="#submitTags" text="Submit" />
-                  <ListView fx:id="tagsList1" onMouseClicked="#setTagsList2" prefHeight="200.0" prefWidth="94.0" />
+                  <Button fx:id="tagSubmit" layoutX="158.0" layoutY="235.0" mnemonicParsing="false" onAction="#submitTags" onMouseClicked="#submitTags" text="Submit">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <ListView fx:id="tagsList1" onMouseClicked="#setTagsList2" prefHeight="200.0" prefWidth="94.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ListView>
                </children>
             </Pane>
             <Label layoutX="225.0" layoutY="77.0" text="Picking List" />
@@ -51,12 +59,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="1. Select the needed tags to be saved in the system from the Picking List box." />
+                  <Label text="1. Select the needed tags for generate time tables from the Picking List box." />
                   <Label text="2. Then those selected tags will be shown in the Selected tags box." GridPane.rowIndex="1" />
                   <Label text="3. After selecting the wanted tags, then click the sbumit button " GridPane.rowIndex="2" />
-                  <Label text="4. The saved tags will be show in the Saved tags box." GridPane.rowIndex="3" />
-                  <Label prefHeight="17.0" prefWidth="434.0" text="5. You can delete if you want by clicking the particular tag in the saved list" GridPane.rowIndex="4" />
-                  <Label prefHeight="17.0" prefWidth="434.0" text="6. Those saved tags will be used when generating time tables" GridPane.rowIndex="5" />
+                  <Label text="4. The selected tags will be move to the Saved tags box. box." GridPane.rowIndex="3" />
+                  <Label prefHeight="17.0" prefWidth="434.0" text="5. You can remove a tag by clicking the particular tag in the saved list" GridPane.rowIndex="4" />
+                  <Label prefHeight="17.0" prefWidth="434.0" text="You can use manage picking list function to add very new tags in to the systsem." GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>

@@ -2,9 +2,11 @@ package TimeTableGeneratorDesktopApp.Tags;
 
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,10 +17,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -58,7 +62,7 @@ public class TagsController implements Initializable {
     public void getValues(){
         ObservableList<String> list = FXCollections.observableArrayList();
         Connection conn = getConnection();
-        String  query2 = "SELECT * FROM systemTags";
+        String  query2 = "SELECT * FROM systemTags order by systemTag";
         Statement st;
         ResultSet rs;
         try {
@@ -96,8 +100,21 @@ public class TagsController implements Initializable {
             stage.initOwner(mainPane.getScene().getWindow());
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            stage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/tag.png"));
             stage.show();
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
 
+                        @Override
+                        public void run() {
+                            getTags();
+                            getValues();
+                        }
+                    });
+                }
+            });
         }catch (Exception e){
             System.out.println("can't load new window");
             e.printStackTrace();
@@ -157,7 +174,7 @@ public class TagsController implements Initializable {
     public void getTags(){
         ObservableList<String> TagsList = FXCollections.observableArrayList();
         Connection conn = getConnection();
-        String  query2 = "SELECT * FROM tags";
+        String  query2 = "SELECT * FROM tags order by tag";
         Statement st;
         ResultSet rs;
         try {
