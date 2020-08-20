@@ -44,6 +44,7 @@
             <TableColumn fx:id="colEvaluatonHour" prefWidth="106.0" text="Evaluation (h)" />
         </columns>
       </TableView>
-      <Button fx:id="refreshModuleListBtn" layoutX="722.0" layoutY="70.0" mnemonicParsing="false" onAction="#refreshModuleListAction" text="Refresh" />
+      <ComboBox fx:id="filter2" layoutX="662.0" layoutY="70.0" onAction="#getFilterValues" prefWidth="125.0" promptText="Select:" />
+      <ComboBox fx:id="filter1" layoutX="528.0" layoutY="70.0" onAction="#selectFilterType" prefWidth="125.0" promptText="Filter By:" />
    </children>
 </Pane>

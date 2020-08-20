@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +40,9 @@ public class subjectsController implements Initializable {
     public static int tuteHour = 0;
     public static int labHour = 0;
     public static int evaluationHour = 0;
+    public static String filterType = "All";
+    public static String filterValue = "";
+    public static String query="";
 
     @FXML
     private Button addModuleBtn;
@@ -76,8 +80,20 @@ public class subjectsController implements Initializable {
     @FXML
     private TableColumn<Subjects, String> colSemester;
 
+    @FXML
+    private ComboBox<String> filter1;
+
+    @FXML
+    private ComboBox<String> filter2;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        filter1.getItems().removeAll(filter1.getItems());
+        filter1.getItems().addAll(
+                "All", "Year"
+        );
+
         showModules();
     }
 
@@ -95,6 +111,17 @@ public class subjectsController implements Initializable {
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
             stage.show();
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            showModules();
+                        }
+                    });
+                }
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -126,7 +153,15 @@ public class subjectsController implements Initializable {
     public ObservableList<Subjects> getModuleList(){
         ObservableList<Subjects> moduleList = FXCollections.observableArrayList();
         Connection conn = getConnection();
-        String query = "SELECT * FROM module";
+
+//        String query = "SELECT * FROM module";
+        if(filterType.equals("All")){
+            query = "SELECT * FROM module";
+        }
+        else if (filterType.equals("Year")){
+            query = "Select * from module WHERE offeredYear = '" + filterValue + "'";
+        }
+
         Statement st;
         ResultSet rs;
         try{
@@ -206,6 +241,8 @@ public class subjectsController implements Initializable {
                             tuteHour = 0;
                             labHour = 0;
                             evaluationHour = 0;
+
+                            showModules();
                         }
                     });
                 }
@@ -217,7 +254,34 @@ public class subjectsController implements Initializable {
         }
     }
 
-    public void refreshModuleListAction(ActionEvent actionEvent) {
+    public void getFilterValues(ActionEvent actionEvent) {
+        filterValue = filter2.getSelectionModel().getSelectedItem().toString();
+        filter2.setPromptText("Select");
+        System.out.println(filterValue);
         showModules();
     }
+
+    public void selectFilterType(ActionEvent actionEvent) {
+
+        filterType = filter1.getSelectionModel().getSelectedItem().toString();
+
+        if(filterType.equals("All")){
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.getItems().addAll(
+                    "All"
+            );
+        }
+        else if(filterType.equals("Year")) {
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.getItems().addAll(
+                    "Year 1", "Year 2", "Year 3", "Year 4"
+            );
+        }
+    }
+
+//    public void refreshModuleListAction(ActionEvent actionEvent) {
+//        showModules();
+//    }
 }
