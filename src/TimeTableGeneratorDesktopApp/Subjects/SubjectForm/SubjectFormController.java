@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -63,6 +64,9 @@ public class SubjectFormController implements Initializable {
     @FXML
     private ComboBox<Integer> comboSelectEvaluationHourBox;
 
+    @FXML
+    private Label moduleLabel;
+
     TimeTableGeneratorDesktopApp.Subjects.subjectsController subjectsController = new subjectsController();
 
     @Override
@@ -109,6 +113,7 @@ public class SubjectFormController implements Initializable {
             deleteModuleBtn.setVisible(true);
             addModuleBtn.setVisible(false);
 
+            moduleLabel.setText("Module - update a module");
             idmodule = subjectsController.idmodule;
             moduleName = subjectsController.moduleName;
             tfModuleName.setText(moduleName);
