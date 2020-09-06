@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.FxmlLoader;
@@ -193,8 +194,11 @@ public class FacultyDepartmentsController implements  Initializable{
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
+
     /** get the database connection here
      */
+
+    /*
     public Connection getConnection(){
         Connection conn;
         try{
@@ -206,10 +210,14 @@ public class FacultyDepartmentsController implements  Initializable{
         }
     }
 
+     */
+
     /** execute the query string
      * @param query string is passed here
      * this query will execute by this method
      */
+
+    /*
     private void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
@@ -221,7 +229,12 @@ public class FacultyDepartmentsController implements  Initializable{
         }
     }
 
+     */
 
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
+    //Connection conn = databaseHelper.getConnection();
 
     /**
      * this method is to get all the faculties in the faculty table...
@@ -229,7 +242,8 @@ public class FacultyDepartmentsController implements  Initializable{
      * */
     public ObservableList<Faculty> getFacultyList() {
         ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        //Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         // if the filter by combo box value is set as ALL, get all the departments
         if(facultyFilterByComboBox.equals("Select ALL")){
