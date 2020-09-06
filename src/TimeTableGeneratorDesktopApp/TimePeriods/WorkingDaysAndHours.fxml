@@ -18,58 +18,113 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="addWorkingDaysBtn" layoutX="527.0" layoutY="18.0" mnemonicParsing="false" onAction="#addWorkingDaysAction" text="Add/ Edit Working Days" />
+            <Button fx:id="addWorkingDaysBtn" layoutX="458.0" layoutY="18.0" mnemonicParsing="false" onAction="#addWorkingDaysAction" text="Add/ Edit Working Days" />
+            <Button layoutX="638.0" layoutY="18.0" mnemonicParsing="false" text="Add Time Slots" />
          </children>
       </Pane>
       <Pane layoutX="18.0" layoutY="116.0" prefHeight="460.0" prefWidth="766.0" style="-fx-background-color: #ffffffff;">
          <children>
-            <GridPane fx:id="listViewDays" hgap="100.0" layoutX="130.0" layoutY="69.0" prefHeight="310.0" prefWidth="270.0" vgap="40.0">
+            <GridPane fx:id="listViewDays" gridLinesVisible="true" hgap="2.0" layoutX="97.0" layoutY="69.0" prefHeight="317.0" prefWidth="620.0" vgap="2.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="10.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="13.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label fx:id="oneL" onMouseClicked="#addTimeSlots1">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="twoL" onMouseClicked="#addTimeSlots2" GridPane.rowIndex="1">
+                  <Label fx:id="twoL" onMouseClicked="#addTimeSlots2" GridPane.columnIndex="1">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="threeL" GridPane.rowIndex="2">
+                  <Label fx:id="threeL" GridPane.columnIndex="2">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="fourL" GridPane.rowIndex="3">
+                  <Label fx:id="fourL" GridPane.columnIndex="3">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="fiveL" GridPane.rowIndex="4">
+                  <Label fx:id="fiveL" GridPane.columnIndex="4">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sixL" GridPane.rowIndex="5">
+                  <Label fx:id="sixL" GridPane.columnIndex="5">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sevenL" GridPane.rowIndex="6">
+                  <Label fx:id="sevenL" GridPane.columnIndex="6">
                      <font>
-                        <Font size="22.0" />
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL2" onMouseClicked="#addTimeSlots1" text="SPM" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL3" onMouseClicked="#addTimeSlots1" text="SPM" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL4" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL5" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL6" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL7" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL8" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL9" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="oneL91" onMouseClicked="#addTimeSlots1" GridPane.rowIndex="9">
+                     <font>
+                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>
@@ -77,12 +132,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </GridPane>
-            <GridPane hgap="100.0" layoutX="500.0" layoutY="64.0" prefHeight="310.0" prefWidth="270.0" vgap="40.0">
+            <GridPane hgap="100.0" layoutX="715.0" layoutY="51.0" prefHeight="323.0" prefWidth="57.0" vgap="40.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="10.0" minHeight="7.0" prefHeight="7.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="13.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -129,7 +184,79 @@
                </children>
             </GridPane>
             <Label layoutX="143.0" layoutY="25.0" text="Day" />
-            <Label layoutX="493.0" layoutY="25.0" text="Hours " />
+            <Label layoutX="726.0" layoutY="25.0" text="Hours " />
+            <GridPane fx:id="listViewDays1" gridLinesVisible="true" hgap="2.0" layoutX="26.0" layoutY="69.0" prefHeight="317.0" prefWidth="64.0" vgap="2.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="oneL1" onMouseClicked="#addTimeSlots1" prefHeight="22.0" prefWidth="48.0" text="Time">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="twoL1" onMouseClicked="#addTimeSlots2" text="8.30" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="threeL1" text="9.30 " GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fourL1" text="10.30" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fiveL1" text="11.30" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sixL1" text="12.30" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sevenL1" text="13.30" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sevenL11" text="14.30" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sevenL111" text="15.30" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sevenL112" text="14.30" GridPane.rowIndex="9">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </GridPane>
          </children></Pane>
    </children>
 </Pane>

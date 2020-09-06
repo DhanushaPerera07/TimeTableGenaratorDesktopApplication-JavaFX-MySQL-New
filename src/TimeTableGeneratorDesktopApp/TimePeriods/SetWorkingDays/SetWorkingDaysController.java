@@ -126,7 +126,7 @@ public class SetWorkingDaysController implements Initializable {
 
     }
 
-    public void zoysa(){
+    public void Visible(){
 
 
         field1noDays.setVisible(false);
@@ -226,6 +226,9 @@ public class SetWorkingDaysController implements Initializable {
     }
     @FXML
     public void insertRecord(){
+        String query3 = "DELETE from daysname WHERE id =1 ";
+        executeQuery(query3);
+        
         String query = "INSERT INTO nodays (noDays, idno)  VALUES (" +noDays +",1 )  ON DUPLICATE KEY UPDATE noDays ='" +noDays+ "'" ;
         executeQuery(query);
         getWorkingDays();
@@ -246,18 +249,18 @@ public class SetWorkingDaysController implements Initializable {
         labelnoDays.setVisible(true);
 
         if(noDaysDB ==0){
-            zoysa();
+            Visible();
         }
 
         if(noDaysDB ==1){
 
-            zoysa();
+            Visible();
             field1noDays.setVisible(true);
             label1noDays.setVisible(true);
             h1.setVisible(true);
         }
         if(noDaysDB ==2){
-            zoysa();
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
 
@@ -270,7 +273,7 @@ public class SetWorkingDaysController implements Initializable {
 
         }
         if(noDaysDB ==3){
-            zoysa();
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -285,7 +288,7 @@ public class SetWorkingDaysController implements Initializable {
 
         }
         if(noDaysDB ==4){
-            zoysa();
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -303,7 +306,7 @@ public class SetWorkingDaysController implements Initializable {
 
         }
         if(noDaysDB ==5){
-            zoysa();
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -324,7 +327,7 @@ public class SetWorkingDaysController implements Initializable {
 
         }
         if(noDaysDB ==6){
-            zoysa();
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -413,8 +416,8 @@ public class SetWorkingDaysController implements Initializable {
         day5namex = field5noDays.getText().toString();
         day6namex = field6noDays.getText().toString();
         day7namex = field7noDays.getText().toString();
-
-        String query2 = "Delete From daysname where id = 1";
+        Connection conn = getConnection();
+        String query2 = "DELETE from daysname WHERE id =1 ";
         executeQuery(query2);
         String query = "INSERT INTO daysname (id, day1name, day2name, day3name, day4name, day5name, day6name, day7name)  VALUES (1, '"+day1namex+"', '"+day2namex+"', '"+day3namex+"', '"+day4namex+"', '"+day5namex+"', '"+day6namex+"', '"+day7namex+"' ) " +
                 "ON DUPLICATE KEY UPDATE day1name = '"+day1namex+"', day2name = '"+day2namex+"', day3name = '"+day3namex+"', day4name = '"+day4namex+"', day5name = '"+day5namex+"', day6name = '"+day6namex+"', day7name = '"+day7namex+"'";

@@ -84,7 +84,6 @@ public class WorkingDaysAndHoursController implements Initializable {
     @FXML
     private Button addWorkingDaysBtn;
 
-
     @FXML
     private Pane workingPane;
 
@@ -251,10 +250,4 @@ public class WorkingDaysAndHoursController implements Initializable {
         }
 
     }
-//
-//    public void addTimeSlots2(MouseEvent mouseEvent) {
-//    }
-//
-//    public void addTimeSlots(javafx.scene.input.MouseEvent mouseEvent) {
-//    }
 }
