@@ -1,21 +1,30 @@
 package TimeTableGeneratorDesktopApp.TimePeriods;
 
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
+import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
+import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
+import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlotsController;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import javax.swing.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,72 +35,172 @@ import java.util.ResourceBundle;
 public class WorkingDaysAndHoursController implements Initializable {
 
     public String one;
-    public String two;
-    public String three;
-    public String four;
-    public String five;
-    public String six;
-    public String seven;
+    public String Two;
+    public String Three;
+    public String Four;
+    public String Five;
+    public String Six;
+    public String Seven;
 
 
-    public static String selectedDay = "";
+    public static int hourid;
+    public static double range;
+    public static double hour;
+
 
     @FXML
-    private GridPane listViewDays;
-
-    @FXML
-    private Label hl1;
-
-    @FXML
-    private Label hl2;
-
-    @FXML
-    private Label hl3;
-
-    @FXML
-    private Label hl4;
-
-    @FXML
-    private Label hl5;
-
-    @FXML
-    private Label hl6;
-
-    @FXML
-    private Label hl7;
-
-    @FXML
-    private Label oneL;
-
-    @FXML
-    private Label twoL;
-
-    @FXML
-    private Label threeL;
-
-    @FXML
-    private Label fourL;
-
-    @FXML
-    private Label fiveL;
-
-    @FXML
-    private Label sixL;
-
-    @FXML
-    private Label sevenL;
+    private Pane workingPane;
 
     @FXML
     private Button addWorkingDaysBtn;
 
     @FXML
-    private Pane workingPane;
+    private TableView<TimeSlot> timeTableTV;
 
+    @FXML
+    private TableColumn<TimeSlot, Double> timeSlotCol;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl1;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl2;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl3;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl4;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl5;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl6;
+
+    @FXML
+    private TableColumn<WorkingDays, String> cl7;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         getDayNames();
         getHours();
+        displayTimeSlots();
+    }
+
+
+    @FXML
+    void edit1(MouseEvent event) {
+
+        System.out.println("Time slots Clicked");
+
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TimeSlots/TimeSlots.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Set Time Slots");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(workingPane.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void handleMouseAction(MouseEvent event) {
+        TimeSlot timeSlot=timeTableTV.getSelectionModel().getSelectedItem();
+
+        hourid = timeSlot.getSlotsID();
+        hour = timeSlot.getValue_t();
+        range=timeSlot.getRange_t();
+
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TimeSlots/TimeSlots.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Edit Time Slots");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(workingPane.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+
+            stage.show();
+
+
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            hourid = -1;
+                            hour = 0;
+                            range = 0;
+
+                            displayTimeSlots();
+
+                        }
+
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ObservableList<TimeSlot> getTimeSlotsList() {
+        ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        String  query = "SELECT * FROM timeslots";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            TimeSlot timeSlot;
+            while (rs.next()) {
+                timeSlot = new TimeSlot(
+                        rs.getInt("slotsID"),
+                        rs.getFloat("range_t"),
+                        rs.getDouble("value_t")
+                );
+                timeSlotList.add(timeSlot);
+
+            }
+            System.out.println(timeSlotList.size());
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+        return timeSlotList;
+    }
+
+    public void displayTimeSlots(){
+
+        ObservableList<TimeSlot> TimeSlotsList = getTimeSlotsList();
+
+        timeSlotCol.setCellValueFactory(new PropertyValueFactory<TimeSlot, Double>("value_t"));
+
+
+        timeTableTV.setItems(TimeSlotsList);
+
     }
 
     public void addWorkingDaysAction(ActionEvent actionEvent) {
@@ -109,9 +218,25 @@ public class WorkingDaysAndHoursController implements Initializable {
             stage.setScene(new Scene(root1));
 
             stage.show();
+
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            getDayNames();
+                        }
+
+                    });
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     @FXML
@@ -119,31 +244,6 @@ public class WorkingDaysAndHoursController implements Initializable {
 
         System.out.println("Time slots Clicked");
         try {
-            selectedDay = "day1";
-            
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TimeSlots/TimeSlots.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-
-            stage.setTitle("Set Time Slots");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(workingPane.getScene().getWindow());
-            stage.setResizable(false);
-            stage.setScene(new Scene(root1));
-
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    public void addTimeSlots2(MouseEvent actionEvent) {
-
-        System.out.println("Time ");
-        try {
-            selectedDay = "day1";
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TimeSlots/TimeSlots.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -156,10 +256,28 @@ public class WorkingDaysAndHoursController implements Initializable {
             stage.setScene(new Scene(root1));
 
             stage.show();
+
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            displayTimeSlots();
+
+                        }
+
+                    });
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     public Connection getConnection(){
         Connection conn;
@@ -195,24 +313,22 @@ public class WorkingDaysAndHoursController implements Initializable {
 
             while (rs.next()) {
                 one = rs.getString("day1name");
-                two = rs.getString("day2name");
-                three = rs.getString("day3name");
-                four = rs.getString("day4name");
-                five = rs.getString("day5name");
-                six = rs.getString("day6name");
-                seven = rs.getString("day7name");
+                Two = rs.getString("day2name");
+                Three = rs.getString("day3name");
+                Four = rs.getString("day4name");
+                Five = rs.getString("day5name");
+                Six = rs.getString("day6name");
+                Seven = rs.getString("day7name");
 
-                oneL.setText(one);
-                twoL.setText(two);
-                threeL.setText(three);
-                fourL.setText(four);
-                fiveL.setText(five);
-                sixL.setText(six);
-                sevenL.setText(seven);
+                cl1.setText(one);
+                cl2.setText(Two);
+                cl3.setText(Three);
+                cl4.setText(Four);
+                cl5.setText(Five);
+                cl6.setText(Six);
+                cl7.setText(Seven);
             }
 
-            System.out.println(one);
-            System.out.println(two);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -222,32 +338,6 @@ public class WorkingDaysAndHoursController implements Initializable {
 
 
     public void getHours() {
-        Connection conn = getConnection();
-        String query = "SELECT * FROM hours where id = 1";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-
-            while (rs.next()) {
-
-                hl1.setText(rs.getString("hour1"));
-                hl2.setText(rs.getString("hour2"));
-                hl3.setText(rs.getString("hour3"));
-                hl4.setText(rs.getString("hour4"));
-                hl5.setText(rs.getString("hour5"));
-                hl6.setText(rs.getString("hour6"));
-                hl7.setText(rs.getString("hour7"));
-
-            }
-
-            System.out.println(one);
-            System.out.println(two);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 
     }
 }

@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays;
 
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
+import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,23 +39,7 @@ public class SetWorkingDaysController implements Initializable {
     @FXML
     private TextField h1;
 
-    @FXML
-    private TextField h2;
 
-    @FXML
-    private TextField h3;
-
-    @FXML
-    private TextField h4;
-
-    @FXML
-    private TextField h5;
-
-    @FXML
-    private TextField h6;
-
-    @FXML
-    private TextField h7;
 
     @FXML
     private ComboBox<String> comboSelectDays;
@@ -68,8 +53,6 @@ public class SetWorkingDaysController implements Initializable {
     @FXML
     private Button submitBtn;
 
-    @FXML
-    private Label labelnoDays;
 
     @FXML
     private TextField field1noDays;
@@ -119,7 +102,6 @@ public class SetWorkingDaysController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         getDayNames();
-        labelnoDays.setVisible(false);
         getWorkingDays();
         showTextFields();
         getHours();
@@ -146,12 +128,7 @@ public class SetWorkingDaysController implements Initializable {
         label7noDays.setVisible(false);
 
         h1.setVisible(false);
-        h2.setVisible(false);
-        h3.setVisible(false);
-        h4.setVisible(false);
-        h5.setVisible(false);
-        h6.setVisible(false);
-        h7.setVisible(false);
+
 
     }
 
@@ -206,12 +183,7 @@ public class SetWorkingDaysController implements Initializable {
 //            stage.close();
             noDaysDB = 0;
             h1.setText("");
-            h2.setText("");
-            h3.setText("");
-            h4.setText("");
-            h5.setText("");
-            h6.setText("");
-            h7.setText("");
+
             field7noDays.setText("");
             field6noDays.setText("");
             field5noDays.setText("");
@@ -223,6 +195,9 @@ public class SetWorkingDaysController implements Initializable {
             showTextFields();
         }
 
+        Stage stage = (Stage) resetBtn.getScene().getWindow();
+        stage.close();
+//        WorkingDaysAndHoursController.getDayNames();
     }
     @FXML
     public void insertRecord(){
@@ -236,17 +211,15 @@ public class SetWorkingDaysController implements Initializable {
     }
 
     public void insertHours(){
-        String query = "INSERT INTO hours (id, hour1, hour2, hour3, hour4, hour5, hour6, hour7)  VALUES (1 ,'" +h1.getText() +"','" +h2.getText()+"','" +h3.getText()+"','" +h4.getText()+"','" +h5.getText()+"','" +h6.getText()+"','" +h7.getText()+"') " +
-                " ON DUPLICATE KEY UPDATE hour1 = '" +h1.getText() +"', hour2 = '" +h2.getText()+"', hour3 = '" +h3.getText()+"', hour4 = '" +h4.getText()+"', hour5 = '" +h5.getText()+ "' , hour6 = '" +h6.getText()+"', hour7 =  '" +h7.getText()+"' " ;
+        String query = "INSERT INTO hours (id, hour1)  VALUES (1 ,'" +h1.getText() +"') " +
+                " ON DUPLICATE KEY UPDATE hour1 = '" +h1.getText() +"' " ;
         executeQuery(query);
         getWorkingDays();
         showTextFields();
     }
 
     public void showTextFields(){
-        labelnoDays.setText(String.valueOf(noDaysDB));
 
-        labelnoDays.setVisible(true);
 
         if(noDaysDB ==0){
             Visible();
@@ -268,7 +241,7 @@ public class SetWorkingDaysController implements Initializable {
             label2noDays.setVisible(true);
 
             h1.setVisible(true);
-            h2.setVisible(true);
+
 
 
         }
@@ -283,8 +256,7 @@ public class SetWorkingDaysController implements Initializable {
             label3noDays.setVisible(true);
 
             h1.setVisible(true);
-            h2.setVisible(true);
-            h3.setVisible(true);
+
 
         }
         if(noDaysDB ==4){
@@ -300,9 +272,7 @@ public class SetWorkingDaysController implements Initializable {
             label4noDays.setVisible(true);
 
             h1.setVisible(true);
-            h2.setVisible(true);
-            h3.setVisible(true);
-            h4.setVisible(true);
+
 
         }
         if(noDaysDB ==5){
@@ -320,10 +290,7 @@ public class SetWorkingDaysController implements Initializable {
             label5noDays.setVisible(true);
 
             h1.setVisible(true);
-            h2.setVisible(true);
-            h3.setVisible(true);
-            h4.setVisible(true);
-            h5.setVisible(true);
+
 
         }
         if(noDaysDB ==6){
@@ -343,11 +310,7 @@ public class SetWorkingDaysController implements Initializable {
             label6noDays.setVisible(true);
 
             h1.setVisible(true);
-            h2.setVisible(true);
-            h3.setVisible(true);
-            h4.setVisible(true);
-            h5.setVisible(true);
-            h6.setVisible(true);
+
 
         }
         if(noDaysDB ==7){
@@ -368,12 +331,7 @@ public class SetWorkingDaysController implements Initializable {
             label7noDays.setVisible(true);
 
             h1.setVisible(true);
-            h2.setVisible(true);
-            h3.setVisible(true);
-            h4.setVisible(true);
-            h5.setVisible(true);
-            h6.setVisible(true);
-            h7.setVisible(true);
+
         }
     }
 
@@ -399,12 +357,6 @@ public class SetWorkingDaysController implements Initializable {
 
     }
 
-//    private void deleteRecord(){
-//        String query = "DELETE FROM nodays WHERE idno =" + noDaysIdDB + "";
-//        executeQuery(query);
-//    }
-
-
 
     @FXML
     void submitDays(ActionEvent event) {
@@ -424,6 +376,11 @@ public class SetWorkingDaysController implements Initializable {
         executeQuery(query);
 
         insertHours();
+
+        Stage stage = (Stage) submitBtn.getScene().getWindow();
+        stage.close();
+
+
 
     }
 
@@ -478,12 +435,6 @@ public class SetWorkingDaysController implements Initializable {
             while (rs.next()) {
 
                 h1.setText(rs.getString("hour1"));
-                h2.setText(rs.getString("hour2"));
-                h3.setText(rs.getString("hour3"));
-                h4.setText(rs.getString("hour4"));
-                h5.setText(rs.getString("hour5"));
-                h6.setText(rs.getString("hour6"));
-                h7.setText(rs.getString("hour7"));
 
             }
 
