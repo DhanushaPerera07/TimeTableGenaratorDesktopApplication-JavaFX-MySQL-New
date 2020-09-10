@@ -4,9 +4,9 @@ public class TimeSlot {
 
     private int slotsID;
     private double range_t;
-    private double value_t;
+    private String value_t;
 
-    public TimeSlot(int slotsID, double range_t, double value_t) {
+    public TimeSlot(int slotsID, double range_t, String value_t) {
         this.slotsID = slotsID;
         this.range_t = range_t;
         this.value_t = value_t;
@@ -29,11 +29,11 @@ public class TimeSlot {
         this.range_t = range_t;
     }
 
-    public double getValue_t() {
+    public String getValue_t() {
         return value_t;
     }
 
-    public void setValue_t(double value_t) {
+    public void setValue_t(String value_t) {
         this.value_t = value_t;
     }
 }

@@ -22,9 +22,9 @@
       </Pane>
       <Pane layoutX="18.0" layoutY="116.0" prefHeight="460.0" prefWidth="766.0" style="-fx-background-color: #ffffffff;">
          <children>
-            <TableView fx:id="timeTableTV" layoutX="51.0" layoutY="18.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleMouseAction" prefHeight="243.0" tableMenuButtonVisible="true">
+            <TableView fx:id="timeTableTV" fixedCellSize="0.0" layoutX="51.0" layoutY="18.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleMouseAction" prefHeight="243.0" tableMenuButtonVisible="true">
               <columns>
-                <TableColumn fx:id="timeSlotCol" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Hour" />
+                <TableColumn fx:id="timeSlotCol" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="90.0" text="Hour" />
                   <TableColumn fx:id="cl1" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Column X" />
                   <TableColumn fx:id="cl2" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Column X" />
                   <TableColumn fx:id="cl3" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Column X" />

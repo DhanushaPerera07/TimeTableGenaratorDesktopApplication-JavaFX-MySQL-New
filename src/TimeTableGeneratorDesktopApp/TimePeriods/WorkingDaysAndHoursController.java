@@ -45,7 +45,7 @@ public class WorkingDaysAndHoursController implements Initializable {
 
     public static int hourid;
     public static double range;
-    public static double hour;
+    public static String hour;
 
 
     @FXML
@@ -58,7 +58,7 @@ public class WorkingDaysAndHoursController implements Initializable {
     private TableView<TimeSlot> timeTableTV;
 
     @FXML
-    private TableColumn<TimeSlot, Double> timeSlotCol;
+    private TableColumn<TimeSlot, String> timeSlotCol;
 
     @FXML
     private TableColumn<WorkingDays, String> cl1;
@@ -91,8 +91,6 @@ public class WorkingDaysAndHoursController implements Initializable {
 
     @FXML
     void edit1(MouseEvent event) {
-
-        System.out.println("Time slots Clicked");
 
         try {
 
@@ -144,11 +142,9 @@ public class WorkingDaysAndHoursController implements Initializable {
                         @Override
                         public void run() {
                             hourid = -1;
-                            hour = 0;
+                            hour = "0";
                             range = 0;
-
                             displayTimeSlots();
-
                         }
 
                     });
@@ -177,13 +173,11 @@ public class WorkingDaysAndHoursController implements Initializable {
                 timeSlot = new TimeSlot(
                         rs.getInt("slotsID"),
                         rs.getFloat("range_t"),
-                        rs.getDouble("value_t")
+                        rs.getString("value_t")
                 );
                 timeSlotList.add(timeSlot);
 
             }
-            System.out.println(timeSlotList.size());
-
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
@@ -196,8 +190,7 @@ public class WorkingDaysAndHoursController implements Initializable {
 
         ObservableList<TimeSlot> TimeSlotsList = getTimeSlotsList();
 
-        timeSlotCol.setCellValueFactory(new PropertyValueFactory<TimeSlot, Double>("value_t"));
-
+        timeSlotCol.setCellValueFactory(new PropertyValueFactory<TimeSlot, String>("value_t"));
 
         timeTableTV.setItems(TimeSlotsList);
 
@@ -227,6 +220,7 @@ public class WorkingDaysAndHoursController implements Initializable {
                         @Override
                         public void run() {
                             getDayNames();
+                            displayTimeSlots();
                         }
 
                     });

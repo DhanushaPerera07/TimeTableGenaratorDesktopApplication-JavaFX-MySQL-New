@@ -27,12 +27,12 @@ public class TimeSlotsController implements Initializable {
 
     public int TimeCategory;
 
-    public static double CategoryValuex;
+    public static String CategoryValuex;
 
     public double Timetype;
 
     public int hourID;
-    public double hour;
+    public String hour;
     public String range;
     public String query;
     private double workingHours;
@@ -65,7 +65,7 @@ public class TimeSlotsController implements Initializable {
 
         if(hourID >0){
             timeSlotsBtn.setText("Edit");
-            CategoryValue.setText(String.valueOf(hour));
+            CategoryValue.setText(hour.toString());
             comboTimeCategory.setPromptText(String.valueOf(range));
 
         }else{
@@ -139,7 +139,7 @@ public class TimeSlotsController implements Initializable {
                 timeSlot = new TimeSlot(
                         rs.getInt("slotsID"),
                         rs.getDouble("range_t"),
-                        rs.getDouble("value_t")
+                        rs.getString("value_t")
                 );
 
                 double tsCount = rs.getDouble("range_t");
@@ -148,7 +148,6 @@ public class TimeSlotsController implements Initializable {
             }
 
         } catch (Exception ex) {
-            // if an error occurs print an error...
             System.out.println("Error - When time slots data retrieving ");
             ex.printStackTrace();
         }
@@ -158,7 +157,7 @@ public class TimeSlotsController implements Initializable {
     @FXML
     private void addTimeSlot(ActionEvent event) {
 
-        CategoryValuex= Double.parseDouble(CategoryValue.getText());
+        CategoryValuex= CategoryValue.getText().toString();
         int a = comboTimeCategory.getSelectionModel().getSelectedIndex();
         if(a==0){
             this.range= "0.50";
@@ -169,10 +168,9 @@ public class TimeSlotsController implements Initializable {
         }
 
         if (this.timesloteCount + Double.parseDouble(range) <= workingHours){
-
             if(Double.parseDouble(range)>0){
                 if(hourID>0){
-                    query = "UPDATE timeslots SET range_t =" +range+",value_t =" +CategoryValuex+ " WHERE  slotsID =" +hourID+ "";
+                    query = "UPDATE timeslots SET range_t =" +range+",value_t =" + "'"+CategoryValuex +"' " + " WHERE  slotsID =" +hourID+ "";
                 }else{
                     query = "INSERT INTO timeslots (range_t,value_t)  VALUES ('"+range+"', '"+CategoryValuex +"')";
                 }
@@ -189,24 +187,40 @@ public class TimeSlotsController implements Initializable {
 
             }
 
-        }else{
+        }else if (this.timesloteCount <= workingHours){
 
+            if(Double.parseDouble(range)>0){
+                if(hourID>0){
+                    query = "UPDATE timeslots SET range_t =" +range+",value_t =" + "'"+CategoryValuex +"' "+ " WHERE  slotsID =" +hourID+ "";
+                }else{
+                    CategoryValue.setText("");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("Your Working hours per week already reached...!");
+                    alert.show();
+                }
+                executeQuery(query);
+                Stage stage = (Stage) timeSlotsBtn.getScene().getWindow();
+                stage.close();
+
+            }else{
+                CategoryValue.setText("");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Please select a range first");
+                alert.show();
+
+            }
+        }else{
             CategoryValue.setText("");
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Your Working hours per week already reached...!");
             alert.show();
-
         }
 
 
     }
-
-
-
-//        insertRecord();
-
-
 
     public Connection getConnection(){
         Connection conn;

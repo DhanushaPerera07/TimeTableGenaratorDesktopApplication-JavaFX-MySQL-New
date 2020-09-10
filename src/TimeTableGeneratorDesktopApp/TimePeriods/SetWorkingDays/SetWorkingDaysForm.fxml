@@ -15,7 +15,7 @@
       <Pane layoutX="300.0" layoutY="91.0" prefHeight="299.0" prefWidth="181.0" style="-fx-background-color: #22222222;">
          <children>
             <TextField fx:id="h1" layoutX="45.0" layoutY="150.0" prefHeight="25.0" prefWidth="91.0" />
-            <Label layoutX="60.0" layoutY="95.0" text="#Hours">
+            <Label layoutX="25.0" layoutY="98.0" text="#Hours Per Day">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>

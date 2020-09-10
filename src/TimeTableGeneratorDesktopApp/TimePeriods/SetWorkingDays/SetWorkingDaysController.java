@@ -175,24 +175,17 @@ public class SetWorkingDaysController implements Initializable {
             String query = "DELETE from nodays WHERE idno =1 ";
             String query2 = "DELETE from hours WHERE id =1 ";
             String query3 = "DELETE from daysname WHERE id =1 ";
+            String query4 = "DELETE from timeslots";
 
+            executeQuery(query);
             executeQuery(query2);
             executeQuery(query3);
-            executeQuery(query);
+            executeQuery(query4);
+
 //            Stage stage = (Stage) resetBtn.getScene().getWindow();
 //            stage.close();
             noDaysDB = 0;
-            h1.setText("");
 
-            field7noDays.setText("");
-            field6noDays.setText("");
-            field5noDays.setText("");
-            field4noDays.setText("");
-            field3noDays.setText("");
-            field1noDays.setText("");
-            field2noDays.setText("");
-
-            showTextFields();
         }
 
         Stage stage = (Stage) resetBtn.getScene().getWindow();
