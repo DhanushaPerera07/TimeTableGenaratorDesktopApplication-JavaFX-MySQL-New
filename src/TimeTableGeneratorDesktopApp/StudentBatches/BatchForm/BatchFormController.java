@@ -400,8 +400,6 @@ public class BatchFormController implements Initializable {
         }
 
 
-
-
     }
 
 

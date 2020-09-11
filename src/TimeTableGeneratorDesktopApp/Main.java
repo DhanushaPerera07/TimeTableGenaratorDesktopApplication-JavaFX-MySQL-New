@@ -13,6 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("TimeTableGeneratorMainView.fxml"));
         primaryStage.setTitle("Time Table Generator -  Code 4V2");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/mainIcon.png"));
         primaryStage.show();

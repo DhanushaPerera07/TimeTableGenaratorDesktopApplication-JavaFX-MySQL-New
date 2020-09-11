@@ -13,6 +13,11 @@ public class subGroups {
         this.batchID = batchID;
     }
 
+    public subGroups() {
+
+    }
+
+
     public int getId() {
         return id;
     }

@@ -119,6 +119,14 @@ public class Controller implements Initializable {
         mainPane.setCenter(view);
     }
 
+    public void handleActionOnExtraButton(ActionEvent actionEvent) {
+        System.out.println("clicked Extra Button");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("Extra/Extra");
+        mainPane.setCenter(view);
+    }
+
+
     /*
     public void goToHallsAndLabsUI(int building_id) {
         System.out.println("clicked View - Halls/Labs Button. Building ID: " + building_id);

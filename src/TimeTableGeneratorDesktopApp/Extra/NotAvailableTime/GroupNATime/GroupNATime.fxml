@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="groupNATimePane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.GroupNATimeController">
+   <children>
+   
+       <TableView fx:id="tvBatches" layoutX="25.0" layoutY="50.0" onMouseClicked="#handleMouseAction" prefHeight="500.0" prefWidth="750.0">
+           <columns>
+               <TableColumn fx:id="batColYear" prefWidth="49.0" text="Year" />
+               <TableColumn fx:id="batColSem" prefWidth="95.0" text="Semester" />
+               <TableColumn fx:id="batColIntake" prefWidth="158.33334350585938" text="Group ID" />
+               <TableColumn fx:id="batColFac" prefWidth="163.66665649414062" text="Faculty" />
+               <TableColumn fx:id="batColPro" prefWidth="163.66665649414062" text="Programme" />
+               <TableColumn fx:id="batColCen" prefWidth="120.33331298828125" text="Center" />
+           </columns>
+       </TableView>
+      <Label layoutX="341.0" layoutY="13.0" text="Select a Group">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+
+</Pane>

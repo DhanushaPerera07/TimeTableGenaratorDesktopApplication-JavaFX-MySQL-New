@@ -55,9 +55,32 @@ public class TagsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getTags();
         getValues();
+        createTables();
     }
 
 
+    public void createTables(){
+        String  systemTagsTable= "CREATE TABLE IF NOT  EXISTS systemtags (" +
+                "  `id` int(11) NOT NULL AUTO_INCREMENT," +
+                "  `systemTag` varchar(45) DEFAULT NULL," +
+                "  PRIMARY KEY (`id`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8";
+        executeQuery(systemTagsTable);
+
+        String  tagsTable= "CREATE TABLE IF NOT  EXISTS tags (" +
+                "  `idtags` int(11) NOT NULL AUTO_INCREMENT," +
+                "  `Tag` varchar(45) DEFAULT NULL," +
+                "  PRIMARY KEY (`idtags`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8";
+        executeQuery(tagsTable);
+
+        String tempTags= "CREATE TABLE IF NOT  EXISTS temptags (" +
+                "  `Tag` varchar(45) NOT NULL," +
+                "  PRIMARY KEY (`Tag`)" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        executeQuery(tempTags);
+
+    }
 
     public void getValues(){
         ObservableList<String> list = FXCollections.observableArrayList();

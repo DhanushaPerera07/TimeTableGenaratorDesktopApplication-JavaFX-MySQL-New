@@ -98,6 +98,14 @@
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="btnExtra" alignment="TOP_LEFT" graphicTextGap="15.0" layoutX="10.0" mnemonicParsing="false" onAction="#handleActionOnExtraButton" prefWidth="200.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Extra" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
             <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="10.0" left="28.0" top="50.0" />

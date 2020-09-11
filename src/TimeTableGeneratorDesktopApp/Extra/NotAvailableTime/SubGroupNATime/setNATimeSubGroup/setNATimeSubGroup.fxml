@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.setNATimeSubGroup.SetNATimeSubGroupController">
+   <children>
+      <TableView fx:id="subGroupsTV" layoutX="40.0" layoutY="76.0" onMouseClicked="#handleMouseAction" prefHeight="200.0" prefWidth="145.0">
+        <columns>
+          <TableColumn fx:id="subGroupCol" prefWidth="150.0" text="subGroupID" />
+        </columns>
+      </TableView>
+      <Label fx:id="head" alignment="CENTER" layoutX="40.0" layoutY="25.0" prefHeight="31.0" prefWidth="526.0" text="Select a sub Group">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#f5f7f8" height="287.0" layoutX="203.0" layoutY="76.0" stroke="BLACK" strokeType="INSIDE" width="364.0" />
+      <TableView fx:id="NATtv" layoutX="285.0" layoutY="176.0" onMouseClicked="#deleteRecord" prefHeight="163.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="dayCol" prefWidth="98.0" text="Day" />
+          <TableColumn fx:id="hourCol" prefWidth="101.0" text="Hour" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="dayCB" layoutX="230.0" layoutY="103.0" prefWidth="150.0" />
+      <ComboBox fx:id="hourCB" layoutX="390.0" layoutY="103.0" prefWidth="150.0" />
+      <Label fx:id="dayLabel" layoutX="230.0" layoutY="86.0" text="Day" />
+      <Label fx:id="hourLabel" layoutX="390.0" layoutY="86.0" text="Hour" />
+      <Button fx:id="addBtn" layoutX="364.0" layoutY="138.0" mnemonicParsing="false" onAction="#insertRecord" text="Add" />
+   </children>
+</Pane>
