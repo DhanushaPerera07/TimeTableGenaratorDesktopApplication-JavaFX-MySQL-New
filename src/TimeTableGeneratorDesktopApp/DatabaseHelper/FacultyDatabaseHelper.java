@@ -15,6 +15,45 @@ public class FacultyDatabaseHelper extends DatabaseHelper {
     /**
      * Method when faculty name is given as parameter , returns that faculty instance
      */
+    public Faculty getFacultyInstance(int facultyID) {
+
+        // create a faculty object
+        Faculty faculty = new Faculty();
+
+        // get database connection
+        Connection conn = getConnection();
+
+        String query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' AND faculty_id = '" + facultyID + "' ORDER BY faculty_name";
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                faculty.setId(rs.getInt("faculty_id"));
+                faculty.setName(rs.getString("faculty_name"));
+                faculty.setShortName(rs.getString("faculty_short_name"));
+                faculty.setSpecializedFor(rs.getString("faculty_specialized_for"));
+                faculty.setStatus(rs.getString("faculty_status"));
+                faculty.setHead(rs.getString("faculty_head_name"));
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+
+        return faculty;
+
+    }
+
+
+    /**
+     * Method when faculty name is given as parameter , returns that faculty instance
+     */
     public Faculty getFacultyInstance(String facultyName) {
 
         // create a faculty object
