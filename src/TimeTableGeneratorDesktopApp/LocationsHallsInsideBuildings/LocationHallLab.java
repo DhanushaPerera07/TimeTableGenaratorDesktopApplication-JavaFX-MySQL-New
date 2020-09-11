@@ -9,20 +9,9 @@ public class LocationHallLab {
     private String locationCondition;
     private int buildingID;
     private int tagID;
-    private int subjectId;
 
-
-    public LocationHallLab(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int subjectId) {
-        this.locationID = locationID;
-        this.locationName = locationName;
-        this.locationCapacity = locationCapacity;
-        this.locationFloor = locationFloor;
-        this.locationCondition = locationCondition;
-        this.buildingID = buildingID;
-        this.tagID = tagID;
-        this.subjectId = subjectId;
+    public LocationHallLab() {
     }
-
 
     public LocationHallLab(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID) {
         this.locationID = locationID;
@@ -93,13 +82,6 @@ public class LocationHallLab {
         this.tagID = tagID;
     }
 
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
-    }
 
 
     //toString
@@ -114,7 +96,6 @@ public class LocationHallLab {
                 ", locationCondition='" + locationCondition + '\'' +
                 ", buildingID=" + buildingID +
                 ", tagID=" + tagID +
-                ", subjectId=" + subjectId +
                 '}';
     }
 }

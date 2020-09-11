@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps.EditLocationsHallsPopUpController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -26,7 +27,7 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
 
     // holds the building value
     public LocationHallLab locationHallLab;
-    public int moduleID,tagID;
+    public int moduleID, tagID;
     String buildingName;
 
     @FXML
@@ -102,13 +103,13 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
         // should open the pop up to edit  the Hall / Lab
 
         // open up the POP UP
-        try{
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsHallsInsideBuildings/LocationsHallsInsideBuildingsPopUps/editLocationsHallsPopUp.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
 
             EditLocationsHallsPopUpController editLocationsHallsPopUpController = fxmlLoader.getController();
-            editLocationsHallsPopUpController.getNecessaryID(this.locationHallLab,this.buildingName);
+            editLocationsHallsPopUpController.getNecessaryID(this.locationHallLab, this.buildingName);
 
             Stage stage = new Stage();
 
@@ -118,7 +119,7 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception / Error - When Opening editLocationsHallsPopUp.fxml as a pop up ==========================");
             e.printStackTrace();
         }
@@ -136,10 +137,10 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
         ButtonType DeleteBtn = new ButtonType("Delete");
         ButtonType CancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        deleteFacultyAlert.getButtonTypes().setAll(DeleteBtn,CancelBtn);
+        deleteFacultyAlert.getButtonTypes().setAll(DeleteBtn, CancelBtn);
 
         Optional<ButtonType> result = deleteFacultyAlert.showAndWait();
-        if (result.get() == DeleteBtn){
+        if (result.get() == DeleteBtn) {
             try {
                 deleteHallLabRecord(this.locationHallLab.getLocationID());
                 System.out.println("Hall/ Lab is deleted successfully");
@@ -153,8 +154,6 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
     }
 
 
-
-
     public void printTimeTableOfTheHall(MouseEvent mouseEvent) {
         System.out.println("Clicked - print Locations - Hall/ Labs Record");
     }
@@ -162,7 +161,6 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
     public void showInformation(LocationHallLab locationHallLab, String buildingName) {
         this.locationHallLab = locationHallLab;
         this.buildingName = buildingName;
-        this.moduleID = locationHallLab.getSubjectId();
         this.tagID = locationHallLab.getTagID();
 
         // set labels
@@ -174,35 +172,24 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
         //txtLocationHallLabBuilding.setText(Integer.toString(locationHallLab.getBuildingID()));
         txtLocationHallLabTag.setText(Integer.toString(locationHallLab.getTagID()));
 
-        // subject
-        if(locationHallLab.getSubjectId() == 1){
-            txtLocationHallLabSpecializedModule.setText("Software Project Management");
-        } else if (locationHallLab.getSubjectId() == 2){
-            txtLocationHallLabSpecializedModule.setText("User Experience Engineering");
-        } else {
-            txtLocationHallLabSpecializedModule.setText("Unknown");
-        }
 
         // tag
-        if (locationHallLab.getTagID() == 1){
+        if (locationHallLab.getTagID() == 1) {
             txtLocationHallLabTag.setText("Lecture Hall");
-        }
-        else if (locationHallLab.getTagID() == 2){
+        } else if (locationHallLab.getTagID() == 2) {
             txtLocationHallLabTag.setText("Tutorial Hall");
-        }
-        else if (locationHallLab.getTagID() == 3){
+        } else if (locationHallLab.getTagID() == 3) {
             txtLocationHallLabTag.setText("Lecture/Tutorial Hall (Not-Consecutive)");
-        }
-        else if (locationHallLab.getTagID() == 4){
+        } else if (locationHallLab.getTagID() == 4) {
             txtLocationHallLabTag.setText("Lecture/Tutorial Hall (Not Consecutive)");
-        } else if(locationHallLab.getTagID() == 5){
+        } else if (locationHallLab.getTagID() == 5) {
             txtLocationHallLabTag.setText("PC - Lab");
         } else {
             txtLocationHallLabTag.setText("Unknown");
         }
 
         //building
-        if (locationHallLab.getBuildingID() == 1){
+        if (locationHallLab.getBuildingID() == 1) {
             txtLocationHallLabBuilding.setText("FOC - Main");
         } else {
             txtLocationHallLabBuilding.setText("New - Building");
@@ -211,52 +198,21 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
     }
 
 
-
-
-
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
+    /**
+     * get the database connection here
      */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
-
-
-
-
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
 
     public void deleteHallLabRecord(int locationHallLabID) throws IOException {
 
         // delete query
-        String query = "UPDATE `location` SET location_delete_status = 'Y' WHERE location_id = "+locationHallLabID+"";
+        String query = "UPDATE `location` SET location_delete_status = 'Y' WHERE location_id = " + locationHallLabID + "";
 
         // execute the insert query
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
 
         /* // ERROR in this code segment
         FXMLLoader loader = new FXMLLoader();
