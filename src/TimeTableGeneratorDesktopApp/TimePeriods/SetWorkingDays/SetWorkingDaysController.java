@@ -1,30 +1,45 @@
 package TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays;
 
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
+import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SetWorkingDaysController implements Initializable {
 
     public static int noDays;
-    public static int noDaysDB;
+    public static int   noDaysDB = 0;
     public static int noDaysIdDB;
 
+    public String one;
+    public String two;
+    public String three;
+    public String four;
+    public String five;
+    public String six;
+    public String seven;
+
+    public static String day1namex, day2namex, day3namex, day4namex, day5namex, day6namex, day7namex;
+
     public String day1;
+
+    @FXML
+    private TextField h1;
+
+
 
     @FXML
     private ComboBox<String> comboSelectDays;
@@ -36,7 +51,8 @@ public class SetWorkingDaysController implements Initializable {
     private Button populateBtn;
 
     @FXML
-    private Label labelnoDays;
+    private Button submitBtn;
+
 
     @FXML
     private TextField field1noDays;
@@ -80,16 +96,19 @@ public class SetWorkingDaysController implements Initializable {
     @FXML
     private Label label7noDays;
 
-
+    @FXML
+    private Button resetBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        labelnoDays.setVisible(false);
-        zoysa();
+        getDayNames();
+        getWorkingDays();
+        showTextFields();
+        getHours();
 
     }
 
-    public void zoysa(){
+    public void Visible(){
 
 
         field1noDays.setVisible(false);
@@ -107,6 +126,10 @@ public class SetWorkingDaysController implements Initializable {
         label5noDays.setVisible(false);
         label6noDays.setVisible(false);
         label7noDays.setVisible(false);
+
+        h1.setVisible(false);
+
+
     }
 
     public Connection getConnection(){
@@ -132,7 +155,7 @@ public class SetWorkingDaysController implements Initializable {
         }
     }
 
-
+    @FXML
     public void selectWorkingDays(ActionEvent actionEvent) {
         noDays = comboSelectDays.getSelectionModel().getSelectedIndex() + 1;
         System.out.println(noDays);
@@ -140,35 +163,83 @@ public class SetWorkingDaysController implements Initializable {
     }
 
     @FXML
-    public void insertRecord(){
-        String query = "INSERT INTO nodays (noDays) " +
-                "VALUES (" +noDays +") ";
-        executeQuery(query);
+    private void deleteRecord(ActionEvent actionEvent){
 
-        getWorkingDays();
-        labelnoDays.setText(String.valueOf(noDaysIdDB));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure to reset?");
+        Optional<ButtonType> action = alert.showAndWait();
 
-        labelnoDays.setVisible(true);
+        if(action.get() == ButtonType.OK){
+            String query = "DELETE from nodays WHERE idno =1 ";
+            String query2 = "DELETE from hours WHERE id =1 ";
+            String query3 = "DELETE from daysname WHERE id =1 ";
+            String query4 = "DELETE from timeslots";
 
-        if(noDays ==1){
+            executeQuery(query);
+            executeQuery(query2);
+            executeQuery(query3);
+            executeQuery(query4);
 
-            zoysa();
-            field1noDays.setVisible(true);
-            label1noDays.setVisible(true);
+//            Stage stage = (Stage) resetBtn.getScene().getWindow();
+//            stage.close();
+            noDaysDB = 0;
+
         }
 
-        if(noDays ==2){
-            zoysa();
+        Stage stage = (Stage) resetBtn.getScene().getWindow();
+        stage.close();
+//        WorkingDaysAndHoursController.getDayNames();
+    }
+    @FXML
+    public void insertRecord(){
+        String query3 = "DELETE from daysname WHERE id =1 ";
+        executeQuery(query3);
+        
+        String query = "INSERT INTO nodays (noDays, idno)  VALUES (" +noDays +",1 )  ON DUPLICATE KEY UPDATE noDays ='" +noDays+ "'" ;
+        executeQuery(query);
+        getWorkingDays();
+        showTextFields();
+    }
+
+    public void insertHours(){
+        String query = "INSERT INTO hours (id, hour1)  VALUES (1 ,'" +h1.getText() +"') " +
+                " ON DUPLICATE KEY UPDATE hour1 = '" +h1.getText() +"' " ;
+        executeQuery(query);
+        getWorkingDays();
+        showTextFields();
+    }
+
+    public void showTextFields(){
+
+
+        if(noDaysDB ==0){
+            Visible();
+        }
+
+        if(noDaysDB ==1){
+
+            Visible();
+            field1noDays.setVisible(true);
+            label1noDays.setVisible(true);
+            h1.setVisible(true);
+        }
+        if(noDaysDB ==2){
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
 
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
 
+            h1.setVisible(true);
+
+
 
         }
-        if(noDays ==3){
-            zoysa();
+        if(noDaysDB ==3){
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -176,9 +247,13 @@ public class SetWorkingDaysController implements Initializable {
             label1noDays.setVisible(true);
             label2noDays.setVisible(true);
             label3noDays.setVisible(true);
+
+            h1.setVisible(true);
+
+
         }
-        if(noDays ==4){
-            zoysa();
+        if(noDaysDB ==4){
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -188,9 +263,13 @@ public class SetWorkingDaysController implements Initializable {
             label2noDays.setVisible(true);
             label3noDays.setVisible(true);
             label4noDays.setVisible(true);
+
+            h1.setVisible(true);
+
+
         }
-        if(noDays ==5){
-            zoysa();
+        if(noDaysDB ==5){
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -203,9 +282,12 @@ public class SetWorkingDaysController implements Initializable {
             label4noDays.setVisible(true);
             label5noDays.setVisible(true);
 
+            h1.setVisible(true);
+
+
         }
-        if(noDays ==6){
-            zoysa();
+        if(noDaysDB ==6){
+            Visible();
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -220,8 +302,11 @@ public class SetWorkingDaysController implements Initializable {
             label5noDays.setVisible(true);
             label6noDays.setVisible(true);
 
+            h1.setVisible(true);
+
+
         }
-        if(noDays ==7){
+        if(noDaysDB ==7){
             field1noDays.setVisible(true);
             field2noDays.setVisible(true);
             field3noDays.setVisible(true);
@@ -237,8 +322,12 @@ public class SetWorkingDaysController implements Initializable {
             label5noDays.setVisible(true);
             label6noDays.setVisible(true);
             label7noDays.setVisible(true);
+
+            h1.setVisible(true);
+
         }
     }
+
 
     public void getWorkingDays() {
         Connection conn = getConnection();
@@ -261,10 +350,94 @@ public class SetWorkingDaysController implements Initializable {
 
     }
 
-    private void deleteRecord(){
-        String query = "DELETE FROM nodays WHERE idno =" + noDaysIdDB + "";
+
+    @FXML
+    void submitDays(ActionEvent event) {
+
+        day1namex = field1noDays.getText().toString();
+        day2namex = field2noDays.getText().toString();
+        day3namex = field3noDays.getText().toString();
+        day4namex = field4noDays.getText().toString();
+        day5namex = field5noDays.getText().toString();
+        day6namex = field6noDays.getText().toString();
+        day7namex = field7noDays.getText().toString();
+        Connection conn = getConnection();
+        String query2 = "DELETE from daysname WHERE id =1 ";
+        executeQuery(query2);
+        String query = "INSERT INTO daysname (id, day1name, day2name, day3name, day4name, day5name, day6name, day7name)  VALUES (1, '"+day1namex+"', '"+day2namex+"', '"+day3namex+"', '"+day4namex+"', '"+day5namex+"', '"+day6namex+"', '"+day7namex+"' ) " +
+                "ON DUPLICATE KEY UPDATE day1name = '"+day1namex+"', day2name = '"+day2namex+"', day3name = '"+day3namex+"', day4name = '"+day4namex+"', day5name = '"+day5namex+"', day6name = '"+day6namex+"', day7name = '"+day7namex+"'";
         executeQuery(query);
+
+        insertHours();
+
+        Stage stage = (Stage) submitBtn.getScene().getWindow();
+        stage.close();
+
+
+
     }
 
 
+    public void getDayNames() {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM daysname where id = 1";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                one = rs.getString("day1name");
+                two = rs.getString("day2name");
+                three = rs.getString("day3name");
+                four = rs.getString("day4name");
+                five = rs.getString("day5name");
+                six = rs.getString("day6name");
+                seven = rs.getString("day7name");
+
+
+                field1noDays.setText(one);
+                field2noDays.setText(two);
+                field3noDays.setText(three);
+                field4noDays.setText(four);
+                field5noDays.setText(five);
+                field6noDays.setText(six);
+                field7noDays.setText(seven);
+            }
+
+            System.out.println(one);
+            System.out.println(two);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+
+    public void getHours() {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM hours where id = 1";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+
+                h1.setText(rs.getString("hour1"));
+
+            }
+
+            System.out.println(one);
+            System.out.println(two);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+//
 }
