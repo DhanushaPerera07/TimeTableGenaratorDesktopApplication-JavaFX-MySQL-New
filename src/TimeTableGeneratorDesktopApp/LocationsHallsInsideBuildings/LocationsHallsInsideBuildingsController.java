@@ -303,8 +303,7 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
                         rs.getInt("location_floor"),
                         rs.getString("location_condition"),
                         rs.getInt("building_building_id"),
-                        rs.getInt("tag_tag_id"),
-                        rs.getInt("subject_subject_id")
+                        rs.getInt("tag_tag_id")
                 );
                 locationHallLabList.add(locationHallLab);
             }

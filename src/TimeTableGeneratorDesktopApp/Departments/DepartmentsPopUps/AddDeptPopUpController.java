@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
 import javafx.collections.FXCollections;
@@ -74,7 +75,16 @@ public class AddDeptPopUpController implements Initializable {
                 "Dr. Nuwan",
                 "Dr.Asela",
                 "Dr. Nimali",
-                "Dr. Kumaraswami"
+                "Dr. Kumaraswami",
+                "John Doe",
+                "Oliver Cruise",
+                "Max Born",
+                "Lise Meitner",
+                "Jane Goodall",
+                "Jacqueline K. Barton",
+                "Dorothy Hodgkin",
+                "Melissa Franklin",
+                "Sarah Boysen"
 
         );
         // prompt text
@@ -168,7 +178,7 @@ public class AddDeptPopUpController implements Initializable {
         String query = "INSERT INTO `department` (`department_name`,`department_short_name`,`department_floor_no`,`department_specialized_for`,`department_head`,`department_building_id`,`department_delete_status`,`faculty_faculty_id`) VALUES ('"+department_name+"', '"+department_short_name+"',"+department_floor_no+", '"+department_specialized_for+"','"+department_head+"',"+department_building_id+",'"+department_delete_status+"',"+faculty_faculty_id+")";
 
         // execute the insert query
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         closeAddFacultyPopUpForm();
 
     }
@@ -189,33 +199,7 @@ public class AddDeptPopUpController implements Initializable {
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
-     */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     /**
      * this method is to get all the faculties in the faculty table...
@@ -223,7 +207,7 @@ public class AddDeptPopUpController implements Initializable {
      * */
     public ObservableList<Faculty> getFacultyList() {
         ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
 
@@ -261,7 +245,7 @@ public class AddDeptPopUpController implements Initializable {
     public ObservableList<Building> getBuildingList() {
 
         ObservableList<Building> buildingList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         // get the buildings relevant to the faculty id
         String query;

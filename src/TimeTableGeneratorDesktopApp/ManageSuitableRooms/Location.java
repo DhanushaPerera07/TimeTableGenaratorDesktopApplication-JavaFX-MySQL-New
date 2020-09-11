@@ -1,6 +1,6 @@
-package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings;
+package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
-public class LocationHallLab {
+public class Location {
 
     private int locationID;
     private String locationName;
@@ -10,9 +10,11 @@ public class LocationHallLab {
     private int buildingID;
     private int tagID;
     private int subjectId;
+    private boolean suitableRoomTrue;
 
+    // constructor
 
-    public LocationHallLab(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int subjectId) {
+    public Location(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int subjectId, boolean suitableRoomTrue) {
         this.locationID = locationID;
         this.locationName = locationName;
         this.locationCapacity = locationCapacity;
@@ -21,21 +23,11 @@ public class LocationHallLab {
         this.buildingID = buildingID;
         this.tagID = tagID;
         this.subjectId = subjectId;
+        this.suitableRoomTrue = suitableRoomTrue;
     }
 
+    // getter and setter
 
-    public LocationHallLab(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID) {
-        this.locationID = locationID;
-        this.locationName = locationName;
-        this.locationCapacity = locationCapacity;
-        this.locationFloor = locationFloor;
-        this.locationCondition = locationCondition;
-        this.buildingID = buildingID;
-        this.tagID = tagID;
-    }
-
-
-    // setter and getter
 
     public int getLocationID() {
         return locationID;
@@ -101,12 +93,20 @@ public class LocationHallLab {
         this.subjectId = subjectId;
     }
 
+    public boolean isSuitableRoomTrue() {
+        return suitableRoomTrue;
+    }
 
-    //toString
+    public void setSuitableRoomTrue(boolean suitableRoomTrue) {
+        this.suitableRoomTrue = suitableRoomTrue;
+    }
+
+    // toString method
+
 
     @Override
     public String toString() {
-        return "LocationHallLab{" +
+        return "Location{" +
                 "locationID=" + locationID +
                 ", locationName='" + locationName + '\'' +
                 ", locationCapacity=" + locationCapacity +
@@ -115,6 +115,7 @@ public class LocationHallLab {
                 ", buildingID=" + buildingID +
                 ", tagID=" + tagID +
                 ", subjectId=" + subjectId +
+                ", suitableRoomTrue=" + suitableRoomTrue +
                 '}';
     }
 }
