@@ -1,5 +1,7 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps.AddLocationsHallsPopUpController;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
@@ -177,7 +179,7 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
 
 
     public void populateHallLabRows(){
-        ObservableList<LocationHallLab> locationHallLabList = getLocationHallLabList();
+        ObservableList<LocationHallLab> locationHallLabList = new LocationHallLabDatabaseHelper().getLocationHallLabList(buildingID);
 
         for (LocationHallLab locationHallLab : locationHallLabList){
             // sysout check
@@ -237,84 +239,6 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
 
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
-
-    /** get the database connection here
-     */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
-
-
-    /**
-     * this method is to get all the faculties in the faculty table...
-     * returns departmentList;
-     * */
-    public ObservableList<LocationHallLab> getLocationHallLabList() {
-
-        ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
-
-        // if the filter by combo box value is set as ALL, get all the departments
-        String query;
-        if (locationsHallsInsideFilterByComboBox.equals("Select ALL")) {
-            query = "SELECT * FROM location WHERE building_building_id = "+this.buildingID+" AND location_delete_status = 'N' ORDER BY location_name";
-        } else {
-            query = "SELECT * FROM location WHERE building_building_id = "+this.buildingID+" AND location_delete_status = 'N' ORDER BY location_name";
-            //query = "SELECT * FROM location WHERE building_building_id = "+this.buildingID+" AND location_delete_status = 'N' ORDER BY location_name";
-            // query = "SELECT * from faculty WHERE " +filterType+ " = '" +filterValue+ "'";
-        }
-
-//        String query = "SELECT * FROM department";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            LocationHallLab locationHallLab;
-            while (rs.next()) {
-                locationHallLab = new LocationHallLab(
-                        rs.getInt("location_id"),
-                        rs.getString("location_name"),
-                        rs.getInt("location_capacity"),
-                        rs.getInt("location_floor"),
-                        rs.getString("location_condition"),
-                        rs.getInt("building_building_id"),
-                        rs.getInt("tag_tag_id"),
-                        rs.getInt("subject_subject_id")
-                );
-                locationHallLabList.add(locationHallLab);
-            }
-
-        } catch (Exception ex) {
-            // if an error occurs print an error...
-            ex.printStackTrace();
-        }
-        return locationHallLabList;
-    }
 
 
 

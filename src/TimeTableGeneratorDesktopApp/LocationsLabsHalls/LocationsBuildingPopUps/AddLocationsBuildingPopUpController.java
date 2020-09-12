@@ -1,5 +1,7 @@
 package TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,7 +52,6 @@ public class AddLocationsBuildingPopUpController implements Initializable {
     public String facultyName;
     public int facultyIdDB,facultyID;
 
-    Map<Integer,String> facultyHashMap= new HashMap<>();
 
 
     // ==============================================================================================
@@ -68,30 +69,20 @@ public class AddLocationsBuildingPopUpController implements Initializable {
     // method for the pop up combobox content should be initialized here
     public void initializationComboBox(){
 
-        ObservableList<Faculty> facultyList = getFacultyList();
+        ObservableList<Faculty> facultyList = new FacultyDatabaseHelper().getFacultyList();
 
 
+        if (facultyList.isEmpty() != true){
+            // faculties are there, more than one
 
-        for (Faculty faculty : facultyList){
-            // sysout check
-            facultyHashMap.put(faculty.getId(),faculty.getName());
-
-        }
-
-        Set<Map.Entry<Integer, String>> entries = facultyHashMap.entrySet();
-
-        if(facultyHashMap.isEmpty() != true) {
-            for (Map.Entry<Integer, String> entry : entries) {
-                facultyID = entry.getKey();
-                facultyName = entry.getValue();
-                facultyForBuildingComboBox.getItems().add(facultyName);
-
+            for (Faculty faculty : facultyList){
+                facultyForBuildingComboBox.getItems().add(faculty.getName());
             }
+            facultyForBuildingComboBox.setPromptText("Select Faculty");
         } else {
             facultyForBuildingComboBox.setPromptText("Add faculty first");
         }
 
-        facultyForBuildingComboBox.setPromptText("Select Faculty");
 
         centerBuildingComboBox.getItems().addAll("Malabe",
                 "Metro",
@@ -113,8 +104,6 @@ public class AddLocationsBuildingPopUpController implements Initializable {
         );
         specializedForBuildingComboBox.setPromptText("Select Specialized For");
 
-
-
     }
 
 
@@ -129,68 +118,7 @@ public class AddLocationsBuildingPopUpController implements Initializable {
 
     /** get the database connection here
      */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * this method is to get all the faculties in the faculty table...
-     * returns departmentList;
-     * */
-    public ObservableList<Faculty> getFacultyList() {
-        ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
-
-        String query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
-
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            Faculty faculty;
-            while (rs.next()) {
-                faculty = new Faculty(
-                        rs.getInt("faculty_id"),
-                        rs.getString("faculty_name"),
-                        rs.getString("faculty_short_name"),
-                        rs.getString("faculty_specialized_for"),
-                        rs.getString("faculty_status"),
-                        rs.getString("faculty_head_name")
-                );
-                facultyList.add(faculty);
-            }
-
-        } catch (Exception ex) {
-            // if an error occurs print an error...
-            ex.printStackTrace();
-        }
-        return facultyList;
-    }
-
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     /**
      * This method is used to insert a new faculty
@@ -208,29 +136,17 @@ public class AddLocationsBuildingPopUpController implements Initializable {
         String building_specialized_for = specializedForBuildingComboBox.getValue();
         String fac_name = facultyForBuildingComboBox.getValue();
 
-        Set<Map.Entry<Integer, String>> entries = facultyHashMap.entrySet();
+        FacultyDatabaseHelper facultyDatabaseHelper = new FacultyDatabaseHelper();
 
-        if(facultyHashMap.isEmpty() != true) {
-            for (Map.Entry<Integer, String> entry : entries) {
-                facultyID = entry.getKey();
-                facultyName = entry.getValue();
-
-                if (fac_name == facultyName){
-                    facultyIdDB = facultyID;
-                    break;
-                }
-            } // for loop
-        }
-
-        //String faculty_faculty_id = facultyForBuildingComboBox.getValue();
-        int faculty_faculty_id = facultyIdDB;
+        // faculty id is retrieved from database
+        int faculty_faculty_id = facultyDatabaseHelper.getFacultyInstance(fac_name).getId();
         String building_delete_status = "N";
 
         // insert query
         String query = "INSERT INTO `building` (`building_name`,`building_no_of_floors`,`building_capacity`,`building_center`,`building_condition`,`building_specialized_for`,`faculty_faculty_id`,`building_delete_status`) VALUES ('"+building_name+"',"+building_no_of_floors+","+building_capacity+", '"+building_center+"','"+building_condition+"','"+building_specialized_for+"',"+faculty_faculty_id+",'"+building_delete_status+"')";
 
         // execute the insert query
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         closeAddFacultyPopUpForm();
 
     }

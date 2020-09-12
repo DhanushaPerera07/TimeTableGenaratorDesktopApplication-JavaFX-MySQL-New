@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,9 +38,6 @@ public class EditLocationsHallsPopUpController implements Initializable {
     private Text textTheBuilding;
 
     @FXML
-    private ComboBox<String> specializedForHallLabComboBox;
-
-    @FXML
     private ComboBox<String> conditionHallLabComboBox;
 
     @FXML
@@ -51,11 +49,6 @@ public class EditLocationsHallsPopUpController implements Initializable {
     }
 
     private void initializeCombobox() {
-        specializedForHallLabComboBox.getItems().addAll(
-                "Software Project Management",
-                "User Experience Engineering"
-        );
-        //specializedForHallLabComboBox.setPromptText("Select Module");
 
         // tag
         tagHallLabComboBox.getItems().addAll(
@@ -75,7 +68,7 @@ public class EditLocationsHallsPopUpController implements Initializable {
                 "OK",
                 "Cancel"
         );
-        conditionHallLabComboBox.setPromptText("Select Condition");
+        //conditionHallLabComboBox.setPromptText("Select Condition");
 
         //etExistingComboboxValues();
 
@@ -89,8 +82,8 @@ public class EditLocationsHallsPopUpController implements Initializable {
      */
     public void getNecessaryID(LocationHallLab locationHallLab, String buildingName) {
         this.buildingID = locationHallLab.getBuildingID();
-        this.moduleID = locationHallLab.getSubjectId();
         this.tagID = locationHallLab.getTagID();
+        this.condition = locationHallLab.getLocationCondition();
 
         /*
         this.buildingID = buildingID;
@@ -107,14 +100,6 @@ public class EditLocationsHallsPopUpController implements Initializable {
     }
 
     public void setExistingComboboxValues() {
-
-        if (this.moduleID == 1){
-            specializedForHallLabComboBox.getSelectionModel().select("Software Project Management");
-        } else if (this.moduleID ==2){
-            specializedForHallLabComboBox.getSelectionModel().select("User Experience Engineering");
-        } else {
-            specializedForHallLabComboBox.getSelectionModel().select("Unknown");
-        }
 
         if (this.tagID ==1){
             tagHallLabComboBox.getSelectionModel().select("Lecture Hall");
@@ -191,7 +176,7 @@ public class EditLocationsHallsPopUpController implements Initializable {
         String location_condition = conditionHallLabComboBox.getValue();
         int building_building_id = this.buildingID;   // facultyHeadComboBox.getValue();
         int tag_tag_id = this.tagID; // facultyHeadComboBox.getValue();
-        int subject_subject_id = this.tagID;     //facultyHeadComboBox.getValue();
+
         // String faculty_delete_status = "N"; // this is not used in here
 
 
@@ -199,11 +184,11 @@ public class EditLocationsHallsPopUpController implements Initializable {
         String query = "UPDATE `location` SET location_name = '" +location_name+ "', location_capacity = " +location_capacity+
                 ", location_floor = " +location_floor+ ", location_condition = '" +location_condition+ "', building_building_id = "
                 +building_building_id+
-                ",tag_tag_id = "+tag_tag_id+", subject_subject_id = "+subject_subject_id+" WHERE location_id = " +location_id+ "";
+                ",tag_tag_id = "+tag_tag_id+" WHERE location_id = " +location_id+ "";
 
 
         // execute the insert query
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         closeEditFacultyPopUpForm();
 
     }
@@ -221,34 +206,7 @@ public class EditLocationsHallsPopUpController implements Initializable {
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
-     */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
 
 }

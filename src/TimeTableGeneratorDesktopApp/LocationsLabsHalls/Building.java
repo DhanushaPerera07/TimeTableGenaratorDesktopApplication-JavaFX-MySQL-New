@@ -15,6 +15,10 @@ public class Building {
     private int facultyFacultyId;
 
 
+    // default constructors
+    public Building() {
+    }
+
     // constructors
     public Building(int buildingID, String buildingName, int buildingNoOfFloors, int buildingCapacity, String buildingCenter, String buildingCondition, String buildingSpecializedFor, int buildingNoOfLectureHalls, int buildingNoOfTutorialHalls, int buildingNoOfLabs, int facultyFacultyId) {
         this.buildingID = buildingID;

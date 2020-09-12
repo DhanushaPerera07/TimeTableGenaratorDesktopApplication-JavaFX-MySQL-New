@@ -25,7 +25,7 @@ public class DatabaseHelper {
      * @param query string is passed here
      * this query will execute by this method
      */
-    private void executeQuery(String query) {
+    public void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
         try{

@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsLabsHalls;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem.LocationsBuildingItemController;
@@ -193,31 +194,7 @@ public class LocationsLabsHallsController implements Initializable {
 
     /** get the database connection here
      */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
 
 
@@ -228,7 +205,7 @@ public class LocationsLabsHallsController implements Initializable {
     public ObservableList<Building> getBuildingList() {
 
         ObservableList<Building> buildingList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         // if the filter by combo box value is set as ALL, get all the departments
         String query;
