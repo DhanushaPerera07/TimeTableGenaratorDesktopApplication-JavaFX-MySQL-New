@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.FxmlLoader;
@@ -31,8 +32,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class FacultyDepartmentsController implements  Initializable{
+
+    // Logger
+    public static final Logger log = Logger.getLogger(FacultyDepartmentsController.class.getName());
 
     // components in the UI
     @FXML
@@ -79,11 +84,13 @@ public class FacultyDepartmentsController implements  Initializable{
 
         initializeComboBoxes();
 
-        ObservableList<Faculty> facultyList = getFacultyList();
+        FacultyDatabaseHelper  facultyDatabaseHelper = new FacultyDatabaseHelper();
+        ObservableList<Faculty> facultyList = facultyDatabaseHelper.getFacultyList();
 
         for (Faculty faculty : facultyList){
             // sysout check
-            System.out.println("faculty table rec: " + faculty.toString());
+            //System.out.println("faculty table rec: " + faculty.toString());
+            log.info("faculty table rec: " + faculty.toString());
         }
 
         /**\
@@ -194,97 +201,13 @@ public class FacultyDepartmentsController implements  Initializable{
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-
-    /** get the database connection here
-     */
-
-    /*
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-     */
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-
-    /*
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
-     */
-
-
+    // calling database helper and get the database connection
     DatabaseHelper databaseHelper = new DatabaseHelper();
-
-    //Connection conn = databaseHelper.getConnection();
-
-    /**
-     * this method is to get all the faculties in the faculty table...
-     * returns departmentList;
-     * */
-    public ObservableList<Faculty> getFacultyList() {
-        ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
-        //Connection conn = getConnection();
-        Connection conn = databaseHelper.getConnection();
-
-        // if the filter by combo box value is set as ALL, get all the departments
-        if(facultyFilterByComboBox.equals("Select ALL")){
-            query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
-        }else{
-            query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
-            // query = "SELECT * from faculty WHERE " +filterType+ " = '" +filterValue+ "'";
-        }
-
-//        String query = "SELECT * FROM department";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            Faculty faculty;
-            while (rs.next()) {
-                faculty = new Faculty(
-                        rs.getInt("faculty_id"),
-                        rs.getString("faculty_name"),
-                        rs.getString("faculty_short_name"),
-                        rs.getString("faculty_specialized_for"),
-                        rs.getString("faculty_status"),
-                        rs.getString("faculty_head_name")
-                );
-                facultyList.add(faculty);
-            }
-
-        } catch (Exception ex) {
-            // if an error occurs print an error...
-            ex.printStackTrace();
-        }
-        return facultyList;
-    }
-
 
     public void populateAndRefreshFacultyDataRow() {
 
-
-        ObservableList<Faculty> facultyList = getFacultyList();
+        FacultyDatabaseHelper  facultyDatabaseHelper = new FacultyDatabaseHelper();
+        ObservableList<Faculty> facultyList = facultyDatabaseHelper.getFacultyList();
 
         for (Faculty faculty : facultyList) {
             // sysout check

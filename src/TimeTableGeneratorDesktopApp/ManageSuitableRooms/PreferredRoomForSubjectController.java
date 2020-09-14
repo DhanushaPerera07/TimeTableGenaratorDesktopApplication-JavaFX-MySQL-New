@@ -191,4 +191,14 @@ public class PreferredRoomForSubjectController implements Initializable {
     }
 
 
+    /**
+     * Get selected rooms and save
+     * @param event
+     */
+    @FXML
+    void SavePreferredRoomForSubject(MouseEvent event) {
+
+    }
+
+
 }
