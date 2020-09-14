@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="-Infinity" prefWidth="520.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps.EditLocationsBuildingPopUpController">
+    <content>
+        <AnchorPane>
+            <children>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building - Edit  Building" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </GridPane>
+                <GridPane layoutX="-2.0" layoutY="65.0" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.topAnchor="65.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.199951171875" minWidth="10.0" prefWidth="170.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.999984741211" minWidth="10.0" prefWidth="299.6" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Building name:" />
+                        <Label layoutX="25.0" layoutY="44.0" text="Specialized for:" GridPane.rowIndex="4" />
+                        <Label layoutX="25.0" layoutY="101.0" text="No of floors:" GridPane.rowIndex="1" />
+                        <Label layoutX="25.0" layoutY="214.0" text="Center:" GridPane.rowIndex="3" />
+                        <Label layoutX="25.0" layoutY="270.0" text="Capasity (Approx.):" GridPane.rowIndex="2" />
+                        <TextField fx:id="txtBuildingName" GridPane.columnIndex="1" />
+                        <TextField fx:id="txtBuildingNoOfFloors" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="btnEditBuildingPopUp" mnemonicParsing="false" onAction="#ActionEventEditBuildingPopUp" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label layoutX="25.0" layoutY="233.0" text="Building Condition:" GridPane.rowIndex="6" />
+                        <TextField fx:id="txtBuildingCapacity" layoutX="196.0" layoutY="78.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="specializedForBuildingComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="conditionBuildingComboBox" layoutX="196.0" layoutY="229.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="centerBuildingComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label layoutX="25.0" layoutY="214.0" text="Faculty:" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="facultyForBuildingComboBox" layoutX="196.0" layoutY="210.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </GridPane>
+            </children></AnchorPane>
+    </content>
+</ScrollPane>

@@ -1,0 +1,4 @@
+package TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom;
+
+public class CanNotBeReservedTimeForRoomController {
+}
