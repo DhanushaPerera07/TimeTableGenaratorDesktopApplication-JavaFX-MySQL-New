@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyPopUps;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,8 +71,19 @@ public class EditFacultyPopUpController implements Initializable {
         );
 
         facultyHeadComboBox.getItems().addAll(
+                "Dr. Nuwan",
+                "Dr.Asela",
+                "Dr. Nimali",
+                "Dr. Kumaraswami",
                 "John Doe",
-                "Oliver Cruise"
+                "Oliver Cruise",
+                "Max Born",
+                "Lise Meitner",
+                "Jane Goodall",
+                "Jacqueline K. Barton",
+                "Dorothy Hodgkin",
+                "Melissa Franklin",
+                "Sarah Boysen"
         );
 
         // faculty Status combobox
@@ -115,34 +127,7 @@ public class EditFacultyPopUpController implements Initializable {
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
-     */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     /**
      * Get the permission from the user to EDIT OR UPDATE the record.
@@ -204,7 +189,7 @@ public class EditFacultyPopUpController implements Initializable {
 
 
         // execute the insert query
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         closeEditFacultyPopUpForm();
 
     }

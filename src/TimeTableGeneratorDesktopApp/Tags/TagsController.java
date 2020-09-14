@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class TagsController implements Initializable {
+public class    TagsController implements Initializable {
     public static String tester="";
 
     @FXML
@@ -58,7 +58,6 @@ public class TagsController implements Initializable {
         createTables();
     }
 
-
     public void createTables(){
         String  systemTagsTable= "CREATE TABLE IF NOT  EXISTS systemtags (" +
                 "  `id` int(11) NOT NULL AUTO_INCREMENT," +
@@ -81,6 +80,7 @@ public class TagsController implements Initializable {
         executeQuery(tempTags);
 
     }
+
 
     public void getValues(){
         ObservableList<String> list = FXCollections.observableArrayList();

@@ -18,3 +18,6 @@ public class WorkingDays {
         return noDays;
     }
 }
+
+
+//    String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ") ON DUPLICATE KEY UPDATE nofStudents ='" +noOfStudents+"'";

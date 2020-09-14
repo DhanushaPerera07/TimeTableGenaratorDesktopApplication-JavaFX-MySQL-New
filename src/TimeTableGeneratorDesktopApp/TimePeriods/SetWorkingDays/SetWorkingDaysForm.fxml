@@ -12,59 +12,67 @@
 
 <AnchorPane fx:id="workingPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.SetWorkingDaysController">
    <children>
-      <Pane layoutX="21.0" layoutY="91.0" prefHeight="299.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
+      <Pane layoutX="300.0" layoutY="91.0" prefHeight="299.0" prefWidth="181.0" style="-fx-background-color: #22222222;">
          <children>
-            <TextField fx:id="field1noDays" layoutX="283.0" layoutY="21.0" />
-            <TextField fx:id="field2noDays" layoutX="283.0" layoutY="59.0" />
-            <TextField fx:id="field3noDays" layoutX="283.0" layoutY="94.0" />
-            <TextField fx:id="field4noDays" layoutX="283.0" layoutY="130.0" />
-            <TextField fx:id="field5noDays" layoutX="283.0" layoutY="165.0" />
-            <TextField fx:id="field6noDays" layoutX="283.0" layoutY="199.0" />
-            <TextField fx:id="field7noDays" layoutX="283.0" layoutY="233.0" />
-            <Label fx:id="labelnoDays" layoutX="453.0" layoutY="117.0" prefHeight="53.0" prefWidth="105.0" text="#days" textFill="#270a94">
+            <TextField fx:id="h1" layoutX="45.0" layoutY="150.0" prefHeight="25.0" prefWidth="91.0" />
+            <Label layoutX="25.0" layoutY="98.0" text="#Hours Per Day">
                <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Label fx:id="label1noDays" layoutX="167.0" layoutY="21.0" text="Day 1">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="label2noDays" layoutX="167.0" layoutY="59.0" text="Day 2">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="label4noDays" layoutX="167.0" layoutY="130.0" text="Day 4">
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+         </children>
+      </Pane>
+      <Pane layoutX="21.0" layoutY="91.0" prefHeight="299.0" prefWidth="272.0" style="-fx-background-color: #22222222;">
+         <children>
+            <TextField fx:id="field1noDays" layoutX="112.0" layoutY="49.0" />
+            <TextField fx:id="field2noDays" layoutX="112.0" layoutY="87.0" />
+            <TextField fx:id="field3noDays" layoutX="112.0" layoutY="122.0" />
+            <TextField fx:id="field4noDays" layoutX="112.0" layoutY="158.0" />
+            <TextField fx:id="field5noDays" layoutX="112.0" layoutY="193.0" />
+            <TextField fx:id="field6noDays" layoutX="112.0" layoutY="227.0" />
+            <TextField fx:id="field7noDays" layoutX="112.0" layoutY="261.0" />
+            <Label fx:id="label1noDays" layoutX="23.0" layoutY="49.0" text="Day 1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="label3noDays" layoutX="167.0" layoutY="94.0" text="Day 3">
+            <Label fx:id="label2noDays" layoutX="23.0" layoutY="87.0" text="Day 2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="label5noDays" layoutX="167.0" layoutY="165.0" text="Day 5">
+            <Label fx:id="label4noDays" layoutX="23.0" layoutY="158.0" text="Day 4">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="label6noDays" layoutX="167.0" layoutY="199.0" text="Day 6">
+            <Label fx:id="label3noDays" layoutX="23.0" layoutY="122.0" text="Day 3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="label7noDays" layoutX="167.0" layoutY="233.0" text="Day 7">
+            <Label fx:id="label5noDays" layoutX="23.0" layoutY="193.0" text="Day 5">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <Label fx:id="label6noDays" layoutX="23.0" layoutY="227.0" text="Day 6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="label7noDays" layoutX="23.0" layoutY="261.0" text="Day 7">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="137.0" layoutY="15.0" text="Day Name" underline="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
          </children></Pane>
       <Pane layoutX="21.0" layoutY="14.0" prefHeight="67.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
          <children>
-            <Pane layoutX="14.0" layoutY="21.0" prefHeight="26.0" prefWidth="252.0" style="-fx-background-color: #ffffffff;">
+            <Pane layoutX="45.0" layoutY="23.0" prefHeight="26.0" prefWidth="252.0" style="-fx-background-color: #ffffffff;">
                <children>
                   <Label layoutX="14.0" layoutY="3.0" text="How many days work per week...?">
                      <font>
@@ -73,8 +81,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="populateBtn" layoutX="434.0" layoutY="21.0" mnemonicParsing="false" onAction="#insertRecord" text="Populate Rows" textAlignment="CENTER" textFill="#3f0bb9" />
-            <ComboBox fx:id="comboSelectDays" layoutX="297.0" layoutY="22.0" onAction="#selectWorkingDays" prefHeight="29.0" prefWidth="105.0" promptText="Select">
+            <ComboBox fx:id="comboSelectDays" layoutX="323.0" layoutY="21.0" onAction="#selectWorkingDays" prefHeight="29.0" prefWidth="105.0" promptText="Select">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:id="day1" fx:value="1 Day" />
@@ -87,7 +94,9 @@
                   </FXCollections>
                </items>
             </ComboBox>
+            <Button fx:id="resetBtn" layoutX="460.0" layoutY="24.0" mnemonicParsing="false" onAction="#deleteRecord" prefHeight="25.0" prefWidth="72.0" text="Reset" />
          </children>
       </Pane>
+      <Button fx:id="submitBtn" layoutX="506.0" layoutY="228.0" mnemonicParsing="false" onAction="#submitDays" text="Submit" />
    </children>
 </AnchorPane>
