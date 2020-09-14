@@ -12,8 +12,11 @@ public class Location {
     private int subjectId;
     private boolean suitableRoomTrue;
 
-    // constructor
+    // default constructor
+    public Location() {
+    }
 
+    // constructor with parameter
     public Location(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int subjectId, boolean suitableRoomTrue) {
         this.locationID = locationID;
         this.locationName = locationName;
