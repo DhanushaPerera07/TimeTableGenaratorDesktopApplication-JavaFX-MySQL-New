@@ -8,7 +8,7 @@
 
 <Pane fx:id="groupNATimePane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllStudentGroupController">
+      fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllStudentGroupsController">
     <children>
 
         <TableView fx:id="tvBatches" layoutX="25.0" layoutY="50.0" prefHeight="500.0"
