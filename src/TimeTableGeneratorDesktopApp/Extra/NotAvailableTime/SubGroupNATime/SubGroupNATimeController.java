@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.StudentBatchesDatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -60,37 +61,10 @@ public class SubGroupNATimeController implements Initializable {
 
 
 
-
-
-
-    public ObservableList<StudentBatches> getBatchesList() {
-        ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
-        String query = "SELECT * FROM studentBatches ORDER BY year";
-        Statement st;
-        ResultSet rs;
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            StudentBatches studentBatch;
-            while (rs.next()) {
-                studentBatch = new StudentBatches(rs.getInt("id"), rs.getString("year"), rs.getString("semester"),
-                        rs.getString("intake"), rs.getString("faculty"),
-                        rs.getString("programme"),
-                        rs.getString("center"),
-                        rs.getInt("noofstd"), rs.getString("batchID"));
-                studentBatchesList.add(studentBatch);
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return studentBatchesList;
-    }
-
-
     public void showBatches() {
-        ObservableList<StudentBatches> list = getBatchesList();
+
+        StudentBatchesDatabaseHelper studentBatchesDatabaseHelper = new StudentBatchesDatabaseHelper();
+        ObservableList<StudentBatches> list = studentBatchesDatabaseHelper.getBatchesList();
 
         batColYear.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("year"));
         batColSem.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("semester"));
@@ -103,17 +77,6 @@ public class SubGroupNATimeController implements Initializable {
         tvBatches.setItems(list);
 
 
-    }
-
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: " + ex.getMessage());
-            return null;
-        }
     }
 
 
