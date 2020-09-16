@@ -55,7 +55,7 @@ public class    TagsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getTags();
         getValues();
-        createTables();
+        //createTables();
     }
 
     public void createTables(){

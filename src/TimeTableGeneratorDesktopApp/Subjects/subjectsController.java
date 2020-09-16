@@ -169,10 +169,15 @@ public class subjectsController implements Initializable {
             rs = st.executeQuery(query);
             Subjects subjects;
             while (rs.next()){
-                subjects = new Subjects(rs.getInt("idmodule"),rs.getString("moduleName"), rs.getString("moduleCode"),
-                        rs.getString("offeredYear"), rs.getString("offeredSemester"),
-                        rs.getInt("lecHour"), rs.getInt("tuteHour"),
-                        rs.getInt("labHour"), rs.getInt("evaluationHour"));
+                subjects = new Subjects(rs.getInt("idmodule"),
+                        rs.getString("moduleName"),
+                        rs.getString("moduleCode"),
+                        rs.getString("offeredYear"),
+                        rs.getString("offeredSemester"),
+                        rs.getInt("lecHour"),
+                        rs.getInt("tuteHour"),
+                        rs.getInt("labHour"),
+                        rs.getInt("evaluationHour"));
                 moduleList.add(subjects);
             }
         }catch (Exception e){

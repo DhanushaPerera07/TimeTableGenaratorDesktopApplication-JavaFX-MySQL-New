@@ -26,10 +26,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+
+// imported
+import TimeTableGeneratorDesktopApp.Subjects.subjectsController;
+
+
 public class PreferredRoomForSubjectController implements Initializable {
 
     // variable declaration to keep some useful data
-    int subject_id = 1;
+    int subject_id;
     int tag_id = 1;
 
     @FXML
@@ -58,7 +63,7 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        populateLocationRows();
     }
 
 
@@ -70,17 +75,15 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     /** This method is used to get subject ID from menura's part
      */
-    public void getInformationFromSubjectUI(){
+    public void getInformationFromSubjectUI(int subjectID, int tagID){
+        subject_id = subjectID;
+        tag_id = tagID;
         System.out.println("Student id + " + this.subject_id);
 
-        populateLocationRows();
+
+        //populateLocationRows();
     }
 
-
-    // ============================================ DATABASE PART ===================================================================================
-
-    // database connection setup
-    DatabaseHelper databaseHelper = new DatabaseHelper();
 
 
     /**
@@ -149,6 +152,11 @@ public class PreferredRoomForSubjectController implements Initializable {
      * returns locationList;
      * */
     public ObservableList<Location> getLocationList() {
+
+        // ============================================ DATABASE PART ===================================================================================
+
+        // database connection setup
+        DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<Location> locationList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();

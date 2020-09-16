@@ -12,7 +12,7 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
 
     /**
      * Get all the batches from the database
-     * @return bservableList<StudentBatches> // all the batches
+     * @return observableList<StudentBatches> // all the batches
      */
     public ObservableList<StudentBatches> getBatchesList() {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();

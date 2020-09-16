@@ -13,8 +13,8 @@ public class FxmlLoader {
         try{
             URL fileURL = Main.class.getResource("/TimeTableGeneratorDesktopApp/" + fileName + ".fxml");
 
-            System.out.println("fileURL: " + fileURL);
-            System.out.println("filename: " + fileName);
+            //System.out.println("fileURL: " + fileURL);
+            //System.out.println("filename: " + fileName);
             if (fileURL == null) {
                 throw new java.io.FileNotFoundException("FXML File can not be found");
             }

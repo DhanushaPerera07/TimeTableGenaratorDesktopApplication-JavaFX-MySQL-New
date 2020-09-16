@@ -32,19 +32,20 @@ public class AddSuitableLocationController implements Initializable {
         // open up the POP UP
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/Extra/AddSuitableLocations/showAllStudentGroups.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root2 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
 
             stage.setTitle("Add suitable location for student group");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(pane.getScene().getWindow());
             stage.setResizable(false);
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene(root2));
             stage.show();
         }catch (Exception e){
             System.out.println("Exception / Error - When Opening showAllStudentGroups.fxml as a pop up ==========================");
             e.printStackTrace();
         }
+
 
     }
 

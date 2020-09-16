@@ -186,10 +186,17 @@ public class lecturersController implements Initializable {
             rs = st.executeQuery(query);
             Lecturers lecturers;
             while (rs.next()){
-                lecturers = new Lecturers(rs.getInt("lid"),rs.getInt("lecturerID"), rs.getString("lecturerName"),
-                        rs.getString("lecturerFaculty"), rs.getString("lecturerDepartment"),
-                        rs.getString("lecturerCenter"), rs.getString("lecturerBuilding"),
-                        rs.getInt("lecturerLevel"), rs.getString("lecturerRank"));
+                lecturers = new Lecturers(
+                        rs.getInt("lid"),
+                        rs.getInt("lecturerID"),
+                        rs.getString("lecturerName"),
+                        rs.getString("lecturerFaculty"),
+                        rs.getString("lecturerDepartment"),
+                        rs.getString("lecturerCenter"),
+                        rs.getString("lecturerBuilding"),
+                        rs.getInt("lecturerLevel"),
+                        rs.getString("lecturerRank")
+                );
                 lecturerList.add(lecturers);
             }
         }catch (Exception e){
