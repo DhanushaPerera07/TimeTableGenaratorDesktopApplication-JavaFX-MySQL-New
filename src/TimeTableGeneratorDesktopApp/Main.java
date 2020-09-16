@@ -1,11 +1,14 @@
 package TimeTableGeneratorDesktopApp;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -14,9 +17,12 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("TimeTableGeneratorMainView.fxml"));
         primaryStage.setTitle("Time Table Generator -  Code 4V2");
         primaryStage.setScene(new Scene(root, 1000, 600));
+
+
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/mainIcon.png"));
         primaryStage.show();
+
     }
 
 

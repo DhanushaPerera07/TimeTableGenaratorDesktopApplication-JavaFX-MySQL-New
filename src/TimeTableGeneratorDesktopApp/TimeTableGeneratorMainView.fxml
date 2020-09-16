@@ -98,6 +98,14 @@
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="ExtraBtn" alignment="TOP_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleActionOnExtraButton" prefHeight="23.0" prefWidth="155.0" styleClass="btnDashboard" stylesheets="@CSSStyles/navigationButtonStyles.css" text="Extra" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Button>
             <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="10.0" left="28.0" top="50.0" />
@@ -105,14 +113,6 @@
                <image>
                   <Image url="@icons/logo/Group%201.png" />
                </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons/logo/comLogo/Code4%20Technologies.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="48.0" />
-               </VBox.margin>
             </ImageView>
          </children>
          <cursor>

@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps.EditDepartmentPopUpController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -144,10 +145,12 @@ public class DeptItemController implements Initializable {
         txtDepartmentShortName.setText(department.getShortName());
         txtDepartmentHead.setText(department.getHead());
         txtDepartmentFloor.setText(Integer.toString(department.getFloor()));
-        txtDepartmentBuilding.setText(Integer.toString(department.getBuildingID()));
+        txtDepartmentBuilding.setText(new BuildingDatabaseHelper().getBuildingInstance(department.getBuildingID()).getBuildingName());
+        //txtDepartmentBuilding.setText(Integer.toString(department.getBuildingID())); // this should be changed
         txtDepartmentSpecializedFor.setText(department.getSpecializedFor());
-        txtDepartmentUnderFacultyOf.setText(Integer.toString(department.getId()));
-        
+        txtDepartmentUnderFacultyOf.setText(this.facultyName);
+        //txtDepartmentUnderFacultyOf.setText(Integer.toString(department.getId()));
+
     }
 
 

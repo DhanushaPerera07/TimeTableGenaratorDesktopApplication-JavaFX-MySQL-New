@@ -9,8 +9,10 @@ public class Faculty {
     private String status;
     private String head; // FK
 
-    // constructor with parameters
+    public Faculty() {
+    }
 
+    // constructor with parameters
     public Faculty(int id, String name, String shortName, String specializedFor, String status, String head) {
         this.id = id;
         this.name = name;

@@ -1,7 +1,11 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,7 +78,16 @@ public class EditDepartmentPopUpController implements Initializable {
                 "Dr. Nuwan",
                 "Dr.Asela",
                 "Dr. Nimali",
-                "Dr. Kumaraswami"
+                "Dr. Kumaraswami",
+                "John Doe",
+                "Oliver Cruise",
+                "Max Born",
+                "Lise Meitner",
+                "Jane Goodall",
+                "Jacqueline K. Barton",
+                "Dorothy Hodgkin",
+                "Melissa Franklin",
+                "Sarah Boysen"
 
         );
         // prompt text
@@ -116,13 +129,21 @@ public class EditDepartmentPopUpController implements Initializable {
         txtDepartmentFloorNo.setText(Integer.toString(department.getFloor()));
         departmentFacultyLabel.setText(this.facultyName);
 
-        // building
-        int building_id = department.getBuildingID();
-        if (building_id == 1) {
-            departmentBuildingComboBox.getSelectionModel().select("FOC - Main");
+        // building list should be displayed in the dropdown menu
+        // get building list from the database
+        ObservableList<Building> buildingList = new BuildingDatabaseHelper().getBuildingList();
+
+        if (buildingList.isEmpty()==true) {
+            departmentBuildingComboBox.getItems().add("");
         } else {
-            departmentBuildingComboBox.getSelectionModel().select("FOC - New Building");
+            for (Building building : buildingList){
+                // sysout check
+                departmentBuildingComboBox.getItems().add(building.getBuildingName());
+                System.out.println("building table rec: " + building.toString());
+            }
         }
+        departmentBuildingComboBox.getSelectionModel().select(new BuildingDatabaseHelper().getBuildingInstance(department.getBuildingID()).getBuildingName());
+
 
         // specialized for
         departmentSpecializedForComboBox.getSelectionModel().select(department.getSpecializedFor());
@@ -136,31 +157,7 @@ public class EditDepartmentPopUpController implements Initializable {
 
     /** get the database connection here
      */
-    public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
-    }
-
-    /** execute the query string
-     * @param query string is passed here
-     * this query will execute by this method
-     */
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try{
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
 
     /**
@@ -227,7 +224,7 @@ public class EditDepartmentPopUpController implements Initializable {
 
 
         // execute the insert query
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         closeEditFacultyPopUpForm();
 
     }

@@ -11,8 +11,11 @@ public class Department {
     private int buildingID; // FK
     private int facultyID;  // FK
 
-    // constructor
+    // default constructor
+    public Department() {
+    }
 
+    // parameterised constructor
     public Department(int id, String name, String shortName, int floor, String specializedFor, String head, int buildingID, int facultyID) {
         this.id = id;
         this.name = name;
