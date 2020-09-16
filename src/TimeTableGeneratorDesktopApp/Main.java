@@ -14,6 +14,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("TimeTableGeneratorMainView.fxml"));
         primaryStage.setTitle("Time Table Generator -  Code 4V2");
         primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("TimeTableGeneratorDesktopApp/icons/mainIcon.png"));
         primaryStage.show();
     }

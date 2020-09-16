@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -33,7 +30,8 @@ public class lecturersController implements Initializable {
 
     public static int lid = 0;
     public static String lecturerName = "";
-    public static int lecturerID = 0;
+    //public static int lecturerID = 0;
+    public static String lecturerID = "";
     public static String lecturerFaculty = "";
     public static String lecturerDepartment = "";
     public static String lecturerCenter = "";
@@ -66,7 +64,7 @@ public class lecturersController implements Initializable {
     private TableColumn<Lecturers, String> colRank;
 
     @FXML
-    private TableColumn<Lecturers, Integer> colEmployeeID;
+    private TableColumn<Lecturers, String> colEmployeeID;
 
     @FXML
     private TableColumn<Lecturers, String> colBuilding;
@@ -86,10 +84,13 @@ public class lecturersController implements Initializable {
     @FXML
     private ComboBox<String> filter2;
 
+    @FXML
+    private TextField searchField;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        searchField.setVisible(false);
         filter1.getItems().removeAll(filter1.getItems());
         filter1.getItems().addAll(
                 "All", "Faculty", "Department", "Center", "Building", "Level"
@@ -186,11 +187,12 @@ public class lecturersController implements Initializable {
             rs = st.executeQuery(query);
             Lecturers lecturers;
             while (rs.next()){
-                lecturers = new Lecturers(rs.getInt("lid"),rs.getInt("lecturerID"), rs.getString("lecturerName"),
+                lecturers = new Lecturers(rs.getInt("lid"),rs.getString("lecturerID"), rs.getString("lecturerName"),
                         rs.getString("lecturerFaculty"), rs.getString("lecturerDepartment"),
                         rs.getString("lecturerCenter"), rs.getString("lecturerBuilding"),
                         rs.getInt("lecturerLevel"), rs.getString("lecturerRank"));
                 lecturerList.add(lecturers);
+                //rs.getInt("lecturerID"),
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -201,7 +203,7 @@ public class lecturersController implements Initializable {
     public void showLecturers(){
         ObservableList<Lecturers> list = getLecturersList();
 
-        colEmployeeID.setCellValueFactory(new PropertyValueFactory<Lecturers, Integer>("lecturerID"));
+        colEmployeeID.setCellValueFactory(new PropertyValueFactory<Lecturers, String>("lecturerID"));
         colLecturerName.setCellValueFactory(new PropertyValueFactory<Lecturers, String>("lecturerName"));
         colFaculty.setCellValueFactory(new PropertyValueFactory<Lecturers, String>("lecturerFaculty"));
         colDepartment.setCellValueFactory(new PropertyValueFactory<Lecturers, String>("lecturerDepartment"));
@@ -250,13 +252,16 @@ public class lecturersController implements Initializable {
                         public void run() {
                             lid = 0;
                             lecturerName = "";
-                            lecturerID = 0;
+                            //lecturerID = 0;
+                            lecturerID = "";
                             lecturerFaculty = "";
                             lecturerDepartment = "";
                             lecturerCenter = "";
                             lecturerBuilding = "";
                             lecturerLevel = 0;
                             rank = "";
+
+                            showLecturers();
                         }
                     });
                 }
