@@ -139,18 +139,18 @@ public class DatabaseCreation {
 
     String query11 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`lecturer` (\n" +
             "  `lid` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `lecturerID` VARCHAR(45) NULL,\n" +
-            "  `lecturerName` VARCHAR(10) NULL,\n" +
-            "  `lecturerFaculty` VARCHAR(45) NULL,\n" +
-            "  `lecturerDepartment` VARCHAR(45) NULL,\n" +
-            "  `lecturerCenter` VARCHAR(45) NULL,\n" +
-            "  `lecturerBuilding` VARCHAR(45) NULL,\n" +
-            "  `lecturerLevel` INT NULL,\n" +
-            "  `lecturerRank` VARCHAR(45) NULL,\n" +
-            "  `lecturer_delete_status` VARCHAR(3) NULL DEFAULT 'N' COMMENT 'Y=yes\\nN= no',\n" +
+            "  `lecturerID` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerName` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerFaculty` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerDepartment` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerCenter` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerBuilding` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerLevel` INT NULL DEFAULT NULL,\n" +
+            "  `lecturerRank` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturer_delete_status` VARCHAR(3) NULL DEFAULT 'N' COMMENT 'Y=yes\\\\nN= no',\n" +
             "  `lecturer_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
             "  `lecturer_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-            "  `faculty_faculty_id` INT NULL,\n" +
+            "  `faculty_faculty_id` INT NULL DEFAULT NULL,\n" +
             "  PRIMARY KEY (`lid`),\n" +
             "  INDEX `fk_lecturer_faculty1_idx` (`faculty_faculty_id` ASC) VISIBLE,\n" +
             "  INDEX `lecturer_name_idx` (`lecturerID` ASC) VISIBLE,\n" +
@@ -159,7 +159,8 @@ public class DatabaseCreation {
             "    REFERENCES `timetabledb`.`faculty` (`faculty_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB;";
+            "ENGINE = InnoDB\n" +
+            "DEFAULT CHARACTER SET = utf8";
 
 
     String query12 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`module` (\n" +
