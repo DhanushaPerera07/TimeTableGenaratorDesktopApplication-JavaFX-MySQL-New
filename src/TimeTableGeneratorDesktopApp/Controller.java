@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp;
 
+import TimeTableGeneratorDesktopApp.DatabaseQueries.DatabaseCreation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,20 @@ public class Controller implements Initializable {
     @FXML
     private BorderPane mainPane;
 
+
+    /** This static block will run only once when the application is started
+     */
+    static {
+        System.out.println("Testing sout: This is where the creating database process happens\n(database is not creating right now this is a test sout)");
+        createDatabase();
+
+    }
+
+    static void createDatabase(){
+        DatabaseCreation databaseCreation = new DatabaseCreation();
+        databaseCreation.createDatabase();
+        System.out.println("Testing sout: Creating database id successfully completed");
+    }
 
     /*
     @FXML

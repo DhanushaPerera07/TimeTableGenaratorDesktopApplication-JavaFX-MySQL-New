@@ -36,7 +36,7 @@
                                 <Insets left="10.0" />
                             </HBox.margin>
                         </Label>
-                        <Label fx:id="txtHeaderBuildingName" text="Building Actual Name">
+                        <Label fx:id="txtHeaderBuildingName" text="Subject Actual Name">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>

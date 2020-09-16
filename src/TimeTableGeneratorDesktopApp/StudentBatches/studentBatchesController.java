@@ -116,7 +116,7 @@ public class studentBatchesController implements Initializable {
                 "All","Year", "Semester", "Intake", "Faculty", "Programme", "Center"
         );
         showBatches();
-        createtables();
+        //createtables();
     }
 
 
