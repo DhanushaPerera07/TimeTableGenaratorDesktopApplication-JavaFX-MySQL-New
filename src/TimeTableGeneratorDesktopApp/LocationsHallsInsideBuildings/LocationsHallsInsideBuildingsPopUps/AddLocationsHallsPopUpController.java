@@ -138,6 +138,7 @@ public class AddLocationsHallsPopUpController implements Initializable {
 
         // insert query
         String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`,`tag_tag_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id + "," + tag_tag_id +")";
+        //String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id +")";
 
         // execute the insert query
         databaseHelper.executeQuery(query);

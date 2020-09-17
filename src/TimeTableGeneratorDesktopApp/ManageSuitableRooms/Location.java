@@ -9,15 +9,16 @@ public class Location {
     private String locationCondition;
     private int buildingID;
     private int tagID;
-    private int subjectId;
-    private boolean suitableRoomTrue;
+    //private int subjectId;
+    private int suitableRoomTrue;
 
     // default constructor
     public Location() {
     }
 
     // constructor with parameter
-    public Location(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int subjectId, boolean suitableRoomTrue) {
+
+    public Location(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int suitableRoomTrue) {
         this.locationID = locationID;
         this.locationName = locationName;
         this.locationCapacity = locationCapacity;
@@ -25,11 +26,10 @@ public class Location {
         this.locationCondition = locationCondition;
         this.buildingID = buildingID;
         this.tagID = tagID;
-        this.subjectId = subjectId;
         this.suitableRoomTrue = suitableRoomTrue;
     }
 
-    // getter and setter
+// getter and setter
 
 
     public int getLocationID() {
@@ -88,19 +88,11 @@ public class Location {
         this.tagID = tagID;
     }
 
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public boolean isSuitableRoomTrue() {
+    public int getSuitableRoomTrue() {
         return suitableRoomTrue;
     }
 
-    public void setSuitableRoomTrue(boolean suitableRoomTrue) {
+    public void setSuitableRoomTrue(int suitableRoomTrue) {
         this.suitableRoomTrue = suitableRoomTrue;
     }
 
@@ -117,8 +109,7 @@ public class Location {
                 ", locationCondition='" + locationCondition + '\'' +
                 ", buildingID=" + buildingID +
                 ", tagID=" + tagID +
-                ", subjectId=" + subjectId +
-                ", suitableRoomTrue=" + suitableRoomTrue +
+                ", suitableRoomTrue='" + suitableRoomTrue + '\'' +
                 '}';
     }
 }

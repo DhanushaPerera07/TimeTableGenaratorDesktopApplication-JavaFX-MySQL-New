@@ -111,14 +111,15 @@ public class DatabaseCreation {
 
     String query9 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`location` (\n" +
             "  `location_id` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `location_name` VARCHAR(45) NULL,\n" +
-            "  `location_capacity` INT NULL,\n" +
-            "  `location_floor` INT NULL,\n" +
-            "  `location_condition` VARCHAR(10) NULL,\n" +
-            "  `location_delete_status` VARCHAR(2) NULL,\n" +
+            "  `location_name` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `location_capacity` INT NULL DEFAULT NULL,\n" +
+            "  `location_floor` INT NULL DEFAULT NULL,\n" +
+            "  `location_condition` VARCHAR(10) NULL DEFAULT NULL,\n" +
+            "  `location_delete_status` VARCHAR(2) NULL DEFAULT NULL,\n" +
             "  `location_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
             "  `location_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `building_building_id` INT NOT NULL,\n" +
+            "  `tag_tag_id` INT NULL,\n" +
             "  PRIMARY KEY (`location_id`, `building_building_id`),\n" +
             "  INDEX `fk_location_building1_idx` (`building_building_id` ASC) VISIBLE,\n" +
             "  INDEX `location_name_idx` (`location_name` ASC) VISIBLE,\n" +
@@ -127,7 +128,8 @@ public class DatabaseCreation {
             "    REFERENCES `timetabledb`.`building` (`building_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB;";
+            "ENGINE = InnoDB\n" +
+            "DEFAULT CHARACTER SET = utf8";
 
 
     String query10 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`tags` (\n" +
