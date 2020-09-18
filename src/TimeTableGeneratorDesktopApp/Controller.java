@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp;
 
+import TimeTableGeneratorDesktopApp.DatabaseQueries.DatabaseCreation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,20 @@ public class Controller implements Initializable {
     @FXML
     private BorderPane mainPane;
 
+
+    /** This static block will run only once when the application is started
+     */
+    static {
+        System.out.println("Testing sout: This is where the creating database process happens\n(database is not creating right now this is a test sout)");
+        createDatabase();
+
+    }
+
+    static void createDatabase(){
+        DatabaseCreation databaseCreation = new DatabaseCreation();
+        databaseCreation.createDatabase();
+        System.out.println("Testing sout: Creating database id successfully completed");
+    }
 
     /*
     @FXML
@@ -118,6 +133,14 @@ public class Controller implements Initializable {
         Pane view = object.getPane("TimeTableGeneration/TimeTableGeneration");
         mainPane.setCenter(view);
     }
+
+    public void handleActionOnExtraButton(ActionEvent actionEvent) {
+        System.out.println("clicked Extra Button");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("Extra/Extra");
+        mainPane.setCenter(view);
+    }
+
 
     /*
     public void goToHallsAndLabsUI(int building_id) {

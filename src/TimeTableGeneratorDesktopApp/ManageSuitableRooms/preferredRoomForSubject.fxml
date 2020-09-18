@@ -36,7 +36,7 @@
                                 <Insets left="10.0" />
                             </HBox.margin>
                         </Label>
-                        <Label fx:id="txtHeaderBuildingName" text="Building Actual Name">
+                        <Label fx:id="txtHeaderBuildingName" text="Subject Actual Name">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
@@ -88,7 +88,7 @@
                         </ComboBox>
                   <Label layoutX="312.0" layoutY="28.0" text="Select Tag:" GridPane.columnIndex="4" />
                         <ComboBox fx:id="locationsHallsInsideMoreComboBox" prefWidth="141.0" GridPane.columnIndex="5" />
-                  <FontAwesomeIcon glyphName="SAVE" size="1.5em" GridPane.columnIndex="6" />
+                  <FontAwesomeIcon fx:id="btnSavePreferredRoomForSubject" glyphName="SAVE" onMouseClicked="#SavePreferredRoomForSubject" size="1.5em" GridPane.columnIndex="6" />
                     </children>
                 </GridPane>
             </children>

@@ -10,13 +10,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -111,7 +116,50 @@ public class studentBatchesController implements Initializable {
                 "All","Year", "Semester", "Intake", "Faculty", "Programme", "Center"
         );
         showBatches();
+        //createtables();
     }
+
+
+
+    public void createtables(){
+        String studentBatchesTable = "CREATE TABLE IF NOT EXISTS studentbatches (" +
+                "  `id` int(5) NOT NULL AUTO_INCREMENT," +
+                "  `year` varchar(45) NOT NULL," +
+                "  `semester` varchar(45) NOT NULL," +
+                "  `intake` varchar(45) NOT NULL," +
+                "  `faculty` varchar(45) NOT NULL," +
+                "  `programme` varchar(44) DEFAULT NULL," +
+                "  `center` varchar(45) NOT NULL," +
+                "  `noofstd` int(5) DEFAULT NULL," +
+                "  `batchID` varchar(45) DEFAULT NULL," +
+                "  PRIMARY KEY (`id`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8";
+
+        executeQuery(studentBatchesTable);
+
+
+        String batchStatsTable = "CREATE TABLE IF NOT EXISTS batchstats(" +
+                "  `batch` int(11) NOT NULL," +
+                "  `nofStudents` int(11) DEFAULT NULL," +
+                "  `nofGrouped` int(11) DEFAULT NULL," +
+                "  `nofRemain` int(11) DEFAULT NULL," +
+                "  `nofGroups` int(11) DEFAULT NULL," +
+                "  PRIMARY KEY (`batch`)" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        executeQuery(batchStatsTable);
+
+
+        String subGroupsTable = "CREATE TABLE IF NOT EXISTS subgroups(" +
+                "  `id` int(11) NOT NULL AUTO_INCREMENT," +
+                "  `subGroupId` varchar(45) DEFAULT NULL," +
+                "  `NofStudents` int(11) DEFAULT NULL," +
+                "  `batchID` int(11) DEFAULT NULL," +
+                "  PRIMARY KEY (`id`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8";
+
+        executeQuery(subGroupsTable);
+    }
+
 
     @FXML
     public void selectFilterType(ActionEvent actionEvent){

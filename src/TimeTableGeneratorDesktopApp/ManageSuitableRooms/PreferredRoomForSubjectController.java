@@ -26,10 +26,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+
+// imported
+import TimeTableGeneratorDesktopApp.Subjects.subjectsController;
+
+
 public class PreferredRoomForSubjectController implements Initializable {
 
     // variable declaration to keep some useful data
-    int subject_id = 1;
+    public static int subject_id;
     int tag_id = 1;
 
     @FXML
@@ -58,7 +63,7 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        populateLocationRows();
     }
 
 
@@ -70,17 +75,15 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     /** This method is used to get subject ID from menura's part
      */
-    public void getInformationFromSubjectUI(){
+    public void getInformationFromSubjectUI(int subjectID, int tagID){
+        subject_id = subjectID;
+        tag_id = tagID;
         System.out.println("Student id + " + this.subject_id);
 
-        populateLocationRows();
+
+        //populateLocationRows();
     }
 
-
-    // ============================================ DATABASE PART ===================================================================================
-
-    // database connection setup
-    DatabaseHelper databaseHelper = new DatabaseHelper();
 
 
     /**
@@ -91,10 +94,12 @@ public class PreferredRoomForSubjectController implements Initializable {
     public void populateLocationRows(){
         ObservableList<Location> locationList = getLocationList();
 
+        /*
         for (Location location : locationList){
             // sysout check
             System.out.println("Location preferred for subject rec: " + location.toString());
         }
+         */
 
         /**
          * Dynamically change the rows by getting data from the database
@@ -104,7 +109,7 @@ public class PreferredRoomForSubjectController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[locationList.size()];
 
-        if (locationList.size() != 0) {
+        if (locationList.size() >= 0) {
             for (int i = 0; i < locationList.size(); i++) {
                 try {
                     //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
@@ -116,6 +121,7 @@ public class PreferredRoomForSubjectController implements Initializable {
                     //Scene scene = new Scene(newRoot);
                     nodes[i] = (Node) loader.load();
                     LocationItemController locationItemController = loader.getController();
+                    //System.out.println("Test: locationList.get(i),this.subject_id: " + locationList.get(i) + " and" +this.subject_id);
                     locationItemController.showPreferredLocationInformationForSubject(locationList.get(i),this.subject_id); // subject id should be got from Menura's part
                     //facultyItemController = nodes[i].getController;
                     //nodes[i] = (Node) loader.load();
@@ -126,7 +132,10 @@ public class PreferredRoomForSubjectController implements Initializable {
                     e.printStackTrace();
                 }
             }
-        } else {
+        }
+
+        /*
+        else {
             // this means that no halls or labs are found
             // so we gonna display that no halls or labs are found
             Node nodeThatSaysNoFacultyFound;
@@ -140,7 +149,11 @@ public class PreferredRoomForSubjectController implements Initializable {
                 System.out.println("Error - preferred room for subject Loading ======================================");
                 e.printStackTrace();
             }
-        }
+        } //else
+
+         */
+
+
     } //
 
     /**
@@ -149,6 +162,11 @@ public class PreferredRoomForSubjectController implements Initializable {
      * returns locationList;
      * */
     public ObservableList<Location> getLocationList() {
+
+        // ============================================ DATABASE PART ===================================================================================
+
+        // database connection setup
+        DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<Location> locationList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
@@ -177,8 +195,8 @@ public class PreferredRoomForSubjectController implements Initializable {
                         rs.getString("location_condition"),
                         rs.getInt("building_building_id"),
                         rs.getInt("tag_tag_id"),
-                        rs.getInt("subject_subject_id"),
-                        rs.getBoolean("suitableRoomTrue")
+                        //rs.getInt("subject_subject_id"),
+                        rs.getInt("suitableRoomTrue")
                 );
                 locationList.add(location);
             }
@@ -188,6 +206,16 @@ public class PreferredRoomForSubjectController implements Initializable {
             ex.printStackTrace();
         }
         return locationList;
+    }
+
+
+    /**
+     * Get selected rooms and save
+     * @param event
+     */
+    @FXML
+    void SavePreferredRoomForSubject(MouseEvent event) {
+
     }
 
 
