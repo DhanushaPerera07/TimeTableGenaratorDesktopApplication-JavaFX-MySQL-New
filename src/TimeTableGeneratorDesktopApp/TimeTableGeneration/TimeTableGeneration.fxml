@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ButtonBar layoutX="255.0" layoutY="179.0" prefHeight="11.0" prefWidth="139.0">
-        <buttons>
-          <Button mnemonicParsing="false" prefHeight="5.0" prefWidth="157.0" text="janaka" />
-        </buttons>
-      </ButtonBar>
+      <ScrollPane layoutY="63.0" prefHeight="335.0" prefWidth="600.0">
+         <content>
+            <TableView prefHeight="176.0" prefWidth="238.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Pane prefHeight="63.0" prefWidth="600.0" />
    </children>
-</AnchorPane>
+</Pane>
