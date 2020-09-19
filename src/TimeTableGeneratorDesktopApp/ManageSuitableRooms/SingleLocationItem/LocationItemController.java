@@ -75,7 +75,7 @@ public class LocationItemController implements Initializable {
          * check box is checked otherwise it is not checked..
          */
 
-        System.out.println("location.getSuitableRoomTrue() = " + location.getSuitableRoomTrue());
+       //System.out.println("location.getSuitableRoomTrue() = " + location.getSuitableRoomTrue());
         if (location.getSuitableRoomTrue() == 1) {
             suitableRoomTrue = true;
         } else {

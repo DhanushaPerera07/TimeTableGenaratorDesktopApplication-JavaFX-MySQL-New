@@ -188,7 +188,7 @@ public class ShowAllSubjectsController implements Initializable {
         System.out.println(idmodule);
 
         PreferredRoomForSubjectController preferredRoomForSubjectController = new PreferredRoomForSubjectController();
-        preferredRoomForSubjectController.getInformationFromSubjectUI(idmodule,1);
+        preferredRoomForSubjectController.getInformationFromSubjectUI(idmodule);
 
 
         try{

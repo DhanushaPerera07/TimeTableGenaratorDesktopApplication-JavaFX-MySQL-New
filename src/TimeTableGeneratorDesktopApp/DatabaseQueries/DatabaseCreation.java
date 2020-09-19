@@ -115,7 +115,7 @@ public class DatabaseCreation {
             "  `location_capacity` INT NULL DEFAULT NULL,\n" +
             "  `location_floor` INT NULL DEFAULT NULL,\n" +
             "  `location_condition` VARCHAR(10) NULL DEFAULT NULL,\n" +
-            "  `location_delete_status` VARCHAR(2) NULL DEFAULT NULL,\n" +
+            "  `location_delete_status` VARCHAR(3) NULL DEFAULT NULL,\n" +
             "  `location_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
             "  `location_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `building_building_id` INT NOT NULL,\n" +
@@ -316,6 +316,9 @@ public class DatabaseCreation {
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB;";
+
+
+
     String query25 = "SET SQL_MODE=@OLD_SQL_MODE;";
     String query26 = "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;";
     String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";

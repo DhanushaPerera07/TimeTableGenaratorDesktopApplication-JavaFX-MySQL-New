@@ -41,6 +41,7 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
+        System.out.println("testing preferred_room_for_subject table: " + "SubjectID:" + subjectID + " ,LocationID: "+ locationID + ", Tag ID : " + tagID);
         String query = "SELECT * FROM preferred_room_for_subject WHERE subject_subject_id = " + this.subjectID + " AND location_location_id = " + this.locationID + " AND tag_tag_id = " + this.tagID + " ORDER BY preferred_room_for_subject_id";
         //String query = "SELECT * FROM preferred_room_for_subject WHERE status_true = 'Y' AND subject_subject_id = " + this.subjectID + " AND location_location_id = " + this.locationID + " AND tag_tag_id = " + this.tagID + " ORDER BY preferred_room_for_subject_id";
 

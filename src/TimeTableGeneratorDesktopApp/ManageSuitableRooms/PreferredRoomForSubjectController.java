@@ -1,11 +1,16 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
+import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,7 +40,7 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     // variable declaration to keep some useful data
     public static int subject_id;
-    int tag_id = 1;
+    //int tag_id = 1;
 
     @FXML
     private BorderPane borderPaneLocationsHallsInsideBuildingMain;
@@ -52,19 +57,45 @@ public class PreferredRoomForSubjectController implements Initializable {
     @FXML
     private Button btnSearchLocationsHallsInside;
 
-    @FXML
-    private ComboBox<String> locationsHallsInsideFilterByComboBox;
 
     @FXML
-    private ComboBox<String> locationsHallsInsideMoreComboBox;
+    private ComboBox<String> preferredSubjectFilterByComboBox;
+
+    @FXML
+    private ComboBox<String> selectTagComboBox;
 
     @FXML
     private VBox locationsVBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeComboBoxes();
         populateLocationRows();
     }
+
+
+    void initializeComboBoxes(){
+
+        // get tags details from the database and make a list then, using that list combo box values are displayed
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
+
+        for (Tags tag : tagList){
+            // sysout check
+            selectTagComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
+
+        }
+        selectTagComboBox.getSelectionModel().select("Lecture + Tutorial");
+
+        selectTagComboBox.getSelectionModel().selectedItemProperty().addListener( (v,oldValue,newValue) -> {
+            System.out.println("listener works !");
+            System.out.println("oldValue : " + oldValue);
+            System.out.println("newValue : " + newValue);
+            populateLocationRows();
+        });
+
+    }
+
 
 
     @FXML
@@ -75,11 +106,10 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     /** This method is used to get subject ID from menura's part
      */
-    public void getInformationFromSubjectUI(int subjectID, int tagID){
+    public void getInformationFromSubjectUI(int subjectID){
         subject_id = subjectID;
-        tag_id = tagID;
+        //tag_id = tagID;
         System.out.println("Student id + " + this.subject_id);
-
 
         //populateLocationRows();
     }
@@ -92,7 +122,29 @@ public class PreferredRoomForSubjectController implements Initializable {
      * which means mark that room as a preferred room or not
      */
     public void populateLocationRows(){
-        ObservableList<Location> locationList = getLocationList();
+
+        locationsVBox.getChildren().clear();
+
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        Tags tag = new Tags();
+        tag = tagsDatabaseHelper.getTagInstanceByTagName(selectTagComboBox.getValue());
+
+        ObservableList<Location> locationList;
+
+        String tagName = tag.getTag();
+
+        if (tagName.equals("Lecture")){
+            locationList = getLocationList(tag.getTagID());
+        } else if (tagName.equals("Tutorial")) {
+            locationList = getLocationList(tag.getTagID());
+        } else if (tagName.equals("Lecture + Tutorial")) {
+            locationList = getLocationList(tag.getTagID());
+        } else if (tagName.equals("Evaluation")) {
+            locationList = getLocationList(tag.getTagID());
+        } else {
+            locationList = getLocationList(0);
+        }
+
 
         /*
         for (Location location : locationList){
@@ -109,7 +161,7 @@ public class PreferredRoomForSubjectController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[locationList.size()];
 
-        if (locationList.size() >= 0) {
+        if (locationList.size() >= 0) {  // location table is not empty, there are some locations (halls/ lab)
             for (int i = 0; i < locationList.size(); i++) {
                 try {
                     //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
@@ -161,7 +213,7 @@ public class PreferredRoomForSubjectController implements Initializable {
      * here, location table and preferred_room_for_subject table are being checked
      * returns locationList;
      * */
-    public ObservableList<Location> getLocationList() {
+    public ObservableList<Location> getLocationList(int tagID) {
 
         // ============================================ DATABASE PART ===================================================================================
 
@@ -176,8 +228,21 @@ public class PreferredRoomForSubjectController implements Initializable {
         //query = "SELECT * FROM location WHERE building_building_id = "+this.buildingID+" AND location_delete_status = 'N' ORDER BY location_name";
         //query = "SELECT * FROM location WHERE location_delete_status = 'N' ORDER BY location_name";
 
+
+        if (tagID >= 0){
+            //query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+"";
+            query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id + " AND l.tag_tag_id =" + tagID + "";
+
+        } else {
+            query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+" AND ps.tag_tag_id = "+tagID+"";
+
+        }
+
+        /*
         //query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+"";
         query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+" AND ps.tag_tag_id = "+this.tag_id+"";
+
+         */
 
         Statement st;
         ResultSet rs;
