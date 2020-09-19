@@ -57,10 +57,10 @@ public class TimeTableStructureController implements Initializable {
 
     }
 
-    public void showSubGroups(subGroups subGroup, int subGroupID) {
+    public void showSubGroups(subGroups subGroup) {
 
         this.subGroup = subGroup;
-        this.subGroupID = subGroupID;
+//        this.subGroupID = subGroupID;
 
         System.out.println("test location: " + this.subGroup.toString());
         structureTblHeader.setText(subGroup.getSubGroupId());
