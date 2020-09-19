@@ -65,7 +65,7 @@ public class AddLocationsHallsPopUpController implements Initializable {
 
     private void initializeCombobox() {
 
-        // get tags details from the database and make a list then, using that list combo box values are displayed
+        // get tags details from the database and make a list,
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
         ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
 

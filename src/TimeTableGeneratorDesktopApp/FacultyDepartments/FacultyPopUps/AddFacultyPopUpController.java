@@ -71,6 +71,8 @@ public class AddFacultyPopUpController implements Initializable {
                 "Melissa Franklin",
                 "Sarah Boysen"
         );
+
+
         // prompt text
         facultyHeadComboBox.setPromptText("John Doe"); // selects the first one in the dropdown
 
