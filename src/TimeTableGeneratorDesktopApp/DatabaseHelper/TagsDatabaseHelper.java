@@ -11,6 +11,40 @@ import java.sql.Statement;
 
 public class TagsDatabaseHelper extends DatabaseHelper {
 
+
+    /** pass tag id as the parameter and get the tag instance
+     * @param tagID
+     */
+    public Tags getTagInstanceByTagID(int tagID){
+        // create a faculty object
+        Tags tag = new Tags();
+
+        // get database connection
+        Connection conn = getConnection();
+
+        String query = "SELECT * FROM tags WHERE idtags = " + tagID + " ORDER BY idtags";
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                tag.setTagID(rs.getInt("idtags"));
+                tag.setTag(rs.getString("Tag"));
+
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When TAGs data retrieving ");
+            ex.printStackTrace();
+        }
+
+        return tag;
+    }
+
     /** pass tag name as the parameter and get the tag id
      * @param tagName
      */
