@@ -1,0 +1,4 @@
+package TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure;
+
+public class TimeTableStructureController {
+}
