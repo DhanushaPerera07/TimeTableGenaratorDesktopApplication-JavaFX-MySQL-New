@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:id="borderPaneForTimeTables" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPaneForTimeTables" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimeTableGeneration.timeTableGenerationController">
    <top>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -20,9 +19,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Batch 1">
+            <Label prefHeight="39.0" prefWidth="769.0" text="Time Tables" textAlignment="CENTER">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Bell MT Bold" size="32.0" />
                </font>
             </Label>
          </children>

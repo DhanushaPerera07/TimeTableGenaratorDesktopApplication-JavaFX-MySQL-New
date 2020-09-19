@@ -6,6 +6,7 @@ import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
@@ -20,6 +21,9 @@ public class TimeTableStructureController implements Initializable {
 
     @FXML
     private VBox TimeTableVBox;
+
+    @FXML
+    private Label structureTblHeader;
 
     @FXML
     private TableView<?> TimeTableStructureTbl;
@@ -59,6 +63,6 @@ public class TimeTableStructureController implements Initializable {
         this.subGroupID = subGroupID;
 
         System.out.println("test location: " + this.subGroup.toString());
-        StrructureC1.setText(subGroup.getSubGroupId());
+        structureTblHeader.setText(subGroup.getSubGroupId());
     }
 }
