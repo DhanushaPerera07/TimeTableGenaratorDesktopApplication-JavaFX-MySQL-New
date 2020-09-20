@@ -1,7 +1,9 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,16 +65,18 @@ public class AddLocationsHallsPopUpController implements Initializable {
 
     private void initializeCombobox() {
 
-        // tag
-        tagHallLabComboBox.getItems().addAll(
-                "Lecture Hall",
-                "Tutorial Hall",
-                "Lecture/Tutorial Hall (Not-Consecutive)",
-                "Lecture/Tutorial Hall (Consecutive)",
-                "PC - Lab"
-        );
+        // get tags details from the database and make a list,
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
+
+        for (Tags tag : tagList){
+            // sysout check
+            tagHallLabComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
+
+        }
+        //tagHallLabComboBox.getSelectionModel().select("Lecture + Tutorial");
         tagHallLabComboBox.setPromptText("Select Tag");
-        //tagHallLabComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+
 
         conditionHallLabComboBox.getItems().addAll(
                 "OK",
@@ -117,27 +121,24 @@ public class AddLocationsHallsPopUpController implements Initializable {
         String location_condition = conditionHallLabComboBox.getValue();
         String faculty_delete_status = "N";
         int building_building_id = this.buildingID;
-        int tag_tag_id; //tagHallLabComboBox.getValue();
+        int tag_tag_id = 0; //tagHallLabComboBox.getValue();
         int subject_subject_id; //specializedForHallLabComboBox.getValue();
 
-        String tag = tagHallLabComboBox.getValue();
-        if (tag == "Lecture Hall") {
-            tag_tag_id = 1;
-        } else if (tag == "Tutorial Hall") {
-            tag_tag_id = 2;
-        } else if (tag == "Lecture/Tutorial Hall (Not-Consecutive)") {
-            tag_tag_id = 3;
-        } else if (tag == "Lecture/Tutorial Hall (Consecutive)") {
-            tag_tag_id = 2;
-        } else if (tag == "PC - Lab") {
-            tag_tag_id = 4;
-        } else {
-            tag_tag_id = 5;
-        }
+        // get tags details from the database and make a list.
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
 
+        for (Tags tag : tagList){
+            // sysout check
+            if (tag.getTag().equals(tagHallLabComboBox.getValue())){ // get the tagID by passing tag name
+                tag_tag_id = tag.getTagID();
+                break;
+            }
+        }
 
         // insert query
         String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`,`tag_tag_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id + "," + tag_tag_id +")";
+        //String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id +")";
 
         // execute the insert query
         databaseHelper.executeQuery(query);

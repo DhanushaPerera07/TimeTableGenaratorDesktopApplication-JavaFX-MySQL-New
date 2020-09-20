@@ -111,15 +111,16 @@ public class DatabaseCreation {
 
     String query9 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`location` (\n" +
             "  `location_id` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `location_name` VARCHAR(45) NULL,\n" +
-            "  `location_capacity` INT NULL,\n" +
-            "  `location_floor` INT NULL,\n" +
-            "  `location_condition` VARCHAR(10) NULL,\n" +
-            "  `location_delete_status` VARCHAR(2) NULL,\n" +
+            "  `location_name` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `location_capacity` INT NULL DEFAULT NULL,\n" +
+            "  `location_floor` INT NULL DEFAULT NULL,\n" +
+            "  `location_condition` VARCHAR(10) NULL DEFAULT NULL,\n" +
+            "  `location_delete_status` VARCHAR(3) NULL DEFAULT NULL,\n" +
             "  `location_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
             "  `location_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `building_building_id` INT NOT NULL,\n" +
-            "  PRIMARY KEY (`location_id`, `building_building_id`),\n" +
+            "  `tag_tag_id` INT NULL DEFAULT NULL,\n" +
+            "  PRIMARY KEY (`location_id`),\n" +
             "  INDEX `fk_location_building1_idx` (`building_building_id` ASC) VISIBLE,\n" +
             "  INDEX `location_name_idx` (`location_name` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_location_building1`\n" +
@@ -127,7 +128,9 @@ public class DatabaseCreation {
             "    REFERENCES `timetabledb`.`building` (`building_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB;";
+            "ENGINE = InnoDB\n" +
+            "AUTO_INCREMENT = 5\n" +
+            "DEFAULT CHARACTER SET = utf8";
 
 
     String query10 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`tags` (\n" +
@@ -139,18 +142,18 @@ public class DatabaseCreation {
 
     String query11 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`lecturer` (\n" +
             "  `lid` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `lecturerID` VARCHAR(45) NULL,\n" +
-            "  `lecturerName` VARCHAR(10) NULL,\n" +
-            "  `lecturerFaculty` VARCHAR(45) NULL,\n" +
-            "  `lecturerDepartment` VARCHAR(45) NULL,\n" +
-            "  `lecturerCenter` VARCHAR(45) NULL,\n" +
-            "  `lecturerBuilding` VARCHAR(45) NULL,\n" +
-            "  `lecturerLevel` INT NULL,\n" +
-            "  `lecturerRank` VARCHAR(45) NULL,\n" +
-            "  `lecturer_delete_status` VARCHAR(3) NULL DEFAULT 'N' COMMENT 'Y=yes\\nN= no',\n" +
+            "  `lecturerID` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerName` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerFaculty` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerDepartment` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerCenter` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerBuilding` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturerLevel` INT NULL DEFAULT NULL,\n" +
+            "  `lecturerRank` VARCHAR(45) NULL DEFAULT NULL,\n" +
+            "  `lecturer_delete_status` VARCHAR(3) NULL DEFAULT 'N' COMMENT 'Y=yes\\\\nN= no',\n" +
             "  `lecturer_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
             "  `lecturer_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-            "  `faculty_faculty_id` INT NULL,\n" +
+            "  `faculty_faculty_id` INT NULL DEFAULT NULL,\n" +
             "  PRIMARY KEY (`lid`),\n" +
             "  INDEX `fk_lecturer_faculty1_idx` (`faculty_faculty_id` ASC) VISIBLE,\n" +
             "  INDEX `lecturer_name_idx` (`lecturerID` ASC) VISIBLE,\n" +
@@ -159,7 +162,8 @@ public class DatabaseCreation {
             "    REFERENCES `timetabledb`.`faculty` (`faculty_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB;";
+            "ENGINE = InnoDB\n" +
+            "DEFAULT CHARACTER SET = utf8";
 
 
     String query12 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`module` (\n" +
@@ -313,9 +317,33 @@ public class DatabaseCreation {
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB;";
-    String query25 = "SET SQL_MODE=@OLD_SQL_MODE;";
+
+
+    // added by Dhanusha
+    String query25 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_lecturer` (\n" +
+            "  `suitable_room_for_lecturer_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `lecturer_lid` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_lecturer_id`, `location_location_id`, `lecturer_lid`),\n" +
+            "  INDEX `fk_location_has_lecturer_lecturer1_idx` (`lecturer_lid` ASC) VISIBLE,\n" +
+            "  INDEX `fk_location_has_lecturer_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+            "  CONSTRAINT `fk_location_has_lecturer_location1`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE,\n" +
+            "  CONSTRAINT `fk_location_has_lecturer_lecturer1`\n" +
+            "    FOREIGN KEY (`lecturer_lid`)\n" +
+            "    REFERENCES `timetabledb`.`lecturer` (`lid`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB\n" +
+            "DEFAULT CHARACTER SET = utf8";
+
+/*    String query25 = "SET SQL_MODE=@OLD_SQL_MODE;";
     String query26 = "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;";
-    String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";
+    String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";*/
 
     public void createDatabase() {
         try {
@@ -341,6 +369,7 @@ public class DatabaseCreation {
             executeQuery(query22);
             executeQuery(query23);
             executeQuery(query24);
+            executeQuery(query25);
 
 
 

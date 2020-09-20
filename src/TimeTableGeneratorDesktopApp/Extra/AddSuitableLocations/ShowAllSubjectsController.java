@@ -35,13 +35,7 @@ public class ShowAllSubjectsController implements Initializable {
 
     public static int idmodule = 0;
     public static String moduleName = "";
-    public static String moduleCode = "";
-    public static String offeredYear = "";
-    public static String offeredSemester = "";
-    public static int lecHour = 0;
-    public static int tuteHour = 0;
-    public static int labHour = 0;
-    public static int evaluationHour = 0;
+
     public static String filterType = "All";
     public static String filterValue = "";
     public static String query="";
@@ -185,10 +179,12 @@ public class ShowAllSubjectsController implements Initializable {
         Subjects subjects = tvModules.getSelectionModel().getSelectedItem();
 
         idmodule = subjects.getIdmodule();
-        System.out.println(idmodule);
+        moduleName = subjects.getModuleName();
+        System.out.println("Subject id (Menura's part): " + idmodule);
 
+        // pass values to PreferredRoomForSubjectController
         PreferredRoomForSubjectController preferredRoomForSubjectController = new PreferredRoomForSubjectController();
-        preferredRoomForSubjectController.getInformationFromSubjectUI(idmodule,1);
+        preferredRoomForSubjectController.getInformationFromSubjectUI(idmodule,moduleName);
 
 
         try{

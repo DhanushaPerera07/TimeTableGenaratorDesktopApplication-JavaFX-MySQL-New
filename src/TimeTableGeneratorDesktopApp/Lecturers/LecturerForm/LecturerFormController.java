@@ -1,14 +1,22 @@
 package TimeTableGeneratorDesktopApp.Lecturers.LecturerForm;
 
 import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
-import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
+//import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.PreferredRoomForSubjectController;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForLecturerController;
+import TimeTableGeneratorDesktopApp.Subjects.Subjects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -65,6 +73,9 @@ public class LecturerFormController implements Initializable {
 
     @FXML
     private TextField tfEmployeeID;
+
+    @FXML //added by Dhanusha
+    private AnchorPane anchorPaneOfLecturerForm;
 
     TimeTableGeneratorDesktopApp.Lecturers.lecturersController lecturersController = new lecturersController();
 
@@ -374,5 +385,37 @@ public class LecturerFormController implements Initializable {
         executeQuery(query);
     }
 
+
+
+
+    // ---------- Added by Dhanusha - Manage suitable room for Lecturer --------------------------------------
+    @FXML
+    void setOnActionSuitableRoom(ActionEvent event) {
+
+
+        // pass values to PreferredRoomForSubjectController
+        SuitableRoomForLecturerController suitableRoomForLecturerController = new SuitableRoomForLecturerController();
+        suitableRoomForLecturerController.getNecessaryInformation(lecturerID,lecturerName);
+        System.out.println("Menura's part: lecture ID = " + lecturerID + "\nLecturer name = " + lecturerName);
+
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/suitableRoomForLecturer.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Add suitable locations for a lecturer");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(anchorPaneOfLecturerForm.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+        }catch (Exception e){
+            System.out.println("can't load new (Add suitable locations for a lecturer) window");
+            e.printStackTrace();
+        }
+    }
 
 }

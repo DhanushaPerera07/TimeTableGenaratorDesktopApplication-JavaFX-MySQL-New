@@ -1,7 +1,10 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
+import TimeTableGeneratorDesktopApp.Tags.Tags;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class EditLocationsHallsPopUpController implements Initializable {
 
-    // holder buidling ID
+    // holder building ID
     public int buildingID, moduleID,tagID;
     public String condition, buildingName;
 
@@ -50,19 +53,15 @@ public class EditLocationsHallsPopUpController implements Initializable {
 
     private void initializeCombobox() {
 
-        // tag
-        tagHallLabComboBox.getItems().addAll(
-                "Lecture Hall",
-                "Tutorial Hall",
-                "Lecture/Tutorial Hall (Not-Consecutive)",
-                "Lecture/Tutorial Hall (Consecutive)",
-                "PC - Lab"
-        );
-        // specializedForHallLabComboBox.setPromptText("Select Tag");
-        // tagHallLabComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+        // get tags details from the database and make a list,
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
 
+        for (Tags tag : tagList){
+            // sysout check
+            tagHallLabComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
 
-
+        }
 
         conditionHallLabComboBox.getItems().addAll(
                 "OK",
@@ -85,41 +84,19 @@ public class EditLocationsHallsPopUpController implements Initializable {
         this.tagID = locationHallLab.getTagID();
         this.condition = locationHallLab.getLocationCondition();
 
-        /*
-        this.buildingID = buildingID;
-        this.moduleID = moduleID;
-        this.tagID = tagID;
-        this.condition = condition;
-         */
+        // get tags details from the database and make a list,
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
 
-        setExistingComboboxValues();
+        // get tag instance by passing tagID // tag name is used here
+        tagHallLabComboBox.getSelectionModel().select(tagsDatabaseHelper.getTagInstanceByTagID(this.tagID).getTag());
+        conditionHallLabComboBox.getSelectionModel().select(this.condition);
         textTheBuilding.setText(buildingName);
         txtHallLabName.setText(locationHallLab.getLocationName());
         txtHallLabCapacity.setText(Integer.toString(locationHallLab.getLocationCapacity()));
         txtHallLabFloor.setText(Integer.toString(locationHallLab.getLocationFloor()));
     }
 
-    public void setExistingComboboxValues() {
 
-        if (this.tagID ==1){
-            tagHallLabComboBox.getSelectionModel().select("Lecture Hall");
-        } else if (this.tagID ==2){
-            tagHallLabComboBox.getSelectionModel().select("Tutorial Hall");
-        }
-        else if (this.tagID ==3){
-            tagHallLabComboBox.getSelectionModel().select("Lecture/Tutorial Hall (Not-Consecutive)");
-        }
-        else if (this.tagID ==4){
-            tagHallLabComboBox.getSelectionModel().select("Lecture/Tutorial Hall (Consecutive)");
-        }
-        else if (this.tagID ==5){
-            tagHallLabComboBox.getSelectionModel().select("PC - Lab");
-        } else {
-            tagHallLabComboBox.getSelectionModel().select("Unknown");
-        }
-
-        conditionHallLabComboBox.getSelectionModel().select(this.condition);
-    }
 
     public void ActionEventEditHallLabPopup(ActionEvent actionEvent) {
         getPermissionToEditTheRecordFromConfirmBox(1);

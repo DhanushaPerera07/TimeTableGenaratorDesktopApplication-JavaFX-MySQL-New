@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem;
 
 import TimeTableGeneratorDesktopApp.Controller;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsController;
 import TimeTableGeneratorDesktopApp.FxmlLoader;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsController;
@@ -262,7 +263,10 @@ public class LocationsBuildingItemController implements Initializable {
         txtNoOfLectureHalls.setText(Integer.toString(building.getBuildingNoOfLectureHalls()));
         txtNoOfTutorialHalls.setText(Integer.toString(building.getBuildingNoOfTutorialHalls()));
         txtNoOfLabs.setText(Integer.toString(building.getBuildingNoOfLabs()));
-        txtReservedFaculty.setText(Integer.toString(building.getFacultyFacultyId()));
+        //txtReservedFaculty.setText(Integer.toString(building.getFacultyFacultyId()));
+
+        FacultyDatabaseHelper facultyDatabaseHelper = new FacultyDatabaseHelper();
+        txtReservedFaculty.setText(facultyDatabaseHelper.getFacultyInstance(building.getFacultyFacultyId()).getName());
 
         //System.out.println("Hey this this building: " + this.buildingInstance.toString());
 

@@ -341,13 +341,10 @@ public class SetWorkingDaysController implements Initializable {
             while (rs.next()) {
                  noDaysDB= rs.getInt("noDays");
                 noDaysIdDB = rs.getInt("idno");
-
-
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
 
