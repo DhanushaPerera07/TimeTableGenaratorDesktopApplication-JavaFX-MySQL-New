@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 public class TimeTableStructureController implements Initializable {
 
     subGroups subGroup;
+    Location location;
     int subGroupID;
 
     @FXML
@@ -68,6 +69,14 @@ public class TimeTableStructureController implements Initializable {
 
         this.subGroup = subGroup;
         structureTblHeader.setText(subGroup.getSubGroupId());
+        getDayNames();
+        displayTimeSlots();
+    }
+
+    public void showLocations(Location location) {
+
+        this.location = location;
+        structureTblHeader.setText(location.getLocationName());
         getDayNames();
         displayTimeSlots();
     }

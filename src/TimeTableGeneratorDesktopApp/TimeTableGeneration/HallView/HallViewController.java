@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.Location;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.collections.FXCollections;
@@ -23,7 +24,7 @@ public class HallViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        populateSubGroupRows();
+        populateHalls();
 
     }
 
@@ -34,20 +35,18 @@ public class HallViewController implements Initializable {
     private VBox timeTableVBox;
 
 
-    public void populateSubGroupRows(){
+    public void populateHalls(){
 
         timeTableVBox.getChildren().clear();
 
-        ObservableList<subGroups> subGroupList = getSubGroupList();
+        ObservableList<Location> locationList = getlocationListList();
 
         // Populate the rows like a table
-        Node[] nodes = new Node[subGroupList.size()];
+        Node[] nodes = new Node[locationList.size()];
 
-        if (subGroupList.size() > 0) {
-            for (int i = 0; i < subGroupList.size(); i++) {
+        if (locationList.size() > 0) {
+            for (int i = 0; i < locationList.size(); i++) {
                 try {
-
-                    System.out.println(subGroupList.size() + "wishslai");
 
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
@@ -55,7 +54,7 @@ public class HallViewController implements Initializable {
                     nodes[i] = (Node) loader.load();
                     TimeTableStructureController timeTableStructureController = loader.getController();
 
-                    timeTableStructureController.showSubGroups(subGroupList.get(i)); // subject id should be got from Menura's part
+                    timeTableStructureController.showLocations(locationList.get(i)); // subject id should be got from Menura's part
 
                     timeTableVBox.getChildren().addAll(nodes[i]);
                 } catch (IOException e) {
@@ -64,18 +63,18 @@ public class HallViewController implements Initializable {
                 }
             }
         }else{
-            System.out.println(subGroupList.size() + "kudai");
+            System.out.println("Database Problem...!");
         }
     }
 
-    public ObservableList<subGroups> getSubGroupList() {
+    public ObservableList<Location> getlocationListList() {
 
         // ============================================ DATABASE PART ===================================================================================
 
         // database connection setup
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
-        ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
+        ObservableList<Location> locationList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
         String query;
         query = "SELECT * FROM subgroups";
@@ -87,22 +86,27 @@ public class HallViewController implements Initializable {
             st = conn.createStatement();
             rs = st.executeQuery(query);
 
-            subGroups subGroup;
+            Location location;
             while (rs.next()) {
-                subGroup = new subGroups(
-                        rs.getInt("id"),
-                        rs.getString("subGroupId"),
-                        rs.getInt("NofStudents"),
-                        rs.getInt("batchID")
+                location = new Location(
+                        rs.getInt("location_id"),
+                        rs.getString("location_name"),
+                        rs.getInt("location_capacity"),
+                        rs.getInt("location_floor"),
+                        rs.getString("location_condition"),
+                        rs.getInt("building_building_id"),
+                        rs.getInt("tag_tag_id"),
+                        //rs.getInt("subject_subject_id"),
+                        rs.getInt("suitableRoomTrue")
 
                 );
-                subGroupList.add(subGroup);
+                locationList.add(location);
             }
 
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-        return subGroupList;
+        return locationList;
     }
 }
