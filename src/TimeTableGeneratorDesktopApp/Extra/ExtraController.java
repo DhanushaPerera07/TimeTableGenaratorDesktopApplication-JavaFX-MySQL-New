@@ -26,11 +26,22 @@ public class ExtraController implements Initializable {
     @FXML
     private Button backBtn;
 
+
     @FXML
-    private Button btnAddSuitableLocation;
+    private Button ParallelSessionBtn;
+
+    @FXML
+    private Button ConsecetiveSessionBtn;
 
     @FXML
     private Pane pane;
+
+    @FXML
+    private Button OverlapSessionBtn;
+
+    @FXML
+    private Button btnAddSuitableLocation;
+
 
     @FXML
     private TilePane addSuitableRooms;
