@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="TimeTableVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController">
+<VBox fx:id="TimeTableVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <children>
-      <GridPane>
+      <GridPane alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -24,19 +24,28 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="structureTblHeader" prefHeight="17.0" prefWidth="496.0" text="Y3_S1_01_02" textAlignment="JUSTIFY">
+            <Label fx:id="structureTblHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="172.0" text="Y3_S1_01_02" textAlignment="JUSTIFY" textFill="#2b0dd3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="29.0" />
                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </Label>
-            <Label prefHeight="17.0" prefWidth="148.0" text="SE" GridPane.columnIndex="1">
+            <Label prefHeight="43.0" prefWidth="35.0" text="SE" textFill="#038603" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="29.0" />
                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </Label>
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </GridPane>
-      <TableView fx:id="TimeTableStructureTbl" tableMenuButtonVisible="true">
+      <TableView fx:id="TimeTableStructureTbl" prefHeight="242.0" prefWidth="650.0" tableMenuButtonVisible="true">
         <columns>
             <TableColumn fx:id="StructureTimeSlots" prefWidth="75.0" text="Time Slots" />
           <TableColumn fx:id="StrructureC1" prefWidth="75.0" text="C1" />
