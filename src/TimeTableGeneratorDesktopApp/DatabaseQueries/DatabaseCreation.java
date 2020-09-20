@@ -139,50 +139,50 @@ public class DatabaseCreation {
             "  PRIMARY KEY (`idtags`))\n" +
             "ENGINE = InnoDB;";
 
-
-    String query11 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`lecturer` (\n" +
-            "  `lid` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `lecturerID` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturerName` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturerFaculty` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturerDepartment` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturerCenter` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturerBuilding` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturerLevel` INT NULL DEFAULT NULL,\n" +
-            "  `lecturerRank` VARCHAR(45) NULL DEFAULT NULL,\n" +
-            "  `lecturer_delete_status` VARCHAR(3) NULL DEFAULT 'N' COMMENT 'Y=yes\\\\nN= no',\n" +
-            "  `lecturer_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
-            "  `lecturer_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-            "  `faculty_faculty_id` INT NULL DEFAULT NULL,\n" +
-            "  PRIMARY KEY (`lid`),\n" +
-            "  INDEX `fk_lecturer_faculty1_idx` (`faculty_faculty_id` ASC) VISIBLE,\n" +
-            "  INDEX `lecturer_name_idx` (`lecturerID` ASC) VISIBLE,\n" +
-            "  CONSTRAINT `fk_lecturer_faculty1`\n" +
-            "    FOREIGN KEY (`faculty_faculty_id`)\n" +
-            "    REFERENCES `timetabledb`.`faculty` (`faculty_id`)\n" +
-            "    ON DELETE CASCADE\n" +
-            "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB\n" +
-            "DEFAULT CHARACTER SET = utf8";
-
-
-    String query12 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`module` (\n" +
-            "  `idmodule` INT NOT NULL AUTO_INCREMENT,\n" +
-            "  `moduleName` VARCHAR(45) NULL,\n" +
-            "  `moduleCode` VARCHAR(45) NULL,\n" +
-            "  `offeredYear` VARCHAR(45) NULL,\n" +
-            "  `offeredSemester` VARCHAR(45) NULL,\n" +
-            "  `lecHour` INT NULL,\n" +
-            "  `tuteHour` INT NULL,\n" +
-            "  `labHour` INT NULL,\n" +
-            "  `evaluationHour` INT NULL,\n" +
-            "  `subject_delete_status` VARCHAR(3) NULL DEFAULT 'N',\n" +
-            "  `subject_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
-            "  `subject_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-            "  PRIMARY KEY (`idmodule`))\n" +
-            "ENGINE = InnoDB;";
-
-
+//
+//    String query11 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`lecturer` (\n" +
+//            "  `lid` INT NOT NULL AUTO_INCREMENT,\n" +
+//            "  `lecturerID` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturerName` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturerFaculty` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturerDepartment` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturerCenter` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturerBuilding` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturerLevel` INT NULL DEFAULT NULL,\n" +
+//            "  `lecturerRank` VARCHAR(45) NULL DEFAULT NULL,\n" +
+//            "  `lecturer_delete_status` VARCHAR(3) NULL DEFAULT 'N' COMMENT 'Y=yes\\\\nN= no',\n" +
+//            "  `lecturer_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
+//            "  `lecturer_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+//            "  `faculty_faculty_id` INT NULL DEFAULT NULL,\n" +
+//            "  PRIMARY KEY (`lid`),\n" +
+//            "  INDEX `fk_lecturer_faculty1_idx` (`faculty_faculty_id` ASC) VISIBLE,\n" +
+//            "  INDEX `lecturer_name_idx` (`lecturerID` ASC) VISIBLE,\n" +
+//            "  CONSTRAINT `fk_lecturer_faculty1`\n" +
+//            "    FOREIGN KEY (`faculty_faculty_id`)\n" +
+//            "    REFERENCES `timetabledb`.`faculty` (`faculty_id`)\n" +
+//            "    ON DELETE CASCADE\n" +
+//            "    ON UPDATE CASCADE)\n" +
+//            "ENGINE = InnoDB\n" +
+//            "DEFAULT CHARACTER SET = utf8";
+//
+//
+//    String query12 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`module` (\n" +
+//            "  `idmodule` INT NOT NULL AUTO_INCREMENT,\n" +
+//            "  `moduleName` VARCHAR(45) NULL,\n" +
+//            "  `moduleCode` VARCHAR(45) NULL,\n" +
+//            "  `offeredYear` VARCHAR(45) NULL,\n" +
+//            "  `offeredSemester` VARCHAR(45) NULL,\n" +
+//            "  `lecHour` INT NULL,\n" +
+//            "  `tuteHour` INT NULL,\n" +
+//            "  `labHour` INT NULL,\n" +
+//            "  `evaluationHour` INT NULL,\n" +
+//            "  `subject_delete_status` VARCHAR(3) NULL DEFAULT 'N',\n" +
+//            "  `subject_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
+//            "  `subject_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+//            "  PRIMARY KEY (`idmodule`))\n" +
+//            "ENGINE = InnoDB;";
+//
+//
     String query13 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`studentbatches` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `year` VARCHAR(45) NULL,\n" +
@@ -355,9 +355,9 @@ public class DatabaseCreation {
             executeQuery(query8);
             executeQuery(query9);
             executeQuery(query10);
-            executeQuery(query11);
-            executeQuery(query12);
-            executeQuery(query13);
+//            executeQuery(query11);
+//            executeQuery(query12);
+//            executeQuery(query13);
             executeQuery(query14);
             executeQuery(query15);
             executeQuery(query16);

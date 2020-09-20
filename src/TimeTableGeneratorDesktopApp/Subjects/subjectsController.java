@@ -95,10 +95,9 @@ public class subjectsController implements Initializable {
         );
 
         showModules();
-        createTable();
-    }
 
-    private void createTable() {
+
+
         String query = "CREATE TABLE IF NOT EXISTS module (" +
                 "  `idmodule` int NOT NULL AUTO_INCREMENT," +
                 "  `moduleName` varchar(45) NOT NULL," +

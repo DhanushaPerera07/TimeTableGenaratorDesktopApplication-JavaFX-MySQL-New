@@ -95,7 +95,25 @@ public class lecturersController implements Initializable {
                 "All", "Faculty", "Department", "Center", "Building", "Level"
         );
         showLecturers();
+        createTable();
     }
+
+    private void createTable() {
+        String query = "CREATE TABLE lecturer (" +
+                "  `lid` int NOT NULL AUTO_INCREMENT," +
+                "  `lecturerID` varchar(6) NOT NULL," +
+                "  `lecturerName` varchar(45) NOT NULL," +
+                "  `lecturerFaculty` varchar(45) NOT NULL," +
+                "  `lecturerDepartment` varchar(45) NOT NULL," +
+                "  `lecturerCenter` varchar(45) NOT NULL," +
+                "  `lecturerBuilding` varchar(45) NOT NULL," +
+                "  `lecturerLevel` int NOT NULL," +
+                "  `lecturerRank` varchar(10) NOT NULL," +
+                "  PRIMARY KEY (`lid`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+    executeQuery(query);
+    }
+
 
 
     @FXML
@@ -255,6 +273,7 @@ public class lecturersController implements Initializable {
 
                         @Override
                         public void run() {
+                            showLecturers();
                             lid = 0;
                             lecturerName = "";
                             lecturerID = "";
