@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure;
 
+import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
@@ -26,6 +27,7 @@ public class TimeTableStructureController implements Initializable {
 
     subGroups subGroup;
     Hall hall;
+    Lecturers lecturers;
     int subGroupID;
 
     @FXML
@@ -81,6 +83,15 @@ public class TimeTableStructureController implements Initializable {
         getDayNames();
         displayTimeSlots();
     }
+
+    public void showlecturers(Lecturers lecturers) {
+
+        this.lecturers = lecturers;
+        structureTblHeader.setText(lecturers.getLecturerName());
+        getDayNames();
+        displayTimeSlots();
+    }
+
 
     public Connection getConnection(){
         Connection conn;
