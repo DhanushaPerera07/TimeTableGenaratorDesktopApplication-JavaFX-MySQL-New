@@ -130,7 +130,7 @@ public class Controller implements Initializable {
     public void handleActionOnTimeTimeTableGenerationButton(ActionEvent actionEvent) {
         System.out.println("clicked TimeTimeTableGeneration Button");
         FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPane("TimeTableGeneration/TimeTableGeneration");
+        Pane view = object.getPane("TimeTableGeneration/HallView/HallView");
         mainPane.setCenter(view);
     }
 
