@@ -11,11 +11,11 @@
 
 <VBox fx:id="locationsHallsInsideItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController">
     <children>
-        <GridPane>
+        <GridPane prefHeight="30.0" prefWidth="605.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.60000610351562" minWidth="10.0" prefWidth="116.60000610351562" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0000732421875" minWidth="10.0" prefWidth="513.6" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.2000366210938" minWidth="10.0" prefWidth="185.60000000000002" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.5999954223633" minWidth="10.0" prefWidth="123.3999755859375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0000732421875" minWidth="10.0" prefWidth="291.8000244140625" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.4" minWidth="10.0" prefWidth="285.39997558593757" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,12 +34,12 @@
             <CheckBox fx:id="checkBoxMarkAsSuitableRoom" mnemonicParsing="false" onMouseClicked="#changeCheckBoxValueOfSuitableRoom" prefWidth="202.0" text="Mark as a suitable room" GridPane.columnIndex="2" />
             </children>
         </GridPane>
-        <GridPane>
+        <GridPane prefHeight="104.0" prefWidth="700.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="75.60000152587891" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="364.3999984741211" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="128.39998779296877" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.40001220703118" minWidth="10.0" prefWidth="246.40001220703118" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.6" minWidth="10.0" prefWidth="356.2000366210938" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.1999877929687" minWidth="10.0" prefWidth="133.79996337890623" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.5999938964844" minWidth="10.0" prefWidth="164.60003051757826" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

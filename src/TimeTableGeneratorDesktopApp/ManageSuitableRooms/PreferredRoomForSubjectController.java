@@ -40,6 +40,7 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     // variable declaration to keep some useful data
     public static int subject_id;
+    public static String subject_name;
     //int tag_id = 1;
 
     @FXML
@@ -76,6 +77,8 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     void initializeComboBoxes(){
 
+        txtHeaderBuildingName.setText(subject_name);
+
         // get tags details from the database and make a list then, using that list combo box values are displayed
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
         ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
@@ -106,12 +109,12 @@ public class PreferredRoomForSubjectController implements Initializable {
 
     /** This method is used to get subject ID from menura's part
      */
-    public void getInformationFromSubjectUI(int subjectID){
+    public void getInformationFromSubjectUI(int subjectID, String subjectName){
         subject_id = subjectID;
+        subject_name = subjectName;
         //tag_id = tagID;
         System.out.println("Student id + " + this.subject_id);
 
-        //populateLocationRows();
     }
 
 
