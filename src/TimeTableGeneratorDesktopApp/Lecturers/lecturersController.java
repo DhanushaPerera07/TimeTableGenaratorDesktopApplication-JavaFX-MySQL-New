@@ -33,7 +33,7 @@ public class lecturersController implements Initializable {
 
     public static int lid = 0;
     public static String lecturerName = "";
-    public static int lecturerID = 0;
+    public static String lecturerID = "";
     public static String lecturerFaculty = "";
     public static String lecturerDepartment = "";
     public static String lecturerCenter = "";
@@ -188,7 +188,7 @@ public class lecturersController implements Initializable {
             while (rs.next()){
                 lecturers = new Lecturers(
                         rs.getInt("lid"),
-                        rs.getInt("lecturerID"),
+                        rs.getString("lecturerID"),
                         rs.getString("lecturerName"),
                         rs.getString("lecturerFaculty"),
                         rs.getString("lecturerDepartment"),
@@ -257,7 +257,7 @@ public class lecturersController implements Initializable {
                         public void run() {
                             lid = 0;
                             lecturerName = "";
-                            lecturerID = 0;
+                            lecturerID = "";
                             lecturerFaculty = "";
                             lecturerDepartment = "";
                             lecturerCenter = "";
