@@ -1,4 +1,4 @@
-package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem;
+package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForLecturer;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.HallsLabsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
@@ -12,12 +12,13 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LocationItemController implements Initializable {
+
+public class LocationItemForLecturerController implements Initializable {
 
 
     // variable to hold location object
     Location location;
-    int subjectID;
+    int lecturerID;
     boolean checkBoxCheckedOrNotAccordingToDataBase;
 
     @FXML
@@ -53,10 +54,10 @@ public class LocationItemController implements Initializable {
 
     }
 
-    public void showPreferredLocationInformationForSubject(Location location, int subjectID) {
+    public void showPreferredLocationInformationForLecturer(Location location, int lecturerID) {
 
         this.location = location;
-        this.subjectID = subjectID;
+        this.lecturerID = lecturerID;
         boolean suitableRoomTrue;
 
         System.out.println("test location: " + this.location.toString());
@@ -73,7 +74,7 @@ public class LocationItemController implements Initializable {
          * check box is checked otherwise it is not checked..
          */
 
-       //System.out.println("location.getSuitableRoomTrue() = " + location.getSuitableRoomTrue());
+        //System.out.println("location.getSuitableRoomTrue() = " + location.getSuitableRoomTrue());
         if (location.getSuitableRoomTrue() == 1) {
             suitableRoomTrue = true;
         } else {
@@ -84,7 +85,10 @@ public class LocationItemController implements Initializable {
         checkBoxMarkAsSuitableRoom.setSelected(suitableRoomTrue);
     }
 
+
     HallsLabsDatabaseHelper hallsLabsDatabaseHelper = new HallsLabsDatabaseHelper();
+
+
     // have to deal with the changes of the checkbox
     @FXML
     void changeCheckBoxValueOfSuitableRoom(MouseEvent event) {
@@ -129,7 +133,7 @@ public class LocationItemController implements Initializable {
             }
 
             if (result.get() == EditBtn){
-                hallsLabsDatabaseHelper.setPreferredRoomsForSubject(hallsLabsDatabaseHelper.checkPreferredRoomsForSubject(this.subjectID, this.location.getLocationID(), this.location.getTagID(),checkBoxSelectedOrNot));
+                hallsLabsDatabaseHelper.setPreferredRoomsForLecturer(hallsLabsDatabaseHelper.checkPreferredRoomsForLecturer(this.lecturerID, this.location.getLocationID(),checkBoxSelectedOrNot));
 
             } else {
                 checkBoxMarkAsSuitableRoom.setSelected(checkBoxCheckedOrNotAccordingToDataBase);
