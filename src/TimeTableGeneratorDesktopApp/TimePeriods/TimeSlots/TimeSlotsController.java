@@ -3,7 +3,7 @@ package TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots;
 
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
-import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
+//import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

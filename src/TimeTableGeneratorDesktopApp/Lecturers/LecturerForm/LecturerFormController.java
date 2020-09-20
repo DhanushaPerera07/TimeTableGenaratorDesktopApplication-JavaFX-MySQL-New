@@ -1,7 +1,7 @@
 package TimeTableGeneratorDesktopApp.Lecturers.LecturerForm;
 
 import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
-import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
+//import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
