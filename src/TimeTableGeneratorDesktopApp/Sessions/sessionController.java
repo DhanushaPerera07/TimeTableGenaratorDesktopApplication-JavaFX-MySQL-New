@@ -1,9 +1,6 @@
 package TimeTableGeneratorDesktopApp.Sessions;
 
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.Sessions.SessionItem.SessionItemController;
-import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
