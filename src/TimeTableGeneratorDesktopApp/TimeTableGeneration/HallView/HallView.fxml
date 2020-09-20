@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPaneForTimeTables" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView.HallViewController">
+<BorderPane fx:id="borderPaneForTimeTables" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView.HallViewController">
     <top>
-        <GridPane prefHeight="30.0" prefWidth="276.0" BorderPane.alignment="CENTER" >
+        <GridPane prefHeight="30.0" prefWidth="276.0" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
@@ -35,9 +35,9 @@
         </GridPane>
     </top>
     <center>
-        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" style="-fx-background-color: #55555555;">
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <content>
-                <VBox fx:id="timeTableVBox" prefHeight="0.0" prefWidth="0.0"  style="-fx-background-color: #88888888;"/>
+                <VBox fx:id="timeTableVBox" prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: #88888888;" />
             </content>
         </ScrollPane>
     </center>

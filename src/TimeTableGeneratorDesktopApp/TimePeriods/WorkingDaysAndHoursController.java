@@ -198,7 +198,6 @@ public class WorkingDaysAndHoursController implements Initializable {
 
     public void addWorkingDaysAction(ActionEvent actionEvent) {
 
-        System.out.println("Add Lecturer Button Clicked");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SetWorkingDays/SetWorkingDaysForm.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -236,7 +235,6 @@ public class WorkingDaysAndHoursController implements Initializable {
     @FXML
     public void addTimeSlots1(MouseEvent actionEvent) {
 
-        System.out.println("Time slots Clicked");
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TimeSlots/TimeSlots.fxml"));
