@@ -1,108 +1,134 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration;
 
-import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
-import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class timeTableGenerationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        populateSubGroupRows();
-
     }
 
     @FXML
-    private BorderPane borderPaneForTimeTables;
+    private Button hallViewBtn;
 
     @FXML
-    private VBox timeTableVBox;
+    private Button lecturerViewBtn;
 
+    @FXML
+    private Button studentViewBtn;
+    @FXML
+    private Pane timeTablePane;
 
-    public void populateSubGroupRows(){
-
-        timeTableVBox.getChildren().clear();
-
-        ObservableList<subGroups> subGroupList = getSubGroupList();
-
-        // Populate the rows like a table
-        Node[] nodes = new Node[subGroupList.size()];
-
-        if (subGroupList.size() > 0) {
-            for (int i = 0; i < subGroupList.size(); i++) {
-                try {
-
-                    System.out.println(subGroupList.size() + "wishslai");
-
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
-
-                    nodes[i] = (Node) loader.load();
-                    TimeTableStructureController timeTableStructureController = loader.getController();
-
-                    timeTableStructureController.showSubGroups(subGroupList.get(i)); // subject id should be got from Menura's part
-
-                    timeTableVBox.getChildren().addAll(nodes[i]);
-                } catch (IOException e) {
-                    System.out.println("Error - preferred room for subject Loading ======================================");
-                    e.printStackTrace();
-                }
-            }
-        }else{
-            System.out.println(subGroupList.size() + "kudai");
-        }
-    }
-
-    public ObservableList<subGroups> getSubGroupList() {
-
-        // ============================================ DATABASE PART ===================================================================================
-
-        // database connection setup
-        DatabaseHelper databaseHelper = new DatabaseHelper();
-
-        ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
-        Connection conn =  databaseHelper.getConnection();
-        String query;
-        query = "SELECT * FROM subgroups";
-
-        Statement st;
-        ResultSet rs;
-
+    @FXML
+    void hallView(ActionEvent event) {
         try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
 
-            subGroups subGroup;
-            while (rs.next()) {
-                subGroup = new subGroups(
-                        rs.getInt("id"),
-                        rs.getString("subGroupId"),
-                        rs.getInt("NofStudents"),
-                        rs.getInt("batchID")
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HallView/HallView.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
 
-                );
-                subGroupList.add(subGroup);
-            }
+            stage.setTitle("Time Table for Hall View");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(timeTablePane.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
 
-        } catch (Exception ex) {
-            // if an error occurs print an error...
-            ex.printStackTrace();
+            stage.show();
+
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Enter here What you want to do in the window Closing...
+                        }
+
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return subGroupList;
+
+    }
+
+    @FXML
+    void lecturerView(ActionEvent event) {
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LecturerView/LecturerView.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Time Table for Lecturer View");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(timeTablePane.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+
+            stage.show();
+
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Enter here What you want to do in the window Closing...
+                        }
+
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void studentView(ActionEvent event) {
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StudentView/StudentView.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Time Table for Student View");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(timeTablePane.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+
+            stage.show();
+
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Enter here What you want to do in the window Closing...
+                        }
+
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
