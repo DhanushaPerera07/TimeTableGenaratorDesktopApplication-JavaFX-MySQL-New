@@ -395,7 +395,7 @@ public class LecturerFormController implements Initializable {
 
         // pass values to PreferredRoomForSubjectController
         SuitableRoomForLecturerController suitableRoomForLecturerController = new SuitableRoomForLecturerController();
-        suitableRoomForLecturerController.getNecessaryInformation(lecturerID,lecturerName);
+        suitableRoomForLecturerController.getNecessaryInformation(Integer.parseInt(lecturerID),lecturerName);
         System.out.println("Menura's part: lecture ID = " + lecturerID + "\nLecturer name = " + lecturerName);
 
 

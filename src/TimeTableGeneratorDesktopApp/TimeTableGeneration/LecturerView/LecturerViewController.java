@@ -90,7 +90,7 @@ public class LecturerViewController implements Initializable {
             while (rs.next()) {
                 lecturers = new Lecturers(
                         rs.getInt("lid"),
-                        rs.getInt("lecturerID"),
+                        rs.getString("lecturerID"),
                         rs.getString("lecturerName"),
                         rs.getString("lecturerFaculty"),
                         rs.getString("lecturerDepartment"),
@@ -98,7 +98,7 @@ public class LecturerViewController implements Initializable {
                         rs.getString("lecturerBuilding"),
                         rs.getInt("lecturerLevel"),
                         rs.getString("lecturerRank")
-
+                        
                 );
                 lecturersList.add(lecturers);
             }
