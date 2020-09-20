@@ -1,9 +1,13 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps.EditLocationsHallsPopUpController;
+import TimeTableGeneratorDesktopApp.Tags.Tags;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -172,28 +176,19 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
         //txtLocationHallLabBuilding.setText(Integer.toString(locationHallLab.getBuildingID()));
         txtLocationHallLabTag.setText(Integer.toString(locationHallLab.getTagID()));
 
-
         // tag
-        if (locationHallLab.getTagID() == 1) {
-            txtLocationHallLabTag.setText("Lecture Hall");
-        } else if (locationHallLab.getTagID() == 2) {
-            txtLocationHallLabTag.setText("Tutorial Hall");
-        } else if (locationHallLab.getTagID() == 3) {
-            txtLocationHallLabTag.setText("Lecture/Tutorial Hall (Not-Consecutive)");
-        } else if (locationHallLab.getTagID() == 4) {
-            txtLocationHallLabTag.setText("Lecture/Tutorial Hall (Not Consecutive)");
-        } else if (locationHallLab.getTagID() == 5) {
-            txtLocationHallLabTag.setText("PC - Lab");
-        } else {
-            txtLocationHallLabTag.setText("Unknown");
-        }
+        // get tags details from the database and make a list then, using that list combo box values are displayed
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+
+        Tags tag =  tagsDatabaseHelper.getTagInstanceByTagID(locationHallLab.getTagID());
+        txtLocationHallLabTag.setText(tag.getTag());
 
         //building
-        if (locationHallLab.getBuildingID() == 1) {
-            txtLocationHallLabBuilding.setText("FOC - Main");
-        } else {
-            txtLocationHallLabBuilding.setText("New - Building");
-        }
+        BuildingDatabaseHelper buildingDatabaseHelper = new BuildingDatabaseHelper();
+        String building_Name =  buildingDatabaseHelper.getBuildingInstance(locationHallLab.getBuildingID()).getBuildingName();
+
+        txtLocationHallLabBuilding.setText(building_Name);
+
 
     }
 
