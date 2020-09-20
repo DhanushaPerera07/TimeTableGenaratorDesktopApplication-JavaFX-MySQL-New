@@ -119,8 +119,8 @@ public class DatabaseCreation {
             "  `location_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
             "  `location_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `building_building_id` INT NOT NULL,\n" +
-            "  `tag_tag_id` INT NULL,\n" +
-            "  PRIMARY KEY (`location_id`, `building_building_id`),\n" +
+            "  `tag_tag_id` INT NULL DEFAULT NULL,\n" +
+            "  PRIMARY KEY (`location_id`),\n" +
             "  INDEX `fk_location_building1_idx` (`building_building_id` ASC) VISIBLE,\n" +
             "  INDEX `location_name_idx` (`location_name` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_location_building1`\n" +
@@ -129,6 +129,7 @@ public class DatabaseCreation {
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB\n" +
+            "AUTO_INCREMENT = 5\n" +
             "DEFAULT CHARACTER SET = utf8";
 
 
@@ -318,10 +319,31 @@ public class DatabaseCreation {
             "ENGINE = InnoDB;";
 
 
+    // added by Dhanusha
+    String query25 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_lecturer` (\n" +
+            "  `suitable_room_for_lecturer_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `lecturer_lid` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_lecturer_id`, `location_location_id`, `lecturer_lid`),\n" +
+            "  INDEX `fk_location_has_lecturer_lecturer1_idx` (`lecturer_lid` ASC) VISIBLE,\n" +
+            "  INDEX `fk_location_has_lecturer_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+            "  CONSTRAINT `fk_location_has_lecturer_location1`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE,\n" +
+            "  CONSTRAINT `fk_location_has_lecturer_lecturer1`\n" +
+            "    FOREIGN KEY (`lecturer_lid`)\n" +
+            "    REFERENCES `timetabledb`.`lecturer` (`lid`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB\n" +
+            "DEFAULT CHARACTER SET = utf8";
 
-    String query25 = "SET SQL_MODE=@OLD_SQL_MODE;";
+/*    String query25 = "SET SQL_MODE=@OLD_SQL_MODE;";
     String query26 = "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;";
-    String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";
+    String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";*/
 
     public void createDatabase() {
         try {
@@ -347,6 +369,7 @@ public class DatabaseCreation {
             executeQuery(query22);
             executeQuery(query23);
             executeQuery(query24);
+            executeQuery(query25);
 
 
 

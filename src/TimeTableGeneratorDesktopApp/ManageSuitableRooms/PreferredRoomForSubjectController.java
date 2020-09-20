@@ -1,16 +1,12 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
-import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,7 +21,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,7 +28,6 @@ import java.util.ResourceBundle;
 
 
 // imported
-import TimeTableGeneratorDesktopApp.Subjects.subjectsController;
 
 
 public class PreferredRoomForSubjectController implements Initializable {
@@ -158,8 +152,8 @@ public class PreferredRoomForSubjectController implements Initializable {
 
         /**
          * Dynamically change the rows by getting data from the database
-         * locationItem.fxml is used as the UI, it acts as a customized data row
-         * I pass the building object to the locationItem.fxml and populate the view
+         * locationItemForLecturer.fxml is used as the UI, it acts as a customized data row
+         * I pass the building object to the locationItemForLecturer.fxml and populate the view
          */
         // Populate the rows like a table
         Node[] nodes = new Node[locationList.size()];

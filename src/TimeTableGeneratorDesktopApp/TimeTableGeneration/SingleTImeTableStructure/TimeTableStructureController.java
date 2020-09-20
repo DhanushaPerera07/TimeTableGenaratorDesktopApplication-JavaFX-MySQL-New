@@ -1,6 +1,5 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure;
 
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.Location;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;

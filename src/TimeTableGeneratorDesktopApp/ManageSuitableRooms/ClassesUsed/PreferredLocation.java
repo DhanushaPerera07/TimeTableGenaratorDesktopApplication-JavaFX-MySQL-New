@@ -1,4 +1,4 @@
-package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
+package TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed;
 
 public class PreferredLocation {
 

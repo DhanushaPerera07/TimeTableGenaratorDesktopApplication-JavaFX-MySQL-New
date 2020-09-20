@@ -1,11 +1,7 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.Location;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
-import TimeTableGeneratorDesktopApp.Tags.Tags;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
