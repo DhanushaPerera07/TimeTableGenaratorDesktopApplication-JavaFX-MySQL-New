@@ -1,8 +1,10 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure;
 
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
+import TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView.Hall;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +25,7 @@ import java.util.ResourceBundle;
 public class TimeTableStructureController implements Initializable {
 
     subGroups subGroup;
-    Location location;
+    Hall hall;
     int subGroupID;
 
     @FXML
@@ -72,10 +74,10 @@ public class TimeTableStructureController implements Initializable {
         displayTimeSlots();
     }
 
-    public void showLocations(Location location) {
+    public void showLocation(Hall hall) {
 
-        this.location = location;
-        structureTblHeader.setText(location.getLocationName());
+        this.hall = hall;
+        structureTblHeader.setText(hall.getLocation_name());
         getDayNames();
         displayTimeSlots();
     }
