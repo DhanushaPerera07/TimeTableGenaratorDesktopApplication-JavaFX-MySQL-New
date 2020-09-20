@@ -23,7 +23,7 @@ public class LecturerViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        populateSubGroupRows();
+        populateLecturersRows();
 
     }
 
@@ -34,7 +34,7 @@ public class LecturerViewController implements Initializable {
     private VBox timeTableVBox;
 
 
-    public void populateSubGroupRows(){
+    public void populateLecturersRows(){
 
         timeTableVBox.getChildren().clear();
 
@@ -46,8 +46,6 @@ public class LecturerViewController implements Initializable {
         if (subGroupList.size() > 0) {
             for (int i = 0; i < subGroupList.size(); i++) {
                 try {
-
-                    System.out.println(subGroupList.size() + "wishslai");
 
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
@@ -64,7 +62,7 @@ public class LecturerViewController implements Initializable {
                 }
             }
         }else{
-            System.out.println(subGroupList.size() + "kudai");
+            System.out.println("Database Error...!");
         }
     }
 
