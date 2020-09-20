@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -86,9 +83,12 @@ public class subjectsController implements Initializable {
     @FXML
     private ComboBox<String> filter2;
 
+    @FXML
+    private TextField searchField;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        searchField.setVisible(false);
         filter1.getItems().removeAll(filter1.getItems());
         filter1.getItems().addAll(
                 "All", "Year"
