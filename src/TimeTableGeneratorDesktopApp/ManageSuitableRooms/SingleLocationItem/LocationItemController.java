@@ -1,7 +1,9 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.HallsLabsDatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
+import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -62,7 +64,12 @@ public class LocationItemController implements Initializable {
         System.out.println("test location: " + this.location.toString());
 
         txtLocationHallLabName.setText(location.getLocationName());
-        txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
+        //txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
+
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        Tags tag = tagsDatabaseHelper.getTagInstanceByTagID(location.getTagID());
+        txtLocationHallLabTag.setText(tag.getTag());
+
         txtLocationHallLabCapacity.setText(Integer.toString(location.getLocationCapacity()));
         txtLocationHallLabFloor.setText(Integer.toString(location.getLocationFloor()));
         txtLocationHallLabBuilding.setText(Integer.toString(location.getBuildingID()));

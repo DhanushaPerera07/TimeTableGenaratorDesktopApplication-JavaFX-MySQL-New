@@ -341,6 +341,28 @@ public class DatabaseCreation {
             "ENGINE = InnoDB\n" +
             "DEFAULT CHARACTER SET = utf8";
 
+    //added by Dhanusha
+    String query26 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_tags` (\n" +
+            "  `suitable_room_for_tags_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `tags_idtags` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_tags_id`, `location_location_id`, `tags_idtags`),\n" +
+            "  INDEX `fk_location_has_tags_tags1_idx` (`tags_idtags` ASC) VISIBLE,\n" +
+            "  INDEX `fk_location_has_tags_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+            "  CONSTRAINT `fk_location_has_tags_location1`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE,\n" +
+            "  CONSTRAINT `fk_location_has_tags_tags1`\n" +
+            "    FOREIGN KEY (`tags_idtags`)\n" +
+            "    REFERENCES `timetabledb`.`tags` (`idtags`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB\n" +
+            "DEFAULT CHARACTER SET = utf8";
+
 /*    String query25 = "SET SQL_MODE=@OLD_SQL_MODE;";
     String query26 = "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;";
     String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";*/
@@ -370,8 +392,7 @@ public class DatabaseCreation {
             executeQuery(query23);
             executeQuery(query24);
             executeQuery(query25);
-
-
+            executeQuery(query26);
 
 
         } catch (Exception e) {
