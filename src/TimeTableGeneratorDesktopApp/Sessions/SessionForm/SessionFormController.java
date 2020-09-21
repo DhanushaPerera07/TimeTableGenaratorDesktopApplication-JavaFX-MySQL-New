@@ -99,6 +99,7 @@ public class SessionFormController implements Initializable {
                 1,2,3,4,5,6
         );
 
+
         getLecturerList();
 //        checkSessions();
 //
@@ -146,6 +147,8 @@ public class SessionFormController implements Initializable {
         saveSessionLecturer();
         Stage stage = (Stage) addSessionBtn.getScene().getWindow();
         stage.close();
+
+        sessionNoOfStudents = Integer.parseInt(tfSessionNoStudents.getText().toString());
 
 
         String query = "INSERT INTO session (sessionID , sessionTag,sessionStudentGroup,sessionSubject,sessionNoOfStudents,sessionDuration,sessionModuleCode) " +
