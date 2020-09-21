@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.LecturerView;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.collections.FXCollections;
@@ -38,13 +39,13 @@ public class LecturerViewController implements Initializable {
 
         timeTableVBox.getChildren().clear();
 
-        ObservableList<subGroups> subGroupList = getSubGroupList();
+        ObservableList<Lecturers> lecturersList = getlecturersList();
 
         // Populate the rows like a table
-        Node[] nodes = new Node[subGroupList.size()];
+        Node[] nodes = new Node[lecturersList.size()];
 
-        if (subGroupList.size() > 0) {
-            for (int i = 0; i < subGroupList.size(); i++) {
+        if (lecturersList.size() > 0) {
+            for (int i = 0; i < lecturersList.size(); i++) {
                 try {
 
                     FXMLLoader loader = new FXMLLoader();
@@ -53,7 +54,7 @@ public class LecturerViewController implements Initializable {
                     nodes[i] = (Node) loader.load();
                     TimeTableStructureController timeTableStructureController = loader.getController();
 
-                    timeTableStructureController.showSubGroups(subGroupList.get(i)); // subject id should be got from Menura's part
+                    timeTableStructureController.showlecturers(lecturersList.get(i));
 
                     timeTableVBox.getChildren().addAll(nodes[i]);
                 } catch (IOException e) {
@@ -66,17 +67,17 @@ public class LecturerViewController implements Initializable {
         }
     }
 
-    public ObservableList<subGroups> getSubGroupList() {
+    public ObservableList<Lecturers> getlecturersList() {
 
         // ============================================ DATABASE PART ===================================================================================
 
         // database connection setup
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
-        ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
+        ObservableList<Lecturers> lecturersList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
         String query;
-        query = "SELECT * FROM subgroups";
+        query = "SELECT * FROM Lecturer";
 
         Statement st;
         ResultSet rs;
@@ -85,22 +86,27 @@ public class LecturerViewController implements Initializable {
             st = conn.createStatement();
             rs = st.executeQuery(query);
 
-            subGroups subGroup;
+            Lecturers lecturers;
             while (rs.next()) {
-                subGroup = new subGroups(
-                        rs.getInt("id"),
-                        rs.getString("subGroupId"),
-                        rs.getInt("NofStudents"),
-                        rs.getInt("batchID")
-
+                lecturers = new Lecturers(
+                        rs.getInt("lid"),
+                        rs.getString("lecturerID"),
+                        rs.getString("lecturerName"),
+                        rs.getString("lecturerFaculty"),
+                        rs.getString("lecturerDepartment"),
+                        rs.getString("lecturerCenter"),
+                        rs.getString("lecturerBuilding"),
+                        rs.getInt("lecturerLevel"),
+                        rs.getString("lecturerRank")
+                        
                 );
-                subGroupList.add(subGroup);
+                lecturersList.add(lecturers);
             }
 
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-        return subGroupList;
+        return lecturersList;
     }
 }

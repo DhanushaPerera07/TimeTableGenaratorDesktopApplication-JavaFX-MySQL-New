@@ -95,6 +95,22 @@ public class subjectsController implements Initializable {
         );
 
         showModules();
+
+
+
+        String query = "CREATE TABLE IF NOT EXISTS module (" +
+                "  `idmodule` int NOT NULL AUTO_INCREMENT," +
+                "  `moduleName` varchar(45) NOT NULL," +
+                "  `moduleCode` varchar(45) NOT NULL," +
+                "  `offeredYear` varchar(45) NOT NULL," +
+                "  `offeredSemester` varchar(45) NOT NULL," +
+                "  `lecHour` int NOT NULL," +
+                "  `tuteHour` int NOT NULL," +
+                "  `labHour` int NOT NULL," +
+                "  `evaluationHour` int NOT NULL," +
+                "  PRIMARY KEY (`idmodule`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+        executeQuery(query);
     }
 
     @FXML
