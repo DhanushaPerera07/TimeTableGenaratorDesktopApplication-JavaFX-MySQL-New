@@ -62,11 +62,12 @@ public class StudentViewController implements Initializable {
                         nodes[i] = (Node) loader.load();
                         TimeTableStructureController timeTableStructureController = loader.getController();
 
-                        timeTableStructureController.showSessions(sessionsList.get(i));
+                        timeTableStructureController.showSessions(sessionsList.get(i), timeTable.getGroup());
 
                         timeTableVBox.getChildren().addAll(nodes[i]);
                         GroupId = timeTable.getGroup();
                         System.out.println(GroupId);
+
                     }
 
                 } catch (IOException e) {

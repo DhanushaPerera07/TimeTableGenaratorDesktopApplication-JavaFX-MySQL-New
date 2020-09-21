@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 
 public class TimeTableStructureController implements Initializable {
 
+    TimeTable TimetableValue;
     TimeTable timeTable;
     Hall hall;
     Lecturers lecturers;
@@ -39,13 +40,13 @@ public class TimeTableStructureController implements Initializable {
     private Label structureTblHeader;
 
     @FXML
-    private TableView<TimeSlot> TimeTableStructureTbl;
+    private TableView<TimeTable> TimeTableStructureTbl;
 
     @FXML
     private TableColumn<TimeSlot, String> StructureTimeSlots;
 
     @FXML
-    private TableColumn<WorkingDays, String> StrructureC1;
+    private TableColumn<TimeTable, String> StrructureC1;
 
     @FXML
     private TableColumn<WorkingDays, String> StrructureC2;
@@ -70,12 +71,14 @@ public class TimeTableStructureController implements Initializable {
 
     }
 
-    public void showSessions(TimeTable timeTable) {
+
+    public void showSessions(TimeTable timeTable, String Group) {
 
         this.timeTable = timeTable;
         structureTblHeader.setText(timeTable.getGroup());
         getDayNames();
         displayTimeSlots();
+        displaySessions(Group);
     }
 
     public void showLocation(Hall hall) {
@@ -92,6 +95,7 @@ public class TimeTableStructureController implements Initializable {
         structureTblHeader.setText(lecturers.getLecturerName());
         getDayNames();
         displayTimeSlots();
+
     }
 
 
@@ -162,13 +166,70 @@ public class TimeTableStructureController implements Initializable {
         return timeSlotList;
     }
 
+    public ObservableList<TimeTable> getTimetableSessions() {
+        ObservableList<TimeTable> timeTableList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        String  query = "SELECT * FROM time_table";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            TimeTable timeTable;
+            while (rs.next()) {
+                timeTable = new TimeTable(
+                        rs.getInt("sessionId"),
+                        rs.getString("timeSlot"),
+                        rs.getString("Module"),
+                        rs.getString("tag"),
+                        rs.getString("Hall"),
+                        rs.getString("group"),
+                        rs.getString("lecturer")
+                );
+                timeTableList.add(timeTable);
+
+            }
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+        return timeTableList;
+    }
+
     public void displayTimeSlots(){
 
         ObservableList<TimeSlot> TimeSlotsList = getTimeSlotsList();
 
         StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeSlot, String>("value_t"));
 
-        TimeTableStructureTbl.setItems(TimeSlotsList);
+//        TimeTableStructureTbl.setItems(TimeSlotsList);
+
+    }
+
+    public void displaySessions(String group){
+
+        ObservableList<TimeTable> timeTableList = getTimetableSessions();
+        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
+
+
+
+        for (int i = 0; i < timeTableList.size(); i++) {
+            TimetableValue = timeTableList.get(i);
+            if (TimetableValue.getGroup().equals(group)){
+
+                timeTableViewList.add(TimetableValue);
+
+            }
+        }
+
+
+
+        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
+        TimeTableStructureTbl.setItems(timeTableViewList);
 
     }
 }
