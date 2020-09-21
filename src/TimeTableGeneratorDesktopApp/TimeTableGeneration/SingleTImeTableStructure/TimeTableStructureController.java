@@ -2,10 +2,12 @@ package TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructur
 
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
+import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView.Hall;
+import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class TimeTableStructureController implements Initializable {
 
-    subGroups subGroup;
+    TimeTable timeTable;
     Hall hall;
     Lecturers lecturers;
     int subGroupID;
@@ -68,10 +70,10 @@ public class TimeTableStructureController implements Initializable {
 
     }
 
-    public void showSubGroups(subGroups subGroup) {
+    public void showSessions(TimeTable timeTable) {
 
-        this.subGroup = subGroup;
-        structureTblHeader.setText(subGroup.getSubGroupId());
+        this.timeTable = timeTable;
+        structureTblHeader.setText(timeTable.getGroup());
         getDayNames();
         displayTimeSlots();
     }

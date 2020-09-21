@@ -345,6 +345,18 @@ public class DatabaseCreation {
     String query26 = "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;";
     String query27 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;";*/
 
+
+    String query26 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`time_table` (" +
+            "  `sessionId` INT NOT NULL AUTO_INCREMENT," +
+            "  `timeSlot` VARCHAR(50) NULL," +
+            "  `Module` VARCHAR(50) NULL," +
+            "  `tag` VARCHAR(25) NULL," +
+            "  `Hall` VARCHAR(25) NULL," +
+            "  `group` VARCHAR(25) NULL," +
+            "  `lecturer` VARCHAR(25) NULL," +
+            "  PRIMARY KEY (`sessionId`))";
+
+
     public void createDatabase() {
         try {
 
@@ -370,7 +382,7 @@ public class DatabaseCreation {
             executeQuery(query23);
             executeQuery(query24);
             executeQuery(query25);
-
+            executeQuery(query26);
 
 
 
