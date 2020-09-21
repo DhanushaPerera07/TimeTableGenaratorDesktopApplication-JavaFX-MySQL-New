@@ -200,7 +200,5 @@ public class timeTableGenerationController implements Initializable {
             System.out.println("Error: " + ex.getMessage());
             return null;
         }
-
-
     }
 }
