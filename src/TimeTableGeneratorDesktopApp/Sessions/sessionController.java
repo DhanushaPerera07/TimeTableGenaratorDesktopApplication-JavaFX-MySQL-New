@@ -192,7 +192,7 @@ public class sessionController implements Initializable {
                         rs.getInt("idsession"),
                         rs.getString("sessionSubject"),
                         rs.getString("sessionModuleCode"),
-                        rs.getString("sessionDuration"),
+                        rs.getString("sessionTag"),
                         rs.getString("sessionStudentGroup"),
                         rs.getInt("sessionNoOfStudents"),
                         rs.getInt("sessionDuration"),
