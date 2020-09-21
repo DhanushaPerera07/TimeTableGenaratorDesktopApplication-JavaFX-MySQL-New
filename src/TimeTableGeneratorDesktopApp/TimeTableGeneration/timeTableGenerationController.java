@@ -1,13 +1,24 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration;
 
+import TimeTableGeneratorDesktopApp.Sessions.Sessions;
+import TimeTableGeneratorDesktopApp.Sessions.sessionController;
+import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -130,5 +141,66 @@ public class timeTableGenerationController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void timeTableGenerate(ActionEvent event) {
+        try {
+            ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
+            sessionController sessionController = new sessionController();
+            sessionsList = sessionController.getSessionsList();
+
+            if (sessionsList.size() > 0) {
+
+                    String query1 = "DELETE FROM time_table";
+                            executeQuery(query1);
+
+                for (int i = 0; i < sessionsList.size(); i++) {
+                    try {
+
+                        Sessions session = sessionsList.get(i);
+
+                        String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`) VALUES ('time"+i+"','"+session.getSessionModule()+"','"+session.getSessionTag()+"','time"+i+"','"+session.getSessionGroupID()+"','time"+i+"');";
+                        executeQuery(query);
+
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+                    System.out.println();
+                }
+            }else{
+                System.out.println("Database Problem...!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public Connection getConnection(){
+        Connection conn;
+        try{
+
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
+            System.out.println("Database connected");
+            return conn;
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+        }
+
+
     }
 }

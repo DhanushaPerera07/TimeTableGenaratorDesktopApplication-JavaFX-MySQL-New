@@ -29,7 +29,8 @@ public class LecturerFormController implements Initializable {
 
     public int lid;
     public static String lecturerName;
-    public static int lecturerID;
+    //public static int lecturerID;
+    public static String lecturerID;
     public static String lecturerFaculty;
     public static String lecturerDepartment;
     public static String lecturerCenter;
@@ -323,7 +324,7 @@ public class LecturerFormController implements Initializable {
 //                +"','" +tfDepartment.getText() +"','" +lecturerCenter +"','" +lecturerBuilding +"','" +lecturerLevel  +"','" +rank +"')";
 
         String query = "INSERT INTO lecturer (lecturerID,lecturerName,lecturerFaculty,lecturerDepartment,lecturerCenter,lecturerBuilding,lecturerLevel,lecturerRank) " +
-                "VALUES (" +tfEmployeeID.getText()+ ",'" +tfLecturerName.getText()+ "','" +lecturerFaculty+ "','" +lecturerDepartment+
+                "VALUES ('" +tfEmployeeID.getText()+ "','" +tfLecturerName.getText()+ "','" +lecturerFaculty+ "','" +lecturerDepartment+
                 "','" +lecturerCenter+ "','" +lecturerBuilding+ "'," +lecturerLevel+
                 "," +rank+ ") ";
 
@@ -394,7 +395,7 @@ public class LecturerFormController implements Initializable {
 
         // pass values to PreferredRoomForSubjectController
         SuitableRoomForLecturerController suitableRoomForLecturerController = new SuitableRoomForLecturerController();
-        suitableRoomForLecturerController.getNecessaryInformation(lecturerID,lecturerName);
+        suitableRoomForLecturerController.getNecessaryInformation(Integer.parseInt(lecturerID),lecturerName);
         System.out.println("Menura's part: lecture ID = " + lecturerID + "\nLecturer name = " + lecturerName);
 
 

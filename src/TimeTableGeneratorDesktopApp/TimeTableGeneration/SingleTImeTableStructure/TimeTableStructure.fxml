@@ -18,21 +18,12 @@
       <GridPane alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="structureTblHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="172.0" text="Y3_S1_01_02" textAlignment="JUSTIFY" textFill="#2b0dd3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="29.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Label>
-            <Label prefHeight="43.0" prefWidth="35.0" text="SE" textFill="#038603" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="structureTblHeader" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="421.0" text="Y3_S1_01_02" textAlignment="JUSTIFY" textFill="#2b0dd3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="29.0" />
                </font>

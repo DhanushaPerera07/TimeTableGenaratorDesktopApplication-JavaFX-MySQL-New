@@ -21,7 +21,7 @@
       </Pane>
       <Pane layoutX="17.0" layoutY="125.0" prefHeight="71.0" prefWidth="766.0" style="-fx-background-color: #ffffffff;">
          <children>
-            <Button layoutX="52.0" layoutY="23.0" mnemonicParsing="false" text="Generate Time Tables" />
+            <Button layoutX="52.0" layoutY="23.0" mnemonicParsing="false" onAction="#timeTableGenerate" text="Generate Time Tables" />
             <Button fx:id="hallViewBtn" layoutX="482.0" layoutY="23.0" mnemonicParsing="false" onAction="#hallView" text="Hall View" />
             <Button layoutX="656.0" layoutY="23.0" mnemonicParsing="false" text="Print" />
             <Button fx:id="lecturerViewBtn" layoutX="357.0" layoutY="23.0" mnemonicParsing="false" onAction="#lecturerView" text="Lecturer View" />

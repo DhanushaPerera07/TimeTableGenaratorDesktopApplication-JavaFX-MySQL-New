@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -86,15 +83,34 @@ public class subjectsController implements Initializable {
     @FXML
     private ComboBox<String> filter2;
 
+    @FXML
+    private TextField searchField;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        searchField.setVisible(false);
         filter1.getItems().removeAll(filter1.getItems());
         filter1.getItems().addAll(
                 "All", "Year"
         );
 
         showModules();
+
+
+
+        String query = "CREATE TABLE IF NOT EXISTS module (" +
+                "  `idmodule` int NOT NULL AUTO_INCREMENT," +
+                "  `moduleName` varchar(45) NOT NULL," +
+                "  `moduleCode` varchar(45) NOT NULL," +
+                "  `offeredYear` varchar(45) NOT NULL," +
+                "  `offeredSemester` varchar(45) NOT NULL," +
+                "  `lecHour` int NOT NULL," +
+                "  `tuteHour` int NOT NULL," +
+                "  `labHour` int NOT NULL," +
+                "  `evaluationHour` int NOT NULL," +
+                "  PRIMARY KEY (`idmodule`)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+        executeQuery(query);
     }
 
     @FXML
