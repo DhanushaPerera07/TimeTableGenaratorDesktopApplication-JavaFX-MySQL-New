@@ -17,6 +17,7 @@
 <AnchorPane fx:id="batchFormPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="437.0" style="-fx-background-color: #e3e3e3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.BatchForm.BatchFormController">
     <children>
       <Rectangle fill="#fbfdff" height="381.0" layoutX="14.0" layoutY="52.0" stroke="WHITE" strokeType="INSIDE" width="412.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="52.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#003073" height="49.0" layoutX="14.0" layoutY="433.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="412.0" />
         <VBox layoutX="220.0" layoutY="70.0" prefHeight="332.0" prefWidth="164.0" spacing="14.0">
             <children>
       <!--      <ComboBox fx:id="batchCB" layoutX="119.0" layoutY="63.0" onAction="#clickBatch" prefWidth="150.0" promptText="Select" />-->
@@ -137,7 +138,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </VBox>
-      <Button fx:id="submitAddBatch" alignment="CENTER" contentDisplay="CENTER" layoutX="181.0" layoutY="455.0" mnemonicParsing="false" onAction="#BatchsubmitActionHandler" text="Submit" AnchorPane.leftAnchor="181.0" AnchorPane.rightAnchor="179.0">
+      <Button fx:id="submitAddBatch" alignment="CENTER" blendMode="COLOR_DODGE" contentDisplay="CENTER" layoutX="181.0" layoutY="442.0" mnemonicParsing="false" onAction="#BatchsubmitActionHandler" text="Submit" AnchorPane.leftAnchor="181.0" AnchorPane.rightAnchor="179.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -145,18 +146,21 @@
             <DropShadow color="#a29dbf" height="12.0" radius="5.5" width="12.0" />
          </effect>
          <font>
-            <Font size="14.0" />
+            <Font name="Bitstream Vera Sans Mono Bold" size="14.0" />
          </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </Button>
-      <Button fx:id="batchFormDelBtn" layoutX="340.0" layoutY="457.0" mnemonicParsing="false" onAction="#deleteRecord" text="Delete batch">
+      <Button fx:id="batchFormDelBtn" layoutX="333.0" layoutY="443.0" mnemonicParsing="false" onAction="#deleteRecord" style="-fx-background-color: #ffff;" text="Delete batch">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="batchFormUpdtBtn" layoutX="285.0" layoutY="457.0" mnemonicParsing="false" onAction="#updateRecord" text="Update">
+      <Button fx:id="batchFormUpdtBtn" layoutX="275.0" layoutY="443.0" mnemonicParsing="false" onAction="#updateRecord" style="-fx-background-color: #ffff;" text="Update">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="batchFormGrpBtn" layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#ActionEventGroupBatchBtn" text="Group batch">
+      <Button fx:id="batchFormGrpBtn" layoutX="27.0" layoutY="442.0" mnemonicParsing="false" onAction="#ActionEventGroupBatchBtn" style="-fx-background-color: #ffff;" text="Group batch">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -168,7 +172,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="133.0" layoutY="14.0" text="Group Details">
+      <Label alignment="CENTER" layoutX="14.0" layoutY="24.0" prefWidth="412.0" style="-fx-background-color: #003073;" text="Group Details" textFill="WHITE">
          <font>
             <Font name="Consolas" size="24.0" />
          </font>

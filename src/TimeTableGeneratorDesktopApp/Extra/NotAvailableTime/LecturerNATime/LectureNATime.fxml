@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime.LectureNATimeController">
    <children>
-      <Label layoutX="255.0" layoutY="42.0" prefHeight="17.0" prefWidth="90.0" text="Select a Lecturer" />
+      <Label alignment="CENTER" layoutX="61.0" layoutY="14.0" prefHeight="30.0" prefWidth="494.0" style="-fx-background-color: #152f85;" text="Select a Lecturer" textFill="#d7d7d7">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <TableView fx:id="lecTV" layoutX="61.0" layoutY="57.0" onMouseClicked="#handleMouseAction" prefHeight="317.0" prefWidth="197.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="54.0" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="145.0" text="Name" />
+        </columns>
+         <effect>
+            <DropShadow />
+         </effect>
+      </TableView>
+      <Pane fx:id="pane" layoutX="305.0" layoutY="54.0" prefHeight="317.0" prefWidth="249.0" style="-fx-background-color: #ffff;">
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="249.0" style="-fx-background-color: #152f85;" text="set Not Available TIme" textFill="WHITE" />
+            <Label layoutX="27.0" layoutY="25.0" prefHeight="17.0" prefWidth="58.0" text="Lecturer : " textFill="WHITE" />
+            <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="56.0" layoutY="34.0" prefHeight="17.0" prefWidth="138.0" text="name" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <ComboBox fx:id="dayCB" layoutX="17.0" layoutY="67.0" prefHeight="25.0" prefWidth="97.0" promptText="Day" />
+            <ComboBox fx:id="hourCB" layoutX="144.0" layoutY="67.0" prefHeight="25.0" prefWidth="83.0" promptText="Hour" />
+            <Button fx:id="addBtn" layoutX="106.0" layoutY="97.0" mnemonicParsing="false" onAction="#insertRecord" text="Add" />
+            <TableView fx:id="timeTV" layoutX="31.0" layoutY="134.0" onMouseClicked="#deleteRecord" prefHeight="169.0" prefWidth="187.0">
+              <columns>
+                <TableColumn fx:id="dayCol" prefWidth="104.0" text="Day" />
+                <TableColumn fx:id="hourCol" prefWidth="82.0" text="Hour" />
+              </columns>
+            </TableView>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
    </children>
 </Pane>

@@ -315,14 +315,15 @@ public class DatabaseCreation {
 
 
     String query26 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`time_table` (" +
-            "  `sessionId` INT NOT NULL AUTO_INCREMENT," +
+            "  `Id` INT NOT NULL AUTO_INCREMENT," +
             "  `timeSlot` VARCHAR(50) NULL," +
             "  `Module` VARCHAR(50) NULL," +
             "  `tag` VARCHAR(25) NULL," +
             "  `Hall` VARCHAR(25) NULL," +
             "  `group` VARCHAR(25) NULL," +
             "  `lecturer` VARCHAR(25) NULL," +
-            "  PRIMARY KEY (`sessionId`))";
+            "  `sessionId` VARCHAR(25) NULL," +
+            "  PRIMARY KEY (`Id`))";
 
 
     // add by Dhanusha

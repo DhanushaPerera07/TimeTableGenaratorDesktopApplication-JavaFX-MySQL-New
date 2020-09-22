@@ -11,7 +11,7 @@
 <Pane fx:id="groupNATimePane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.SubGroupNATimeController">
     <children>
 
-        <TableView fx:id="tvBatches" layoutX="25.0" layoutY="50.0" onMouseClicked="#handleMouseAction" prefHeight="500.0" prefWidth="750.0">
+        <TableView fx:id="tvBatches" layoutX="25.0" layoutY="65.0" onMouseClicked="#handleMouseAction" prefHeight="485.0" prefWidth="750.0">
             <columns>
                 <TableColumn fx:id="batColYear" prefWidth="49.0" text="Year" />
                 <TableColumn fx:id="batColSem" prefWidth="95.0" text="Semester" />
@@ -21,9 +21,9 @@
                 <TableColumn fx:id="batColCen" prefWidth="120.33331298828125" text="Center" />
             </columns>
         </TableView>
-        <Label layoutX="341.0" layoutY="13.0" text="Select the main Group first">
+        <Label layoutX="25.0" layoutY="39.0" prefWidth="750.0" style="-fx-background-color: #152f85;" text="Select the main Group first" textFill="WHITE">
             <font>
-                <Font size="21.0" />
+                <Font name="Bitstream Vera Sans Mono Bold Oblique" size="21.0" />
             </font>
         </Label>
     </children>

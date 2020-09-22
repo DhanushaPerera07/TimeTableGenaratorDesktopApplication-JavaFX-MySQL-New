@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.setNATimeGroup.SetNATimeGroupController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.setNATimeGroup.SetNATimeGroupController">
    <children>
-      <Label layoutX="40.0" layoutY="32.0" text="Set not available time for batch : " />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="365.0" layoutX="20.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="557.0">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#152f85" height="25.0" layoutX="20.0" layoutY="21.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="557.0" />
+      <Label layoutX="40.0" layoutY="26.0" text="Set not available time for batch : " textFill="WHITE" />
       <Label layoutX="78.0" layoutY="88.0" text="Day" />
       <ComboBox fx:id="dayCB" layoutX="118.0" layoutY="84.0" prefWidth="150.0" />
-      <Label layoutX="331.0" layoutY="88.0" text="Hour" />
-      <ComboBox fx:id="hourCB" layoutX="372.0" layoutY="84.0" prefWidth="150.0" />
-      <Button fx:id="addBtn" layoutX="282.0" layoutY="134.0" mnemonicParsing="false" onAction="#insertRecord" text="Add" />
-      <TableView fx:id="tabledayhour" layoutX="200.0" layoutY="178.0" onMouseClicked="#deleteRecord" prefHeight="200.0" prefWidth="200.0">
+      <Label layoutX="78.0" layoutY="126.0" text="Hour" />
+      <ComboBox fx:id="hourCB" layoutX="119.0" layoutY="122.0" prefWidth="150.0" />
+      <Button fx:id="addBtn" layoutX="155.0" layoutY="179.0" mnemonicParsing="false" onAction="#insertRecord" text="Add" />
+      <TableView fx:id="tabledayhour" layoutX="344.0" layoutY="79.0" onMouseClicked="#deleteRecord" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="dayCol" prefWidth="75.0" text="Day" />
           <TableColumn fx:id="hourCol" prefWidth="124.0" text="Hour" />
         </columns>
       </TableView>
-      <Label fx:id="batchIDLabel" layoutX="240.0" layoutY="32.0" text="Label" />
+      <Label fx:id="batchIDLabel" layoutX="225.0" layoutY="27.0" text="Label" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="20.0" layoutY="369.0" prefHeight="17.0" prefWidth="557.0" style="-fx-background-color: #152f85;" text="Select the days and hours that batch is not available" textFill="WHITE" />
    </children>
 </AnchorPane>
