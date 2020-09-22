@@ -342,6 +342,34 @@ public class DatabaseCreation {
             "ENGINE = InnoDB\n" +
             "DEFAULT CHARACTER SET = utf8";
 
+    String query28 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_student_batch` (\n" +
+            "  `suitable_room_for_student_batch_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `studentbatches_id` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_student_batch_id`, `location_location_id`, `status_true`, `studentbatches_id`),\n" +
+            "  INDEX `fk_suitable_room_for_student_batch_location_idx` (`location_location_id` ASC) VISIBLE,\n" +
+            "  CONSTRAINT `fk_suitable_room_for_student_batch_location`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB";
+
+    String query29 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_student_subgroups` (\n" +
+            "  `suitable_room_for_student_subgroups_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `subgroups_id` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_student_subgroups_id`, `location_location_id`, `subgroups_id`),\n" +
+            "  INDEX `fk_suitable_room_for_student_subgroups_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+            "  CONSTRAINT `fk_suitable_room_for_student_subgroups_location1`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB";
+
 
     public void createDatabase() {
         try {
@@ -376,6 +404,8 @@ public class DatabaseCreation {
             executeQuery(query25);
             executeQuery(query26);
             executeQuery(query27); // suitable room for tag
+            executeQuery(query28); // suitable room for student batch
+            executeQuery(query29); // suitable room for student subgroup
 
 
 

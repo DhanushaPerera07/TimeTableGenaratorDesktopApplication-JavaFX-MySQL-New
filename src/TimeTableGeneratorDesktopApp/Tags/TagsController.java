@@ -59,7 +59,7 @@ public class    TagsController implements Initializable {
     }
 
     public void createTables(){
-        String  systemTagsTable= "CREATE TABLE IF NOT  EXISTS systemtags (" +
+        String  systemTagsTable= "CREATE TABLE IF NOT  EXISTS   (" +
                 "  `id` int(11) NOT NULL AUTO_INCREMENT," +
                 "  `systemTag` varchar(45) DEFAULT NULL," +
                 "  PRIMARY KEY (`id`)" +

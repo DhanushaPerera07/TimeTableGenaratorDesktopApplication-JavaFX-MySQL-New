@@ -33,6 +33,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -80,7 +81,7 @@
                   </Text>
                </children>
             </GridPane>
-            <GridPane layoutX="197.0" layoutY="196.0" onMouseClicked="#setOnActionGridLecturer" GridPane.columnIndex="2">
+            <GridPane fx:id="gridSession" layoutX="10.0" layoutY="10.0" onMouseClicked="#setOnActionGridSession" GridPane.columnIndex="2">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -91,17 +92,17 @@
                <children>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                      <image>
-                        <Image url="@../icons/AddSuitableLocationsIcons/icons8_administrator_male_100px.png" />
+                        <Image url="@../icons/AddSuitableLocationsIcons/icons8_wish_list_100px.png" />
                      </image>
                   </ImageView>
-                  <Text layoutX="57.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecturer" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Text layoutX="57.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Session" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Text>
                </children>
             </GridPane>
-            <GridPane layoutX="384.0" layoutY="196.0" onMouseClicked="#setOnActionGridStudentGroup" GridPane.columnIndex="3">
+            <GridPane layoutX="384.0" layoutY="196.0" onMouseClicked="#setOnActionGridStudentGroup" GridPane.columnIndex="4">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -122,7 +123,7 @@
                   </Text>
                </children>
             </GridPane>
-            <GridPane layoutX="459.0" layoutY="196.0" onMouseClicked="#setOnActionGridStudentSubGroup" GridPane.columnIndex="4">
+            <GridPane layoutX="459.0" layoutY="196.0" onMouseClicked="#setOnActionGridStudentSubGroup" GridPane.columnIndex="5">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
@@ -143,6 +144,27 @@
                      </font>
                   </Text>
                   <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sub-Group" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </GridPane>
+            <GridPane onMouseClicked="#setOnActionGridLecturer" GridPane.columnIndex="3">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="150.20001831054688" minHeight="10.0" prefHeight="128.60001220703126" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="88.5999969482422" minHeight="10.0" prefHeight="58.199987792968756" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+                     <image>
+                        <Image url="@../icons/AddSuitableLocationsIcons/icons8_administrator_male_100px.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="57.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecturer" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI" size="18.0" />
                      </font>

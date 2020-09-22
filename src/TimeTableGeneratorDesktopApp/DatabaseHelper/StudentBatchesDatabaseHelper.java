@@ -15,21 +15,33 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
      * @return observableList<StudentBatches> // all the batches
      */
     public ObservableList<StudentBatches> getBatchesList() {
+
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
         Connection conn = getConnection();
+
         String query = "SELECT * FROM studentBatches ORDER BY year";
+
+
         Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
+
             StudentBatches studentBatch;
+
             while (rs.next()) {
-                studentBatch = new StudentBatches(rs.getInt("id"), rs.getString("year"), rs.getString("semester"),
-                        rs.getString("intake"), rs.getString("faculty"),
+                studentBatch = new StudentBatches(rs.getInt("id"),
+                        rs.getString("year"),
+                        rs.getString("semester"),
+                        rs.getString("intake"),
+                        rs.getString("faculty"),
                         rs.getString("programme"),
                         rs.getString("center"),
-                        rs.getInt("noofstd"), rs.getString("batchID"));
+                        rs.getInt("noofstd"),
+                        rs.getString("batchID")
+                );
+
                 studentBatchesList.add(studentBatch);
             }
 

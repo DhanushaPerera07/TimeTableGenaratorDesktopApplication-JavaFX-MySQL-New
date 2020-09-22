@@ -26,11 +26,22 @@ public class ExtraController implements Initializable {
     @FXML
     private Button backBtn;
 
+
     @FXML
-    private Button btnAddSuitableLocation;
+    private Button ParallelSessionBtn;
+
+    @FXML
+    private Button ConsecetiveSessionBtn;
 
     @FXML
     private Pane pane;
+
+    @FXML
+    private Button OverlapSessionBtn;
+
+    @FXML
+    private Button btnAddSuitableLocation;
+
 
     @FXML
     private TilePane addSuitableRooms;
@@ -42,14 +53,40 @@ public class ExtraController implements Initializable {
 
     @FXML
     public void handleActionNASessionButton(javafx.event.ActionEvent actionEvent) {
-        System.out.println("clicked NA sessions Button");
+        System.out.println("clicked NA time Button");
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPane("Extra/NotAvailableTime/NotAvailableTime");
         pane.getChildren().add(view);
 
     }
 
+    @FXML
+    public void handleActionParallelSessionsButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("clicked PS time Button");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("Extra/ParallelSessions/ParallelSession");
+        pane.getChildren().add(view);
 
+    }
+
+    @FXML
+    public void handleActionOverlapSessionsButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("clicked PS time Button");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("Extra/NotOverLapSessions/NotOverlapSessions");
+        pane.getChildren().add(view);
+
+    }
+
+
+    @FXML
+    public void handleActionConsecetiveSessionsButton(javafx.event.ActionEvent actionEvent) {
+        System.out.println("clicked CS time Button");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("Extra/ConsecetiveSesssions/ConsecetiveSessions");
+        pane.getChildren().add(view);
+
+    }
     @FXML
     void openPopUpAddSuitableLocations(javafx.event.ActionEvent actionEvent) {
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.ConsecetiveSesssions.ConsecetiveSessionsController">
+<children>
+    <Rectangle fx:id="rec" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="449.0" layoutX="428.0" layoutY="55.0" stroke="WHITE" strokeType="INSIDE" width="300.0">
+        <effect>
+            <DropShadow />
+        </effect></Rectangle>
+    <Label alignment="CENTER" layoutX="-278.0" layoutY="278.0" prefHeight="25.0" prefWidth="600.0" rotate="-90.0" style="-fx-background-color: #003073;" text="Consecetive Sessions" textFill="WHITE">
+        <font>
+            <Font name="Bitstream Vera Sans Mono Bold" size="35.0" />
+        </font>
+    </Label>
+    <TableView fx:id="sessionsTV1" layoutX="119.0" layoutY="62.0" onMouseClicked="#handleMouseAction" prefHeight="200.0" prefWidth="280.0">
+        <columns>
+            <TableColumn fx:id="sessionIDCol1" prefWidth="81.0" text="SessionID" />
+            <TableColumn fx:id="sessionNameCol1" prefWidth="197.0" text="SessionName" />
+        </columns>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </TableView>
+    <TableView fx:id="sessionsTV2" layoutX="119.0" layoutY="305.0" onMouseClicked="#handleMouseAction2" prefHeight="200.0" prefWidth="280.0">
+        <columns>
+            <TableColumn fx:id="sessionIDCol2" prefWidth="81.0" text="SessionID" />
+            <TableColumn fx:id="sessionNameCol2" prefWidth="197.0" text="SessionName" />
+        </columns>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </TableView>
+    <Label fx:id="ses1Label" alignment="CENTER" contentDisplay="CENTER" layoutX="444.0" layoutY="305.0" prefHeight="26.0" prefWidth="261.0" text="Session 1">
+        <font>
+            <Font name="System Bold Italic" size="17.0" />
+        </font>
+    </Label>
+    <Label fx:id="ses2Label" alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" layoutY="394.0" prefHeight="26.0" prefWidth="261.0" text="Session 2">
+        <font>
+            <Font name="System Bold Italic" size="17.0" />
+        </font>
+    </Label>
+    <Button layoutX="539.0" layoutY="457.0" mnemonicParsing="false" onMouseClicked="#insertParSession" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #ffff;" text="Add" textAlignment="CENTER">
+        <font>
+            <Font name="Bitstream Vera Sans Mono Bold" size="12.0" />
+        </font>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+        <effect>
+            <DropShadow />
+        </effect></Button>
+    <TableView fx:id="pSessionsTV" layoutX="438.0" layoutY="91.0" onMouseClicked="#deleteRecord" prefHeight="200.0" prefWidth="280.0">
+        <columns>
+            <TableColumn fx:id="ses1ID" prefWidth="140.0" text="Session 1" />
+            <TableColumn fx:id="ses2ID" prefWidth="178.0" text="Session2" />
+        </columns>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </TableView>
+    <Label alignment="CENTER" layoutX="428.0" layoutY="55.0" prefHeight="26.0" prefWidth="300.0" style="-fx-background-color: #003073;" text="Consecetive Sessions" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font size="17.0" />
+        </font>
+    </Label>
+    <Label fx:id="ses1Label1" alignment="CENTER" contentDisplay="CENTER" layoutX="543.0" layoutY="318.0" prefHeight="26.0" prefWidth="70.0" text="+">
+        <font>
+            <Font size="48.0" />
+        </font>
+    </Label>
+    <Label layoutX="119.0" layoutY="46.0" style="-fx-background-color: #003073;" text="Select the session 1" textFill="#e1e1e1" />
+    <Label layoutX="119.0" layoutY="288.0" style="-fx-background-color: #003073;" text="Select the session 2" textFill="WHITE" />
+    <Label alignment="CENTER" layoutX="44.0" layoutY="556.0" prefHeight="44.0" prefWidth="756.0" style="-fx-background-color: #003073;" text="Create any consecetive sessions here!" textFill="WHITE">
+        <font>
+            <Font name="Bitstream Vera Sans Mono Bold" size="16.0" />
+        </font>
+    </Label>
+</children>
+</AnchorPane>
