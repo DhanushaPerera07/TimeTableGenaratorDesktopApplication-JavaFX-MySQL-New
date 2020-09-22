@@ -49,4 +49,14 @@ public class SuitableLocationForTag {
     public void setStatus_true(String status_true) {
         this.status_true = status_true;
     }
+
+    @Override
+    public String toString() {
+        return "SuitableLocationForTag{" +
+                "suitable_room_for_tags_id=" + suitable_room_for_tags_id +
+                ", location_location_id=" + location_location_id +
+                ", tags_idtags=" + tags_idtags +
+                ", status_true='" + status_true + '\'' +
+                '}';
+    }
 }

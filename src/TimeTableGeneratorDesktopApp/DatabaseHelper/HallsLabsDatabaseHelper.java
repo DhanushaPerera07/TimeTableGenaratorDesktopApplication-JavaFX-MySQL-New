@@ -281,7 +281,7 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
 
     public ObservableList<SuitableLocationForTag> checkPreferredRoomsForTag(int tagID, int locationID, Boolean statusTrue) {
 
-        this.lecturerID = lecturerID;
+        this.tagID = tagID;
         this.locationID = locationID;
 
         this.statusTrue = statusTrue;
