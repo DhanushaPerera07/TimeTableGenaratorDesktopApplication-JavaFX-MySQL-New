@@ -2,26 +2,28 @@ package TimeTableGeneratorDesktopApp.TimeTableGeneration;
 
 public class TimeTable {
 
-    private int sessionId;
+    private int Id;
     private String timeSlot;
     private String Module;
     private String tag;
     private String Hall;
     private String group;
     private String lecturer;
+    private String sessionId;
 
-    public TimeTable(int sessionId, String timeSlot, String module, String tag, String hall, String group, String lecturer) {
-        this.sessionId = sessionId;
+    public TimeTable(int id, String timeSlot, String module, String tag, String hall, String group, String lecturer, String sessionId) {
+        Id = id;
         this.timeSlot = timeSlot;
         Module = module;
         this.tag = tag;
         Hall = hall;
         this.group = group;
         this.lecturer = lecturer;
+        this.sessionId = sessionId;
     }
 
-    public int getSessionId() {
-        return sessionId;
+    public int getId() {
+        return Id;
     }
 
     public String getTimeSlot() {
@@ -46,5 +48,9 @@ public class TimeTable {
 
     public String getLecturer() {
         return lecturer;
+    }
+
+    public String getSessionId() {
+        return sessionId;
     }
 }
