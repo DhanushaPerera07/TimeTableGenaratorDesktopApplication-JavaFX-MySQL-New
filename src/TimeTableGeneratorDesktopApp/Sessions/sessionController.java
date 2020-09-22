@@ -87,7 +87,7 @@ public class sessionController implements Initializable {
                 "  `sessionDuration` varchar(45) NOT NULL," +
                 "  `sessionModuleCode` varchar(45) NOT NULL," +
                 "        PRIMARY KEY (`idsession`)" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+                ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8";
 
         executeQuery(sessionsTable);
 
@@ -97,8 +97,8 @@ public class sessionController implements Initializable {
                 "  `sessionID` varchar(100) NOT NULL," +
                 "  `sessionLecturerName` varchar(45) NOT NULL," +
                 "  PRIMARY KEY (`idsession_lecturer`)" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
-    executeQuery(session_lecturerTable);
+                ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
+        executeQuery(session_lecturerTable);
 
     }
 
@@ -190,7 +190,7 @@ public class sessionController implements Initializable {
                         rs.getInt("idsession"),
                         rs.getString("sessionSubject"),
                         rs.getString("sessionModuleCode"),
-                        rs.getString("sessionDuration"),
+                        rs.getString("sessionTag"),
                         rs.getString("sessionStudentGroup"),
                         rs.getInt("sessionNoOfStudents"),
                         rs.getInt("sessionDuration"),

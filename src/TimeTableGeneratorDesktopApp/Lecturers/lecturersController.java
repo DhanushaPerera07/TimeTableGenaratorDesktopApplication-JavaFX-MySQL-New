@@ -99,7 +99,7 @@ public class lecturersController implements Initializable {
     }
 
     private void createTable() {
-        String query = "CREATE TABLE lecturer (" +
+        String query = "CREATE TABLE IF NOT EXISTS lecturer (" +
                 "  `lid` int NOT NULL AUTO_INCREMENT," +
                 "  `lecturerID` varchar(6) NOT NULL," +
                 "  `lecturerName` varchar(45) NOT NULL," +
@@ -110,7 +110,7 @@ public class lecturersController implements Initializable {
                 "  `lecturerLevel` int NOT NULL," +
                 "  `lecturerRank` varchar(10) NOT NULL," +
                 "  PRIMARY KEY (`lid`)" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+                ") ";
     executeQuery(query);
     }
 

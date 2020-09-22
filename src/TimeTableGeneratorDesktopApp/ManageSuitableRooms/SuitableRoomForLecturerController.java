@@ -1,7 +1,10 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForLecturer;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForLecturer.LocationItemForLecturerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +30,7 @@ import java.util.ResourceBundle;
 public class SuitableRoomForLecturerController implements Initializable {
 
     //variables need to hold some values
+    //public Lecturers lecturers;
     static int lecturerID;
     static String lecturerName;
 
@@ -91,6 +95,23 @@ public class SuitableRoomForLecturerController implements Initializable {
         locationsVBox.getChildren().clear();
 
         ObservableList<Location> locationList = getLocationList();
+        SuitableLocationForLecturer suitableLocationForLecturer;
+
+
+        for (Location location : locationList){
+            // sysout check
+            System.out.println("Suitable Location for lecturer rec: " + location.toString());
+
+            suitableLocationForLecturer = checkSuitableRoomForLecturerTableData(location.getLocationID(),this.lecturerID);
+
+            if (suitableLocationForLecturer != null){
+                location.setSuitableRoomTrue(1);
+            } else {
+                location.setSuitableRoomTrue(0);
+            }
+
+        }
+
 
 
         /**
@@ -124,10 +145,10 @@ public class SuitableRoomForLecturerController implements Initializable {
 
     /**
      * this method is to get all the Locations in the location table but...
-     * here, location table and preferred_room_for_subject table are being checked
+     * here, location table and preferred_room_for_tag table are being checked
      * returns locationList;
      */
-    private ObservableList<Location> getLocationList() {
+    public ObservableList<Location> getLocationList() { // locationTagID = locationType
 
         // ============================================ DATABASE PART ===================================================================================
 
@@ -140,11 +161,7 @@ public class SuitableRoomForLecturerController implements Initializable {
         // if the filter by combo box value is set as ALL, get all the departments
         String query;
 
-        //query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+"";
-        query = "SELECT l.*, IF(l.location_id = pl.location_location_id, TRUE, FALSE) AS suitableRoomTrue \n" +
-                "FROM location AS l, suitable_room_for_lecturer AS pl\n" +
-                "WHERE pl.lecturer_lid = " + this.lecturerID + "";
-
+        query = "SELECT * FROM timetabledb.location";
 
         Statement st;
         ResultSet rs;
@@ -161,9 +178,8 @@ public class SuitableRoomForLecturerController implements Initializable {
                         rs.getInt("location_floor"),
                         rs.getString("location_condition"),
                         rs.getInt("building_building_id"),
-                        rs.getInt("tag_tag_id"),
-                        //rs.getInt("subject_subject_id"),
-                        rs.getInt("suitableRoomTrue")
+                        rs.getInt("tag_tag_id")
+                        //rs.getInt("suitableRoomTrue")
                 );
                 locationList.add(location);
             }
@@ -173,5 +189,60 @@ public class SuitableRoomForLecturerController implements Initializable {
             ex.printStackTrace();
         }
         return locationList;
+    }
+
+
+
+
+
+
+    // ---------------------------------------------------------------------
+
+    /** Search records in suitable_room_for_lecturer table
+     * returns locationList;
+     */
+    public SuitableLocationForLecturer checkSuitableRoomForLecturerTableData(int locationID, int lecturerID) {
+
+        // database connection setup
+        DatabaseHelper databaseHelper = new DatabaseHelper();
+
+        ObservableList<SuitableLocationForLecturer> suitableLocationForLecturerList = FXCollections.observableArrayList();
+        Connection conn = databaseHelper.getConnection();
+
+        String query;
+
+        query = "SELECT * \n" +
+                "FROM timetabledb.suitable_room_for_lecturer AS sl\n" +
+                "WHERE sl.location_location_id = "+locationID+" AND sl.lecturer_lid = "+lecturerID+"";
+
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            SuitableLocationForLecturer suitableLocationForLecturer;
+            while (rs.next()) {
+                suitableLocationForLecturer = new SuitableLocationForLecturer(
+                        rs.getInt("suitable_room_for_lecturer_id"),
+                        rs.getInt("location_location_id"),
+                        rs.getInt("lecturer_lid"),
+                        rs.getString("status_true")
+
+                );
+                suitableLocationForLecturerList.add(suitableLocationForLecturer);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+
+        if (suitableLocationForLecturerList.isEmpty()){
+            return null;
+        } else {
+            return suitableLocationForLecturerList.get(0);
+        }
     }
 }

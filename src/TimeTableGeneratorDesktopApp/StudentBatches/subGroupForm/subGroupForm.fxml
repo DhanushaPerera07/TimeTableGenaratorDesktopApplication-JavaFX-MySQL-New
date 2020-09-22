@@ -11,8 +11,11 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.SubGroupFormController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#86919a" height="326.0" layoutX="326.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" width="242.0" />
-      <Label fx:id="subGrooupsTitle" alignment="CENTER" text="Manage Sub groups of #Batch" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="15.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="326.0" layoutX="326.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="242.0">
+         <effect>
+            <DropShadow />
+         </effect></Rectangle>
+      <Label fx:id="subGrooupsTitle" alignment="CENTER" layoutX="-1.0" layoutY="9.0" prefHeight="27.0" prefWidth="499.0" style="-fx-background-color: #003073;" text="Manage Sub groups of #Batch" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="102.0" AnchorPane.topAnchor="9.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,29 +31,34 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="125.0" text="Number of students : " textFill="WHITE" />
+            <Label prefHeight="17.0" prefWidth="125.0" text="Number of students : " />
             <TextField fx:id="sgtfNOF" prefHeight="3.0" prefWidth="69.0" GridPane.columnIndex="1">
                <font>
                   <Font size="10.0" />
                </font>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="125.0" text="Sub group No : " textFill="WHITE" GridPane.rowIndex="1" />
+            <Label prefHeight="17.0" prefWidth="125.0" text="Sub group No : " GridPane.rowIndex="1" />
             <TextField fx:id="sgtfGN" prefHeight="3.0" prefWidth="69.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="10.0" />
                </font>
             </TextField>
-            <Label prefHeight="17.0" prefWidth="125.0" text="Sub Group ID" textFill="WHITE" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="125.0" text="Sub Group ID" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label fx:id="subGroupFormHead" alignment="CENTER" layoutX="327.0" layoutY="57.0" prefHeight="26.0" prefWidth="242.0" text="Create sub groups" textFill="WHITE">
+      <Label fx:id="subGroupFormHead" alignment="CENTER" layoutX="327.0" layoutY="57.0" prefHeight="26.0" prefWidth="242.0" text="Create sub groups">
          <font>
             <Font name="Baskerville Old Face" size="17.0" />
          </font>
       </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="99.0" layoutX="21.0" layoutY="49.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="283.0">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" />
+         </effect>
+      </Rectangle>
       <Button fx:id="sgBtn" layoutX="422.0" layoutY="312.0" mnemonicParsing="false" onAction="#createSubGroup" text="Create" />
       <Pane layoutX="49.0" layoutY="70.0" />
-      <GridPane layoutX="26.0" layoutY="59.0" prefHeight="90.0" prefWidth="225.0">
+      <GridPane layoutX="44.0" layoutY="52.0" prefHeight="90.0" prefWidth="225.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="145.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="55.0" />

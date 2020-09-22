@@ -240,7 +240,6 @@ public class TimeSlotsController implements Initializable {
     private void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
-//        System.out.println("janaka");
         try {
             st = conn.createStatement();
             st.executeUpdate(query);

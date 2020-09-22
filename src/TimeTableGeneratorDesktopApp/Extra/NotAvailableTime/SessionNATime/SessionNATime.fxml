@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SessionNATime.SessionNATimeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SessionNATime.SessionNATimeController">
    <children>
-      <Label layoutX="262.0" layoutY="32.0" text="Select a group" />
+      <Label alignment="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="35.0" prefWidth="519.0" style="-fx-background-color: #152f85;" text="Select a Session" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font></Label>
+      <TableView fx:id="sessionListTV" layoutX="40.0" layoutY="61.0" onMouseClicked="#handleMouseAction" prefHeight="309.0" prefWidth="237.0">
+        <columns>
+          <TableColumn fx:id="moduleCol" prefWidth="75.0" text="Module" />
+            <TableColumn fx:id="tagCol" prefWidth="75.0" text="Tag" />
+            <TableColumn fx:id="groupCol" prefWidth="86.0" text="Group" />
+        </columns>
+         <effect>
+            <DropShadow />
+         </effect>
+      </TableView>
+      <Pane fx:id="setNATimePane" layoutX="307.0" layoutY="61.0" prefHeight="309.0" prefWidth="252.0" style="-fx-background-color: #ffff;">
+         <children>
+            <Label alignment="CENTER" prefWidth="252.0" style="-fx-background-color: #152f85;" text="Set Not Available Time" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="40.0" text="Session ID :" textFill="WHITE" />
+            <Label fx:id="sessionID" layoutX="86.0" layoutY="40.0" textFill="WHITE" />
+            <ComboBox fx:id="dayCB" layoutX="14.0" layoutY="75.0" prefHeight="25.0" prefWidth="128.0" promptText="Day" />
+            <ComboBox fx:id="hourCB" layoutX="154.0" layoutY="75.0" prefHeight="25.0" prefWidth="84.0" promptText="Hour" />
+            <Button fx:id="addBtn" layoutX="107.0" layoutY="115.0" mnemonicParsing="false" onAction="#insertRecord" text="Add" />
+            <TableView fx:id="NATimeTV" layoutX="26.0" layoutY="152.0" prefHeight="136.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="dayCol" prefWidth="121.0" text="Day" />
+                <TableColumn fx:id="hourCol" prefWidth="78.0" text="Hour" />
+              </columns>
+            </TableView>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
    </children>
 </AnchorPane>
