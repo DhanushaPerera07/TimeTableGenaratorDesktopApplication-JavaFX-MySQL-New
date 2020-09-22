@@ -3,25 +3,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="groupNATimePane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllStudentGroupsController">
+<Pane fx:id="pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllStudentGroupsController">
     <children>
-        <Label layoutX="235.0" layoutY="14.0" text="Add  suitable locations for a student group">
-            <font>
-                <Font size="21.0" />
-            </font>
-        </Label>
-      <TableView fx:id="tvBatches" layoutX="27.0" layoutY="65.0" onMouseClicked="#handleMouseAction" prefHeight="461.0" prefWidth="743.0" style="-fx-background-color: #1c76a3; -fx-region-background: #1c76a3;">
+      <GridPane layoutX="31.0" layoutY="25.0" prefHeight="27.0" prefWidth="508.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+              <Label prefWidth="479.0" text="Add  suitable locations for a student group">
+                  <font>
+                      <Font name="Segoe UI" size="24.0" />
+                  </font>
+              </Label>
+         </children>
+      </GridPane>
+      <TableView fx:id="tvBatches" layoutX="17.0" layoutY="79.0" onMouseClicked="#handleMouseAction" prefHeight="442.0" prefWidth="772.0" style="-fx-background-color: #FFF; -fx-region-background: #FFF;">
          <columns>
-            <TableColumn fx:id="batColYear" prefWidth="49.0" text="Year" />
-            <TableColumn fx:id="batColSem" prefWidth="95.0" text="Semester" />
-            <TableColumn fx:id="batColIntake" prefWidth="117.0" text="Group ID" />
-            <TableColumn fx:id="batColFac" prefWidth="135.0" text="Faculty" />
-            <TableColumn fx:id="batColPro" prefWidth="142.0" text="Programme" />
-            <TableColumn fx:id="batColCen" prefWidth="104.0" text="Center" />
-            <TableColumn fx:id="batColNoOfStd" prefWidth="97.0" text="No.of Students" />
+            <TableColumn fx:id="batColYear" prefWidth="57.600006103515625" text="Year" />
+            <TableColumn fx:id="batColSem" prefWidth="92.80001831054688" text="Semester" />
+            <TableColumn fx:id="batColIntake" prefWidth="118.4000244140625" text="Group ID" />
+            <TableColumn fx:id="batColFac" prefWidth="134.4000244140625" text="Faculty" />
+            <TableColumn fx:id="batColPro" prefWidth="144.0" text="Programme" />
+            <TableColumn fx:id="batColCen" prefWidth="97.60009765625" text="Center" />
+            <TableColumn fx:id="batColNoOfStd" prefWidth="121.5999755859375" text="No.of Students" />
          </columns>
       </TableView>
     </children>
