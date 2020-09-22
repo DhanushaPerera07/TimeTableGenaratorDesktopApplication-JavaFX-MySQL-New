@@ -77,7 +77,7 @@ public class TimeTableStructureController implements Initializable {
 //        this.timeTable = timeTable;
         structureTblHeader.setText(Group);
         getDayNames();
-        displayTimeSlots();
+//        displayTimeSlots();
         displaySessions(Group);
     }
 
