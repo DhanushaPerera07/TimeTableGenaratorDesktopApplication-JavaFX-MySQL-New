@@ -141,7 +141,7 @@ public class DatabaseCreation {
 
 
 
-    String query11 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`lecturer` (" +
+    String query11 = "CREATE TABLE IF NOT EXISTS lecturer (" +
             "  `lid` int NOT NULL AUTO_INCREMENT," +
             "  `lecturerID` varchar(6) NOT NULL," +
             "  `lecturerName` varchar(45) NOT NULL," +
@@ -152,8 +152,7 @@ public class DatabaseCreation {
             "  `lecturerLevel` int NOT NULL," +
             "  `lecturerRank` varchar(10) NOT NULL," +
             "  PRIMARY KEY (`lid`)" +
-            ") ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
-
+            ") ";
 
     String query12 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`module` (" +
             "  `idmodule` int NOT NULL AUTO_INCREMENT," +
