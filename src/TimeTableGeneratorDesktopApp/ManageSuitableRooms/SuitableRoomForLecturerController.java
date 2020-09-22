@@ -92,7 +92,6 @@ public class SuitableRoomForLecturerController implements Initializable {
 
         ObservableList<Location> locationList = getLocationList();
 
-
         /**
          * Dynamically change the rows by getting data from the database
          * locationItemForLecturer.fxml is used as the UI, it acts as a customized data row
@@ -141,6 +140,7 @@ public class SuitableRoomForLecturerController implements Initializable {
         String query;
 
         //query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+"";
+
         query = "SELECT l.*, IF(l.location_id = pl.location_location_id, TRUE, FALSE) AS suitableRoomTrue \n" +
                 "FROM location AS l, suitable_room_for_lecturer AS pl\n" +
                 "WHERE pl.lecturer_lid = " + this.lecturerID + "";

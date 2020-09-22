@@ -1,8 +1,11 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.StudentView;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.Sessions.Sessions;
+import TimeTableGeneratorDesktopApp.Sessions.sessionController;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
+import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,12 +23,6 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class StudentViewController implements Initializable {
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        populateSubGroupRows();
-
-    }
 
     @FXML
     private BorderPane borderPaneForTimeTables;
@@ -33,52 +30,71 @@ public class StudentViewController implements Initializable {
     @FXML
     private VBox timeTableVBox;
 
+    private String GroupId = "non";
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        populateSubGroupRows();
+
+    }
 
     public void populateSubGroupRows(){
 
         timeTableVBox.getChildren().clear();
 
-        ObservableList<subGroups> subGroupList = getSubGroupList();
+
+        ObservableList<TimeTable> sessionsList = getSessionList();
 
         // Populate the rows like a table
-        Node[] nodes = new Node[subGroupList.size()];
+        Node[] nodes = new Node[sessionsList.size()];
 
-        if (subGroupList.size() > 0) {
-            for (int i = 0; i < subGroupList.size(); i++) {
+        if (sessionsList.size() > 0) {
+            for (int i = 0; i < sessionsList.size(); i++) {
                 try {
 
-                    System.out.println(subGroupList.size() + "wishslai");
+                    TimeTable timeTable = sessionsList.get(i);
 
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
+                    if (!GroupId.equals(timeTable.getGroup())){
 
-                    nodes[i] = (Node) loader.load();
-                    TimeTableStructureController timeTableStructureController = loader.getController();
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
 
-                    timeTableStructureController.showSubGroups(subGroupList.get(i)); // subject id should be got from Menura's part
+                        nodes[i] = (Node) loader.load();
+                        TimeTableStructureController timeTableStructureController = loader.getController();
 
-                    timeTableVBox.getChildren().addAll(nodes[i]);
+                        timeTableStructureController.showSessions(sessionsList.get(i), timeTable.getGroup());
+
+                        timeTableVBox.getChildren().addAll(nodes[i]);
+                        GroupId = timeTable.getGroup();
+                        System.out.println(GroupId);
+
+                    }
+                    else{
+                        System.out.println("meet same group ID  " + GroupId);
+                    }
+
                 } catch (IOException e) {
                     System.out.println("Error - preferred room for subject Loading ======================================");
                     e.printStackTrace();
                 }
             }
         }else{
-            System.out.println(subGroupList.size() + "kudai");
+            System.out.println(sessionsList.size() + "kudai");
         }
     }
 
-    public ObservableList<subGroups> getSubGroupList() {
+    public ObservableList<TimeTable> getSessionList() {
 
         // ============================================ DATABASE PART ===================================================================================
 
         // database connection setup
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
-        ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
+        ObservableList<TimeTable> sessionsList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
         String query;
-        query = "SELECT * FROM subgroups";
+        query = "SELECT * FROM time_table";
 
         Statement st;
         ResultSet rs;
@@ -87,22 +103,25 @@ public class StudentViewController implements Initializable {
             st = conn.createStatement();
             rs = st.executeQuery(query);
 
-            subGroups subGroup;
+            TimeTable timeTable;
             while (rs.next()) {
-                subGroup = new subGroups(
-                        rs.getInt("id"),
-                        rs.getString("subGroupId"),
-                        rs.getInt("NofStudents"),
-                        rs.getInt("batchID")
-
+                timeTable = new TimeTable(
+                        rs.getInt("Id"),
+                        rs.getString("timeSlot"),
+                        rs.getString("Module"),
+                        rs.getString("tag"),
+                        rs.getString("Hall"),
+                        rs.getString("group"),
+                        rs.getString("lecturer"),
+                        rs.getString("sessionId")
                 );
-                subGroupList.add(subGroup);
+                sessionsList.add(timeTable);
             }
 
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-        return subGroupList;
+        return sessionsList;
     }
 }

@@ -1,4 +1,4 @@
-package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForLecturer;
+package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForTag;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.HallsLabsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
@@ -15,12 +15,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-public class LocationItemForLecturerController implements Initializable {
+public class LocationItemForTagController implements Initializable {
 
 
     // variable to hold location object
     Location location;
-    int lecturerID;
+    int tagID;
     boolean checkBoxCheckedOrNotAccordingToDataBase;
 
     @FXML
@@ -56,16 +56,16 @@ public class LocationItemForLecturerController implements Initializable {
 
     }
 
-    public void showPreferredLocationInformationForLecturer(Location location, int lecturerID) {
+    public void showPreferredLocationInformationForTag(Location location, int tagID) {
 
         this.location = location;
-        this.lecturerID = lecturerID;
+        this.tagID = tagID;
         boolean suitableRoomTrue;
 
-        System.out.println("test location: " + this.location.toString());
+        System.out.println("SingleLocationForTag location rec : " + this.location.toString());
 
         txtLocationHallLabName.setText(location.getLocationName());
-        //txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
+        // txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
 
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
         Tags tag = tagsDatabaseHelper.getTagInstanceByTagID(location.getTagID());
@@ -73,8 +73,8 @@ public class LocationItemForLecturerController implements Initializable {
 
         txtLocationHallLabCapacity.setText(Integer.toString(location.getLocationCapacity()));
         txtLocationHallLabFloor.setText(Integer.toString(location.getLocationFloor()));
-        txtLocationHallLabBuilding.setText(Integer.toString(location.getBuildingID()));
-        txtLocationHallLabSpecializedModule.setText("None");
+        txtLocationHallLabBuilding.setText(Integer.toString(location.getBuildingID())); // should have to change
+        txtLocationHallLabSpecializedModule.setText("None"); // should have to change
         txtLocationHallLabCondition.setText(location.getLocationCondition());
 
         /** if location is already marked as a preferred room for the particular subject,
@@ -140,7 +140,7 @@ public class LocationItemForLecturerController implements Initializable {
             }
 
             if (result.get() == EditBtn){
-                hallsLabsDatabaseHelper.setPreferredRoomsForLecturer(hallsLabsDatabaseHelper.checkPreferredRoomsForLecturer(this.lecturerID, this.location.getLocationID(),checkBoxSelectedOrNot));
+                hallsLabsDatabaseHelper.setPreferredRoomsForTag(hallsLabsDatabaseHelper.checkPreferredRoomsForTag(this.tagID, this.location.getLocationID(),checkBoxSelectedOrNot));
 
             } else {
                 checkBoxMarkAsSuitableRoom.setSelected(checkBoxCheckedOrNotAccordingToDataBase);
