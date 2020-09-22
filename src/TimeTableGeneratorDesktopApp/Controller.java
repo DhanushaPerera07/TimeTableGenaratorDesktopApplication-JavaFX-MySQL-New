@@ -142,6 +142,14 @@ public class Controller implements Initializable {
     }
 
 
+    @FXML
+    void handleActionOnSuitableLocationButton(ActionEvent event) {
+        System.out.println("clicked Suitable Location Button");
+        FxmlLoader object = new FxmlLoader();
+        Pane view = object.getPane("ManageSuitableRooms/suitableLocation");
+        mainPane.setCenter(view);
+    }
+
     /*
     public void goToHallsAndLabsUI(int building_id) {
         System.out.println("clicked View - Halls/Labs Button. Building ID: " + building_id);

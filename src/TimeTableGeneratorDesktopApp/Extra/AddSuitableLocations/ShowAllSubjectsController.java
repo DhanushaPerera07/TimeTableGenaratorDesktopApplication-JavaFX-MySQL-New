@@ -14,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -38,7 +35,7 @@ public class ShowAllSubjectsController implements Initializable {
 
     public static String filterType = "All";
     public static String filterValue = "";
-    public static String query="";
+    public static String query = "";
 
     @FXML
     private Button addModuleBtn;
@@ -94,7 +91,7 @@ public class ShowAllSubjectsController implements Initializable {
         showModules();
     }
 
-    public void showModules(){
+    public void showModules() {
         ObservableList<Subjects> list = getModuleList();
 
         colModuleName.setCellValueFactory(new PropertyValueFactory<Subjects, String>("moduleName"));
@@ -109,26 +106,25 @@ public class ShowAllSubjectsController implements Initializable {
         tvModules.setItems(list);
     }
 
-    public ObservableList<Subjects> getModuleList(){
+    public ObservableList<Subjects> getModuleList() {
         ObservableList<Subjects> moduleList = FXCollections.observableArrayList();
         DatabaseHelper databaseHelper = new DatabaseHelper();
         Connection conn = databaseHelper.getConnection();
 
 //        String query = "SELECT * FROM module";
-        if(filterType.equals("All")){
+        if (filterType.equals("All")) {
             query = "SELECT * FROM module";
-        }
-        else if (filterType.equals("Year")){
+        } else if (filterType.equals("Year")) {
             query = "Select * from module WHERE offeredYear = '" + filterValue + "'";
         }
 
         Statement st;
         ResultSet rs;
-        try{
+        try {
             st = conn.createStatement();
             rs = st.executeQuery(query);
             Subjects subjects;
-            while (rs.next()){
+            while (rs.next()) {
                 subjects = new Subjects(rs.getInt("idmodule"),
                         rs.getString("moduleName"),
                         rs.getString("moduleCode"),
@@ -140,7 +136,7 @@ public class ShowAllSubjectsController implements Initializable {
                         rs.getInt("evaluationHour"));
                 moduleList.add(subjects);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return moduleList;
@@ -157,14 +153,13 @@ public class ShowAllSubjectsController implements Initializable {
 
         filterType = filter1.getSelectionModel().getSelectedItem().toString();
 
-        if(filterType.equals("All")){
+        if (filterType.equals("All")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
                     "All"
             );
-        }
-        else if(filterType.equals("Year")) {
+        } else if (filterType.equals("Year")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
@@ -176,32 +171,41 @@ public class ShowAllSubjectsController implements Initializable {
 
     public void handleMouseClicked(MouseEvent mouseEvent) {
 
-        Subjects subjects = tvModules.getSelectionModel().getSelectedItem();
+        try {
+            Subjects subjects = tvModules.getSelectionModel().getSelectedItem();
 
-        idmodule = subjects.getIdmodule();
-        moduleName = subjects.getModuleName();
-        System.out.println("Subject id (Menura's part): " + idmodule);
+            idmodule = subjects.getIdmodule();
+            moduleName = subjects.getModuleName();
+            System.out.println("Subject id (Menura's part): " + idmodule);
 
-        // pass values to PreferredRoomForSubjectController
-        PreferredRoomForSubjectController preferredRoomForSubjectController = new PreferredRoomForSubjectController();
-        preferredRoomForSubjectController.getInformationFromSubjectUI(idmodule,moduleName);
-
-
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/preferredRoomForSubject.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            // pass values to PreferredRoomForSubjectController
+            PreferredRoomForSubjectController preferredRoomForSubjectController = new PreferredRoomForSubjectController();
+            preferredRoomForSubjectController.getInformationFromSubjectUI(idmodule, moduleName);
 
 
-            Stage stage = new Stage();
-            stage.setTitle("Add preferred locations for a subject");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(subjectsPane.getScene().getWindow());
-            stage.setResizable(false);
-            stage.setScene(new Scene(root1));
-            stage.show();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/preferredRoomForSubject.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
 
-        }catch (Exception e){
-            System.out.println("can't load new window");
+
+                Stage stage = new Stage();
+                stage.setTitle("Add preferred locations for a subject");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(subjectsPane.getScene().getWindow());
+                stage.setResizable(false);
+                stage.setScene(new Scene(root1));
+                stage.show();
+
+            } catch (Exception e) {
+                System.out.println("can't load new window");
+                e.printStackTrace();
+            }
+
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Error: No records selected !");
+            alert.setContentText("No records found or selected in the table to set suitable locations.");
+            alert.show();
             e.printStackTrace();
         }
 
