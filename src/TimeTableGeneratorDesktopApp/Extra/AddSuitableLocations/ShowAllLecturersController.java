@@ -2,6 +2,7 @@ package TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForLecturerController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -42,7 +40,7 @@ public class ShowAllLecturersController implements Initializable {
     public static String rank = "";
     public static String filterType = "All";
     public static String filterValue = "";
-    public static String query="";
+    public static String query = "";
 
 
     @FXML
@@ -84,62 +82,13 @@ public class ShowAllLecturersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        filter1.getItems().removeAll(filter1.getItems());
+        filter1.getItems().addAll(
+                "All", "Faculty", "Department", "Center", "Building", "Level"
+        );
+        showLecturers();
     }
 
-    DatabaseHelper databaseHelper = new DatabaseHelper();
-
-    public ObservableList<Lecturers> getLecturersList(){
-        ObservableList<Lecturers> lecturerList = FXCollections.observableArrayList();
-        Connection conn = databaseHelper.getConnection();
-
-
-        if(filterType.equals("All")){
-            query = "SELECT * FROM lecturer";
-        }
-        else if (filterType.equals("Faculty")){
-            //query = "SELECT * from lecturer WHERE " +filterType+ " = '" +filterValue+ "'";
-            query = "Select * from lecturer WHERE lecturerFaculty = '" + filterValue + "'";
-        }
-        else if (filterType.equals("Department")){
-            query = "Select * from lecturer WHERE lecturerDepartment = '" + filterValue + "'";
-        }
-        else if (filterType.equals("Center")){
-            query = "Select * from lecturer WHERE lecturerCenter = '" + filterValue + "'";
-        }
-        else if (filterType.equals("Building")){
-            query = "Select * from lecturer WHERE lecturerBuilding = '" + filterValue + "'";
-        }
-        else if (filterType.equals("Level")){
-            query = "Select * from lecturer WHERE lecturerLevel = '" + filterValue + "'";
-        }
-
-
-        Statement st;
-        ResultSet rs;
-        try{
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-            Lecturers lecturers;
-            while (rs.next()){
-                lecturers = new Lecturers(
-                        rs.getInt("lid"),
-                        rs.getString("lecturerID"),
-                        rs.getString("lecturerName"),
-                        rs.getString("lecturerFaculty"),
-                        rs.getString("lecturerDepartment"),
-                        rs.getString("lecturerCenter"),
-                        rs.getString("lecturerBuilding"),
-                        rs.getInt("lecturerLevel"),
-                        rs.getString("lecturerRank")
-                );
-                lecturerList.add(lecturers);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return lecturerList;
-    }
 
     public void showLecturers(){
         ObservableList<Lecturers> list = getLecturersList();
@@ -156,58 +105,93 @@ public class ShowAllLecturersController implements Initializable {
         tvLecturers.setItems(list);
     }
 
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
+    public ObservableList<Lecturers> getLecturersList() {
+        ObservableList<Lecturers> lecturerList = FXCollections.observableArrayList();
+        Connection conn = databaseHelper.getConnection();
+
+
+        if (filterType.equals("All")) {
+            query = "SELECT * FROM lecturer";
+        } else if (filterType.equals("Faculty")) {
+            //query = "SELECT * from lecturer WHERE " +filterType+ " = '" +filterValue+ "'";
+            query = "Select * from lecturer WHERE lecturerFaculty = '" + filterValue + "'";
+        } else if (filterType.equals("Department")) {
+            query = "Select * from lecturer WHERE lecturerDepartment = '" + filterValue + "'";
+        } else if (filterType.equals("Center")) {
+            query = "Select * from lecturer WHERE lecturerCenter = '" + filterValue + "'";
+        } else if (filterType.equals("Building")) {
+            query = "Select * from lecturer WHERE lecturerBuilding = '" + filterValue + "'";
+        } else if (filterType.equals("Level")) {
+            query = "Select * from lecturer WHERE lecturerLevel = '" + filterValue + "'";
+        }
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Lecturers lecturers;
+            while (rs.next()) {
+                lecturers = new Lecturers(
+                        rs.getInt("lid"),
+                        rs.getString("lecturerID"),
+                        rs.getString("lecturerName"),
+                        rs.getString("lecturerFaculty"),
+                        rs.getString("lecturerDepartment"),
+                        rs.getString("lecturerCenter"),
+                        rs.getString("lecturerBuilding"),
+                        rs.getInt("lecturerLevel"),
+                        rs.getString("lecturerRank")
+                );
+                lecturerList.add(lecturers);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lecturerList;
+    }
+
+
     @FXML
     public void handleMouseClicked(MouseEvent mouseEvent) {
-        Lecturers lecturers = tvLecturers.getSelectionModel().getSelectedItem();
 
-        lid = lecturers.getLid();
-        System.out.println("lid :"+lid);
-        lecturerName = lecturers.getLecturerName();
-        lecturerID = lecturers.getLecturerID();
-        lecturerFaculty = lecturers.getLecturerFaculty();
-        lecturerDepartment = lecturers.getLecturerDepartment();
-        lecturerCenter = lecturers.getLecturerCenter();
-        lecturerBuilding = lecturers.getLecturerBuilding();
-        lecturerLevel = lecturers.getLecturerLevel();
-        rank = lecturers.getLecturerRank();
+        try {
+            Lecturers lecturers = tvLecturers.getSelectionModel().getSelectedItem();
 
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LecturerForm/lecturerForm.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Edit Lecturer Details");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(lecturersPane.getScene().getWindow());
-            stage.setResizable(false);
-            stage.setScene(new Scene(root1));
-            stage.show();
+            // pass values to PreferredRoomForSubjectController
+            SuitableRoomForLecturerController suitableRoomForLecturerController = new SuitableRoomForLecturerController();
+            suitableRoomForLecturerController.getNecessaryInformation(lecturers.getLid(),lecturers.getLecturerName());
+            //suitableRoomForLecturerController.getNecessaryInformation(Integer.parseInt(lecturerID),lecturerName);
+            System.out.println("Menura's part: \nlecture ID = " + lecturers.getLid() + "\nLecturer name = " + lecturers.getLecturerName());
 
 
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    Platform.runLater(new Runnable() {
+            try{
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/suitableRoomForLecturer.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
 
-                        @Override
-                        public void run() {
-                            showLecturers();
-                            lid = 0;
-                            lecturerName = "";
-                            lecturerID = "";
-                            lecturerFaculty = "";
-                            lecturerDepartment = "";
-                            lecturerCenter = "";
-                            lecturerBuilding = "";
-                            lecturerLevel = 0;
-                            rank = "";
-                        }
-                    });
-                }
-            });
 
-        }catch (Exception e){
-            System.out.println("can't load new window");
+                Stage stage = new Stage();
+                stage.setTitle("Add suitable locations for a lecturer");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(lecturersPane.getScene().getWindow());
+                stage.setResizable(false);
+                stage.setScene(new Scene(root1));
+                stage.show();
+
+            }catch (Exception e){
+                System.out.println("can't load new (Add suitable locations for a lecturer) window");
+                e.printStackTrace();
+            }
+
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Error: No records selected !");
+            alert.setContentText("No records found or selected in the table\nto set suitable locations.");
+            alert.show();
             e.printStackTrace();
         }
     }
@@ -215,14 +199,13 @@ public class ShowAllLecturersController implements Initializable {
     public void selectFilterType(ActionEvent actionEvent) {
         filterType = filter1.getSelectionModel().getSelectedItem().toString();
 
-        if(filterType.equals("All")){
+        if (filterType.equals("All")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
                     "All"
             );
-        }
-        else if(filterType.equals("Faculty")) {
+        } else if (filterType.equals("Faculty")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
@@ -231,8 +214,7 @@ public class ShowAllLecturersController implements Initializable {
                     "Faculty of Engineering",
                     "Faculty of Humanities and sciences"
             );
-        }
-        else if(filterType.equals("Department")) {
+        } else if (filterType.equals("Department")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
@@ -249,22 +231,19 @@ public class ShowAllLecturersController implements Initializable {
                     "English",
                     "Law"
             );
-        }
-        else if(filterType.equals("Center")){
+        } else if (filterType.equals("Center")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
                     "Malabe", "Metro", "Matara", "Kandy", "Kurunegala", "Jaffna"
             );
-        }
-        else if(filterType.equals("Building")){
+        } else if (filterType.equals("Building")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(
                     "New Building", "D-Block"
             );
-        }
-        else if(filterType.equals("Level")){
+        } else if (filterType.equals("Level")) {
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
             filter2.getItems().addAll(

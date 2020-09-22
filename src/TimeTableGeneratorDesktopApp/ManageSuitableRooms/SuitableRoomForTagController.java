@@ -3,6 +3,7 @@ package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForTag.LocationItemForTagController;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
@@ -56,7 +57,7 @@ public class SuitableRoomForTagController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeHeader();
+        initializeHeader(); // set tag name in the UI
         populateLocationRows();
     }
 
@@ -79,15 +80,24 @@ public class SuitableRoomForTagController implements Initializable {
 
         locationsVBox.getChildren().clear();
 
-        ObservableList<Location> locationList = getLocationList(this.tag.getTagID());
+        ObservableList<Location> locationList = getLocationList();
+        SuitableLocationForTag suitableLocationForTag = new SuitableLocationForTag();
 
 
-        /*
         for (Location location : locationList){
             // sysout check
-            System.out.println("Location preferred for subject rec: " + location.toString());
+            System.out.println("Suitable Location for tag rec: " + location.toString());
+
+            suitableLocationForTag = checkSuitableRoomForTagTableData(location.getLocationID(),this.tag.getTagID());
+
+            if (suitableLocationForTag != null){
+                location.setSuitableRoomTrue(1);
+            } else {
+                location.setSuitableRoomTrue(0);
+            }
+
         }
-         */
+
 
         /**
          * Dynamically change the rows by getting data from the database
@@ -130,7 +140,7 @@ public class SuitableRoomForTagController implements Initializable {
      * here, location table and preferred_room_for_tag table are being checked
      * returns locationList;
      */
-    public ObservableList<Location> getLocationList(int tagID) { // locationTagID = locationType
+    public ObservableList<Location> getLocationList() { // locationTagID = locationType
 
         // ============================================ DATABASE PART ===================================================================================
 
@@ -143,7 +153,7 @@ public class SuitableRoomForTagController implements Initializable {
         // if the filter by combo box value is set as ALL, get all the departments
         String query;
 
-        query = "SELECT l.*, IF(l.location_id = pt.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, suitable_room_for_tags AS pt WHERE pt.tags_idtags = " + tag.getTagID()+";";
+        query = "SELECT * FROM timetabledb.location";
 
         Statement st;
         ResultSet rs;
@@ -160,9 +170,8 @@ public class SuitableRoomForTagController implements Initializable {
                         rs.getInt("location_floor"),
                         rs.getString("location_condition"),
                         rs.getInt("building_building_id"),
-                        rs.getInt("tag_tag_id"),
-                        //rs.getInt("subject_subject_id"),
-                        rs.getInt("suitableRoomTrue")
+                        rs.getInt("tag_tag_id")
+                        //rs.getInt("suitableRoomTrue")
                 );
                 locationList.add(location);
             }
@@ -173,6 +182,62 @@ public class SuitableRoomForTagController implements Initializable {
         }
         return locationList;
     }
+
+
+
+
+
+
+    // ---------------------------------------------------------------------
+
+    /**
+     * returns locationList;
+     */
+    public SuitableLocationForTag checkSuitableRoomForTagTableData(int locationID,int tagID) { // locationTagID = locationType
+
+        // database connection setup
+        DatabaseHelper databaseHelper = new DatabaseHelper();
+
+        ObservableList<SuitableLocationForTag> suitableLocationForTagList = FXCollections.observableArrayList();
+        Connection conn = databaseHelper.getConnection();
+
+        String query;
+
+        query = "SELECT pt.*\n" +
+                "FROM suitable_room_for_tags AS pt\n" +
+                "WHERE pt.location_location_id = "+locationID+" AND pt.tags_idtags = "+tagID+"";
+
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            SuitableLocationForTag suitableLocationForTag;
+            while (rs.next()) {
+                suitableLocationForTag = new SuitableLocationForTag(
+                        rs.getInt("suitable_room_for_tags_id"),
+                        rs.getInt("location_location_id"),
+                        rs.getInt("tags_idtags"),
+                        rs.getString("status_true")
+
+                );
+                suitableLocationForTagList.add(suitableLocationForTag);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+
+        if (suitableLocationForTagList.isEmpty()){
+            return null;
+        } else {
+            return suitableLocationForTagList.get(0);
+        }
+    }
+
 
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
     }

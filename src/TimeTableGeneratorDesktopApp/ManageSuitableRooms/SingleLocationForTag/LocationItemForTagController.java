@@ -62,7 +62,7 @@ public class LocationItemForTagController implements Initializable {
         this.tagID = tagID;
         boolean suitableRoomTrue;
 
-        System.out.println("test location: " + this.location.toString());
+        System.out.println("SingleLocationForTag location rec : " + this.location.toString());
 
         txtLocationHallLabName.setText(location.getLocationName());
         // txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
@@ -73,8 +73,8 @@ public class LocationItemForTagController implements Initializable {
 
         txtLocationHallLabCapacity.setText(Integer.toString(location.getLocationCapacity()));
         txtLocationHallLabFloor.setText(Integer.toString(location.getLocationFloor()));
-        txtLocationHallLabBuilding.setText(Integer.toString(location.getBuildingID()));
-        txtLocationHallLabSpecializedModule.setText("None");
+        txtLocationHallLabBuilding.setText(Integer.toString(location.getBuildingID())); // should have to change
+        txtLocationHallLabSpecializedModule.setText("None"); // should have to change
         txtLocationHallLabCondition.setText(location.getLocationCondition());
 
         /** if location is already marked as a preferred room for the particular subject,

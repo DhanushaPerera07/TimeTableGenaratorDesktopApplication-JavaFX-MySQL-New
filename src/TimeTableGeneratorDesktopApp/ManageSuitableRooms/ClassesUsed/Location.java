@@ -18,6 +18,18 @@ public class Location {
 
     // constructor with parameter
 
+
+    public Location(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID) {
+        this.locationID = locationID;
+        this.locationName = locationName;
+        this.locationCapacity = locationCapacity;
+        this.locationFloor = locationFloor;
+        this.locationCondition = locationCondition;
+        this.buildingID = buildingID;
+        this.tagID = tagID;
+    }
+
+    // constructor with parameter
     public Location(int locationID, String locationName, int locationCapacity, int locationFloor, String locationCondition, int buildingID, int tagID, int suitableRoomTrue) {
         this.locationID = locationID;
         this.locationName = locationName;

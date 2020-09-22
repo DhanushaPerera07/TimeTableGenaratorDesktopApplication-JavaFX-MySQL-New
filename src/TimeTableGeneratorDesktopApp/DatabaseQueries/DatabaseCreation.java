@@ -331,7 +331,6 @@ public class DatabaseCreation {
             "  `location_location_id` INT NOT NULL,\n" +
             "  `tags_idtags` INT NOT NULL,\n" +
             "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
-            "  `suitable_room_for_tags_col` VARCHAR(45) NULL,\n" +
             "  PRIMARY KEY (`suitable_room_for_tags_id`, `location_location_id`, `tags_idtags`),\n" +
             "  INDEX `fk_location_has_tags_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_location_has_tags_location1`\n" +
