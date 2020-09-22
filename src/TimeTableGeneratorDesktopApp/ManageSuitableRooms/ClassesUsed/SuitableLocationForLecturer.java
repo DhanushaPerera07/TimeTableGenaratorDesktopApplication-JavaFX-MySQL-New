@@ -29,8 +29,6 @@ public class SuitableLocationForLecturer {
 
 
     //setters and getters
-
-
     public int getSuitable_room_for_lecturer_id() {
         return suitable_room_for_lecturer_id;
     }

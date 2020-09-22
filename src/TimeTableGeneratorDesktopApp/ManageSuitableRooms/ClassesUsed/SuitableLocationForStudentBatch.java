@@ -27,7 +27,6 @@ public class SuitableLocationForStudentBatch {
     }
 
     //setter and getter
-
     public int getSuitable_room_for_student_batch_id() {
         return suitable_room_for_student_batch_id;
     }
