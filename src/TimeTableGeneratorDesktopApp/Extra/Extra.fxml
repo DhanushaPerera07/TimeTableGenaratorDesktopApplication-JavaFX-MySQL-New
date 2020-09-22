@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -26,13 +27,16 @@
                   <Image url="@../icons/parallel.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="ParallelSessionBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="259.0" text="Parallel Sessions">
+            <Button fx:id="ParallelSessionBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleActionParallelSessionsButton" prefHeight="30.0" prefWidth="259.0" text="Parallel Sessions">
                <font>
                   <Font name="Franklin Gothic Demi" size="17.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </TilePane>
@@ -50,18 +54,24 @@
                <effect>
                   <DropShadow />
                </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </TilePane>
       <TilePane layoutX="33.0" layoutY="308.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #293f63;">
          <children>
-            <Button fx:id="OverlapSessionBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleActionNASessionButton" prefHeight="30.0" prefWidth="261.0" text="Overlap Sessions">
+            <Button fx:id="OverlapSessionBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleActionOverlapSessionsButton" prefHeight="30.0" prefWidth="261.0" text="Overlap Sessions">
                <effect>
                   <DropShadow />
                </effect>
                <font>
                   <Font name="Franklin Gothic Demi" size="17.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <ImageView fitHeight="135.0" fitWidth="360.0" pickOnBounds="true">
                <image>
@@ -72,13 +82,16 @@
       </TilePane>
       <TilePane layoutX="409.0" layoutY="308.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #293f63;">
          <children>
-            <Button fx:id="ConsecetiveSessionBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleActionNASessionButton" prefHeight="30.0" prefWidth="261.0" text="Consecetive Sessions">
+            <Button fx:id="ConsecetiveSessionBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleActionConsecetiveSessionsButton" prefHeight="30.0" prefWidth="261.0" text="Consecetive Sessions">
                <effect>
                   <DropShadow />
                </effect>
                <font>
                   <Font name="Franklin Gothic Demi" size="17.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <ImageView fitHeight="135.0" fitWidth="360.0" pickOnBounds="true">
                <image>

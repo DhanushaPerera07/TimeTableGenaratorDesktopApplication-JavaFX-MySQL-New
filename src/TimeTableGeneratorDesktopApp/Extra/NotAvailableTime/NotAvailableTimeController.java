@@ -26,9 +26,9 @@ public class NotAvailableTimeController implements Initializable {
 
     @FXML
     public void handleBackButton(javafx.event.ActionEvent actionEvent) {
-        System.out.println("clicked NA sessions Button");
+        System.out.println("clicked NA sessions back Button");
         FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPane("Extra/Extra");
+        Pane view = object.getPane("TimeTableGeneratorDesktopApp/Extra/Extra");
         pane.getChildren().add(view);
     }
 
