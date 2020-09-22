@@ -23,12 +23,6 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class StudentViewController implements Initializable {
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        populateSubGroupRows();
-
-    }
 
     @FXML
     private BorderPane borderPaneForTimeTables;
@@ -37,6 +31,13 @@ public class StudentViewController implements Initializable {
     private VBox timeTableVBox;
 
     private String GroupId = "non";
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        populateSubGroupRows();
+
+    }
 
     public void populateSubGroupRows(){
 
@@ -68,6 +69,9 @@ public class StudentViewController implements Initializable {
                         GroupId = timeTable.getGroup();
                         System.out.println(GroupId);
 
+                    }
+                    else{
+                        System.out.println("meet same group ID  " + GroupId);
                     }
 
                 } catch (IOException e) {
