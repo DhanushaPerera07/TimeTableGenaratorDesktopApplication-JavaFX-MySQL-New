@@ -194,7 +194,8 @@ public class TimeTableStructureController implements Initializable {
                         rs.getString("Hall"),
                         rs.getString("group"),
                         rs.getString("lecturer"),
-                        rs.getString("sessionId")
+                        rs.getString("sessionId"),
+                        rs.getInt("duration")
                 );
                 timeTableList.add(timeTable);
 
