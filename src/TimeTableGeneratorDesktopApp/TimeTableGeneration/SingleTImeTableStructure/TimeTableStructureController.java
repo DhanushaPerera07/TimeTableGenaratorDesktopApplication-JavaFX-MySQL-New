@@ -43,7 +43,7 @@ public class TimeTableStructureController implements Initializable {
     private TableView<TimeTable> TimeTableStructureTbl;
 
     @FXML
-    private TableColumn<TimeSlot, TimeTable> StructureTimeSlots;
+    private TableColumn<TimeTable, String> StructureTimeSlots;
 
     @FXML
     private TableColumn<TimeTable, String> StrructureC1;
@@ -213,7 +213,7 @@ public class TimeTableStructureController implements Initializable {
 
         ObservableList<TimeSlot> TimeSlotsList = getTimeSlotsList();
 
-        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeSlot, TimeTable>("value_t"));
+//        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeSlot, TimeTable>("value_t"));
 
 //        TimeTableStructureTbl.setItems(TimeSlotsList);
 
@@ -239,6 +239,7 @@ public class TimeTableStructureController implements Initializable {
 
 
         StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
+        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
         TimeTableStructureTbl.setItems(timeTableViewList);
 
     }

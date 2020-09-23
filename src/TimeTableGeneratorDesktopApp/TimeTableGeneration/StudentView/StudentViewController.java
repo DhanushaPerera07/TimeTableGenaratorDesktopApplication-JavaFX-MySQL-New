@@ -50,11 +50,8 @@ public class StudentViewController implements Initializable {
 
         timeTableVBox.getChildren().clear();
 
-
-//        ObservableList<TimeTable> sessionsList = getSessionList();
         ArrayList<String> sessionsList =getSessionList();
 
-        // Populate the rows like a table
         Node[] nodes = new Node[sessionsList.size()];
 
         if (sessionsList.size() > 0) {
@@ -62,15 +59,15 @@ public class StudentViewController implements Initializable {
 
                 try {
 
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
 
-                        nodes[i] = (Node) loader.load();
-                        TimeTableStructureController timeTableStructureController = loader.getController();
+                    nodes[i] = (Node) loader.load();
+                    TimeTableStructureController timeTableStructureController = loader.getController();
 
-                        timeTableStructureController.showSessions(sessionsList.get(i));
+                    timeTableStructureController.showSessions(sessionsList.get(i));
 
-                        timeTableVBox.getChildren().addAll(nodes[i]);
+                    timeTableVBox.getChildren().addAll(nodes[i]);
 
 
                 } catch (IOException e) {
@@ -90,7 +87,7 @@ public class StudentViewController implements Initializable {
 
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
-        ObservableList<TimeTable> sessionsList = FXCollections.observableArrayList();
+
         Connection conn =  databaseHelper.getConnection();
         String query;
 
@@ -114,6 +111,6 @@ public class StudentViewController implements Initializable {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-    return a;
+        return a;
     }
 }
