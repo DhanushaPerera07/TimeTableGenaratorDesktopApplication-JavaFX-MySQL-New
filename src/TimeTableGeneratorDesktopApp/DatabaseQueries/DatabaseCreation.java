@@ -370,6 +370,16 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB";
 
+    String query30 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_session` (\n" +
+            "  `suitable_room_for_session_id` int NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` int NOT NULL,\n" +
+            "  `idsession` int NOT NULL,\n" +
+            "  `status_true` varchar(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_session_id`,`location_location_id`,`idsession`),\n" +
+            "  KEY `fk_location_has_session_location1_idx` (`location_location_id`),\n" +
+            "  CONSTRAINT `fk_location_has_session_location2` FOREIGN KEY (`location_location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+            ") ENGINE=InnoDB;";
+
 
     public void createDatabase() {
         try {
@@ -406,6 +416,7 @@ public class DatabaseCreation {
             executeQuery(query27); // suitable room for tag
             executeQuery(query28); // suitable room for student batch
             executeQuery(query29); // suitable room for student subgroup
+            executeQuery(query30); // suitable room for session
 
 
 

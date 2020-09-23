@@ -1,4 +1,4 @@
-package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForStudentBatch;
+package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForStudentSubGroup;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.HallsLabsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
@@ -14,11 +14,11 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LocationItemForStudentBatchController implements Initializable {
+public class LocationItemForStudentSubGroupController implements Initializable {
 
     // variable to hold location object
     Location location;
-    int studentBatchID;
+    int studentSubGroupID;
     boolean checkBoxCheckedOrNotAccordingToDataBase;
 
     @FXML
@@ -54,13 +54,13 @@ public class LocationItemForStudentBatchController implements Initializable {
 
     }
 
-    public void showPreferredLocationInformationForStudentBatches(Location location, int studentBatchID) {
+    public void showPreferredLocationInformationForStudentSubGroup(Location location, int studentSubGroupID) {
 
         this.location = location;
-        this.studentBatchID = studentBatchID;
+        this.studentSubGroupID = studentSubGroupID;
         boolean suitableRoomTrue;
 
-        System.out.println("SingleLocationForTag location rec : " + this.location.toString());
+        System.out.println("SingleLocationForStudentSubGroup location rec : " + this.location.toString());
 
         txtLocationHallLabName.setText(location.getLocationName());
         // txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
@@ -138,11 +138,11 @@ public class LocationItemForStudentBatchController implements Initializable {
             }
 
             if (result.get() == EditBtn){
-                hallsLabsDatabaseHelper.setPreferredRoomsForStudentBatch(hallsLabsDatabaseHelper.checkPreferredRoomsForStudentBatch(this.studentBatchID, this.location.getLocationID(),checkBoxSelectedOrNot));
+                hallsLabsDatabaseHelper.setPreferredRoomsForStudentSubGroup(hallsLabsDatabaseHelper.checkPreferredRoomsForStudentSubGroupID(this.studentSubGroupID, this.location.getLocationID(),checkBoxSelectedOrNot));
 
             } else {
                 checkBoxMarkAsSuitableRoom.setSelected(checkBoxCheckedOrNotAccordingToDataBase);
-                System.out.println("Clicked Cancel Button - (update a suitable location for student batch)");
+                System.out.println("Clicked Cancel Button - (update a suitable ForStudentSubGroup)");
             }
 
         }
