@@ -34,6 +34,7 @@ import javafx.stage.WindowEvent;
 public class timeTableGenerationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        getDayNames();
     }
 
     @FXML
@@ -46,6 +47,14 @@ public class timeTableGenerationController implements Initializable {
     private Button studentViewBtn;
     @FXML
     private Pane timeTablePane;
+
+    private String day1;
+    private String day2;
+    private String day3;
+    private String day4;
+    private String day5;
+    private String day6;
+    private String day7;
 
     ArrayList<String> a = new ArrayList<>();
 
@@ -206,19 +215,46 @@ public class timeTableGenerationController implements Initializable {
 
                 if (sessionsList2.get(j).equals(timeTableList.get(i).getGroup()))
                 {
-//                    if (tempSessionId.equals(timeTableList.get(i).getSessionId())) {
-//                        x--;
-//                    }
 
-                   String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"' WHERE Id =" +timeTableList.get(i).getId();
+
+
+                    String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"' WHERE Id =" +timeTableList.get(i).getId();
                     executeQuery(query);
                     x++;
 
-                    tempSessionId = timeTableList.get(i).getSessionId();                }
+                    tempSessionId = timeTableList.get(i).getSessionId();
+                }
 
             }
 
         }
+    }
+
+    public void getDayNames() {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM daysname where id = 1";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                day1 = rs.getString("day1name");
+                day2 = rs.getString("day2name");
+                day3 = rs.getString("day3name");
+                day4 = rs.getString("day4name");
+                day5 = rs.getString("day5name");
+                day6 = rs.getString("day6name");
+                day7 = rs.getString("day7name");
+            }
+
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public ObservableList<TimeSlot> getTimeSlotsList1() {
