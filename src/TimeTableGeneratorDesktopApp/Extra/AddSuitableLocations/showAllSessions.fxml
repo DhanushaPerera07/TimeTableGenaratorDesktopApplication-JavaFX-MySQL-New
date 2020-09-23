@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllSessionsController"
-            prefHeight="400.0" prefWidth="600.0">
+<Pane fx:id="pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllSessionsController">
+    <children>
+        <GridPane layoutX="31.0" layoutY="25.0" prefHeight="27.0" prefWidth="508.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label prefWidth="479.0" text="Add suitable locations for a session">
+                    <font>
+                        <Font name="Segoe UI" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+        <TableView fx:id="tblSession" layoutX="17.0" layoutY="79.0" onMouseClicked="#handleMouseAction" prefHeight="442.0" prefWidth="772.0" style="-fx-background-color: #FFF; -fx-region-background: #FFF;">
+            <columns>
+                <TableColumn fx:id="colSubjectCode" prefWidth="88.0" text="Subject Code" />
+                <TableColumn fx:id="colSubject" prefWidth="242.4000244140625" text="Subject" />
+                <TableColumn fx:id="colTag" prefWidth="118.39996337890625" text="Tag" />
+                <TableColumn fx:id="colStudentGroup" prefWidth="156.0" text="Student Group" />
+                <TableColumn fx:id="colNoOfStudents" prefWidth="99.199951171875" text="No of Students" />
+                <TableColumn fx:id="colDuration" prefWidth="71.2000732421875" text="Duration" />
+            </columns>
+        </TableView>
+    </children>
 
-</AnchorPane>
+</Pane>

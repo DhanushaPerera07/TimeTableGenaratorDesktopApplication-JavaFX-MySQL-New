@@ -1,7 +1,9 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionController;
+import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -15,7 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -42,6 +46,8 @@ public class timeTableGenerationController implements Initializable {
     private Button studentViewBtn;
     @FXML
     private Pane timeTablePane;
+
+    ArrayList<String> a = new ArrayList<>();
 
     @FXML
     void hallView(ActionEvent event) {
@@ -146,36 +152,173 @@ public class timeTableGenerationController implements Initializable {
     @FXML
     void timeTableGenerate(ActionEvent event) {
         try {
-            ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
+            ObservableList<Sessions> sessionsList1 = FXCollections.observableArrayList();
             sessionController sessionController = new sessionController();
-            sessionsList = sessionController.getSessionsList();
+            sessionsList1 = sessionController.getSessionsList();
 
-            if (sessionsList.size() > 0) {
+            ArrayList<String> sessionsList =getSessionList();
+
+            for (int j = 0; j < sessionsList.size(); j++) {
+
+                if (sessionsList1.size() > 0) {
 
                     String query1 = "DELETE FROM time_table";
-                            executeQuery(query1);
+                    executeQuery(query1);
 
-                for (int i = 0; i < sessionsList.size(); i++) {
-                    try {
+                    for (int i = 0; i < sessionsList1.size(); i++) {
+                        try {
 
-                        Sessions session = sessionsList.get(i);
+                            Sessions session = sessionsList1.get(i);
 
-                        String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','time"+i+"','"+session.getSessionGroupID()+"','time"+i+"');";
-                        executeQuery(query);
+                            for (int k = 0; k < session.getSessionDuration(); k++) {
+                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','time"+i+"','"+session.getSessionGroupID()+"','time"+i+"','"+session.getSessionGenID()+"');";
+                                executeQuery(query);
+                            }
 
-                    } catch (Exception e) {
+                        } catch (Exception e) {
 
-                        e.printStackTrace();
+                            e.printStackTrace();
+                        }
+                        System.out.println();
                     }
-                    System.out.println();
+                }else{
+                    System.out.println("Database Problem...!");
                 }
-            }else{
-                System.out.println("Database Problem...!");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        setTimeToSession();
+    }
+
+    public void setTimeToSession(){
+        String tempSessionId = "non";
+        ObservableList<TimeSlot> timeSlotList = getTimeSlotsList1();
+
+        ObservableList<TimeTable> timeTableList = getTimeTableValues();
+
+        ArrayList<String> sessionsList2 =getSessionList();
+
+        for (int j = 0; j < sessionsList2.size(); j++) {
+            int x = 0;
+            for (int i = 0; i < timeTableList.size(); i++) {
+
+                if (sessionsList2.get(j).equals(timeTableList.get(i).getGroup()))
+                {
+//                    if (tempSessionId.equals(timeTableList.get(i).getSessionId())) {
+//                        x--;
+//                    }
+
+                   String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"' WHERE Id =" +timeTableList.get(i).getId();
+                    executeQuery(query);
+                    x++;
+
+                    tempSessionId = timeTableList.get(i).getSessionId();                }
+
+            }
+
+        }
+    }
+
+    public ObservableList<TimeSlot> getTimeSlotsList1() {
+        ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        String  query = "SELECT * FROM timeslots";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            TimeSlot timeSlot;
+            while (rs.next()) {
+                timeSlot = new TimeSlot(
+                        rs.getInt("slotsID"),
+                        rs.getFloat("range_t"),
+                        rs.getString("value_t")
+
+
+                );
+                timeSlotList.add(timeSlot);
+                System.out.println(timeSlot.getValue_t());
+            }
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+        return timeSlotList;
+    }
+
+    public ObservableList<TimeTable>  getTimeTableValues(){
+        ObservableList<TimeTable> timeTableList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        String  query = "SELECT * FROM time_table";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            TimeTable timeTable;
+            while (rs.next()) {
+                timeTable = new TimeTable(
+                        rs.getInt("Id"),
+                        rs.getString("timeSlot"),
+                        rs.getString("Module"),
+                        rs.getString("tag"),
+                        rs.getString("Hall"),
+                        rs.getString("group"),
+                        rs.getString("lecturer"),
+                        rs.getString("sessionId")
+                );
+                timeTableList.add(timeTable);
+
+
+            }
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+        return timeTableList;
+    }
+
+    public ArrayList<String> getSessionList() {
+
+        DatabaseHelper databaseHelper = new DatabaseHelper();
+
+        ObservableList<TimeTable> sessionsList = FXCollections.observableArrayList();
+        Connection conn =  databaseHelper.getConnection();
+        String query;
+
+        query = "SELECT DISTINCT `sessionStudentGroup` FROM session";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            TimeTable timeTable;
+            while (rs.next()) {
+                String b = rs.getString("sessionStudentGroup");
+
+                a.add(b);
+
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return a;
     }
 
     private void executeQuery(String query) {

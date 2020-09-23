@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class TimeTableStructureController implements Initializable {
 
     TimeTable TimetableValue;
-    TimeTable timeTable;
+//    TimeTable timeTable;
     Hall hall;
     Lecturers lecturers;
     int subGroupID;
@@ -43,7 +43,7 @@ public class TimeTableStructureController implements Initializable {
     private TableView<TimeTable> TimeTableStructureTbl;
 
     @FXML
-    private TableColumn<TimeSlot, TimeTable> StructureTimeSlots;
+    private TableColumn<TimeTable, String> StructureTimeSlots;
 
     @FXML
     private TableColumn<TimeTable, String> StrructureC1;
@@ -66,18 +66,22 @@ public class TimeTableStructureController implements Initializable {
     @FXML
     private TableColumn<WorkingDays, String> StrructureC7;
 
+    public String query;
+
+    ObservableList<TimeTable> timeTableList = getTimetableSessions();
+
+    ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
 
-    public void showSessions(TimeTable timeTable, String Group) {
+    public void showSessions( String Group) {
 
-        this.timeTable = timeTable;
-        structureTblHeader.setText(timeTable.getGroup());
+        structureTblHeader.setText(Group);
         getDayNames();
-        displayTimeSlots();
+
         displaySessions(Group);
     }
 
@@ -86,7 +90,7 @@ public class TimeTableStructureController implements Initializable {
         this.hall = hall;
         structureTblHeader.setText(hall.getLocation_name());
         getDayNames();
-        displayTimeSlots();
+
     }
 
     public void showlecturers(Lecturers lecturers) {
@@ -94,7 +98,7 @@ public class TimeTableStructureController implements Initializable {
         this.lecturers = lecturers;
         structureTblHeader.setText(lecturers.getLecturerName());
         getDayNames();
-        displayTimeSlots();
+
 
     }
 
@@ -137,7 +141,7 @@ public class TimeTableStructureController implements Initializable {
     }
 
     public ObservableList<TimeSlot> getTimeSlotsList() {
-        ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
+
         Connection conn = getConnection();
 
         String  query = "SELECT * FROM timeslots";
@@ -154,9 +158,11 @@ public class TimeTableStructureController implements Initializable {
                         rs.getInt("slotsID"),
                         rs.getFloat("range_t"),
                         rs.getString("value_t")
+
+
                 );
                 timeSlotList.add(timeSlot);
-
+                System.out.println(timeSlot.getValue_t());
             }
         } catch (Exception ex) {
             // if an error occurs print an error...
@@ -192,6 +198,7 @@ public class TimeTableStructureController implements Initializable {
                 );
                 timeTableList.add(timeTable);
 
+
             }
         } catch (Exception ex) {
             // if an error occurs print an error...
@@ -200,26 +207,21 @@ public class TimeTableStructureController implements Initializable {
         }
         return timeTableList;
     }
-
-    public void displayTimeSlots(){
-
-        ObservableList<TimeSlot> TimeSlotsList = getTimeSlotsList();
-
-        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeSlot, TimeTable>("value_t"));
-
-//        TimeTableStructureTbl.setItems(TimeSlotsList);
-
-    }
+//
+//    public void displayTimeSlots(){
+//
+//    }
 
     public void displaySessions(String group){
 
-        ObservableList<TimeTable> timeTableList = getTimetableSessions();
+
         ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
-
-
+//        displayTimeSlots(group);
 
         for (int i = 0; i < timeTableList.size(); i++) {
+
             TimetableValue = timeTableList.get(i);
+
             if (TimetableValue.getGroup().equals(group)){
 
                 timeTableViewList.add(TimetableValue);
@@ -230,7 +232,43 @@ public class TimeTableStructureController implements Initializable {
 
 
         StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
+        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
         TimeTableStructureTbl.setItems(timeTableViewList);
 
     }
+
+
+    public void displayTimeSlots(String group){
+
+        for (int i = 0; i < timeTableList.size(); i++) {
+
+            TimetableValue = timeTableList.get(i);
+
+            if (TimetableValue.getGroup().equals(group)){
+
+
+                String ss = timeSlotList.get(i).getValue_t();
+                query = "UPDATE time_table SET `timeSlot` = '"+ss+"', `Module` = '"+TimetableValue.getModule()+" "+ss+"' WHERE  Id =" +TimetableValue.getId()+ "";
+                executeQuery(query);
+                System.out.println(ss);
+                System.out.println();
+
+            }
+        }
+
+
+
+    }
+
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

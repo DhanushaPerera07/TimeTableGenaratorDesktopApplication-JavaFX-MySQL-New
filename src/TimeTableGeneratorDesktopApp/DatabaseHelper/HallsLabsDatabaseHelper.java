@@ -1,9 +1,6 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.PreferredLocation;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForLecturer;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForStudentBatch;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,6 +24,12 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
 
     // variables used for the student batch part
     int studentBatchID;
+
+    // variables used for the studentSubGroup part
+    int studentSubGroupID;
+
+    // variables used for the session part
+    int sessionID;
 
     /**
      * Check whether there are locations set as preferred rooms for that particular subject
@@ -512,6 +515,270 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // -------------------------- Student Sub Groups part ---------------------------------------------------------------------------------------
+
+    /**
+     * Check whether there are locations set as preferred rooms for that particular student batch
+     *
+     * @param studentSubGroupID
+     * @param locationID
+     * @return
+     */
+
+    public ObservableList<SuitableLocationForStudentSubGroup> checkPreferredRoomsForStudentSubGroupID(int studentSubGroupID, int locationID, Boolean statusTrue) {
+
+        this.studentSubGroupID = studentSubGroupID;
+        this.locationID = locationID;
+
+        this.statusTrue = statusTrue;
+
+        // create ObservableList object
+        ObservableList<SuitableLocationForStudentSubGroup> suitableLocationForStudentSubGroupList = FXCollections.observableArrayList();
+
+        // get database connection
+        Connection conn = getConnection();
+
+        System.out.println("testing suitable_room_for_student_subgroups table: " + "tagID:" + studentSubGroupID + " ,LocationID: "+ locationID + "");
+        String query = "SELECT * FROM suitable_room_for_student_subgroups WHERE subgroups_id = " + this.studentSubGroupID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_student_subgroups_id";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                SuitableLocationForStudentSubGroup suitableLocationForStudentSubGroup = new SuitableLocationForStudentSubGroup();
+                suitableLocationForStudentSubGroup.setSuitable_room_for_student_subgroups_id(rs.getInt("suitable_room_for_student_subgroups_id"));
+                suitableLocationForStudentSubGroup.setLocation_location_id(rs.getInt("location_location_id"));
+                suitableLocationForStudentSubGroup.setSubgroups_id(rs.getInt("subgroups_id"));
+                suitableLocationForStudentSubGroup.setStatus_true(rs.getString("status_true"));
+
+                // add the preferredLocation object to the observableList
+                suitableLocationForStudentSubGroupList.add(suitableLocationForStudentSubGroup);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When suitable_room_for_student_subgroups table data retrieving ");
+            ex.printStackTrace();
+        }
+
+        return suitableLocationForStudentSubGroupList;
+
+    }
+
+
+    public void setPreferredRoomsForStudentSubGroup(ObservableList<SuitableLocationForStudentSubGroup> suitableLocationForStudentSubGroupList) {
+
+        String query;
+
+        if (suitableLocationForStudentSubGroupList.isEmpty() != true) {
+            // already there is/are record(s) in the database
+
+            if (this.statusTrue) {
+                // checkbox is marked by the user, that is why this.statusTrue == true
+                for (SuitableLocationForStudentSubGroup suitableLocationForStudentSubGroup : suitableLocationForStudentSubGroupList) {
+                    // update query
+                    try {
+                        query = "UPDATE `suitable_room_for_student_subgroups` SET status_true = 'Y' WHERE suitable_room_for_student_subgroups_id = " + suitableLocationForStudentSubGroup.getSuitable_room_for_student_subgroups_id() + "";
+
+                        // execute the update query
+                        executeQuery(query);
+                    } catch (Exception ex) {
+                        System.out.println("Error updating preferred location for student subgroup: " + suitableLocationForStudentSubGroup.toString());
+                        ex.printStackTrace();
+                    }
+                }
+            } else {
+                // checkbox is not marked by the user, that is why this.statusTrue == false
+                for (SuitableLocationForStudentSubGroup suitableLocationForStudentSubGroup : suitableLocationForStudentSubGroupList) {
+                    // update query
+                    try {
+                        query = "UPDATE `suitable_room_for_student_subgroups` SET status_true = 'N' WHERE suitable_room_for_student_subgroups_id = " + suitableLocationForStudentSubGroup.getSuitable_room_for_student_subgroups_id() + "";
+
+                        // execute the update query
+                        executeQuery(query);
+                    } catch (Exception ex) {
+                        System.out.println("Error updating preferred location for student subgroup: " + suitableLocationForStudentSubGroup.toString());
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            // preferredLocationsList is empty,
+            // then we have to insert a new preferred location record to preferred_room_for_subject table
+
+            if (this.statusTrue) {
+                // checkbox is marked by the user, that is why this.statusTrue == true
+                try {
+                    // insert query
+                    //status_true default value = 'Y', did not include in the insert into query
+                    query = "INSERT INTO `suitable_room_for_student_subgroups` (`location_location_id`,`subgroups_id`) VALUES (" + this.locationID + "," + this.studentSubGroupID + ")";
+
+                    // execute the insert query
+                    executeQuery(query);
+                } catch (Exception ex) {
+                    System.out.println("Error inserting preferred location for student subgroup");
+                    ex.printStackTrace();
+                }
+            } else {
+                // checkbox is not marked by the user, that is why this.statusTrue == false
+                System.out.println("checkbox is not selected, location is not a preferred location");
+
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // -------------------------- Session part ---------------------------------------------------------------------------------------
+
+    /**
+     * Check whether there are locations set as preferred rooms for that particular student batch
+     *
+     * @param sessionID
+     * @param locationID
+     * @return
+     */
+
+    public ObservableList<SuitableLocationForSession> checkPreferredRoomsForSession(int sessionID, int locationID, Boolean statusTrue) {
+
+        this.sessionID = sessionID;
+        this.locationID = locationID;
+
+        this.statusTrue = statusTrue;
+
+        // create ObservableList object
+        ObservableList<SuitableLocationForSession> suitableLocationForSessionList = FXCollections.observableArrayList();
+
+        // get database connection
+        Connection conn = getConnection();
+
+        System.out.println("testing suitable_room_for_student_subgroups table: " + "sessionID:" + sessionID + " ,LocationID: "+ locationID + "");
+        String query = "SELECT * FROM suitable_room_for_session WHERE idsession = " + this.sessionID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_session_id";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                SuitableLocationForSession suitableLocationForSession = new SuitableLocationForSession();
+                suitableLocationForSession.setSuitable_room_for_session_id(rs.getInt("suitable_room_for_session_id"));
+                suitableLocationForSession.setLocation_location_id(rs.getInt("location_location_id"));
+                suitableLocationForSession.setIdsession(rs.getInt("idsession"));
+                suitableLocationForSession.setStatus_true(rs.getString("status_true"));
+
+                // add the preferredLocation object to the observableList
+                suitableLocationForSessionList.add(suitableLocationForSession);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When suitable_room_for_session table data retrieving ");
+            ex.printStackTrace();
+        }
+
+        return suitableLocationForSessionList;
+
+    }
+
+
+    public void setPreferredRoomsForSession(ObservableList<SuitableLocationForSession> suitableLocationForSessionList) {
+
+        String query;
+
+        if (suitableLocationForSessionList.isEmpty() != true) {
+            // already there is/are record(s) in the database
+
+            if (this.statusTrue) {
+                // checkbox is marked by the user, that is why this.statusTrue == true
+                for (SuitableLocationForSession suitableLocationForSession : suitableLocationForSessionList) {
+                    // update query
+                    try {
+                        query = "UPDATE `suitable_room_for_session` SET status_true = 'Y' WHERE suitable_room_for_session_id = " + suitableLocationForSession.getSuitable_room_for_session_id() + "";
+
+                        // execute the update query
+                        executeQuery(query);
+                    } catch (Exception ex) {
+                        System.out.println("Error updating preferred location for session: " + suitableLocationForSession.toString());
+                        ex.printStackTrace();
+                    }
+                }
+            } else {
+                // checkbox is not marked by the user, that is why this.statusTrue == false
+                for (SuitableLocationForSession suitableLocationForSession : suitableLocationForSessionList) {
+                    // update query
+                    try {
+                        query = "UPDATE `suitable_room_for_session` SET status_true = 'N' WHERE suitable_room_for_session_id = " + suitableLocationForSession.getSuitable_room_for_session_id() + "";
+
+                        // execute the update query
+                        executeQuery(query);
+                    } catch (Exception ex) {
+                        System.out.println("Error updating preferred location for session: " + suitableLocationForSession.toString());
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            // preferredLocationsList is empty,
+            // then we have to insert a new preferred location record to preferred_room_for_subject table
+
+            if (this.statusTrue) {
+                // checkbox is marked by the user, that is why this.statusTrue == true
+                try {
+                    // insert query
+                    //status_true default value = 'Y', did not include in the insert into query
+                    query = "INSERT INTO `suitable_room_for_session` (`location_location_id`,`idsession`) VALUES (" + this.locationID + "," + this.sessionID + ")";
+
+                    // execute the insert query
+                    executeQuery(query);
+                } catch (Exception ex) {
+                    System.out.println("Error inserting preferred location for session");
+                    ex.printStackTrace();
+                }
+            } else {
+                // checkbox is not marked by the user, that is why this.statusTrue == false
+                System.out.println("checkbox is not selected, location is not a preferred location");
+
+            }
+        }
+
+    }
+
 
 
 

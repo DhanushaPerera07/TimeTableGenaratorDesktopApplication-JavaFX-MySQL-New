@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllStudentSubGroupsController"
-            prefHeight="400.0" prefWidth="600.0">
+<Pane fx:id="pane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations.ShowAllStudentSubGroupsController">
+    <children>
+        <GridPane layoutX="31.0" layoutY="25.0" prefHeight="37.0" prefWidth="579.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Add suitable locations for a student sub group">
+                    <font>
+                        <Font name="Segoe UI" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+      <TableView fx:id="tvSubGroups" layoutX="29.0" layoutY="83.0" onMouseClicked="#handleMouseAction" prefHeight="500.0" prefWidth="650.0">
+         <columns>
+            <TableColumn fx:id="colSubId" prefWidth="320.8000545501709" text="Sub Group ID" />
+            <TableColumn fx:id="colNoS" prefWidth="320.7999572753906" text="No of Students" />
+         </columns>
+      </TableView>
+    </children>
 
-</AnchorPane>
+</Pane>
