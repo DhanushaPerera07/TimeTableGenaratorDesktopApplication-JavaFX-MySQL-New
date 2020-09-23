@@ -170,8 +170,10 @@ public class timeTableGenerationController implements Initializable {
 
                             Sessions session = sessionsList1.get(i);
 
-                            String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','time"+i+"','"+session.getSessionGroupID()+"','time"+i+"');";
-                            executeQuery(query);
+                            for (int k = 0; k < session.getSessionDuration(); k++) {
+                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','time"+i+"','"+session.getSessionGroupID()+"','time"+i+"','"+session.getSessionGenID()+"');";
+                                executeQuery(query);
+                            }
 
                         } catch (Exception e) {
 
@@ -184,7 +186,6 @@ public class timeTableGenerationController implements Initializable {
                 }
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,22 +193,28 @@ public class timeTableGenerationController implements Initializable {
     }
 
     public void setTimeToSession(){
-
+        String tempSessionId = "non";
         ObservableList<TimeSlot> timeSlotList = getTimeSlotsList1();
 
         ObservableList<TimeTable> timeTableList = getTimeTableValues();
 
         ArrayList<String> sessionsList2 =getSessionList();
+
         for (int j = 0; j < sessionsList2.size(); j++) {
             int x = 0;
             for (int i = 0; i < timeTableList.size(); i++) {
 
                 if (sessionsList2.get(j).equals(timeTableList.get(i).getGroup()))
                 {
+//                    if (tempSessionId.equals(timeTableList.get(i).getSessionId())) {
+//                        x--;
+//                    }
+
                    String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"' WHERE Id =" +timeTableList.get(i).getId();
                     executeQuery(query);
                     x++;
-                }
+
+                    tempSessionId = timeTableList.get(i).getSessionId();                }
 
             }
 

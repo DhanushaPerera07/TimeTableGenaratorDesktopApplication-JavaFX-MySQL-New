@@ -79,10 +79,9 @@ public class TimeTableStructureController implements Initializable {
 
     public void showSessions( String Group) {
 
-//        this.timeTable = timeTable;
         structureTblHeader.setText(Group);
         getDayNames();
-//        displayTimeSlots();
+
         displaySessions(Group);
     }
 
@@ -91,7 +90,7 @@ public class TimeTableStructureController implements Initializable {
         this.hall = hall;
         structureTblHeader.setText(hall.getLocation_name());
         getDayNames();
-        displayTimeSlots();
+
     }
 
     public void showlecturers(Lecturers lecturers) {
@@ -99,7 +98,7 @@ public class TimeTableStructureController implements Initializable {
         this.lecturers = lecturers;
         structureTblHeader.setText(lecturers.getLecturerName());
         getDayNames();
-        displayTimeSlots();
+
 
     }
 
@@ -208,16 +207,10 @@ public class TimeTableStructureController implements Initializable {
         }
         return timeTableList;
     }
-
-    public void displayTimeSlots(){
-
-        ObservableList<TimeSlot> TimeSlotsList = getTimeSlotsList();
-
-//        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeSlot, TimeTable>("value_t"));
-
-//        TimeTableStructureTbl.setItems(TimeSlotsList);
-
-    }
+//
+//    public void displayTimeSlots(){
+//
+//    }
 
     public void displaySessions(String group){
 
