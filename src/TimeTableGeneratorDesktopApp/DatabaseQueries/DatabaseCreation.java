@@ -381,6 +381,29 @@ public class DatabaseCreation {
             ") ENGINE=InnoDB;";
 
 
+    String query31 = "CREATE TABLE IF NOT EXISTS  `timetabledb`.`session` (" +
+            "  `idsession` int NOT NULL AUTO_INCREMENT," +
+            "  `sessionID` varchar(100) NOT NULL," +
+            "  `sessionTag` varchar(45) NOT NULL," +
+            "  `sessionStudentGroup` varchar(45) NOT NULL," +
+            "  `sessionSubject` varchar(45) NOT NULL," +
+            "  `sessionNoOfStudents` varchar(45) NOT NULL," +
+            "  `sessionDuration` varchar(45) NOT NULL," +
+            "  `sessionModuleCode` varchar(45) NOT NULL," +
+            "        PRIMARY KEY (`idsession`)" +
+            ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8";
+
+
+
+    String query32 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`session_lecturer` (" +
+            "  `idsession_lecturer` int NOT NULL AUTO_INCREMENT," +
+            "  `sessionID` varchar(100) NOT NULL," +
+            "  `sessionLecturerName` varchar(45) NOT NULL," +
+            "  PRIMARY KEY (`idsession_lecturer`)" +
+            ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
+
+
+
     public void createDatabase() {
         try {
 
@@ -417,6 +440,9 @@ public class DatabaseCreation {
             executeQuery(query28); // suitable room for student batch
             executeQuery(query29); // suitable room for student subgroup
             executeQuery(query30); // suitable room for session
+
+            executeQuery(query31); // session
+            executeQuery(query32); // session_lecturer
 
 
 
