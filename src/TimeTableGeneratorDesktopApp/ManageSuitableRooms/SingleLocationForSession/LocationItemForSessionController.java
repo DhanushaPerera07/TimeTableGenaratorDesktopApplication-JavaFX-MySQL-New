@@ -1,4 +1,4 @@
-package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForStudentBatch;
+package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForSession;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.HallsLabsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
@@ -14,11 +14,11 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LocationItemForStudentBatchController implements Initializable {
+public class LocationItemForSessionController implements Initializable {
 
     // variable to hold location object
     Location location;
-    int studentBatchID;
+    int sessionID;
     boolean checkBoxCheckedOrNotAccordingToDataBase;
 
     @FXML
@@ -54,13 +54,13 @@ public class LocationItemForStudentBatchController implements Initializable {
 
     }
 
-    public void showPreferredLocationInformationForStudentBatches(Location location, int studentBatchID) {
+    public void showPreferredLocationInformationForSession(Location location, int sessionID) {
 
         this.location = location;
-        this.studentBatchID = studentBatchID;
+        this.sessionID = sessionID;
         boolean suitableRoomTrue;
 
-        System.out.println("SingleLocationForTag location rec : " + this.location.toString());
+        System.out.println("SingleLocationForSession location rec : " + this.location.toString());
 
         txtLocationHallLabName.setText(location.getLocationName());
         // txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
@@ -110,9 +110,9 @@ public class LocationItemForStudentBatchController implements Initializable {
             // UPDATE preferred_room_for_subject SET status_true = 'Y' WHERE preferred_room_for_subject_id = **** >;
 
             if (checkBoxCheckedOrNotAccordingToDataBase == true &&  checkBoxMarkAsSuitableRoom.isSelected() == false){
-                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a NOT suitable location";
+                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a NOT preferable location";
             } else {
-                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a suitable location";
+                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a preferable location";
             }
 
 
@@ -138,14 +138,16 @@ public class LocationItemForStudentBatchController implements Initializable {
             }
 
             if (result.get() == EditBtn){
-                hallsLabsDatabaseHelper.setPreferredRoomsForStudentBatch(hallsLabsDatabaseHelper.checkPreferredRoomsForStudentBatch(this.studentBatchID, this.location.getLocationID(),checkBoxSelectedOrNot));
+                hallsLabsDatabaseHelper.setPreferredRoomsForSession(hallsLabsDatabaseHelper.checkPreferredRoomsForSession(this.sessionID, this.location.getLocationID(),checkBoxSelectedOrNot));
 
             } else {
                 checkBoxMarkAsSuitableRoom.setSelected(checkBoxCheckedOrNotAccordingToDataBase);
-                System.out.println("Clicked Cancel Button - (update a suitable location for student batch)");
+                System.out.println("Clicked Cancel Button - (edit/update a faculty)");
             }
 
         }
 
     }
+
 }
+
