@@ -60,8 +60,7 @@ public class StudentViewController implements Initializable {
         if (sessionsList.size() > 0) {
             for (int i = 0; i < sessionsList.size(); i++) {
 
-                                try {
-
+                try {
 
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
@@ -72,9 +71,6 @@ public class StudentViewController implements Initializable {
                         timeTableStructureController.showSessions(sessionsList.get(i));
 
                         timeTableVBox.getChildren().addAll(nodes[i]);
-
-
-
 
 
                 } catch (IOException e) {
@@ -110,7 +106,6 @@ public class StudentViewController implements Initializable {
             TimeTable timeTable;
             while (rs.next()) {
                 String b = rs.getString("group");
-
                 a.add(b);
 
             }

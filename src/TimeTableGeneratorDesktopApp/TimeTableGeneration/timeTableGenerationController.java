@@ -208,7 +208,7 @@ public class timeTableGenerationController implements Initializable {
 
             TimeTable timeTable;
             while (rs.next()) {
-                String b = rs.getString("group");
+                String b = rs.getString("sessionStudentGroup");
 
                 a.add(b);
 
