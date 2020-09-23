@@ -17,9 +17,11 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class StudentViewController implements Initializable {
@@ -31,6 +33,11 @@ public class StudentViewController implements Initializable {
     private VBox timeTableVBox;
 
     private String GroupId = "non";
+
+    private int xx = 1;
+    ObservableList<String> GroupIdList = FXCollections.observableArrayList();
+    ArrayList<String> a = new ArrayList<>();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,18 +51,17 @@ public class StudentViewController implements Initializable {
         timeTableVBox.getChildren().clear();
 
 
-        ObservableList<TimeTable> sessionsList = getSessionList();
+//        ObservableList<TimeTable> sessionsList = getSessionList();
+        ArrayList<String> sessionsList =getSessionList();
 
         // Populate the rows like a table
         Node[] nodes = new Node[sessionsList.size()];
 
         if (sessionsList.size() > 0) {
             for (int i = 0; i < sessionsList.size(); i++) {
-                try {
 
-                    TimeTable timeTable = sessionsList.get(i);
+                                try {
 
-                    if (!GroupId.equals(timeTable.getGroup())){
 
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/TimeTableGeneration/SingleTImeTableStructure/TimeTableStructure.fxml"));
@@ -63,38 +69,36 @@ public class StudentViewController implements Initializable {
                         nodes[i] = (Node) loader.load();
                         TimeTableStructureController timeTableStructureController = loader.getController();
 
-                        timeTableStructureController.showSessions(sessionsList.get(i), timeTable.getGroup());
+                        timeTableStructureController.showSessions(sessionsList.get(i));
 
                         timeTableVBox.getChildren().addAll(nodes[i]);
-                        GroupId = timeTable.getGroup();
-                        System.out.println(GroupId);
 
-                    }
-                    else{
-                        System.out.println("meet same group ID  " + GroupId);
-                    }
+
+
+
 
                 } catch (IOException e) {
                     System.out.println("Error - preferred room for subject Loading ======================================");
                     e.printStackTrace();
                 }
+                System.out.println(sessionsList.get(i));
+
             }
         }else{
             System.out.println(sessionsList.size() + "kudai");
         }
+
     }
 
-    public ObservableList<TimeTable> getSessionList() {
+    public ArrayList<String> getSessionList() {
 
-        // ============================================ DATABASE PART ===================================================================================
-
-        // database connection setup
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<TimeTable> sessionsList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
         String query;
-        query = "SELECT * FROM time_table";
+
+        query = "SELECT DISTINCT `group` FROM time_table";
 
         Statement st;
         ResultSet rs;
@@ -105,23 +109,16 @@ public class StudentViewController implements Initializable {
 
             TimeTable timeTable;
             while (rs.next()) {
-                timeTable = new TimeTable(
-                        rs.getInt("Id"),
-                        rs.getString("timeSlot"),
-                        rs.getString("Module"),
-                        rs.getString("tag"),
-                        rs.getString("Hall"),
-                        rs.getString("group"),
-                        rs.getString("lecturer"),
-                        rs.getString("sessionId")
-                );
-                sessionsList.add(timeTable);
+                String b = rs.getString("group");
+
+                a.add(b);
+
             }
 
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-        return sessionsList;
+    return a;
     }
 }

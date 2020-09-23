@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class TimeTableStructureController implements Initializable {
 
     TimeTable TimetableValue;
-    TimeTable timeTable;
+//    TimeTable timeTable;
     Hall hall;
     Lecturers lecturers;
     int subGroupID;
@@ -72,12 +72,12 @@ public class TimeTableStructureController implements Initializable {
     }
 
 
-    public void showSessions(TimeTable timeTable, String Group) {
+    public void showSessions( String Group) {
 
-        this.timeTable = timeTable;
-        structureTblHeader.setText(timeTable.getGroup());
+//        this.timeTable = timeTable;
+        structureTblHeader.setText(Group);
         getDayNames();
-        displayTimeSlots();
+//        displayTimeSlots();
         displaySessions(Group);
     }
 
