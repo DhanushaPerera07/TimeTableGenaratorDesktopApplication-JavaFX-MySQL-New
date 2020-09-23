@@ -103,7 +103,10 @@ public class StudentViewController implements Initializable {
             TimeTable timeTable;
             while (rs.next()) {
                 String b = rs.getString("group");
-                a.add(b);
+                if (!b.equals("INTERVAL")) {
+                    a.add(b);
+                }
+
 
             }
 

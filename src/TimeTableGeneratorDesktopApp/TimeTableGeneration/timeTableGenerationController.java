@@ -515,6 +515,7 @@ public class timeTableGenerationController implements Initializable {
                         rs.getString("group"),
                         rs.getString("lecturer"),
                         rs.getString("sessionId"),
+                        rs.getString("dayName"),
                         rs.getInt("duration")
 
                 );

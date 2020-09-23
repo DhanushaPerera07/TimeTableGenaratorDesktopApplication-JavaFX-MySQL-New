@@ -49,7 +49,7 @@ public class TimeTableStructureController implements Initializable {
     private TableColumn<TimeTable, String> StrructureC1;
 
     @FXML
-    private TableColumn<WorkingDays, String> StrructureC2;
+    private TableColumn<TimeTable, String> StrructureC2;
 
     @FXML
     private TableColumn<WorkingDays, String> StrructureC3;
@@ -69,6 +69,9 @@ public class TimeTableStructureController implements Initializable {
     public String query;
 
     ObservableList<TimeTable> timeTableList = getTimetableSessions();
+
+    int Id, dayName;
+    String timeSlot,Module,tag,Hall,group1,lecturer,sessionId,duration;
 
     ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
     @Override
@@ -195,6 +198,7 @@ public class TimeTableStructureController implements Initializable {
                         rs.getString("group"),
                         rs.getString("lecturer"),
                         rs.getString("sessionId"),
+                        rs.getString("dayName"),
                         rs.getInt("duration")
                 );
                 timeTableList.add(timeTable);
@@ -212,6 +216,7 @@ public class TimeTableStructureController implements Initializable {
 //    public void displayTimeSlots(){
 //
 //    }
+
 
     public void displaySessions(String group){
 
@@ -237,6 +242,105 @@ public class TimeTableStructureController implements Initializable {
         TimeTableStructureTbl.setItems(timeTableViewList);
 
     }
+
+//    public void displaySessions(String group){
+//
+////        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListMonday = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListTuesday = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListWednesday = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListThursday = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListFriday = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListSaturday = FXCollections.observableArrayList();
+//        ObservableList<TimeTable> timeTableViewListSunday = FXCollections.observableArrayList();
+////        displayTimeSlots(group);
+//
+//        for (int i = 0; i < timeTableList.size(); i++) {
+//
+//            TimetableValue = timeTableList.get(i);
+////            timeTableViewList.add(TimetableValue);
+//
+//            if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Monday")){
+//                timeTableViewListMonday.add(TimetableValue);
+//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Tuesday")){
+//                timeTableViewListTuesday.add(TimetableValue);
+//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Wednesday")){
+//                timeTableViewListWednesday.add(TimetableValue);
+//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Thursday")){
+//                timeTableViewListThursday.add(TimetableValue);
+//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Friday")){
+//                timeTableViewListFriday.add(TimetableValue);
+//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Saturday")){
+//                timeTableViewListSaturday.add(TimetableValue);
+//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Sunday")){
+//                timeTableViewListSunday.add(TimetableValue);
+//            }
+//        }
+//        ObservableList<TimeTable> temp = FXCollections.observableArrayList();
+//        for (int i = 0; i < 9; i++) {
+//
+//            if (timeTableViewListMonday.size() < i) {
+//
+//                 Id = timeTableViewListMonday.get(i).getId();
+//                 timeSlot = timeTableViewListMonday.get(i).getTimeSlot();
+//                 Module = timeTableViewListMonday.get(i).getModule();
+//                 tag = timeTableViewListTuesday.get(i).getModule();
+//                 Hall = timeTableViewListWednesday.get(i).getModule();
+//                 group1 = timeTableViewListThursday.get(i).getModule();
+//                 lecturer = timeTableViewListFriday.get(i).getModule();
+//                 sessionId = timeTableViewListSaturday.get(i).getModule();
+//                 duration = timeTableViewListSunday.get(i).getModule();
+//                 dayName = timeTableViewListMonday.get(i).getDuration();
+//            }
+//            else if (timeTableViewListMonday.size() < i) {
+//
+//                Id = timeTableViewListMonday.get(i).getId();
+//                timeSlot = timeTableViewListMonday.get(i).getTimeSlot();
+//                Module = timeTableViewListMonday.get(i).getModule();
+//                tag = timeTableViewListTuesday.get(i).getModule();
+//                Hall = timeTableViewListWednesday.get(i).getModule();
+//                group1 = timeTableViewListThursday.get(i).getModule();
+//                lecturer = timeTableViewListFriday.get(i).getModule();
+//                sessionId = timeTableViewListSaturday.get(i).getModule();
+//                duration = timeTableViewListSunday.get(i).getModule();
+//                dayName = timeTableViewListMonday.get(i).getDuration();
+//            } else{
+//                Id = 0;
+//                timeSlot = null;
+//                Module = null;
+//                tag = null;
+//                Hall = null;
+//                group1 = null;
+//                lecturer = null;
+//                sessionId = null;
+//                duration = null;
+//                dayName = 0;
+//            }
+//            TimeTable xx = new TimeTable(
+//                    Id,
+//                    timeSlot,
+//                    Module,
+//                    tag,
+//                    Hall,
+//                    group1,
+//                    lecturer,
+//                    sessionId,
+//                    duration,
+//                    dayName
+//            );
+//
+//            temp.add(TimetableValue);
+//        }
+//
+//
+//
+//        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
+//        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
+//        TimeTableStructureTbl.setItems(temp);
+//
+//
+//
+//    }
 
 
     public void displayTimeSlots(String group){
