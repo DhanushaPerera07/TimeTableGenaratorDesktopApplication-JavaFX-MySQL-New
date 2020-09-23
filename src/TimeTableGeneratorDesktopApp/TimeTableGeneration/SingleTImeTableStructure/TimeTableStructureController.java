@@ -218,129 +218,138 @@ public class TimeTableStructureController implements Initializable {
 //    }
 
 
-    public void displaySessions(String group){
-
-
-        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
-//        displayTimeSlots(group);
-
-        for (int i = 0; i < timeTableList.size(); i++) {
-
-            TimetableValue = timeTableList.get(i);
-
-            if (TimetableValue.getGroup().equals(group)){
-
-                timeTableViewList.add(TimetableValue);
-
-            }
-        }
-
-
-
-        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
-        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
-        TimeTableStructureTbl.setItems(timeTableViewList);
-
-    }
-
 //    public void displaySessions(String group){
 //
-////        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListMonday = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListTuesday = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListWednesday = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListThursday = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListFriday = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListSaturday = FXCollections.observableArrayList();
-//        ObservableList<TimeTable> timeTableViewListSunday = FXCollections.observableArrayList();
+//
+//        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
 ////        displayTimeSlots(group);
 //
 //        for (int i = 0; i < timeTableList.size(); i++) {
 //
 //            TimetableValue = timeTableList.get(i);
-////            timeTableViewList.add(TimetableValue);
 //
-//            if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Monday")){
-//                timeTableViewListMonday.add(TimetableValue);
-//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Tuesday")){
-//                timeTableViewListTuesday.add(TimetableValue);
-//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Wednesday")){
-//                timeTableViewListWednesday.add(TimetableValue);
-//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Thursday")){
-//                timeTableViewListThursday.add(TimetableValue);
-//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Friday")){
-//                timeTableViewListFriday.add(TimetableValue);
-//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Saturday")){
-//                timeTableViewListSaturday.add(TimetableValue);
-//            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Sunday")){
-//                timeTableViewListSunday.add(TimetableValue);
+//            if (TimetableValue.getGroup().equals(group)){
+//
+//                timeTableViewList.add(TimetableValue);
+//
 //            }
-//        }
-//        ObservableList<TimeTable> temp = FXCollections.observableArrayList();
-//        for (int i = 0; i < 9; i++) {
-//
-//            if (timeTableViewListMonday.size() < i) {
-//
-//                 Id = timeTableViewListMonday.get(i).getId();
-//                 timeSlot = timeTableViewListMonday.get(i).getTimeSlot();
-//                 Module = timeTableViewListMonday.get(i).getModule();
-//                 tag = timeTableViewListTuesday.get(i).getModule();
-//                 Hall = timeTableViewListWednesday.get(i).getModule();
-//                 group1 = timeTableViewListThursday.get(i).getModule();
-//                 lecturer = timeTableViewListFriday.get(i).getModule();
-//                 sessionId = timeTableViewListSaturday.get(i).getModule();
-//                 duration = timeTableViewListSunday.get(i).getModule();
-//                 dayName = timeTableViewListMonday.get(i).getDuration();
-//            }
-//            else if (timeTableViewListMonday.size() < i) {
-//
-//                Id = timeTableViewListMonday.get(i).getId();
-//                timeSlot = timeTableViewListMonday.get(i).getTimeSlot();
-//                Module = timeTableViewListMonday.get(i).getModule();
-//                tag = timeTableViewListTuesday.get(i).getModule();
-//                Hall = timeTableViewListWednesday.get(i).getModule();
-//                group1 = timeTableViewListThursday.get(i).getModule();
-//                lecturer = timeTableViewListFriday.get(i).getModule();
-//                sessionId = timeTableViewListSaturday.get(i).getModule();
-//                duration = timeTableViewListSunday.get(i).getModule();
-//                dayName = timeTableViewListMonday.get(i).getDuration();
-//            } else{
-//                Id = 0;
-//                timeSlot = null;
-//                Module = null;
-//                tag = null;
-//                Hall = null;
-//                group1 = null;
-//                lecturer = null;
-//                sessionId = null;
-//                duration = null;
-//                dayName = 0;
-//            }
-//            TimeTable xx = new TimeTable(
-//                    Id,
-//                    timeSlot,
-//                    Module,
-//                    tag,
-//                    Hall,
-//                    group1,
-//                    lecturer,
-//                    sessionId,
-//                    duration,
-//                    dayName
-//            );
-//
-//            temp.add(TimetableValue);
 //        }
 //
 //
 //
 //        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
 //        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
-//        TimeTableStructureTbl.setItems(temp);
-//
-//
+//        TimeTableStructureTbl.setItems(timeTableViewList);
 //
 //    }
+
+    public void displaySessions(String group){
+
+//        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListMonday = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListTuesday = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListWednesday = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListThursday = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListFriday = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListSaturday = FXCollections.observableArrayList();
+        ObservableList<TimeTable> timeTableViewListSunday = FXCollections.observableArrayList();
+//        displayTimeSlots(group);
+
+        for (int i = 0; i < timeTableList.size(); i++) {
+
+            TimetableValue = timeTableList.get(i);
+//            timeTableViewList.add(TimetableValue);
+
+            if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Monday")){
+                timeTableViewListMonday.add(TimetableValue);
+            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Tuesday")){
+                timeTableViewListTuesday.add(TimetableValue);
+            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Wednesday")){
+                timeTableViewListWednesday.add(TimetableValue);
+            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Thursday")){
+                timeTableViewListThursday.add(TimetableValue);
+            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Friday")){
+                timeTableViewListFriday.add(TimetableValue);
+            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Saturday")){
+                timeTableViewListSaturday.add(TimetableValue);
+            }else if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Sunday")){
+                timeTableViewListSunday.add(TimetableValue);
+            }
+        }
+        ObservableList<TimeTable> temp = FXCollections.observableArrayList();
+        for (int i = 0; i < 9; i++) {
+
+            if (timeTableViewListMonday.size() > i) {
+                Id = timeTableViewListMonday.get(i).getId();
+                timeSlot = timeTableViewListMonday.get(i).getTimeSlot();
+                Module = timeTableViewListMonday.get(i).getModule();
+            } else{
+                Id = 0;
+                timeSlot = null;
+                Module = null;
+            }
+
+
+            if (timeTableViewListTuesday.size() > i) {
+                tag = timeTableViewListTuesday.get(i).getModule();
+            }else{
+                tag = null;
+            }
+
+            if (timeTableViewListWednesday.size() > i) {
+                Hall = timeTableViewListWednesday.get(i).getModule();
+            }else{
+                Hall = null;
+            }
+
+            if (timeTableViewListThursday.size() > i) {
+                group1 = timeTableViewListThursday.get(i).getModule();
+            }else{
+                group1 = null;
+            }
+
+            if (timeTableViewListFriday.size() > i) {
+                lecturer = timeTableViewListFriday.get(i).getModule();
+            }else{
+                lecturer = null;
+            }
+
+            if (timeTableViewListSaturday.size() > i) {
+                sessionId = timeTableViewListSaturday.get(i).getModule();
+            }else
+
+            if (timeTableViewListSunday.size() > i) {
+                duration = timeTableViewListSunday.get(i).getModule();
+            }else{
+                duration = null;
+            }
+
+            TimeTable xx = new TimeTable(
+                    Id,
+                    timeSlot,
+                    Module,
+                    tag,
+                    Hall,
+                    group1,
+                    lecturer,
+                    sessionId,
+                    duration,
+                    dayName
+            );
+
+            temp.add(xx);
+        }
+
+
+
+        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
+        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
+        StrructureC2.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("tag"));
+        TimeTableStructureTbl.setItems(temp);
+
+
+
+    }
 
 
     public void displayTimeSlots(String group){

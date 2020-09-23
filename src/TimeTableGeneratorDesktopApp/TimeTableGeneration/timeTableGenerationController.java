@@ -205,6 +205,10 @@ public class timeTableGenerationController implements Initializable {
     }
 
     public void setTimeToSession(){
+        String query3 = "DELETE FROM time_table WHERE Module = 'INTERVAL'";
+//        String query2 = "DELETE from daysname WHERE id =1 ";
+        executeQuery(query3);
+
         String tempSessionId = "non";
         ObservableList<TimeSlot> timeSlotList = getTimeSlotsList1();
 
@@ -217,8 +221,13 @@ public class timeTableGenerationController implements Initializable {
              totalTime = 0;
             for (int i = 0; i < timeTableList.size(); i++) {
 
+
                 if (sessionsList2.get(j).equals(timeTableList.get(i).getGroup()))
                 {
+                    if (totalTime == hours || totalTime ==hours*2 ||totalTime ==hours*3 || totalTime == hours*4 || totalTime==hours*5) {
+                        x = 0;
+                    }
+
                     if (totalTime < hours) {
 
                         if (totalTime == 4) {
@@ -257,7 +266,7 @@ public class timeTableGenerationController implements Initializable {
 
 
                     }else if (totalTime < hours*2) {
-                       x = 0;
+
                         if (totalTime == 14) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day2+"');";
@@ -293,7 +302,7 @@ public class timeTableGenerationController implements Initializable {
                         }
 
                     }else if (totalTime < hours*3) {
-                         x = 0;
+
                         if (totalTime == 23) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day3+"');";
@@ -329,7 +338,7 @@ public class timeTableGenerationController implements Initializable {
                         }
 
                     } else if (totalTime < hours*4) {
-                        x = 0;
+
                         if (totalTime == 32) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day4+"');";
@@ -365,7 +374,7 @@ public class timeTableGenerationController implements Initializable {
                         }
 
                     } else if (totalTime < hours*5) {
-                        x = 0;
+
                         if (totalTime == 41) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day5+"');";
