@@ -186,7 +186,7 @@ public class timeTableGenerationController implements Initializable {
                             Sessions session = sessionsList1.get(i);
 
                             for (int k = 0; k < session.getSessionDuration(); k++) {
-                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','time"+i+"','"+session.getSessionGroupID()+"','time"+i+"','"+session.getSessionGenID()+"',"+1+");";
+                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','B501','"+session.getSessionGroupID()+"','Lecturer"+i+"','"+session.getSessionGenID()+"',"+1+");";
                                 executeQuery(query);
                             }
 
