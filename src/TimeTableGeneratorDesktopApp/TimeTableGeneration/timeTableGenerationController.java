@@ -59,6 +59,9 @@ public class timeTableGenerationController implements Initializable {
     private String day7;
     private double hours;
     private int totalTime = 0;
+    private int k=0;
+    private int j =0;
+    private boolean Checker = false;
 
     ArrayList<String> a = new ArrayList<>();
 
@@ -234,23 +237,25 @@ public class timeTableGenerationController implements Initializable {
                 System.out.println("Error - When department data retrieving ");
                 ex.printStackTrace();
             }
+            j=0;k=0;
+            for ( j = 0; j < TimeTableListValue.size(); j++) {
 
-            for (int j = 0; j < TimeTableListValue.size(); j++) {
+                for ( k = 0; k < LecturersList.size(); k++) {
 
-                for (int k = 0; k < LecturersList.size(); k++) {
-                    if (!TimeTableListValue.get(i).getTimeSlot().equals(TimeTableListValue.get(j).getTimeSlot())) {
-                        if (!TimeTableListValue.get(j).getLecturer().equals(LecturersList.get(k).getLecturerName())) {
-                            String query1 = "UPDATE time_table SET `lecturer` ='" +LecturersList.get(k).getLecturerName()+"' WHERE Id =" +TimeTableListValue.get(i).getId();
-                            executeQuery(query1);
-                            k=99;
-                        }
+                    if (!TimeTableListValue.get(j).getLecturer().equals(LecturersList.get(k).getLecturerName()) ) {
+//                        && TimeTableListValue.get(i).getTimeSlot().equals(TimeTableListValue.get(j).getTimeSlot())
 
-                    }else{
-//                        System.out.println("Lecturers not enough");
-                    }
+                        String query1 = "UPDATE time_table SET `lecturer` ='" +LecturersList.get(k).getLecturerName()+"' WHERE Id =" +TimeTableListValue.get(i).getId();
+                        executeQuery(query1);
+                        k=99;
+                        j=99;
                 }
-
+                }
             }
+//            if (Checker == true) {
+//
+//            }
+
 
         }
     }

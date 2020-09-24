@@ -21,12 +21,6 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class LecturerViewController implements Initializable {
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        populateLecturersRows();
-
-    }
 
     @FXML
     private BorderPane borderPaneForTimeTables;
@@ -34,6 +28,12 @@ public class LecturerViewController implements Initializable {
     @FXML
     private VBox timeTableVBox;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        populateLecturersRows();
+
+    }
 
     public void populateLecturersRows(){
 
@@ -41,7 +41,6 @@ public class LecturerViewController implements Initializable {
 
         ObservableList<Lecturers> lecturersList = getlecturersList();
 
-        // Populate the rows like a table
         Node[] nodes = new Node[lecturersList.size()];
 
         if (lecturersList.size() > 0) {
