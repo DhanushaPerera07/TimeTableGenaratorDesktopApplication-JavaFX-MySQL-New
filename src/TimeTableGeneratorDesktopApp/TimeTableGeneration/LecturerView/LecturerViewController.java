@@ -4,6 +4,7 @@ import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
+import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LecturerViewController implements Initializable {
@@ -27,6 +29,8 @@ public class LecturerViewController implements Initializable {
 
     @FXML
     private VBox timeTableVBox;
+
+    ArrayList<String> a = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,7 +43,7 @@ public class LecturerViewController implements Initializable {
 
         timeTableVBox.getChildren().clear();
 
-        ObservableList<Lecturers> lecturersList = getlecturersList();
+        ArrayList<String> lecturersList = getlecturersList();
 
         Node[] nodes = new Node[lecturersList.size()];
 
@@ -66,7 +70,7 @@ public class LecturerViewController implements Initializable {
         }
     }
 
-    public ObservableList<Lecturers> getlecturersList() {
+    public ArrayList<String> getlecturersList() {
 
         // ============================================ DATABASE PART ===================================================================================
 
@@ -76,7 +80,7 @@ public class LecturerViewController implements Initializable {
         ObservableList<Lecturers> lecturersList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
         String query;
-        query = "SELECT * FROM Lecturer";
+        query = "SELECT DISTINCT `lecturer` FROM time_table";
 
         Statement st;
         ResultSet rs;
@@ -85,27 +89,16 @@ public class LecturerViewController implements Initializable {
             st = conn.createStatement();
             rs = st.executeQuery(query);
 
-            Lecturers lecturers;
+            TimeTable timeTable;
             while (rs.next()) {
-                lecturers = new Lecturers(
-                        rs.getInt("lid"),
-                        rs.getString("lecturerID"),
-                        rs.getString("lecturerName"),
-                        rs.getString("lecturerFaculty"),
-                        rs.getString("lecturerDepartment"),
-                        rs.getString("lecturerCenter"),
-                        rs.getString("lecturerBuilding"),
-                        rs.getInt("lecturerLevel"),
-                        rs.getString("lecturerRank")
-                        
-                );
-                lecturersList.add(lecturers);
+               String b = rs.getString("lecturer");
+                a.add(b);
             }
 
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-        return lecturersList;
+        return a;
     }
 }

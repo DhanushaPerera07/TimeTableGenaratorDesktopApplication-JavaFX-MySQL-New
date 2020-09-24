@@ -35,9 +35,10 @@ public class StudentViewController implements Initializable {
     private String GroupId = "non";
 
     private int xx = 1;
-    ObservableList<String> GroupIdList = FXCollections.observableArrayList();
-    ArrayList<String> a = new ArrayList<>();
 
+    ObservableList<String> GroupIdList = FXCollections.observableArrayList();
+
+    ArrayList<String> a = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -78,7 +79,7 @@ public class StudentViewController implements Initializable {
 
             }
         }else{
-            System.out.println(sessionsList.size() + "kudai");
+            System.out.println(sessionsList.size() + "Database Error...!");
         }
 
     }
@@ -103,11 +104,7 @@ public class StudentViewController implements Initializable {
             TimeTable timeTable;
             while (rs.next()) {
                 String b = rs.getString("group");
-                if (!b.equals("INTERVAL")) {
-                    a.add(b);
-                }
-
-
+                a.add(b);
             }
 
         } catch (Exception ex) {
