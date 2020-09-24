@@ -3,6 +3,7 @@ package TimeTableGeneratorDesktopApp.TimeTableGeneration;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionController;
+import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.application.Platform;
@@ -201,6 +202,57 @@ public class timeTableGenerationController implements Initializable {
             e.printStackTrace();
         }
         setTimeToSession();
+        setLecturerToSession();
+    }
+
+
+    public void setLecturerToSession(){
+//        ObservableList<Sessions> sessionsListValue = getAllSessionList();
+        ObservableList<TimeTable> TimeTableListValue = getTimeTableValues();
+
+        for (int i = 0; i < TimeTableListValue.size(); i++) {
+
+            ObservableList<sessionLecturers> LecturersList = FXCollections.observableArrayList();
+
+            Connection conn = getConnection();
+            String  query = "SELECT * FROM session_lecturer WHERE sessionID = '"+TimeTableListValue.get(i).getSessionId()+"'";
+            Statement st;
+            ResultSet rs;
+            try {
+                st = conn.createStatement();
+                rs = st.executeQuery(query);
+                sessionLecturers sessionLecturer;
+                while (rs.next()) {
+                    sessionLecturer = new sessionLecturers(
+                            rs.getString("sessionID"),
+                            rs.getString("sessionLecturerName")
+                    );
+                    LecturersList.add(sessionLecturer);
+                }
+            } catch (Exception ex) {
+                // if an error occurs print an error...
+                System.out.println("Error - When department data retrieving ");
+                ex.printStackTrace();
+            }
+
+            for (int j = 0; j < TimeTableListValue.size(); j++) {
+
+                for (int k = 0; k < LecturersList.size(); k++) {
+                    if (!TimeTableListValue.get(i).getTimeSlot().equals(TimeTableListValue.get(j).getTimeSlot())) {
+                        if (!TimeTableListValue.get(j).getLecturer().equals(LecturersList.get(k).getLecturerName())) {
+                            String query1 = "UPDATE time_table SET `lecturer` ='" +LecturersList.get(k).getLecturerName()+"' WHERE Id =" +TimeTableListValue.get(i).getId();
+                            executeQuery(query1);
+                            k=99;
+                        }
+
+                    }else{
+//                        System.out.println("Lecturers not enough");
+                    }
+                }
+
+            }
+
+        }
     }
 
     public void setTimeToSession(){
@@ -418,6 +470,7 @@ public class timeTableGenerationController implements Initializable {
 
         }
     }
+
     public void getHoursValues() {
         Connection conn = getConnection();
         String query = "SELECT * FROM hours where id = 1";
@@ -527,7 +580,6 @@ public class timeTableGenerationController implements Initializable {
                         rs.getInt("duration")
 
                 );
-                System.out.println(timeTable.getDuration() + "checkDu");
                 timeTableList.add(timeTable);
 
 
@@ -570,6 +622,47 @@ public class timeTableGenerationController implements Initializable {
             ex.printStackTrace();
         }
         return a;
+    }
+
+    public ObservableList<Sessions> getAllSessionList() {
+
+        DatabaseHelper databaseHelper = new DatabaseHelper();
+
+        ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
+        Connection conn =  databaseHelper.getConnection();
+        String query;
+
+        query = "SELECT * FROM session";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            Sessions sessions;
+            while (rs.next()) {
+                sessions = new Sessions(
+                        rs.getInt("idsession"),
+                        rs.getString("sessionSubject"),
+                        rs.getString("sessionModuleCode"),
+                        rs.getString("sessionTag"),
+                        rs.getString("sessionStudentGroup"),
+                        rs.getInt("sessionNoOfStudents"),
+                        rs.getInt("sessionDuration"),
+                        rs.getString("sessionID")
+                );
+
+                sessionsList.add(sessions);
+
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return sessionsList;
     }
 
     private void executeQuery(String query) {
