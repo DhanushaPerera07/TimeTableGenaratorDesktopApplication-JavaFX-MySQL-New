@@ -208,7 +208,6 @@ public class timeTableGenerationController implements Initializable {
         setLecturerToSession();
     }
 
-
     public void setLecturerToSession(){
 //        ObservableList<Sessions> sessionsListValue = getAllSessionList();
         ObservableList<TimeTable> TimeTableListValue = getTimeTableValues();

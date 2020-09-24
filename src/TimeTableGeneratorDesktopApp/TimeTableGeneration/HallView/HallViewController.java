@@ -70,9 +70,6 @@ public class HallViewController implements Initializable {
 
     public ObservableList<Hall> getLocationListList() {
 
-        // ============================================ DATABASE PART ===================================================================================
-
-        // database connection setup
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<Hall> locationList = FXCollections.observableArrayList();

@@ -91,7 +91,7 @@ public class TimeTableStructureController implements Initializable {
         this.hall = hall;
         structureTblHeader.setText(hall.getLocation_name());
         getDayNames();
-
+        displaySessionstoHalls(hall);
     }
 
     public void showlecturers(Lecturers lecturers) {
@@ -100,7 +100,6 @@ public class TimeTableStructureController implements Initializable {
         structureTblHeader.setText(lecturers.getLecturerName());
         getDayNames();
         displaySessionstoLecturer(lecturers);
-        System.out.println(lecturers.getLecturerName()+ "lec getting");
 
     }
 
@@ -180,6 +179,46 @@ public class TimeTableStructureController implements Initializable {
             ex.printStackTrace();
         }
     return timeTableList1;
+    }
+
+    public ObservableList<TimeTable> getTimeTablesByLocation(Hall hall) {
+
+        ObservableList<TimeTable> timeTableList1 = FXCollections.observableArrayList();
+
+        Connection conn = getConnection();
+        String query = "SELECT * FROM time_table where lecturer = '"+hall.getLocation_name()+"'";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            TimeTable timeTable;
+            while (rs.next()) {
+                timeTable = new TimeTable(
+                        rs.getInt("Id"),
+                        rs.getString("timeSlot"),
+                        rs.getString("Module"),
+                        rs.getString("tag"),
+                        rs.getString("Hall"),
+                        rs.getString("group"),
+                        rs.getString("lecturer"),
+                        rs.getString("sessionId"),
+                        rs.getString("dayName"),
+                        rs.getInt("duration")
+
+                );
+                timeTableList1.add(timeTable);
+
+
+            }
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+        return timeTableList1;
     }
 
 
@@ -386,6 +425,20 @@ public class TimeTableStructureController implements Initializable {
         TimeTableStructureTbl.setItems(timeTableViewList);
 
     }
+
+    public void displaySessionstoHalls(Hall hall){
+
+
+        ObservableList<TimeTable> timeTableViewList = getTimeTablesByLocation(hall);
+
+//        ObservableList<TimeTable> temp = FXCollections.observableArrayList();
+
+        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
+        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
+        TimeTableStructureTbl.setItems(timeTableViewList);
+
+    }
+
 
     public void displayTimeSlots(String group){
 
