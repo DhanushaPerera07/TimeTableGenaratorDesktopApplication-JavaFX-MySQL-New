@@ -269,7 +269,7 @@ public class timeTableGenerationController implements Initializable {
                         if (totalTime == 14) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day2+"');";
-                            executeQuery(query1);
+//                            executeQuery(query1);
                             x++;
                             totalTime = totalTime+1;
                             String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day2+"' WHERE Id =" +timeTableList.get(i).getId();
@@ -305,7 +305,7 @@ public class timeTableGenerationController implements Initializable {
                         if (totalTime == 23) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day3+"');";
-                            executeQuery(query1);
+//                            executeQuery(query1);
                             x++;
                             totalTime = totalTime+1;
                             String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day3+"' WHERE Id =" +timeTableList.get(i).getId();
@@ -341,7 +341,7 @@ public class timeTableGenerationController implements Initializable {
                         if (totalTime == 32) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day4+"');";
-                            executeQuery(query1);
+//                            executeQuery(query1);
                             x++;
                             totalTime = totalTime+1;
                             String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day4+"' WHERE Id =" +timeTableList.get(i).getId();
@@ -377,7 +377,7 @@ public class timeTableGenerationController implements Initializable {
                         if (totalTime == 41) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day5+"');";
-                            executeQuery(query1);
+//                            executeQuery(query1);
                             x++;
                             totalTime = totalTime+1;
                             String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day5+"' WHERE Id =" +timeTableList.get(i).getId();
