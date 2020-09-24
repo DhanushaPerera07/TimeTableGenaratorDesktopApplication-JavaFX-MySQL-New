@@ -212,40 +212,26 @@ public class TimeTableStructureController implements Initializable {
         }
         return timeTableList;
     }
-//
-//    public void displayTimeSlots(){
-//
-//    }
+
 
 
 //    public void displaySessions(String group){
-//
-//
 //        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
 ////        displayTimeSlots(group);
-//
 //        for (int i = 0; i < timeTableList.size(); i++) {
-//
 //            TimetableValue = timeTableList.get(i);
-//
 //            if (TimetableValue.getGroup().equals(group)){
-//
 //                timeTableViewList.add(TimetableValue);
-//
 //            }
 //        }
-//
-//
-//
 //        StrructureC1.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("Module"));
 //        StructureTimeSlots.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("timeSlot"));
 //        TimeTableStructureTbl.setItems(timeTableViewList);
-//
 //    }
 
     public void displaySessions(String group){
 
-//        ObservableList<TimeTable> timeTableViewList = FXCollections.observableArrayList();
+
         ObservableList<TimeTable> timeTableViewListMonday = FXCollections.observableArrayList();
         ObservableList<TimeTable> timeTableViewListTuesday = FXCollections.observableArrayList();
         ObservableList<TimeTable> timeTableViewListWednesday = FXCollections.observableArrayList();
@@ -253,12 +239,11 @@ public class TimeTableStructureController implements Initializable {
         ObservableList<TimeTable> timeTableViewListFriday = FXCollections.observableArrayList();
         ObservableList<TimeTable> timeTableViewListSaturday = FXCollections.observableArrayList();
         ObservableList<TimeTable> timeTableViewListSunday = FXCollections.observableArrayList();
-//        displayTimeSlots(group);
+
 
         for (int i = 0; i < timeTableList.size(); i++) {
 
             TimetableValue = timeTableList.get(i);
-//            timeTableViewList.add(TimetableValue);
 
             if (TimetableValue.getGroup().equals(group) && TimetableValue.getDayName().equals("Monday")){
                 timeTableViewListMonday.add(TimetableValue);

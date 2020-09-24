@@ -169,10 +169,9 @@ public class timeTableGenerationController implements Initializable {
             sessionsList1 = sessionController.getSessionsList();
 
             ArrayList<String> sessionsList =getSessionList();
-
-            for (int j = 0; j < sessionsList.size(); j++) {
-
-                if (sessionsList1.size() > 0) {
+//
+//            for (int j = 0; j < sessionsList.size(); j++) {
+//                if (sessionsList1.size() > 0) {
 
                     String query1 = "DELETE FROM time_table";
                     executeQuery(query1);
@@ -193,10 +192,10 @@ public class timeTableGenerationController implements Initializable {
                         }
                         System.out.println();
                     }
-                }else{
-                    System.out.println("Database Problem...!");
-                }
-            }
+//                }else{
+//                    System.out.println("Database Problem...!");
+//                }
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,7 +232,7 @@ public class timeTableGenerationController implements Initializable {
                         if (totalTime == 4) {
 
                             String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day1+"');";
-                            executeQuery(query1);
+//                            executeQuery(query1);
                             x++;
                             totalTime = totalTime+1;
                             String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day1+"' WHERE Id =" +timeTableList.get(i).getId();
