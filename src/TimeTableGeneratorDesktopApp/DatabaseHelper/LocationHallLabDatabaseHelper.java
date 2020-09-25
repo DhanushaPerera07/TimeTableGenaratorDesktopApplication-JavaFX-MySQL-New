@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -136,6 +137,159 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
             ex.printStackTrace();
         }
         return locationHallLabList;
+    }
+
+
+
+
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getLectureHallCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(location_id) AS NumberOfLectureHall " +
+                "FROM location AS l " +
+                "WHERE l.tag_tag_id = (SELECT tags.idtags " +
+                "FROM tags WHERE tags.Tag = 'Lecture');";
+
+        /*String query = "SELECT COUNT(location_id) AS NumberOfLectureHall " +
+                "FROM location AS l " +
+                "WHERE l.tag_tag_id = (SELECT tags.idtags " +
+                "FROM tags WHERE tags.Tag = 'Lecture Hall' OR tags.Tag LIKE 'Lecture%');";*/
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfLectureHall");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+
+        return Integer.parseInt(count);
+    }
+
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getTutorialHallCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(location_id) AS NumberOfTutorialHall " +
+                "FROM location AS l " +
+                "WHERE l.tag_tag_id = (SELECT tags.idtags " +
+                "FROM tags WHERE tags.Tag = 'Tutorial');";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfTutorialHall");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
+    }
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getLabCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        int intCount = 0;
+        String query = "SELECT COUNT(l.location_id) AS NumberOfLab " +
+                "FROM location AS l " +
+                "WHERE l.tag_tag_id = (SELECT tags.idtags " +
+                "FROM tags WHERE tags.Tag = 'PC-Lab');";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfLab");
+            }
+
+            intCount += Integer.parseInt(count);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        String query2 = "SELECT COUNT(l.location_id) AS NumberOfLab " +
+                "FROM location AS l " +
+                "WHERE l.tag_tag_id = (SELECT tags.idtags " +
+                "FROM tags WHERE tags.Tag = 'Lab');";
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query2);
+
+            StudentBatches studentBatch;
+
+            if (rs.next()) {
+                count += rs.getString("NumberOfLab");
+            }
+
+            intCount += Integer.parseInt(count);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        String query3 = "SELECT COUNT(l.location_id) AS NumberOfLab " +
+                "FROM location AS l " +
+                "WHERE l.tag_tag_id = (SELECT tags.idtags " +
+                "FROM tags WHERE tags.Tag = 'Practical');";
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query3);
+
+            if (rs.next()) {
+                count += rs.getString("NumberOfLab");
+            }
+
+            intCount += Integer.parseInt(count);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+
+        return intCount;
     }
 
 }

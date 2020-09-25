@@ -1,26 +1,23 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
-import TimeTableGeneratorDesktopApp.Subjects.Subjects;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class ModulesDatabaseHelper extends DatabaseHelper{
+public class LecturerDatabaseHelper extends DatabaseHelper{
+
 
     // ------------------------------------------------------------------------------
 
-    public int getSubjectCount() {
+    public int getLecturerCount() {
 
         Connection conn = getConnection();
 
         String count = "";
-        String query = "SELECT COUNT(idmodule) AS NumberOfModules " +
-                "FROM module;";
+        String query = "SELECT COUNT(lid) AS NumberOfLecturer " +
+                "FROM lecturer;";
 
 
         Statement st;
@@ -29,9 +26,10 @@ public class ModulesDatabaseHelper extends DatabaseHelper{
             st = conn.createStatement();
             rs = st.executeQuery(query);
 
+            StudentBatches studentBatch;
 
             if (rs.next()) {
-                count = rs.getString("NumberOfModules");
+                count = rs.getString("NumberOfLecturer");
             }
 
         } catch (Exception ex) {
@@ -39,8 +37,4 @@ public class ModulesDatabaseHelper extends DatabaseHelper{
         }
         return Integer.parseInt(count);
     }
-
-    // ------------------------------------------------------------------------------
-
-
 }

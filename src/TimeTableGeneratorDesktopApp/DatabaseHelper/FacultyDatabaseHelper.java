@@ -2,6 +2,7 @@ package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -130,4 +131,39 @@ public class FacultyDatabaseHelper extends DatabaseHelper {
         }
         return facultyList;
     }
+
+
+
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getFacultyCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(faculty_id) AS NumberOfFaculties " +
+                "FROM faculty;";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfFaculties");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
+    }
+
+
+
 }

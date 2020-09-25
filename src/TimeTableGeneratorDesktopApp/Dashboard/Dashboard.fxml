@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Dashboard.Dashboard">
    <top>
       <HBox prefHeight="34.0" prefWidth="1000.0" BorderPane.alignment="TOP_LEFT">
          <children>
@@ -53,7 +53,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="35" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtLecturerCount" strokeType="OUTSIDE" strokeWidth="0.0" text="35" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -78,7 +78,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="20" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtSubjectCount" strokeType="OUTSIDE" strokeWidth="0.0" text="20" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -103,7 +103,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="25" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtLectureHallCount" strokeType="OUTSIDE" strokeWidth="0.0" text="25" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -128,7 +128,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtStudentBatchedCount" strokeType="OUTSIDE" strokeWidth="0.0" text="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -153,7 +153,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtDepartmentCount" strokeType="OUTSIDE" strokeWidth="0.0" text="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -178,7 +178,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtTutorialHallCount" strokeType="OUTSIDE" strokeWidth="0.0" text="10" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -203,7 +203,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="10" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtLabCount" strokeType="OUTSIDE" strokeWidth="0.0" text="10" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -228,7 +228,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="16" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtStudentSubGroupCount" strokeType="OUTSIDE" strokeWidth="0.0" text="16" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>
@@ -253,7 +253,7 @@
                         <RowConstraints maxHeight="95.5999969482422" minHeight="10.0" prefHeight="65.19999542236329" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="16" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Text fx:id="txtFacultiesCount" strokeType="OUTSIDE" strokeWidth="0.0" text="16" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font size="60.0" />
                            </font>

@@ -3,6 +3,7 @@ package TimeTableGeneratorDesktopApp.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -95,6 +96,36 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
             ex.printStackTrace();
         }
         return departmentList;
+    }
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getDepartmentCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(department_id) AS NumberOfDepartment " +
+                "FROM department;";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            StudentBatches studentBatch;
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfDepartment");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
     }
 
 }
