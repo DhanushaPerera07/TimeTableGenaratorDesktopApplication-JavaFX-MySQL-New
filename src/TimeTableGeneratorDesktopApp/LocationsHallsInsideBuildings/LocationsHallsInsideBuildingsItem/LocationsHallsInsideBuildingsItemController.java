@@ -282,21 +282,19 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
 
     public void deleteHallLabRecord(int locationHallLabID) throws IOException {
 
-        // delete query
-        String query = "UPDATE `location` SET location_delete_status = 'Y' WHERE location_id = " + locationHallLabID + "";
+        try {
+            // delete query
+            String query = "UPDATE `location` SET location_delete_status = 'Y' WHERE location_id = " + locationHallLabID + "";
 
-        // execute the insert query
-        databaseHelper.executeQuery(query);
+            // execute the insert query
+            databaseHelper.executeQuery(query);
 
-        /* // ERROR in this code segment
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
-        loader.load();
-        FacultyDepartmentsController facultyDepartmentsController = loader.getController();
-        facultyDepartmentsController.populateAndRefreshFacultyDataRow();
-         */
 
-        System.out.println("Faculty is deleted successfully");
+            System.out.println("Faculty is deleted successfully");
+        } catch (Exception e) {
+            System.out.println("Error: When Deleting a location (updating location, delete_status = 'Y') record");
+            e.printStackTrace();
+        }
 
     }
 
