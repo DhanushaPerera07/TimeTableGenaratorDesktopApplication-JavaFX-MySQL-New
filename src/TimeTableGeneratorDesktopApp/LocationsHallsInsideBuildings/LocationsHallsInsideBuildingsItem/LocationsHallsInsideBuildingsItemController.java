@@ -140,6 +140,30 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
             } else if (newValue.equals("Add time that room can not be reserved")) {
                 // open pop up window to Add time that room can not be reserved
 
+                System.out.println("Clicked - Open Pop Up To add time that room can not be reserved");
+
+
+                // open up the POP UP
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageCanNotBeReservedTimeForRoom/canNotBeReservedTimeForRoom.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+
+  /*                  ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = fxmlLoader.getController();
+                    consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);
+*/
+                    Stage stage = new Stage();
+
+                    stage.setTitle("Add time that room can not be reserved");
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initOwner(locationsHallsInsideItemVBOX.getScene().getWindow());
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Exception - When Opening canNotBeReservedTimeForRoom.fxml as a pop up ");
+                    e.printStackTrace();
+                }
+
 
                 onActionsHallsComboBox.getSelectionModel().select("More options");
             }
