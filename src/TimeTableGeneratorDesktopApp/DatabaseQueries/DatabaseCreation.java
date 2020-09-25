@@ -323,6 +323,8 @@ public class DatabaseCreation {
             "  `group` VARCHAR(25) NULL," +
             "  `lecturer` VARCHAR(25) NULL," +
             "  `sessionId` VARCHAR(25) NULL," +
+            "  `duration` INT NULL," +
+            "  `dayName` VARCHAR(25) NULL," +
             "  PRIMARY KEY (`Id`))";
 
 
