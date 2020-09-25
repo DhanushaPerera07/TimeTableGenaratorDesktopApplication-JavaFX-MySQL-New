@@ -1,5 +1,7 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
+import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -778,6 +780,11 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         }
 
     }
+
+
+
+
+
 
 
 

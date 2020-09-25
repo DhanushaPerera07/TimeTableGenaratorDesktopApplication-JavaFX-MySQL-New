@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings;
 
+import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionsInSameLocationController;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController;
@@ -115,11 +116,48 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
         // filter by combobox
         locationsHallsInsideMoreComboBox.getItems().addAll(
                 "More options",
-                "More Options If Any",
-                "More Options If Any",
-                "Blah Blah"
+                "View Consecutive Sessions in same location"
         );
         locationsHallsInsideMoreComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+
+        locationsHallsInsideMoreComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            System.out.println("listener works !");
+            System.out.println("oldValue : " + oldValue);
+            System.out.println("newValue : " + newValue);
+
+            if (newValue.equals("View Consecutive Sessions in same location")){
+                System.out.println("Clicked - Open Pop Up to view consecutive sessions in same location");
+
+                // open up the POP UP
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ConsecutiveSessionsInSameLocation/ViewConsecutiveSessionsInSameLocation.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+
+/*                    ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = fxmlLoader.getController();
+                    consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);*/
+
+                    Stage stage = new Stage();
+
+                  /*  SingleConsecutiveSessionItemController singleConsecutiveSessionItemController = fxmlLoader.getController();
+                    singleConsecutiveSessionItemController.showConsecutiveSessionInformation(this.locationHallLab);*/
+
+
+                    stage.setTitle("View Consecutive Sessions in Same Location");
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initOwner(borderPaneLocationsHallsInsideBuildingMain.getScene().getWindow());
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Exception - When Opening ConsecutiveSessionsInSameLocation.fxml as a pop up ");
+                    e.printStackTrace();
+                }
+            }
+
+
+            locationsHallsInsideMoreComboBox.getSelectionModel().select("More options");
+        });
+
 
     }
 
