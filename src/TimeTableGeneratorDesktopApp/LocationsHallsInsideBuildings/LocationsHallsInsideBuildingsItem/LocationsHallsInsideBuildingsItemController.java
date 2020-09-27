@@ -8,6 +8,7 @@ import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyPopUps.EditFacultyPopUpController;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps.EditLocationsHallsPopUpController;
+import TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.CanNotBeReservedTimeForRoomController;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.ObservableList;
@@ -151,6 +152,9 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
   /*                  ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = fxmlLoader.getController();
                     consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);
 */
+                    CanNotBeReservedTimeForRoomController canNotBeReservedTimeForRoomController = fxmlLoader.getController();
+                    canNotBeReservedTimeForRoomController.getNecessaryInformationFromLocationHallsLabsUI(this.locationHallLab);
+
                     Stage stage = new Stage();
 
                     stage.setTitle("Add time that room can not be reserved");
