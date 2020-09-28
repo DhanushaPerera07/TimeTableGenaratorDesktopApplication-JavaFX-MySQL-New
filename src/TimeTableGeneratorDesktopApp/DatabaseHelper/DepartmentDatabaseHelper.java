@@ -101,6 +101,50 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
 
     // ------------------------------------------------------------------------------
 
+
+    /**
+     * Method when faculty name is given as parameter , returns that faculty instance
+     */
+
+    public ObservableList<Department> getDepartmentListByDepartmentName(String departmentName, int facultyID) {
+        ObservableList<Department> departmentList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        String query = "SELECT * FROM department WHERE department_delete_status = 'N' AND department_name LIKE '%"+ departmentName +"%' AND faculty_faculty_id = " + facultyID + " ORDER BY department_name";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Department department;
+            while (rs.next()) {
+                department = new Department(
+                        rs.getInt("department_id"),
+                        rs.getString("department_name"),
+                        rs.getString("department_short_name"),
+                        rs.getInt("department_floor_no"),
+                        rs.getString("department_specialized_for"),
+                        rs.getString("department_head"),
+                        rs.getInt("department_building_id"),
+                        rs.getInt("faculty_faculty_id")
+                );
+                departmentList.add(department);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
+        }
+        return departmentList;
+        }
+
+
+
+    // ------------------------------------------------------------------------------
+
     public int getDepartmentCount() {
 
         Connection conn = getConnection();
