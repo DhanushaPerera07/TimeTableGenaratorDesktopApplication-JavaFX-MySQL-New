@@ -134,7 +134,7 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 try {
                     // insert query
                     //status_true default value = 'Y', did not include in the insert into query
-                    query = "INSERT INTO `preferred_room_for_subject` (`subject_subject_id`,`location_location_id`,`tag_tag_id`,`status_true`) VALUES (" + this.subjectID + ", " + this.locationID + ", " + this.tagID + ")";
+                    query = "INSERT INTO `preferred_room_for_subject` (`subject_subject_id`,`location_location_id`,`tag_tag_id`) VALUES (" + this.subjectID + ", " + this.locationID + ", " + this.tagID + ")";
 
                     // execute the insert query
                     executeQuery(query);
