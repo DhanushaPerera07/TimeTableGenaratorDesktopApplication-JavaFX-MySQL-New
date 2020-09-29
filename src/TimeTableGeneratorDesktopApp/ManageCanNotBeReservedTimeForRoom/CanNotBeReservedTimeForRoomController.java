@@ -54,15 +54,6 @@ public class CanNotBeReservedTimeForRoomController implements Initializable {
     private Label txtTagName;
 
     @FXML
-    private TextField locationsHallsInsideSearchTxtBox;
-
-    @FXML
-    private Button btnSearchLocationsHallsInside;
-
-/*    @FXML
-    private ComboBox<String> comboBoxLocation;*/
-
-    @FXML
     private ComboBox<String> comboBoxDay;
 
     @FXML
@@ -96,6 +87,7 @@ public class CanNotBeReservedTimeForRoomController implements Initializable {
     // ----------------------------------------------------------------------------------------
 
     private void initializeComboBoxes() {
+
 
         DaysDatabaseHelper daysDatabaseHelper = new DaysDatabaseHelper();
 
