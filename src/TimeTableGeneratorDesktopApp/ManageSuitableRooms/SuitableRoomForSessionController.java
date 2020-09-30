@@ -247,9 +247,9 @@ public class SuitableRoomForSessionController implements Initializable {
             SuitableLocationForSession suitableLocationForSession;
             while (rs.next()) {
                 suitableLocationForSession = new SuitableLocationForSession(
-                        rs.getInt("suitable_room_for_lecturer_id"),
+                        rs.getInt("suitable_room_for_session_id"),
                         rs.getInt("location_location_id"),
-                        rs.getInt("lecturer_lid"),
+                        rs.getInt("location_location_id"),
                         rs.getString("status_true")
 
                 );

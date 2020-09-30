@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsLabsHalls;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -39,6 +41,9 @@ public class LocationsLabsHallsController implements Initializable {
     private TextField locationsSearchTxtBox;
 
     @FXML
+    private Label lblFilterBy;
+
+    @FXML
     private Button btnSearchLocations;
 
     @FXML
@@ -60,7 +65,53 @@ public class LocationsLabsHallsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializationOfCombobox();
+        populateRows();
 
+    }
+
+
+    // =======================================================================================================
+
+
+    private void initializationOfCombobox() {
+
+        // some UI components are hidden
+        lblFilterBy.setVisible(false);
+        btnSearchLocations.setVisible(false);
+        locationsFilterByComboBox.setVisible(false);
+        locationsMoreComboBox.setVisible(false);
+
+        // filter by combobox
+        locationsFilterByComboBox.getItems().addAll(
+                "Select ALL",
+                "FOC",
+                "Blah Blah"
+        );
+        locationsFilterByComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+
+        // More combobox
+        locationsMoreComboBox.getItems().addAll(
+                "Print",
+                "Do something new",
+                "Blah Blah"
+        );
+
+        // prompt text
+        locationsMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
+
+        locationsSearchTxtBox.textProperty().addListener((v,oldValue,newValue) -> {
+            if(newValue.trim().equals("") || newValue == null){
+                populateRows();
+            } else {
+                populateRowsAccordingToSearchBoxValue(newValue);
+            }
+        });
+
+    }
+
+    private void populateRows() {
+
+        locationsVBox.getChildren().clear();
 
         ObservableList<Building> buildingList = getBuildingList();
 
@@ -114,52 +165,66 @@ public class LocationsLabsHallsController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
 
+    BuildingDatabaseHelper buildingDatabaseHelper = new BuildingDatabaseHelper();
+    private void populateRowsAccordingToSearchBoxValue(String newValue) {
 
+        locationsVBox.getChildren().clear();
 
-        /*
+        ObservableList<Building> buildingList = buildingDatabaseHelper.getBuildingListByBuildingName(newValue);
+
+        for (Building building : buildingList){
+            // sysout check
+            System.out.println("building table rec: " + building.toString());
+        }
+
+        /**
+         * Dynamically change the rows by getting data from the database
+         * LocationsBuildingItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the building object to the LocationsBuildingItem.fxml and populate the view
+         */
         // Populate the rows like a table
-        Node[] nodes = new Node[10];
+        Node [] nodes = new Node[buildingList.size()];
 
-        for (int i = 0;i< nodes.length;i++){
+        if (buildingList.size() != 0) {
+            for (int i = 0; i < buildingList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //facultyVBox.getChildren().addAll(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItem.fxml"));
+                    //Parent newRoot = loader.load();
+                    //Scene scene = new Scene(newRoot);
+                    nodes[i] = (Node) loader.load();
+                    LocationsBuildingItemController locationsBuildingItemController = loader.getController();
+                    locationsBuildingItemController.showInformation(buildingList.get(i));
+                    //facultyItemController = nodes[i].getController;
+                    //nodes[i] = (Node) loader.load();
+
+                    locationsVBox.getChildren().addAll(nodes[i]);
+                } catch (IOException e) {
+                    System.out.println("Error - Locations: Buildings Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // this means that no building is found
+            // so we gonna display that no buildings are found
+            Node nodeThatSaysNoFacultyFound;
             try {
-                nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItem.fxml"));
-                locationsVBox.getChildren().add(nodes[i]);
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItemNoContent.fxml"));
+                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                locationsVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
             } catch (IOException e) {
-                System.out.println("Error - Locations: Buildings ======================================");
+                System.out.println("Error - Locations: Buildings Loading ======================================");
                 e.printStackTrace();
             }
         }
-        
-         */
-
     }
-
-
-    // =======================================================================================================
-
-
-    private void initializationOfCombobox() {
-
-        // filter by combobox
-        locationsFilterByComboBox.getItems().addAll(
-                "Select ALL",
-                "FOC",
-                "Blah Blah"
-        );
-        locationsFilterByComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
-
-        // More combobox
-        locationsMoreComboBox.getItems().addAll(
-                "Print",
-                "Do something new",
-                "Blah Blah"
-        );
-
-        // prompt text
-        locationsMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
-    }
-
 
 
 
@@ -203,6 +268,8 @@ public class LocationsLabsHallsController implements Initializable {
      * returns departmentList;
      * */
     public ObservableList<Building> getBuildingList() {
+
+        locationsVBox.getChildren().clear();
 
         ObservableList<Building> buildingList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();

@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsController;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyDepartmentsController;
@@ -159,7 +160,13 @@ public class FacultyItemController implements Initializable {
         txtFacultyName.setText(faculty.getName());
         txtFacultyShortName.setText(faculty.getShortName());
         txtFacultyHead.setText(faculty.getHead());
-        txtFacultyNoOfDepartment.setText("Working on that");
+
+
+        // calculate no of deparments under given faculty
+        FacultyDatabaseHelper facultyDatabaseHelper = new FacultyDatabaseHelper();
+        txtFacultyNoOfDepartment.setText(Integer.toString(facultyDatabaseHelper.getDepartmentCountUnderGivenFaculty(faculty.getId())));
+
+
         txtFacultySpecializedFor.setText(faculty.getSpecializedFor());
         txtFacultyStatus.setText(faculty.getStatus());
         facultyID = faculty.getId();

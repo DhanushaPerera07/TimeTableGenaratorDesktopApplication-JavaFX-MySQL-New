@@ -56,7 +56,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="locationsSearchTxtBox">
+                        <TextField fx:id="locationsSearchTxtBox" promptText="Search building name">
                             <GridPane.margin>
                                 <Insets left="10.0" />
                             </GridPane.margin>
@@ -69,7 +69,7 @@
                                 <FontAwesomeIcon glyphName="SEARCH" />
                             </graphic>
                         </Button>
-                        <Label text="Filter By" GridPane.columnIndex="2">
+                        <Label fx:id="lblFilterBy" text="Filter By" GridPane.columnIndex="2">
                             <GridPane.margin>
                                 <Insets left="10.0" />
                             </GridPane.margin>
@@ -79,15 +79,15 @@
                                 <Insets />
                             </GridPane.margin>
                         </ComboBox>
-                        <Button fx:id="btnAddLocation" mnemonicParsing="false" onAction="#openAddLocationsPopUp" text="Add" GridPane.columnIndex="4">
+                        <Button fx:id="btnAddLocation" mnemonicParsing="false" onAction="#openAddLocationsPopUp" text="Add" GridPane.columnIndex="5" GridPane.halignment="CENTER">
                             <GridPane.margin>
-                                <Insets left="10.0" />
+                                <Insets />
                             </GridPane.margin>
                             <graphic>
                                 <FontAwesomeIcon glyphName="PLUS" />
                             </graphic>
                         </Button>
-                        <ComboBox fx:id="locationsMoreComboBox" prefWidth="141.0" GridPane.columnIndex="5">
+                        <ComboBox fx:id="locationsMoreComboBox" prefWidth="141.0" GridPane.columnIndex="4">
                             <GridPane.margin>
                                 <Insets left="10.0" />
                             </GridPane.margin>

@@ -45,4 +45,47 @@ public class SessionDatabaseHelper extends DatabaseHelper {
         }
         return sessionsList;
     }
+
+
+    // -----------------------------------------------------------------------------
+
+
+    public Sessions getSessionBySessionID(String sessionID) {
+        //ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
+        //Connection conn = getConnection();
+        Sessions session = null;
+        Connection conn = getConnection();
+
+        String query = "SELECT * FROM session AS s " +
+                "WHERE s.sessionID = '" + sessionID + "'";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            // Sessions session;
+            if (rs.next()) {
+                session = new Sessions(
+                        rs.getInt("idsession"),
+                        rs.getString("sessionSubject"),
+                        rs.getString("sessionModuleCode"),
+                        rs.getString("sessionTag"),
+                        rs.getString("sessionStudentGroup"),
+                        rs.getInt("sessionNoOfStudents"),
+                        rs.getInt("sessionDuration"),
+                        rs.getString("sessionID")
+                );
+                //sessionsList.add(sessions);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+
+        return session;
+        //return sessionsList;
+    }
 }

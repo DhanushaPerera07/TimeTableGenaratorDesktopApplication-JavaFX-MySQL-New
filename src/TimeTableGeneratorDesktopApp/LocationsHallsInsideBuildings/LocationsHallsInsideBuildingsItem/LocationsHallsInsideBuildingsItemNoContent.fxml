@@ -10,7 +10,7 @@
 
 <VBox fx:id="locationsHallsInsideItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.HallLabItemNoContentController">
     <children>
-        <GridPane>
+        <GridPane prefHeight="30.0" prefWidth="574.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.60000610351562" minWidth="10.0" prefWidth="116.60000610351562" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0000732421875" minWidth="10.0" prefWidth="538.9999389648438" />

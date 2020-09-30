@@ -52,4 +52,67 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
     }
 
 
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getStudentBatchCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(id) AS NumberOfStudentBatches " +
+                "FROM studentbatches;";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            StudentBatches studentBatch;
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfStudentBatches");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
+    }
+
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getStudentSubGroupCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(id) AS NumberOfStudentSubGroup " +
+                "FROM subgroups;";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+            StudentBatches studentBatch;
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfStudentSubGroup");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
+    }
+
+
 }

@@ -177,7 +177,7 @@ public class SessionNATimeController implements Initializable {
         String day =  dayCB.getSelectionModel().getSelectedItem().toString();
         String hour = hourCB.getSelectionModel().getSelectedItem().toString();
 
-        String query = "INSERT INTO sessionsnatime (sessionID,Day,Hour)" +
+        String query = "INSERT INTO sessionsnatime (sessionID,DayTM,Hour)" +
                 "VALUES ('"+sessionGenID+"','" +day+ "','" +hour+ "') ";
         executeQuery(query);
 
@@ -189,7 +189,7 @@ public class SessionNATimeController implements Initializable {
 
     private void showSessionNATimes() {
             ObservableList<NATSessions> list = getSessionsNATImeList();
-            dayCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Day"));
+            dayCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("DayTM"));
             hourCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Hour"));
             NATimeTV.setItems(list);
 
@@ -209,7 +209,7 @@ public class SessionNATimeController implements Initializable {
             rs = st.executeQuery(query);
             NATSessions naTimeSessions;
             while (rs.next()) {
-                naTimeSessions = new NATSessions(rs.getInt("id"),rs.getString("sessionID"),rs.getString("Day"),rs.getString("Hour"));
+                naTimeSessions = new NATSessions(rs.getInt("id"),rs.getString("sessionID"),rs.getString("DayTM"),rs.getString("Hour"));
                 sessionsNATimeList.add(naTimeSessions);
             }
 
@@ -235,7 +235,7 @@ public class SessionNATimeController implements Initializable {
         String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`sessionsnatime` (" +
                 "  `id` INT NOT NULL AUTO_INCREMENT," +
                 "  `sessionID` VARCHAR(100) NULL ," +
-                "  `Day` VARCHAR(45) NULL ," +
+                "  `DayTM` VARCHAR(45) NULL ," +
                 "  `Hour` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
 

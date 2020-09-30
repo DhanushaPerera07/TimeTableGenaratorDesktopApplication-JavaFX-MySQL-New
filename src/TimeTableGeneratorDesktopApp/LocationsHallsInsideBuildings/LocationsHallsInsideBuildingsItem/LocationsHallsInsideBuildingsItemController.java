@@ -1,13 +1,18 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem;
 
+import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionsInSameLocationController;
+import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.SingleConsecutiveSessionItem.SingleConsecutiveSessionItemController;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyPopUps.EditFacultyPopUpController;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps.EditLocationsHallsPopUpController;
+import TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.CanNotBeReservedTimeForRoomController;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,7 +35,7 @@ import java.util.ResourceBundle;
 public class LocationsHallsInsideBuildingsItemController implements Initializable {
 
     // holds the building value
-    public LocationHallLab locationHallLab;
+    LocationHallLab locationHallLab;
     public int moduleID, tagID;
     String buildingName;
 
@@ -40,9 +45,11 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
     @FXML
     private ComboBox<String> onActionsHallsComboBox;
 
-    @FXML
-    private Button btnViewHallTimeTable;
+/*    @FXML
+    private Button btnViewHallTimeTable;*/
 
+    @FXML
+    private Button btnConsecutiveSessionInSameLocation;
 
     @FXML
     private FontAwesomeIcon btnEditIcon;
@@ -84,14 +91,90 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
         // filter by combobox
         onActionsHallsComboBox.getItems().addAll(
                 "More options",
-                "Add suitable room(s) for Lecturer",
-                "Add suitable room(s) for Group",
-                "Add suitable room(s) for Session",
                 "Add consecutive sessions in the same room",
-                "Add time that room can not be reserved",
-                "Blah Blah"
+                "Add time that room can not be reserved"
         );
-        onActionsHallsComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+        //onActionsHallsComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+        onActionsHallsComboBox.getSelectionModel().select("More options");
+
+        onActionsHallsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            System.out.println("listener works !");
+            System.out.println("oldValue : " + oldValue);
+            System.out.println("newValue : " + newValue);
+
+            if (newValue.equals("Add consecutive sessions in the same room")) {
+                // open pop up window to Add consecutive sessions
+
+                System.out.println("Clicked - Open Pop Up To add consecutive sessions in the same room");
+
+    /*            ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = new ConsecutiveSessionsInSameLocationController();
+                consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);*/
+
+
+                // open up the POP UP
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ConsecutiveSessionsInSameLocation/ConsecutiveSessionsInSameLocation.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+
+                    ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = fxmlLoader.getController();
+                    consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);
+
+                    Stage stage = new Stage();
+
+                  /*  SingleConsecutiveSessionItemController singleConsecutiveSessionItemController = fxmlLoader.getController();
+                    singleConsecutiveSessionItemController.showConsecutiveSessionInformation(this.locationHallLab);*/
+
+
+                    stage.setTitle("Add Consecutive Sessions in Same Location");
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initOwner(locationsHallsInsideItemVBOX.getScene().getWindow());
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Exception - When Opening ConsecutiveSessionsInSameLocation.fxml as a pop up ");
+                    e.printStackTrace();
+                }
+
+                onActionsHallsComboBox.getSelectionModel().select("More options");
+
+            } else if (newValue.equals("Add time that room can not be reserved")) {
+                // open pop up window to Add time that room can not be reserved
+
+                System.out.println("Clicked - Open Pop Up To add time that room can not be reserved");
+
+
+                // open up the POP UP
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageCanNotBeReservedTimeForRoom/canNotBeReservedTimeForRoom.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+
+  /*                  ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = fxmlLoader.getController();
+                    consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);
+*/
+                    CanNotBeReservedTimeForRoomController canNotBeReservedTimeForRoomController = fxmlLoader.getController();
+                    canNotBeReservedTimeForRoomController.getNecessaryInformationFromLocationHallsLabsUI(this.locationHallLab);
+
+                    Stage stage = new Stage();
+
+                    stage.setTitle("Add time that room can not be reserved");
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initOwner(locationsHallsInsideItemVBOX.getScene().getWindow());
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Exception - When Opening canNotBeReservedTimeForRoom.fxml as a pop up ");
+                    e.printStackTrace();
+                }
+
+
+                onActionsHallsComboBox.getSelectionModel().select("More options");
+            }
+
+            //onActionsHallsComboBox.getSelectionModel().select("More options");
+            //populateLocationRows();
+        });
 
     }
 
@@ -180,12 +263,12 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
         // get tags details from the database and make a list then, using that list combo box values are displayed
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
 
-        Tags tag =  tagsDatabaseHelper.getTagInstanceByTagID(locationHallLab.getTagID());
+        Tags tag = tagsDatabaseHelper.getTagInstanceByTagID(locationHallLab.getTagID());
         txtLocationHallLabTag.setText(tag.getTag());
 
         //building
         BuildingDatabaseHelper buildingDatabaseHelper = new BuildingDatabaseHelper();
-        String building_Name =  buildingDatabaseHelper.getBuildingInstance(locationHallLab.getBuildingID()).getBuildingName();
+        String building_Name = buildingDatabaseHelper.getBuildingInstance(locationHallLab.getBuildingID()).getBuildingName();
 
         txtLocationHallLabBuilding.setText(building_Name);
 
@@ -203,21 +286,21 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
 
     public void deleteHallLabRecord(int locationHallLabID) throws IOException {
 
-        // delete query
-        String query = "UPDATE `location` SET location_delete_status = 'Y' WHERE location_id = " + locationHallLabID + "";
+        try {
+            // delete query
+            String query = "UPDATE `location` SET location_delete_status = 'Y' WHERE location_id = " + locationHallLabID + "";
 
-        // execute the insert query
-        databaseHelper.executeQuery(query);
+            // execute the insert query
+            databaseHelper.executeQuery(query);
 
-        /* // ERROR in this code segment
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
-        loader.load();
-        FacultyDepartmentsController facultyDepartmentsController = loader.getController();
-        facultyDepartmentsController.populateAndRefreshFacultyDataRow();
-         */
 
-        System.out.println("Faculty is deleted successfully");
+            System.out.println("Faculty is deleted successfully");
+        } catch (Exception e) {
+            System.out.println("Error: When Deleting a location (updating location, delete_status = 'Y') record");
+            e.printStackTrace();
+        }
 
     }
+
+
 }

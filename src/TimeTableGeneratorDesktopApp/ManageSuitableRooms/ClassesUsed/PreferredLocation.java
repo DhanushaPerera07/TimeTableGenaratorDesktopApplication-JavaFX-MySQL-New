@@ -10,6 +10,7 @@ public class PreferredLocation {
 
     // default constructor
     public PreferredLocation() {
+        this.statusTrue = "N";
     }
 
     public PreferredLocation(int preferredRoomForSubjectID, int subjectSubjectID, int locationLocationID, int tagTagID, String statusTrue) {
@@ -62,4 +63,15 @@ public class PreferredLocation {
         this.statusTrue = statusTrue;
     }
 
+
+    @Override
+    public String toString() {
+        return "PreferredLocation{" +
+                "preferredRoomForSubjectID=" + preferredRoomForSubjectID +
+                ", subjectSubjectID=" + subjectSubjectID +
+                ", locationLocationID=" + locationLocationID +
+                ", tagTagID=" + tagTagID +
+                ", statusTrue='" + statusTrue + '\'' +
+                '}';
+    }
 }

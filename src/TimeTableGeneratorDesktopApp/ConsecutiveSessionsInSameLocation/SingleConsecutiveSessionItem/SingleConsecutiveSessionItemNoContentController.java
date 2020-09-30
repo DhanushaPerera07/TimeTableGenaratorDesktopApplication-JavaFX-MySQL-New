@@ -1,0 +1,4 @@
+package TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.SingleConsecutiveSessionItem;
+
+public class SingleConsecutiveSessionItemNoContentController {
+}

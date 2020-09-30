@@ -405,6 +405,37 @@ public class DatabaseCreation {
             ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
 
 
+    String query33 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`consecutive_session_in_same_room` (\n" +
+            "  `consecutive_session_in_same_room_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `consecutive_session_id` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`consecutive_session_in_same_room_id`, `location_location_id`, `consecutive_session_id`),\n" +
+            "  CONSTRAINT `fk_ consecutive_session_in_same_room_location`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB;";
+
+    String query34 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`consecetive_sessions` (\n" +
+            "  `id` int NOT NULL AUTO_INCREMENT,\n" +
+            "  `session1ID` varchar(100) DEFAULT NULL,\n" +
+            "  `session2ID` varchar(100) DEFAULT NULL,\n" +
+            "  PRIMARY KEY (`id`)\n" +
+            ")\n";
+
+    String query35 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`cannot_be_reserved_time_for_location`(\n" +
+            "`cannot_be_reserved_time_for_location_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "`day` VARCHAR(50) NOT NULL,\n" +
+            "`timeslot_id` INT NOT NULL,\n" +
+            "`location_location_id` INT NOT NULL,\n" +
+            "PRIMARY KEY (`cannot_be_reserved_time_for_location_id`),\n" +
+            "CONSTRAINT `fk_cannot_be_reserved_time_for_location` FOREIGN KEY (`location_location_id`)\n" +
+            "REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "ON DELETE CASCADE\n" +
+            "ON UPDATE CASCADE);";
+
 
     public void createDatabase() {
         try {
@@ -445,6 +476,11 @@ public class DatabaseCreation {
 
             executeQuery(query31); // session
             executeQuery(query32); // session_lecturer
+
+            executeQuery(query34); // consecutive sessions // soysa's table
+
+            executeQuery(query33); // consecutive_session_in_same_room table //Added by Dhanusha
+            //executeQuery(query35); // cannot_be_reserved_time_for_location table //Added by Dhanusha
 
 
 
