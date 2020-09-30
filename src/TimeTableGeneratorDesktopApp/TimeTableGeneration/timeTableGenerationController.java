@@ -96,7 +96,6 @@ public class timeTableGenerationController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -173,9 +172,6 @@ public class timeTableGenerationController implements Initializable {
             sessionsList1 = sessionController.getSessionsList();
 
             ArrayList<String> sessionsList =getSessionList();
-//
-//            for (int j = 0; j < sessionsList.size(); j++) {
-//                if (sessionsList1.size() > 0) {
 
                     String query1 = "DELETE FROM time_table";
                     executeQuery(query1);
@@ -196,10 +192,6 @@ public class timeTableGenerationController implements Initializable {
                         }
                         System.out.println();
                     }
-//                }else{
-//                    System.out.println("Database Problem...!");
-//                }
-//            }
 
         } catch (Exception e) {
             e.printStackTrace();
