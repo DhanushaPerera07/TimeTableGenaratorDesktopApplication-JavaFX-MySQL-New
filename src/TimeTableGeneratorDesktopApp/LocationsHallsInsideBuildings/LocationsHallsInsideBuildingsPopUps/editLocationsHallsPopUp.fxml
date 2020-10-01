@@ -27,9 +27,9 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Locations - Add  Hall or Lab" GridPane.rowIndex="1">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LOCATION - UPDATE HALL OR LAB" GridPane.rowIndex="1">
                             <font>
-                                <Font size="14.0" />
+                                <Font name="Segoe UI" size="24.0" />
                             </font>
                         </Text>
                     </children>
@@ -52,18 +52,57 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Hall / Lab name:" GridPane.rowIndex="1" />
-                        <Label layoutX="25.0" layoutY="101.0" text="Capacity:" GridPane.rowIndex="2" />
-                        <Label layoutX="25.0" layoutY="270.0" text="Is at floor no:" GridPane.rowIndex="3" />
+                        <Label text="Hall / Lab name:" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding></Label>
+                        <Label layoutX="25.0" layoutY="101.0" text="Capacity:" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding></Label>
+                        <Label layoutX="25.0" layoutY="270.0" text="Is at floor no:" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding></Label>
                         <TextField fx:id="txtHallLabName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="txtHallLabCapacity" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Button fx:id="btnAddHallLabPopUp" mnemonicParsing="false" onAction="#ActionEventEditHallLabPopup" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label layoutX="25.0" layoutY="233.0" text="Condition:" GridPane.rowIndex="5" />
+                        <Button fx:id="btnAddHallLabPopUp" mnemonicParsing="false" onAction="#ActionEventEditHallLabPopup" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Button>
+                        <Label layoutX="25.0" layoutY="233.0" text="Condition:" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding></Label>
                         <TextField fx:id="txtHallLabFloor" layoutX="196.0" layoutY="78.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <ComboBox fx:id="conditionHallLabComboBox" layoutX="196.0" layoutY="229.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label layoutX="25.0" layoutY="77.0" style="-fx-font-weight: bold;" text="Building:" />
-                        <Text fx:id="textTheBuilding" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="-" GridPane.columnIndex="1" />
-                        <Label layoutX="25.0" layoutY="168.0" text="Tag:" GridPane.rowIndex="4" />
+                        <Label layoutX="25.0" layoutY="77.0" style="-fx-font-weight: bold;" text="Building:">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font></Label>
+                        <Text fx:id="textTheBuilding" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="-" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font></Text>
+                        <Label layoutX="25.0" layoutY="168.0" text="Tag:" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets left="25.0" />
+                     </padding></Label>
                         <ComboBox fx:id="tagHallLabComboBox" layoutX="196.0" layoutY="256.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                     <padding>

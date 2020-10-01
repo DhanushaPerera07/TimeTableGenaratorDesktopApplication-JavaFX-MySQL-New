@@ -26,28 +26,31 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <HBox prefHeight="92.0" prefWidth="805.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="805.0" style="-fx-background-color: #26408B;">
                     <children>
-                  <Label fx:id="txtHeaderLabsHalls" text="Location, Labs &amp; Halls Under:">
+                  <Label fx:id="txtHeaderLabsHalls" text="Location, Labs &amp; Halls Under:" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                        <Label fx:id="txtHeaderBuildingName" text="Building Actual Name">
+                        <Label fx:id="txtHeaderBuildingName" text="Building Actual Name" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="20.0" />
+                                <Font name="Segoe UI" size="18.0" />
                             </font>
                      <padding>
                         <Insets left="10.0" />
                      </padding>
                         </Label>
                     </children>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
                 </HBox>
                 <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
