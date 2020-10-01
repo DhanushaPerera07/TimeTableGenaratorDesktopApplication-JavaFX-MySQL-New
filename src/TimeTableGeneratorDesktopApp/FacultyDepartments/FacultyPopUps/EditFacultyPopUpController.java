@@ -278,7 +278,7 @@ public class EditFacultyPopUpController implements Initializable {
         Optional<ButtonType> result = editFacultyAlert.showAndWait();
         if (result.get() == EditBtn){
             editUpdateRecord(facultyID); // parameter: facultyID is passed here, it is used to update the record.
-            System.out.println("Faculty is edited/updated successfully");
+            //System.out.println("Faculty is edited/updated successfully");
         } else {
             System.out.println("Clicked Cancel Button - (edit/update a faculty)");
         }

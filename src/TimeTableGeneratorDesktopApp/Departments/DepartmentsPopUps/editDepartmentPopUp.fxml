@@ -79,18 +79,18 @@
                      </font></Label>
                         <TextField fx:id="txtDepartmentName" GridPane.columnIndex="1" />
                         <TextField fx:id="txtDepartmentShortName" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="departmentBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="departmentBuildingComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="txtDepartmentFloorNo" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Button fx:id="btnAddDepartmentPopUp" mnemonicParsing="false" onAction="#ActionEventEditDepartmentPopUp" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <font>
                         <Font name="Segoe UI" size="13.0" />
                      </font></Button>
-                        <ComboBox fx:id="departmentHeadComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="departmentHeadComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label layoutX="25.0" layoutY="165.0" text="Specialized for:" GridPane.rowIndex="2">
                      <font>
                         <Font name="Segoe UI" size="13.0" />
                      </font></Label>
-                        <ComboBox fx:id="departmentSpecializedForComboBox" layoutX="196.0" layoutY="161.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="departmentSpecializedForComboBox" layoutX="196.0" layoutY="161.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="departmentFacultyLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Segoe UI Black" size="13.0" />
