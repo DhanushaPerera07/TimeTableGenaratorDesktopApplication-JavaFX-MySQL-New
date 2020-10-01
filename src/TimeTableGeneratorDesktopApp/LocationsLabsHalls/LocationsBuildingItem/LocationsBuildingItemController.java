@@ -96,6 +96,8 @@ public class LocationsBuildingItemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        onActionsBuildingComboBox.setVisible(false);
+
         // filter by combobox
         onActionsBuildingComboBox.getItems().addAll(
                 "More options",

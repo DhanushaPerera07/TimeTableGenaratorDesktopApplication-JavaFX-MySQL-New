@@ -79,7 +79,7 @@ public class LocationsLabsHallsController implements Initializable {
         lblFilterBy.setVisible(false);
         btnSearchLocations.setVisible(false);
         locationsFilterByComboBox.setVisible(false);
-        //locationsMoreComboBox.setVisible(false);
+        locationsMoreComboBox.setVisible(false);
 
         // filter by combobox
         locationsFilterByComboBox.getItems().addAll(
