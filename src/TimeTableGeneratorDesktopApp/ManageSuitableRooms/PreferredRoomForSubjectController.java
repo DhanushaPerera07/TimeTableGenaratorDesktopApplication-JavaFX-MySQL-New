@@ -287,14 +287,6 @@ public class PreferredRoomForSubjectController implements Initializable {
                     preferredLocation.setStatusTrue("N");
                 }
 
-/*                preferredLocation = new PreferredLocation(
-                        rs.getInt("preferred_room_for_subject_id"),
-                        rs.getInt("subject_subject_id"),
-                        rs.getInt("location_location_id"),
-                        rs.getInt("tag_tag_id"),
-                        rs.getString("status_true")
-                );*/
-
                 preferredLocationList.add(preferredLocation);
             }
 
