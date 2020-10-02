@@ -51,7 +51,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ComboBox>
-        <Button fx:id="addBatchBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="638.0" layoutY="63.0" mnemonicParsing="false" onAction="#ActionEventAddBatchBtn" prefHeight="19.0" prefWidth="75.0" style="-fx-background-color: trans;" textAlignment="CENTER">
+        <Button fx:id="addBatchBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="664.0" layoutY="34.0" mnemonicParsing="false" onAction="#ActionEventAddBatchBtn" prefHeight="19.0" prefWidth="75.0" style="-fx-background-color: trans;" textAlignment="CENTER">
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
@@ -65,6 +65,16 @@
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
+         <graphic>
+                <ImageView fitHeight="35.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icons/add-button-capitalized-blue-hi.png" />
+                    </image>
+                    <effect>
+                        <DropShadow blurType="TWO_PASS_BOX" height="0.0" offsetX="2.0" offsetY="2.0" radius="3.2075" width="14.83" />
+                    </effect>
+                </ImageView>
+         </graphic>
         </Button>
         <ComboBox fx:id="CBFilter2" layoutX="50.0" layoutY="114.0" onAction="#getFilterValue" prefHeight="25.0" prefWidth="111.0" promptText="Select">
             <cursor>
@@ -81,14 +91,6 @@
             <Font name="Franklin Gothic Demi Cond" size="25.0" />
          </font>
       </Label>
-          <ImageView fitHeight="35.0" fitWidth="80.0" layoutX="661.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-              <image>
-                  <Image url="@../icons/add-button-capitalized-blue-hi.png" />
-              </image>
-              <effect>
-                  <DropShadow blurType="TWO_PASS_BOX" height="0.0" offsetX="2.0" offsetY="2.0" radius="3.2075" width="14.83" />
-              </effect>
-          </ImageView>
       <TextField fx:id="searchBox" layoutX="613.0" layoutY="102.0" onKeyReleased="#createtables" onKeyTyped="#searchRecord" promptText="Search" />
       <Label layoutX="675.0" layoutY="86.0" prefHeight="17.0" prefWidth="86.0" style="-fx-background-color: #26408B;" text="   Search Here!" textFill="#e4e4e4" />
     </children>
