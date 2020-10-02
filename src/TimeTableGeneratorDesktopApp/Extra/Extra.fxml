@@ -114,5 +114,10 @@
             <DropShadow />
          </effect>
       </ImageView>
+      <Label alignment="CENTER" layoutY="27.0" prefHeight="45.0" prefWidth="170.0" style="-fx-background-color: #26408B;" text="Extras" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

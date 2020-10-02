@@ -2,14 +2,19 @@ package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime;
 
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.setNATimeSubGroup.NATimeSubGroups;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
+import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -53,6 +58,9 @@ public class LectureNATimeController implements Initializable {
 
     @FXML
     private Pane pane;
+
+    @FXML
+    private TextField searchBox;
 
     @FXML
     private Label nameLabel;
@@ -144,6 +152,36 @@ public class LectureNATimeController implements Initializable {
 
     }
 
+    @FXML
+    public void searchRecord(KeyEvent ke) {
+        FilteredList<Lecturers> filterData = new FilteredList<>(getLecturersList(), p -> true);
+        searchBox.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
+            filterData.setPredicate(lec -> {
+                if (newvalue == null || newvalue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (lec.getLecturerName().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }   if (lec.getLecturerFaculty().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }   if (lec.getLecturerDepartment().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }   if (lec.getLecturerBuilding().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }   if (lec.getLecturerCenter().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }   if (lec.getLecturerID().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                return false;
+            });
+            SortedList<Lecturers> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(lecTV.comparatorProperty());
+            lecTV.setItems(sortedList);
+
+        });
+    }
 
     @FXML
     void handleMouseAction(MouseEvent event) {

@@ -4,12 +4,16 @@ package TimeTableGeneratorDesktopApp.Extra.ConsecetiveSesssions;
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime.NATLecturers;
 import TimeTableGeneratorDesktopApp.Extra.ParallelSessions.ParallelSession;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -23,6 +27,13 @@ import java.util.ResourceBundle;
 public class ConsecetiveSessionsController implements Initializable {
     public static String session2 = "";
     public static String session1 = "";
+
+    @FXML
+    private TextField searchBox;
+
+    @FXML
+    private TextField searchBox2;
+
     @FXML
     private TableView<ConsecetiveSessions> pSessionsTV;
 
@@ -238,8 +249,47 @@ public class ConsecetiveSessionsController implements Initializable {
 
 
 
+    @FXML
+    public void searchRecord(KeyEvent ke) {
+        FilteredList<Sessions> filterData = new FilteredList<>(getSessionsList(), p -> true);
+        searchBox.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
+            filterData.setPredicate(session -> {
+                if (newvalue == null || newvalue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (session.getSessionGenID().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                return false;
+            });
+            SortedList<Sessions> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(sessionsTV1.comparatorProperty());
+            sessionsTV1.setItems(sortedList);
 
+        });
+    }
 
+    @FXML
+    public void searchRecord2(KeyEvent ke) {
+        FilteredList<Sessions> filterData = new FilteredList<>(getSessionsList(), p -> true);
+        searchBox2.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
+            filterData.setPredicate(session -> {
+                if (newvalue == null || newvalue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (session.getSessionGenID().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                return false;
+            });
+            SortedList<Sessions> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(sessionsTV2.comparatorProperty());
+            sessionsTV2.setItems(sortedList);
+
+        });
+    }
 
     public void createTable(){
         String query="CREATE  TABLE IF NOT EXISTS  consecetive_sessions  (" +
