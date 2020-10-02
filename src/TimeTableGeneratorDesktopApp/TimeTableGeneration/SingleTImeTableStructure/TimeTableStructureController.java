@@ -482,7 +482,7 @@ public class TimeTableStructureController implements Initializable {
             }else if (TimetableValue.getLecturer().equals(lec) && TimetableValue.getDayName().equals("Thursday")){
                 timeTableViewListThursday.add(TimetableValue);
 
-//                System.out.println("timeTableViewListThursday value Added");
+//                System.out.println("timeTableViewListThursday Size = " + timeTableViewListThursday.size());
 
             }else if (TimetableValue.getLecturer().equals(lec) && TimetableValue.getDayName().equals("Friday")){
                 timeTableViewListFriday.add(TimetableValue);
@@ -503,7 +503,7 @@ public class TimeTableStructureController implements Initializable {
 
         for (int i = 0; i < timeSlots.size(); i++) {
 
-            if (timeTableViewListMonday.size()>i) {
+            if (timeTableViewListMonday.size()>tempT1) {
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListMonday.get(tempT1).getTimeSlot())) {
                     timeTableViewListMondayX.add(yy);
                 }else{
@@ -516,7 +516,7 @@ public class TimeTableStructureController implements Initializable {
             }
 
 
-            if (timeTableViewListTuesday.size()>i){
+            if (timeTableViewListTuesday.size()>tempT2){
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListTuesday.get(tempT2).getTimeSlot())) {
                     timeTableViewListTuesdayX.add(yy);
                 }else{
@@ -527,7 +527,7 @@ public class TimeTableStructureController implements Initializable {
                 timeTableViewListTuesdayX.add(yy);
             }
 
-            if (timeTableViewListWednesday.size()>i){
+            if (timeTableViewListWednesday.size()>tempT3){
 
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListWednesday.get(tempT3).getTimeSlot())) {
                     timeTableViewListWednesdayX.add(yy);
@@ -539,10 +539,10 @@ public class TimeTableStructureController implements Initializable {
                 timeTableViewListWednesdayX.add(yy);
             }
 
-            if (timeTableViewListThursday.size()>i){
+            if (timeTableViewListThursday.size()>tempT4){
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListThursday.get(tempT4).getTimeSlot())) {
                     timeTableViewListThursdayX.add(yy);
-                }else{
+                }else if(timeSlots.get(i).getValue_t().equals(timeTableViewListThursday.get(tempT4).getTimeSlot())){
                     timeTableViewListThursdayX.add(timeTableViewListThursday.get(tempT4));
                     tempT4++;
                 }
@@ -551,7 +551,7 @@ public class TimeTableStructureController implements Initializable {
             }
 
 
-            if (timeTableViewListFriday.size()>i){
+            if (timeTableViewListFriday.size()>tempT5){
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListFriday.get(tempT5).getTimeSlot())) {
                     timeTableViewListFridayX.add(yy);
                 }else{
@@ -562,7 +562,7 @@ public class TimeTableStructureController implements Initializable {
                 timeTableViewListFridayX.add(yy);
             }
 
-            if (timeTableViewListSaturday.size()>i){
+            if (timeTableViewListSaturday.size()>tempT6){
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListSaturday.get(tempT6).getTimeSlot())) {
                     timeTableViewListSaturdayX.add(yy);
                 }else{
@@ -573,7 +573,7 @@ public class TimeTableStructureController implements Initializable {
                 timeTableViewListSaturdayX.add(yy);
             }
 
-            if (timeTableViewListSunday.size()>i){
+            if (timeTableViewListSunday.size()>tempT7){
 
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListSunday.get(tempT7).getTimeSlot())) {
                     timeTableViewListSundayX.add(yy);
