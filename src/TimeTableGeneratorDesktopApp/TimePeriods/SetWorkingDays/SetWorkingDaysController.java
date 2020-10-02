@@ -55,25 +55,25 @@ public class SetWorkingDaysController implements Initializable {
 
 
     @FXML
-    private TextField field1noDays;
+    private ComboBox<String>  field1noDays;
 
     @FXML
-    private TextField field2noDays;
+    private ComboBox<String>  field2noDays;
 
     @FXML
-    private TextField field3noDays;
+    private ComboBox<String>  field3noDays;
 
     @FXML
-    private TextField field4noDays;
+    private ComboBox<String>  field4noDays;
 
     @FXML
-    private TextField field5noDays;
+    private ComboBox<String>  field5noDays;
 
     @FXML
-    private TextField field6noDays;
+    private ComboBox<String>  field6noDays;
 
     @FXML
-    private TextField field7noDays;
+    private ComboBox<String>  field7noDays;
 
     @FXML
     private Label label1noDays;
@@ -105,7 +105,26 @@ public class SetWorkingDaysController implements Initializable {
         getWorkingDays();
         showTextFields();
         getHours();
+        setComBoxes();
+        createtable();
 
+    }
+
+
+    public void createtable(){
+        String query20 = "CREATE TABLE IF NOT EXISTS daysname (" +
+                "  `id` INT NOT NULL," +
+                "  `day1name` VARCHAR(45) NULL," +
+                "  `day2name` VARCHAR(45) NULL," +
+                "  `day3name` VARCHAR(45) NULL," +
+                "  `day4name` VARCHAR(45) NULL," +
+                "  `day5name` VARCHAR(45) NULL," +
+                "  `day6name` VARCHAR(45) NULL," +
+                "  `day7name` VARCHAR(45) NULL," +
+                "  PRIMARY KEY (`id`))" +
+                "ENGINE = InnoDB;";
+
+        executeQuery(query20);
     }
 
     public void Visible(){
@@ -157,6 +176,7 @@ public class SetWorkingDaysController implements Initializable {
 
     @FXML
     public void selectWorkingDays(ActionEvent actionEvent) {
+
         noDays = comboSelectDays.getSelectionModel().getSelectedIndex() + 1;
         System.out.println(noDays);
         insertRecord();
@@ -351,14 +371,49 @@ public class SetWorkingDaysController implements Initializable {
     @FXML
     void submitDays(ActionEvent event) {
 
-        day1namex = field1noDays.getText().toString();
-        day2namex = field2noDays.getText().toString();
-        day3namex = field3noDays.getText().toString();
-        day4namex = field4noDays.getText().toString();
-        day5namex = field5noDays.getText().toString();
-        day6namex = field6noDays.getText().toString();
-        day7namex = field7noDays.getText().toString();
+        if(noDaysDB==1){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+        }else if(noDaysDB==2){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+            day2namex = field2noDays.getSelectionModel().getSelectedItem().toString();
+        }else if(noDaysDB==3){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+            day2namex = field2noDays.getSelectionModel().getSelectedItem().toString();
+            day3namex = field3noDays.getSelectionModel().getSelectedItem().toString();
+        }else if(noDaysDB==4){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+            day2namex = field2noDays.getSelectionModel().getSelectedItem().toString();
+            day3namex = field3noDays.getSelectionModel().getSelectedItem().toString();
+            day4namex = field4noDays.getSelectionModel().getSelectedItem().toString();
+        }else if(noDaysDB==5){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+            day2namex = field2noDays.getSelectionModel().getSelectedItem().toString();
+            day3namex = field3noDays.getSelectionModel().getSelectedItem().toString();
+            day4namex = field4noDays.getSelectionModel().getSelectedItem().toString();
+            day5namex = field5noDays.getSelectionModel().getSelectedItem().toString();
+        }else if(noDaysDB==6){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+            day2namex = field2noDays.getSelectionModel().getSelectedItem().toString();
+            day3namex = field3noDays.getSelectionModel().getSelectedItem().toString();
+            day4namex = field4noDays.getSelectionModel().getSelectedItem().toString();
+            day5namex = field5noDays.getSelectionModel().getSelectedItem().toString();
+            day6namex = field6noDays.getSelectionModel().getSelectedItem().toString();
+        }else if(noDaysDB==7){
+            day1namex = field1noDays.getSelectionModel().getSelectedItem().toString();
+            day2namex = field2noDays.getSelectionModel().getSelectedItem().toString();
+            day3namex = field3noDays.getSelectionModel().getSelectedItem().toString();
+            day4namex = field4noDays.getSelectionModel().getSelectedItem().toString();
+            day5namex = field5noDays.getSelectionModel().getSelectedItem().toString();
+            day6namex = field6noDays.getSelectionModel().getSelectedItem().toString();
+            day7namex = field7noDays.getSelectionModel().getSelectedItem().toString();
+        }else{
+            System.out.println("Please select number of days");
+        }
+
+
+        System.out.println("day1 test"+day1namex);
         Connection conn = getConnection();
+
         String query2 = "DELETE from daysname WHERE id =1 ";
         executeQuery(query2);
         String query = "INSERT INTO daysname (id, day1name, day2name, day3name, day4name, day5name, day6name, day7name)  VALUES (1, '"+day1namex+"', '"+day2namex+"', '"+day3namex+"', '"+day4namex+"', '"+day5namex+"', '"+day6namex+"', '"+day7namex+"' ) " +
@@ -394,13 +449,13 @@ public class SetWorkingDaysController implements Initializable {
                 seven = rs.getString("day7name");
 
 
-                field1noDays.setText(one);
-                field2noDays.setText(two);
-                field3noDays.setText(three);
-                field4noDays.setText(four);
-                field5noDays.setText(five);
-                field6noDays.setText(six);
-                field7noDays.setText(seven);
+                field1noDays.setPromptText(one);
+                field2noDays.setPromptText(two);
+                field3noDays.setPromptText(three);
+                field4noDays.setPromptText(four);
+                field5noDays.setPromptText(five);
+                field6noDays.setPromptText(six);
+                field7noDays.setPromptText(seven);
             }
 
             System.out.println(one);
@@ -410,6 +465,44 @@ public class SetWorkingDaysController implements Initializable {
             ex.printStackTrace();
         }
 
+    }
+
+
+    public void setComBoxes(){
+        field1noDays.getItems().removeAll(field1noDays.getItems());
+        field1noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
+
+        field2noDays.getItems().removeAll(field1noDays.getItems());
+        field2noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
+
+        field3noDays.getItems().removeAll(field1noDays.getItems());
+        field3noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
+
+        field4noDays.getItems().removeAll(field1noDays.getItems());
+        field4noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
+
+        field5noDays.getItems().removeAll(field1noDays.getItems());
+        field5noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
+
+        field6noDays.getItems().removeAll(field1noDays.getItems());
+        field6noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
+
+        field7noDays.getItems().removeAll(field1noDays.getItems());
+        field7noDays.getItems().addAll(
+                "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        );
     }
 
 

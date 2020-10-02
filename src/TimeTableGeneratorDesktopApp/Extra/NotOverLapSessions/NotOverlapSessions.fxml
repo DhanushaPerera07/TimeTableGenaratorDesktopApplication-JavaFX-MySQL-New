@@ -81,5 +81,15 @@
       </Label>
       <Label layoutX="119.0" layoutY="67.0" prefHeight="26.0" prefWidth="105.0" style="-fx-background-color: #003073;" text="Select Session 1" textFill="WHITE" />
       <Label layoutX="119.0" layoutY="290.0" prefHeight="26.0" prefWidth="105.0" style="-fx-background-color: #003073;" text="Select Session 2" textFill="WHITE" />
+      <TextField fx:id="searchBox" layoutX="286.0" layoutY="71.0" onKeyReleased="#createTable" onKeyTyped="#searchRecord" promptText="search session 1">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="searhBox2" layoutX="286.0" layoutY="294.0" onKeyReleased="#createTable" onKeyTyped="#searchRecord2" promptText="search session 2">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </TextField>
     </children>
 </AnchorPane>

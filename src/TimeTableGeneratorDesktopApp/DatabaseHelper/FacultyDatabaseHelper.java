@@ -2,6 +2,7 @@ package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -130,4 +131,110 @@ public class FacultyDatabaseHelper extends DatabaseHelper {
         }
         return facultyList;
     }
+
+
+
+
+
+    // ------------------------------------------------------------------------------
+
+
+    public ObservableList<Faculty> getFacultyList(String value) {
+        ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
+        //Connection conn = getConnection();
+        Connection conn = getConnection();
+
+        String query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' AND faculty_name LIKE '%"+ value +"%' ORDER BY faculty_name";
+
+
+//        String query = "SELECT * FROM department";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Faculty faculty;
+            while (rs.next()) {
+                faculty = new Faculty(
+                        rs.getInt("faculty_id"),
+                        rs.getString("faculty_name"),
+                        rs.getString("faculty_short_name"),
+                        rs.getString("faculty_specialized_for"),
+                        rs.getString("faculty_status"),
+                        rs.getString("faculty_head_name")
+                );
+                facultyList.add(faculty);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return facultyList;
+    }
+
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getFacultyCount() {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(faculty_id) AS NumberOfFaculties " +
+                "FROM faculty;";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfFaculties");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
+    }//
+
+
+
+    // ------------------------------------------------------------------------------
+
+    public int getDepartmentCountUnderGivenFaculty(int facultyID) {
+
+        Connection conn = getConnection();
+
+        String count = "";
+        String query = "SELECT COUNT(department_id) AS NumberOfDepartmentsUnderFaculty " +
+                "FROM department " +
+                "WHERE faculty_faculty_id = "+ facultyID +";";
+
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+
+
+            if (rs.next()) {
+                count = rs.getString("NumberOfDepartmentsUnderFaculty");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return Integer.parseInt(count);
+    }//
+
+
+
 }

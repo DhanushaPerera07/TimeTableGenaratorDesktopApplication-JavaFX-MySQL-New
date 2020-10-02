@@ -1,11 +1,18 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyPopUps;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.LecturerDatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyDepartmentsController;
+import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
+import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,11 +34,17 @@ public class EditFacultyPopUpController implements Initializable {
 
 
     // components
-    @FXML
+/*    @FXML
     private TextField txtFacultyName;
 
     @FXML
-    private TextField txtFacultyShortName;
+    private TextField txtFacultyShortName;*/
+
+    @FXML
+    private ComboBox<String> comboBoxFacultyName;
+
+    @FXML
+    private Label txtFacultyShortName;
 
     @FXML
     private ComboBox<String> facultySpecializedForComboBox;
@@ -48,14 +61,68 @@ public class EditFacultyPopUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeComboBoxes();
+        //initializeComboBoxes();
+        initializeComboBox();
 
         // get the record id and assign it to the variable: faculty_id_to_update
 
     }
 
-    public void initializeComboBoxes(){
 
+
+    // -------------------------------------------------------------------------------------------------------------
+
+
+
+    private void initializeComboBox() {
+
+        /** ============== COMBO BOXES ====================================================================
+         */
+
+        ObservableList<String> facultyName = FXCollections.observableArrayList();
+        facultyName.addAll(
+                "Faculty of Computing",
+                "Faculty of Business",
+                "Faculty of Engineering",
+                "Faculty of Humanities & Sciences",
+                "Faculty of Graduate Studies & Research",
+                "School of Architecture",
+                "School of Law",
+                "School of Hospitality & Culinary"
+        );
+        comboBoxFacultyName.setItems(facultyName);
+        comboBoxFacultyName.setPromptText("Select Faculty Name");
+
+        comboBoxFacultyName.getSelectionModel().selectedItemProperty().addListener((c,oldValue,newValue) -> {
+
+
+            for (int i = 0; i < facultyName.size(); i++) {
+                if (newValue.equals(facultyName.get(i))){
+                    if (newValue.equals("Faculty of Computing")) {
+                        txtFacultyShortName.setText("FOC");
+                    } else if (newValue.equals("Faculty of Business")){
+                        txtFacultyShortName.setText("FOB");
+                    }else if (newValue.equals("Faculty of Engineering")){
+                        txtFacultyShortName.setText("FOE");
+                    }else if (newValue.equals("Faculty of Humanities & Sciences")){
+                        txtFacultyShortName.setText("FHS");
+                    }else if (newValue.equals("Faculty of Graduate Studies & Research")){
+                        txtFacultyShortName.setText("FGSR");
+                    }else if (newValue.equals("School of Architecture")){
+                        txtFacultyShortName.setText("SOA");
+                    }else if (newValue.equals("School of Law")){
+                        txtFacultyShortName.setText("SOL");
+                    } else if (newValue.equals("School of Hospitality & Culinary")){
+                        txtFacultyShortName.setText("SOHC");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText("Error: Something wrong with the faculty short name");
+                        alert.setContentText("Selected faculty name and faculty short name mismatched\nor error occurred");
+                        alert.show();
+                    }
+                }
+            }
+        });
 
         // facultySpecializedForComboBox combobox
         facultySpecializedForComboBox.getItems().addAll(
@@ -68,6 +135,57 @@ public class EditFacultyPopUpController implements Initializable {
                 "Faculty of Business Management",
                 "Faculty of Engineering"
                 */
+        );
+        // prompt text
+        facultySpecializedForComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+
+        LecturerDatabaseHelper lecturerDatabaseHelper = new LecturerDatabaseHelper();
+
+        ObservableList<Lecturers> lecturersObservableList = lecturerDatabaseHelper.getLecturersList();
+
+        if (lecturersObservableList.size() > 0) {
+            // facultyHeadComboBox combobox
+            for (Lecturers lecturer : lecturersObservableList) {
+                facultyHeadComboBox.getItems().add(lecturer.getLecturerName());
+            }
+            facultyHeadComboBox.setPromptText("Select head of the faculty");
+        } else {
+            facultyHeadComboBox.setPromptText("No Lecturers found");
+            facultyHeadComboBox.setDisable(true);
+        }
+
+        // prompt text
+        //facultyHeadComboBox.setPromptText("John Doe");
+
+        // facultyHeadComboBox combobox
+        facultyStatusComboBox.getItems().addAll(
+                "Active",
+                "Not Active"
+        );
+        // prompt text
+        facultyStatusComboBox.setPromptText("Select status");
+
+    }//
+
+
+
+
+    // -------------------------------------------------------------------------------------------------------------
+
+    /*public void initializeComboBoxes(){
+
+
+        // facultySpecializedForComboBox combobox
+        facultySpecializedForComboBox.getItems().addAll(
+                "IT",
+                "BM",
+                "Engineering",
+                "HTM"
+                *//*
+                "Faculty of Computing",
+                "Faculty of Business Management",
+                "Faculty of Engineering"
+                *//*
         );
 
         facultyHeadComboBox.getItems().addAll(
@@ -91,7 +209,13 @@ public class EditFacultyPopUpController implements Initializable {
                 "Active",
                 "Not Active"
         );
-    }
+    }*/
+
+
+    // ------------------------------------------------------------------------------------------------------------
+
+
+
 
     public void ActionEventEditFacultyPopUp(ActionEvent actionEvent) {
         // pop up - edit a faculty action event on EDIT BUTTON
@@ -115,8 +239,9 @@ public class EditFacultyPopUpController implements Initializable {
      */
     public void setFormFieldsToExistingValues(){
         // set the form fields to existing values
-        txtFacultyName.setText(this.facultyInstance.getName());
-        txtFacultyShortName.setText(this.facultyInstance.getShortName());
+        //txtFacultyName.setText(this.facultyInstance.getName());
+        comboBoxFacultyName.getSelectionModel().select(this.facultyInstance.getName());
+        txtFacultyShortName.setText(this.facultyInstance.getShortName()); // faculty short name label
         facultySpecializedForComboBox.getSelectionModel().select(this.facultyInstance.getSpecializedFor());
         facultyHeadComboBox.getSelectionModel().select(this.facultyInstance.getHead());
         facultyStatusComboBox.getSelectionModel().select(this.facultyInstance.getStatus());
@@ -153,7 +278,7 @@ public class EditFacultyPopUpController implements Initializable {
         Optional<ButtonType> result = editFacultyAlert.showAndWait();
         if (result.get() == EditBtn){
             editUpdateRecord(facultyID); // parameter: facultyID is passed here, it is used to update the record.
-            System.out.println("Faculty is edited/updated successfully");
+            //System.out.println("Faculty is edited/updated successfully");
         } else {
             System.out.println("Clicked Cancel Button - (edit/update a faculty)");
         }
@@ -167,39 +292,62 @@ public class EditFacultyPopUpController implements Initializable {
 
         // local variables created to get the user input from the pop up form
 
-        // get user input
-        //int lecturer_emp_id = 1;
+        try {
+            // get user input
+            String faculty_name = comboBoxFacultyName.getValue();
+            //String faculty_name = txtFacultyName.getText();
+            String faculty_short_name = txtFacultyShortName.getText();
+            //String faculty_short_name = txtFacultyShortName.getText();
+            String faculty_specialized_for = facultySpecializedForComboBox.getValue();
+            String faculty_status = facultyStatusComboBox.getValue();
+            String faculty_head_name = facultyHeadComboBox.getValue();
+            // String faculty_delete_status = "N"; // this is not used in here
 
-        //int faculty_id = 1100; // this is the id of the record which is to be updated
-        String faculty_name = txtFacultyName.getText();
-        String faculty_short_name = txtFacultyShortName.getText();
-        String faculty_specialized_for = facultySpecializedForComboBox.getValue();
-        String faculty_status = facultyStatusComboBox.getValue();
-        String faculty_head_name = facultyHeadComboBox.getValue();
-        // String faculty_delete_status = "N"; // this is not used in here
-
-        // insert query
-        //String query = "INSERT INTO `faculty` (`faculty_name`,`faculty_short_name`,`faculty_specialized_for`,`faculty_status`,`faculty_head_name`,`faculty_delete_status`) VALUES ('"+faculty_name+"', '"+faculty_short_name+"', '"+faculty_specialized_for+"', '"+faculty_status+"','"+faculty_head_name+"','"+faculty_delete_status+"')";
-
-        // update query
-        String query = "UPDATE `faculty` SET faculty_name = '" +faculty_name+ "', faculty_short_name = '" +faculty_short_name+
-                "', faculty_specialized_for = '" +faculty_specialized_for+ "', faculty_status = '" +faculty_status+ "', faculty_head_name = '"
-                +faculty_head_name+
-                "' WHERE faculty_id = " +facultyID+ "";
+            if (faculty_name.equals("") || faculty_short_name.equals("") || faculty_specialized_for.equals("") || faculty_status.equals("") || faculty_head_name.equals("")) {
+                new Alert(Alert.AlertType.ERROR,"Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else if (comboBoxFacultyName.getValue() == null || txtFacultyShortName.getText() == null || facultySpecializedForComboBox.getValue() == null || facultyStatusComboBox.getValue() == null || facultyHeadComboBox.getValue() == null){
+                new Alert(Alert.AlertType.ERROR,"Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else {
+                try {
+                    // update query
+                    String query = "UPDATE `faculty` SET faculty_name = '" +faculty_name+ "', faculty_short_name = '" +faculty_short_name+
+                            "', faculty_specialized_for = '" +faculty_specialized_for+ "', faculty_status = '" +faculty_status+ "', faculty_head_name = '"
+                            +faculty_head_name+
+                            "' WHERE faculty_id = " +facultyID+ "";
 
 
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeEditFacultyPopUpForm();
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    closeEditFacultyPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when updating data").show();
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (NullPointerException e) {
+            new Alert(Alert.AlertType.ERROR,"Error NullPointerException: Empty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,"Error: Something wrong with selected data,\nEmpty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
+        }
 
     }
 
     private void closeEditFacultyPopUpForm() {
         // just used the txtFacultyName here to close the pop up when the record editing/update is successfully done.
 
-        Stage stage = (Stage) txtFacultyName.getScene().getWindow();
+/*        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
+
+        FacultyDepartmentsController facultyDepartmentsController = loader.getController();
+        facultyDepartmentsController.populateAndRefreshFacultyDataRow();*/
+
+        Stage stage = (Stage) comboBoxFacultyName.getScene().getWindow();
         System.out.println("Succeed edit/update of the faculty - closing pop up form");
         stage.close();
+
     }
 
 }

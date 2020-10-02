@@ -57,8 +57,8 @@ public class SetNATimeGroupController implements Initializable {
         batchRawID = GroupNATimeController.rawID;
 
         batchIDLabel.setText(batchID);
-       tableName="notavailabletimegroup";
-       subGroupTableName ="notavailabletimesubgroup";
+        tableName="notavailabletimegroup";
+        subGroupTableName ="notavailabletimesubgroup";
         createTable();
         setValuesCombo();
         showData();
@@ -139,25 +139,25 @@ public class SetNATimeGroupController implements Initializable {
 
 
     private void createTable() {
-    String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+tableName+"` (" +
-            "  `id` INT NOT NULL AUTO_INCREMENT," +
-            "  `batchID` VARCHAR(45) NULL ," +
-            "  `Day` VARCHAR(45) NULL ," +
-            "  `Hour` VARCHAR(45) NULL ," +
-            "  PRIMARY KEY (`id`) );";
+        String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+tableName+"` (" +
+                "  `id` INT NOT NULL AUTO_INCREMENT," +
+                "  `batchID` VARCHAR(45) NULL ," +
+                "  `Day` VARCHAR(45) NULL ," +
+                "  `Hour` VARCHAR(45) NULL ," +
+                "  PRIMARY KEY (`id`) );";
 
 
 
-    String createSubGroupTableQ ="CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+subGroupTableName+"` (" +
-            "  `id` INT NOT NULL AUTO_INCREMENT," +
-            "  `batchID` VARCHAR(45) NULL ," +
-            "  `subGroupID` VARCHAR(45) NULL ,"+
-            "  `Day` VARCHAR(45) NULL ," +
-            "  `Hour` VARCHAR(45) NULL ," +
-            "  PRIMARY KEY (`id`) );";
+        String createSubGroupTableQ ="CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+subGroupTableName+"` (" +
+                "  `id` INT NOT NULL AUTO_INCREMENT," +
+                "  `batchID` VARCHAR(45) NULL ," +
+                "  `subGroupID` VARCHAR(45) NULL ,"+
+                "  `Day` VARCHAR(45) NULL ," +
+                "  `Hour` VARCHAR(45) NULL ," +
+                "  PRIMARY KEY (`id`) );";
 
-    executeQuery(createTableQuery);
-    executeQuery(createSubGroupTableQ);
+        executeQuery(createTableQuery);
+        executeQuery(createSubGroupTableQ);
     }
 
     public void insertRecord(){

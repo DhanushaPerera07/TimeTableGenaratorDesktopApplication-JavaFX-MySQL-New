@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -69,7 +70,7 @@ public class AddLocationsHallsPopUpController implements Initializable {
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
         ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
 
-        for (Tags tag : tagList){
+        for (Tags tag : tagList) {
             // sysout check
             tagHallLabComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
 
@@ -112,37 +113,49 @@ public class AddLocationsHallsPopUpController implements Initializable {
     /**
      * This method is used to insert a new location/room ( hall or lab )
      */
+    TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+
     public void insertRecord() {
 
-        // get user input
-        String location_name = txtHallLabName.getText();
-        String location_capacity = txtHallLabCapacity.getText();
-        String location_floor = txtHallLabFloor.getText();
-        String location_condition = conditionHallLabComboBox.getValue();
-        String faculty_delete_status = "N";
-        int building_building_id = this.buildingID;
-        int tag_tag_id = 0; //tagHallLabComboBox.getValue();
-        int subject_subject_id; //specializedForHallLabComboBox.getValue();
+        try {
+            // get user input
+            String location_name = txtHallLabName.getText();
 
-        // get tags details from the database and make a list.
-        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
-        ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
+            int location_capacity = Integer.parseInt(txtHallLabCapacity.getText());
+            int location_floor = Integer.parseInt(txtHallLabFloor.getText());
 
-        for (Tags tag : tagList){
-            // sysout check
-            if (tag.getTag().equals(tagHallLabComboBox.getValue())){ // get the tagID by passing tag name
-                tag_tag_id = tag.getTagID();
-                break;
-            }
+            String location_condition = conditionHallLabComboBox.getValue();
+            String faculty_delete_status = "N";
+            int building_building_id = this.buildingID;
+            int tag_tag_id = 0; //tagHallLabComboBox.getValue();
+            int subject_subject_id; //specializedForHallLabComboBox.getValue();
+
+            tag_tag_id = tagsDatabaseHelper.getTagInstanceByTagName(tagHallLabComboBox.getValue()).getTagID();
+            // get tags details from the database and make a list.
+
+            if (location_name.equals("") || location_condition.equals("") || faculty_delete_status.equals("") || tag_tag_id == 0 || building_building_id == 0) {
+                new Alert(Alert.AlertType.ERROR, "Error: Invalid Fields found.\nEmpty / Not selected field found.\nAll fields are required!").show();
+            } else {
+                try {
+                    // insert query
+                    String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`,`tag_tag_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id + "," + tag_tag_id + ")";
+
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    new Alert(Alert.AlertType.INFORMATION, "Insert successful !").show();
+                    closeAddHallLabPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR, "Error: Something went wrong when inserting data").show();
+                    e.printStackTrace();
+                }
+            }//else
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Error: Invalid inputs and\nNumberFormatException,\nlocation capacity,location floor no\nshould be only numbers.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Error: Something went wrong,\nEnter valid inputs,\ncheck inputs again.\nAll fields are required!").show();
+            e.printStackTrace();
         }
-
-        // insert query
-        String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`,`tag_tag_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id + "," + tag_tag_id +")";
-        //String query = "INSERT INTO `location` (`location_name`,`location_capacity`,`location_floor`,`location_condition`,`location_delete_status`,`building_building_id`) VALUES ('" + location_name + "', " + location_capacity + ", " + location_floor + ", '" + location_condition + "','" + faculty_delete_status + "'," + building_building_id +")";
-
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeAddHallLabPopUpForm();
 
     }
 

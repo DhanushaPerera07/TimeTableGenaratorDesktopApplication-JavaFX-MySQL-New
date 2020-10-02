@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="departmentItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController">
+<VBox fx:id="departmentItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="765.0" style="-fx-border-color: #26408B; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController">
     <children>
         <GridPane>
             <columnConstraints>
@@ -27,19 +27,19 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Label fx:id="txtDepartmentName" layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="Computer Science and Software Engineering" GridPane.columnIndex="1">
+                <Label fx:id="txtDepartmentName" layoutX="10.0" layoutY="16.0" style="-fx-font-weight: bold;" text="Computer Science and Software Engineering" textFill="#26408b" GridPane.columnIndex="1">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditDepartmentPopUp" size="2em" GridPane.columnIndex="2" />
-                <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteDepartmentConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
+                <FontAwesomeIcon fx:id="btnEditIcon" fill="#26408b" glyphName="EDIT" onMouseClicked="#openEditDepartmentPopUp" size="2em" GridPane.columnIndex="2" />
+                <FontAwesomeIcon fx:id="btnDeleteIcon" fill="#af1717" glyphName="TRASH" onMouseClicked="#openDeleteDepartmentConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
             </children>
         </GridPane>
         <GridPane>
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="105.5999984741211" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="375.2000015258789" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.4000244140625" minWidth="0.0" prefWidth="138.3999801635742" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="327.2000198364258" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.20002441406245" minWidth="10.0" prefWidth="92.39996337890625" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.40001220703118" minWidth="10.0" prefWidth="201.20003662109377" />
             </columnConstraints>

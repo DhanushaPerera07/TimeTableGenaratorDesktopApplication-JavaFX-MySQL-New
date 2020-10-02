@@ -6,6 +6,11 @@ public class TimeSlot {
     private double range_t;
     private String value_t;
 
+
+    //default constructor
+    public TimeSlot() {
+    }
+
     public TimeSlot(int slotsID, double range_t, String value_t) {
         this.slotsID = slotsID;
         this.range_t = range_t;

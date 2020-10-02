@@ -1,8 +1,12 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
+import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.PreferredLocation;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.PreferredLocationForSubject;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.FXCollections;
@@ -69,7 +73,7 @@ public class PreferredRoomForSubjectController implements Initializable {
     }
 
 
-    void initializeComboBoxes(){
+    void initializeComboBoxes() {
 
         txtHeaderBuildingName.setText(subject_name);
 
@@ -77,14 +81,14 @@ public class PreferredRoomForSubjectController implements Initializable {
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
         ObservableList<Tags> tagList = tagsDatabaseHelper.getTagList();
 
-        for (Tags tag : tagList){
+        for (Tags tag : tagList) {
             // sysout check
             selectTagComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
 
         }
-        selectTagComboBox.getSelectionModel().select("Lecture + Tutorial");
+        selectTagComboBox.getSelectionModel().select("Lecture");
 
-        selectTagComboBox.getSelectionModel().selectedItemProperty().addListener( (v,oldValue,newValue) -> {
+        selectTagComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             System.out.println("listener works !");
             System.out.println("oldValue : " + oldValue);
             System.out.println("newValue : " + newValue);
@@ -94,16 +98,16 @@ public class PreferredRoomForSubjectController implements Initializable {
     }
 
 
-
     @FXML
     void setOnActionBtnSearch(MouseEvent event) {
 
     }
 
 
-    /** This method is used to get subject ID from menura's part
+    /**
+     * This method is used to get subject ID from menura's part
      */
-    public void getInformationFromSubjectUI(int subjectID, String subjectName){
+    public void getInformationFromSubjectUI(int subjectID, String subjectName) {
         subject_id = subjectID;
         subject_name = subjectName;
         //tag_id = tagID;
@@ -112,13 +116,12 @@ public class PreferredRoomForSubjectController implements Initializable {
     }
 
 
-
     /**
      * populate halls and labs as rows,
      * then, user can select them or not
      * which means mark that room as a preferred room or not
      */
-    public void populateLocationRows(){
+    public void populateLocationRows() {
 
         locationsVBox.getChildren().clear();
 
@@ -126,29 +129,23 @@ public class PreferredRoomForSubjectController implements Initializable {
         Tags tag = new Tags();
         tag = tagsDatabaseHelper.getTagInstanceByTagName(selectTagComboBox.getValue());
 
-        ObservableList<Location> locationList;
+        ObservableList<PreferredLocationForSubject> preferredLocationForSubjectList;
 
         String tagName = tag.getTag();
 
-        if (tagName.equals("Lecture")){
-            locationList = getLocationList(tag.getTagID());
+        if (tagName.equals("Lecture")) {
+            preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else if (tagName.equals("Tutorial")) {
-            locationList = getLocationList(tag.getTagID());
+            preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else if (tagName.equals("Lecture + Tutorial")) {
-            locationList = getLocationList(tag.getTagID());
+            preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else if (tagName.equals("Evaluation")) {
-            locationList = getLocationList(tag.getTagID());
+            preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else {
-            locationList = getLocationList(0);
+            preferredLocationForSubjectList = getPreferredLocationForSubjectList(0);
         }
 
-
-        /*
-        for (Location location : locationList){
-            // sysout check
-            System.out.println("Location preferred for subject rec: " + location.toString());
-        }
-         */
+        System.out.println("Test sout: preferredLocationForSubjectList = " + preferredLocationForSubjectList.size());
 
         /**
          * Dynamically change the rows by getting data from the database
@@ -156,24 +153,19 @@ public class PreferredRoomForSubjectController implements Initializable {
          * I pass the building object to the locationItemForLecturer.fxml and populate the view
          */
         // Populate the rows like a table
-        Node[] nodes = new Node[locationList.size()];
+        Node[] nodes = new Node[preferredLocationForSubjectList.size()];
 
-        if (locationList.size() >= 0) {  // location table is not empty, there are some locations (halls/ lab)
-            for (int i = 0; i < locationList.size(); i++) {
+        if (preferredLocationForSubjectList.size() >= 0) {  // location table is not empty, there are some locations (halls/ lab)
+            for (int i = 0; i < preferredLocationForSubjectList.size(); i++) {
                 try {
-                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
-                    //facultyVBox.getChildren().addAll(nodes[i]);
 
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/SingleLocationItem/locationItem.fxml"));
-                    //Parent newRoot = loader.load();
-                    //Scene scene = new Scene(newRoot);
+
                     nodes[i] = (Node) loader.load();
                     LocationItemController locationItemController = loader.getController();
-                    //System.out.println("Test: locationList.get(i),this.subject_id: " + locationList.get(i) + " and" +this.subject_id);
-                    locationItemController.showPreferredLocationInformationForSubject(locationList.get(i),this.subject_id); // subject id should be got from Menura's part
-                    //facultyItemController = nodes[i].getController;
-                    //nodes[i] = (Node) loader.load();
+
+                    locationItemController.showPreferredLocationForSubjectInformationForSubject(preferredLocationForSubjectList.get(i), this.subject_id); // subject id should be got from Menura's part
 
                     locationsVBox.getChildren().addAll(nodes[i]);
                 } catch (IOException e) {
@@ -183,34 +175,14 @@ public class PreferredRoomForSubjectController implements Initializable {
             }
         }
 
-        /*
-        else {
-            // this means that no halls or labs are found
-            // so we gonna display that no halls or labs are found
-            Node nodeThatSaysNoFacultyFound;
-            try {
-
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/SingleLocationItem/locationItemNoContent.fxml"));
-                nodeThatSaysNoFacultyFound = (Node) loader.load();
-                locationsVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
-            } catch (IOException e) {
-                System.out.println("Error - preferred room for subject Loading ======================================");
-                e.printStackTrace();
-            }
-        } //else
-
-         */
-
-
     } //
 
     /**
      * this method is to get all the Locations in the location table but...
      * here, location table and preferred_room_for_subject table are being checked
      * returns locationList;
-     * */
-    public ObservableList<Location> getLocationList(int tagID) {
+     */
+  /*  public ObservableList<Location> getLocationList(int tagID) {
 
         // ============================================ DATABASE PART ===================================================================================
 
@@ -235,11 +207,11 @@ public class PreferredRoomForSubjectController implements Initializable {
 
         }
 
-        /*
+        *//*
         //query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+"";
         query = "SELECT l.*, IF(l.location_id = ps.location_location_id, TRUE, FALSE) AS suitableRoomTrue FROM location AS l, preferred_room_for_subject AS ps WHERE ps.subject_subject_id = "+this.subject_id+" AND ps.tag_tag_id = "+this.tag_id+"";
 
-         */
+         *//*
 
         Statement st;
         ResultSet rs;
@@ -268,11 +240,106 @@ public class PreferredRoomForSubjectController implements Initializable {
             ex.printStackTrace();
         }
         return locationList;
+    }*/
+
+
+    // ---------------------------------------------------------------------------------------------------------------
+
+
+    // database connection setup
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+    LocationHallLabDatabaseHelper locationHallLabDatabaseHelper = new LocationHallLabDatabaseHelper();
+
+    public ObservableList<PreferredLocationForSubject> getPreferredLocationForSubjectList(int tagID) {
+
+        // ============================================ DATABASE PART ===================================================================================
+
+        ObservableList<LocationHallLab> locationList = locationHallLabDatabaseHelper.getAllLocationHallLabList();
+        ObservableList<PreferredLocation> preferredLocationList = FXCollections.observableArrayList();
+        ObservableList<PreferredLocationForSubject> preferredLocationForSubjectsList = FXCollections.observableArrayList();
+
+        Connection conn = databaseHelper.getConnection();
+
+        // if the filter by combo box value is set as ALL, get all the departments
+        String query;
+
+        query = "SELECT ps.* " +
+                "FROM preferred_room_for_subject AS ps";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            PreferredLocation preferredLocation;
+            while (rs.next()) {
+
+                preferredLocation = new PreferredLocation();
+                preferredLocation.setPreferredRoomForSubjectID(rs.getInt("preferred_room_for_subject_id"));
+                preferredLocation.setSubjectSubjectID(rs.getInt("subject_subject_id"));
+                preferredLocation.setLocationLocationID(rs.getInt("location_location_id"));
+                preferredLocation.setTagTagID(rs.getInt("tag_tag_id"));
+
+                if (rs.getString("status_true").equals("Y")) {
+                    preferredLocation.setStatusTrue("Y");
+                } else {
+                    preferredLocation.setStatusTrue("N");
+                }
+
+                preferredLocationList.add(preferredLocation);
+            }
+
+
+            for (int i = 0; i < locationList.size(); i++) {
+
+                PreferredLocationForSubject preferredLocationForSubject = new PreferredLocationForSubject();
+                //preferredLocationForSubject.setLocationHallLab(locationList.get(i));
+
+                for (int j = 0; j < preferredLocationList.size(); j++) {
+                    int subjectID = preferredLocationList.get(j).getSubjectSubjectID();
+                    int preferredLocationID = preferredLocationList.get(j).getLocationLocationID();
+                    int preferredLocationTagID = preferredLocationList.get(j).getTagTagID();
+                    String preferredLocationStatusTrue = preferredLocationList.get(j).getStatusTrue();
+
+                    int locationID = locationList.get(i).getLocationID();
+                    // tagID
+
+                    if (subjectID == this.subject_id && preferredLocationID == locationID && preferredLocationTagID == tagID){
+                        preferredLocationForSubject.setLocationHallLab(locationList.get(i));
+                        preferredLocationForSubject.setPreferredLocation(preferredLocationList.get(j));
+                        break;
+
+                    } else {
+
+                        preferredLocationForSubject.setLocationHallLab(locationList.get(i));
+                        preferredLocationForSubject.setPreferredLocation(new PreferredLocation());
+
+                    }
+
+                }
+
+                if (locationList.get(i).getTagID() == tagID) {
+                    preferredLocationForSubjectsList.add(preferredLocationForSubject);
+                }
+
+            }
+
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return preferredLocationForSubjectsList;
     }
+
+
+    // ---------------------------------------------------------------------------------------------------------------
 
 
     /**
      * Get selected rooms and save
+     *
      * @param event
      */
     @FXML

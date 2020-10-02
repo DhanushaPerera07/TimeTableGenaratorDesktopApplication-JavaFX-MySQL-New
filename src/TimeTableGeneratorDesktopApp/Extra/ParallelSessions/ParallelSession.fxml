@@ -84,5 +84,15 @@
             <Font name="Bitstream Vera Sans Mono Bold" size="16.0" />
          </font>
       </Label>
+      <TextField fx:id="searchBox" layoutX="286.0" layoutY="42.0" onKeyReleased="#createTable" onKeyTyped="#searchRecord" promptText="search session 1">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="searchBox2" layoutX="286.0" layoutY="285.0" onKeyReleased="#createTable" onKeyTyped="#searchRecord2" promptText="search session 2">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

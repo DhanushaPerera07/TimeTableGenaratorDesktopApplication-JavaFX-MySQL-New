@@ -3,10 +3,13 @@ package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SessionNATime;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -59,6 +62,9 @@ public class SessionNATimeController implements Initializable {
     @FXML
     private Button addBtn;
 
+    @FXML
+    private TextField searchBox;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,7 +72,7 @@ public class SessionNATimeController implements Initializable {
         setValuesCombo();
         createTable();
         showSessions();
-        
+
 
     }
 
@@ -99,7 +105,26 @@ public class SessionNATimeController implements Initializable {
         }
     }
 
+    @FXML
+    public void searchRecord(KeyEvent ke) {
+        FilteredList<Sessions> filterData = new FilteredList<>(getSessionsList(), p -> true);
+        searchBox.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
+            filterData.setPredicate(session -> {
+                if (newvalue == null || newvalue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (session.getSessionGenID().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                return false;
+            });
+            SortedList<Sessions> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(sessionListTV.comparatorProperty());
+            sessionListTV.setItems(sortedList);
 
+        });
+    }
 
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
@@ -188,10 +213,10 @@ public class SessionNATimeController implements Initializable {
 
 
     private void showSessionNATimes() {
-            ObservableList<NATSessions> list = getSessionsNATImeList();
-            dayCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Day"));
-            hourCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Hour"));
-            NATimeTV.setItems(list);
+        ObservableList<NATSessions> list = getSessionsNATImeList();
+        dayCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Day"));
+        hourCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Hour"));
+        NATimeTV.setItems(list);
 
 
     }

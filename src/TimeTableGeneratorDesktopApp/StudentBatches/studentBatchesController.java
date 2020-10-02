@@ -5,6 +5,8 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -98,6 +101,9 @@ public class studentBatchesController implements Initializable {
 
     @FXML
     private ComboBox<String> CBFilter2;
+
+    @FXML
+    private TextField searchBox;
 
 
     @FXML
@@ -304,6 +310,7 @@ public class studentBatchesController implements Initializable {
                             rowID=0;
 
                             showBatches();
+
                         }
 
                     });
@@ -435,6 +442,42 @@ public class studentBatchesController implements Initializable {
     }
 
 
+
+
+    @FXML
+    public void searchRecord(KeyEvent ke){
+        FilteredList<StudentBatches> filterData = new FilteredList<>(getBatchesList(),p->true);
+        searchBox.textProperty().addListener((obsevable,oldvalue,newvalue) -> {
+            filterData.setPredicate(stud ->{
+                if(newvalue == null || newvalue.isEmpty()){
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (stud.getBatchID().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                } if (stud.getFaculty().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                } if (stud.getProgramme().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                } if (stud.getCenter().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                } if (stud.getIntake().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                } if (stud.getSemester().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                } if (stud.getYear().toLowerCase().indexOf(typedText)!=-1){
+                    return true;
+                }
+                return false;
+            });
+            SortedList<StudentBatches> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(tvBatches.comparatorProperty());
+            tvBatches.setItems(sortedList);
+
+        });
+
+
+    }
 
 
 }

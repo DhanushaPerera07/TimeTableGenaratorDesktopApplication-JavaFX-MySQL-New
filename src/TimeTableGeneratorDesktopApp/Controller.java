@@ -5,8 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,9 +26,11 @@ public class Controller implements Initializable {
      */
     static {
         System.out.println("Testing sout: This is where the creating database process happens\n(database is not creating right now this is a test sout)");
+        //getMySQLDetails();
         createDatabase();
 
     }
+
 
     static void createDatabase(){
         DatabaseCreation databaseCreation = new DatabaseCreation();
@@ -163,4 +169,29 @@ public class Controller implements Initializable {
 
     }
      */
+
+
+    @FXML
+    void handleActionOnMySqlSettingsButton(ActionEvent event) {
+        getMySQLDetails();
+    }
+
+    public void getMySQLDetails(){
+        // open up the POP UP
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("/TimeTableGeneratorDesktopApp/GetMySqlConnectionDetails/GetMySqlConnection.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Set MySQL Connection Details");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
+            stage.initOwner(mainPane.getScene().getWindow());
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }catch (Exception e){
+            System.out.println("Exception / Error - When Opening GetMySqlConnection.fxml as a pop up ==========================");
+            e.printStackTrace();
+        }
+    }
 }

@@ -14,7 +14,7 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <TableView fx:id="lecTV" layoutX="61.0" layoutY="57.0" onMouseClicked="#handleMouseAction" prefHeight="317.0" prefWidth="197.0">
+      <TableView fx:id="lecTV" layoutX="61.0" layoutY="91.0" onMouseClicked="#handleMouseAction" prefHeight="280.0" prefWidth="197.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="54.0" text="ID" />
           <TableColumn fx:id="nameCol" prefWidth="145.0" text="Name" />
@@ -45,5 +45,10 @@
             <DropShadow />
          </effect>
       </Pane>
+      <TextField fx:id="searchBox" layoutX="61.0" layoutY="65.0" onKeyReleased="#createTable" onKeyTyped="#searchRecord" prefHeight="19.0" prefWidth="197.0" promptText="search for a lecturer">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
    </children>
 </Pane>

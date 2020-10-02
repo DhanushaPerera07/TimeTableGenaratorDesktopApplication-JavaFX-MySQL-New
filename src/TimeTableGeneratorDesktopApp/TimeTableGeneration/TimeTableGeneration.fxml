@@ -23,7 +23,6 @@
          <children>
             <Button layoutX="52.0" layoutY="23.0" mnemonicParsing="false" onAction="#timeTableGenerate" text="Generate Time Tables" />
             <Button fx:id="hallViewBtn" layoutX="482.0" layoutY="23.0" mnemonicParsing="false" onAction="#hallView" text="Hall View" />
-            <Button layoutX="656.0" layoutY="23.0" mnemonicParsing="false" text="Print" />
             <Button fx:id="lecturerViewBtn" layoutX="357.0" layoutY="23.0" mnemonicParsing="false" onAction="#lecturerView" text="Lecturer View" />
             <Button fx:id="studentViewBtn" layoutX="233.0" layoutY="23.0" mnemonicParsing="false" onAction="#studentView" text="Students View" />
          </children>
