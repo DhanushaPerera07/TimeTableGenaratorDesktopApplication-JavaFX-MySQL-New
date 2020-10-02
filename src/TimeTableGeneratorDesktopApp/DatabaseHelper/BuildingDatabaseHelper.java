@@ -147,5 +147,48 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
             ex.printStackTrace();
         }
         return buildingList;
+    }//
+
+
+    // ------------------------------------------------------------------------------------------------
+
+    public ObservableList<Building> getBuildingListByBuildingName(String newValue) {
+
+        ObservableList<Building> buildingList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+
+        String query = "SELECT * FROM building WHERE building_name LIKE '%"+ newValue +"%' AND building_delete_status = 'N' ORDER BY building_name";
+
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Building building;
+            while (rs.next()) {
+                building = new Building(
+                        rs.getInt("building_id"),
+                        rs.getString("building_name"),
+                        rs.getInt("building_no_of_floors"),
+                        rs.getInt("building_capacity"),
+                        rs.getString("building_center"),
+                        rs.getString("building_condition"),
+                        rs.getString("building_specialized_for"),
+                        rs.getInt("building_no_of_lecture_halls"),
+                        rs.getInt("building_no_of_tutorial_halls"),
+                        rs.getInt("building_no_of_labs"),
+                        rs.getInt("faculty_faculty_id")
+                );
+                buildingList.add(building);
+            }
+
+        } catch (Exception ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        return buildingList;
     }
+
+    // ------------------------------------------------------------------------------------------------
 }

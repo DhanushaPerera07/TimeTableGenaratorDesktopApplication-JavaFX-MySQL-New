@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -24,6 +25,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class sessionController implements Initializable {
@@ -39,15 +42,37 @@ public class sessionController implements Initializable {
     @FXML
     private VBox sessionsVBox;
 
+    @FXML
+    private ComboBox<String> filter1;
+
+    @FXML
+    private ComboBox<String> filter2;
+
     Sessions s;
+    public static String filterType = "All";
+    public static String filterValue = "";
+
+    ArrayList<String> subjects = new ArrayList<String>();
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        filter1.getItems().removeAll(filter1.getItems());
+        filter1.getItems().addAll(
+                "All", "Lecturer", "Subject", "Group ID", "Duration"
+        );
+
         print();
 
         createTablesSessions();
 
+        showSessions();
+
+    }
+
+    public void showSessions(){
         ObservableList<Sessions> sessionsList = getSessionsList();
 
         Node[] nodes = new Node[sessionsList.size()];
@@ -121,6 +146,7 @@ public class sessionController implements Initializable {
                 public void handle(WindowEvent windowEvent) {
                     String dropTempSessions = "Drop TABLE temp_session_lecturer";
                     executeQuery(dropTempSessions);
+                    showSessions();
 
                 }
             });
@@ -164,6 +190,59 @@ public class sessionController implements Initializable {
 
     @FXML
     public void selectFilterType(ActionEvent actionEvent) {
+        if(filterType.equals("All")){
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.getItems().addAll(
+                    "All"
+            );
+        }
+        else if (filterType.equals("Lecturer")){
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.getItems().addAll(
+                    "All"
+            );
+        }
+        else if (filterType.equals("Subject")){
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.setItems(FXCollections.observableArrayList(getSubjects()));
+        }
+        else if (filterType.equals("Group ID")){
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.getItems().addAll(
+                    "All"
+            );
+        }
+        else if (filterType.equals("Duration")){
+            filter2.getItems().removeAll(filter2.getItems());
+            filter2.setPromptText("Select");
+            filter2.getItems().addAll(
+                    "1","2","3","4","5","6"
+            );
+        }
+    }
+
+    public List<String> getSubjects(){
+        Connection con = getConnection();
+        try{
+            Statement st;
+            ResultSet rs;
+            // assume that all objects were all properly defined
+            st = con.createStatement();
+            st.executeQuery("SELECT moduleName FROM module ORDER BY moduleName");
+            rs = st.getResultSet();
+            while(rs.next()){
+                String c = rs.getString("moduleName");
+                subjects.add(c);
+            }
+            return subjects;
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

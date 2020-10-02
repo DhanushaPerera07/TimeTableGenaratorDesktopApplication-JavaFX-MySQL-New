@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -39,6 +40,11 @@ public class FacultyDepartmentsController implements  Initializable{
     // Logger
     public static final Logger log = Logger.getLogger(FacultyDepartmentsController.class.getName());
 
+/*    public static Boolean variable = false;*/
+
+    //variables used to hold values
+    String searchText;
+
     // components in the UI
     @FXML
     private VBox facultyVBox=null;
@@ -56,6 +62,9 @@ public class FacultyDepartmentsController implements  Initializable{
 
     @FXML
     private Button btnSearchFaculty;
+
+    @FXML
+    private Label lblFilterBy;
 
     @FXML
     private ComboBox<String> facultyFilterByComboBox;
@@ -83,6 +92,57 @@ public class FacultyDepartmentsController implements  Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initializeComboBoxes();
+        populateRows();
+
+
+    } // end - initialize
+
+    // ------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * this method initialize the combobox(s) with the provided values
+     */
+    private void initializeComboBoxes() {
+
+        // hide unwanted UI components
+        btnSearchFaculty.setVisible(false);
+        lblFilterBy.setVisible(false);
+        facultyFilterByComboBox.setVisible(false);
+        facultyMoreComboBox.setVisible(false);
+
+
+        // filter by combobox
+        facultyFilterByComboBox.getItems().addAll(
+                "Select ALL",
+                "IT",
+                "Blah Blah"
+        );
+        facultyFilterByComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+
+        // More combobox
+        facultyMoreComboBox.getItems().addAll(
+                "Print",
+                "Do something new",
+                "Blah Blah"
+        );
+
+        // prompt text
+        facultyMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
+
+        facultySearchTxtBox.textProperty().addListener((v,oldValue,newValue) -> {
+            if(newValue.trim().equals("") || newValue == null){
+                populateRows();
+            } else {
+                populateRowsAccordingToSearchBoxValue(newValue);
+            }
+        });
+
+    }
+
+
+    private void populateRows(){
+
+        facultyVBox.getChildren().clear();
 
         FacultyDatabaseHelper  facultyDatabaseHelper = new FacultyDatabaseHelper();
         ObservableList<Faculty> facultyList = facultyDatabaseHelper.getFacultyList();
@@ -98,7 +158,7 @@ public class FacultyDepartmentsController implements  Initializable{
          * facultyItem.fxml is used as the UI, it acts as a customized data row
          * I pass the faculty object to the facultyItem.fxml and populate the view
          */
-        // Populate the rows like a table 
+        // Populate the rows like a table
         Node [] nodes = new Node[facultyList.size()];
 
         if (facultyList.size() != 0) {
@@ -138,36 +198,74 @@ public class FacultyDepartmentsController implements  Initializable{
                 e.printStackTrace();
             }
         }
-    } // end - initialize
+    }//
 
 
-    /**
-     * this method initialize the combobox(s) with the provided values
-     */
-    private void initializeComboBoxes() {
+    // --------------------------------------------------------------------------------------------------------
 
-        // filter by combobox
-        facultyFilterByComboBox.getItems().addAll(
-                "Select ALL",
-                "IT",
-                "Blah Blah"
-        );
-        facultyFilterByComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
+    private void populateRowsAccordingToSearchBoxValue(String value) {
 
-        // More combobox
-        facultyMoreComboBox.getItems().addAll(
-                "Print",
-                "Do something new",
-                "Blah Blah"
-        );
+        facultyVBox.getChildren().clear();
 
-        // prompt text
-        facultyMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
-    }
+        FacultyDatabaseHelper  facultyDatabaseHelper = new FacultyDatabaseHelper();
+        ObservableList<Faculty> facultyList = facultyDatabaseHelper.getFacultyList(value);
+
+        for (Faculty faculty : facultyList){
+            // sysout check
+            //System.out.println("faculty table rec: " + faculty.toString());
+            log.info("faculty table rec: " + faculty.toString());
+        }
+
+        /**\
+         * Dynamically change the rows by getting data from the database
+         * facultyItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the faculty object to the facultyItem.fxml and populate the view
+         */
+        // Populate the rows like a table
+        Node [] nodes = new Node[facultyList.size()];
+
+        if (facultyList.size() != 0) {
+            for (int i = 0; i < facultyList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //facultyVBox.getChildren().addAll(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //Parent newRoot = loader.load();
+                    //Scene scene = new Scene(newRoot);
+                    nodes[i] = (Node) loader.load();
+                    FacultyItemController facultyItemController = loader.getController();
+                    facultyItemController.showInformation(facultyList.get(i));
+                    //facultyItemController = nodes[i].getController;
+                    //nodes[i] = (Node) loader.load();
+
+                    facultyVBox.getChildren().addAll(nodes[i]);
+                } catch (IOException e) {
+                    System.out.println("Error - FacultyItem Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // this means that no faculty is found
+            // so we gonna display that no faculties are found
+            Node nodeThatSaysNoFacultyFound;
+            try {
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItemNoContent.fxml"));
+                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                facultyVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
+            } catch (IOException e) {
+                System.out.println("Error - FacultyItemNoContent Loading ======================================");
+                e.printStackTrace();
+            }
+        }
+
+    }//
 
 
-
-
+    // --------------------------------------------------------------------------------------------------------
 
 
     // ADD BUTTON - opens the pop up window, so user can add a faculty
@@ -206,12 +304,15 @@ public class FacultyDepartmentsController implements  Initializable{
 
     public void populateAndRefreshFacultyDataRow() {
 
+        facultyVBox.getChildren().clear();
+
         FacultyDatabaseHelper  facultyDatabaseHelper = new FacultyDatabaseHelper();
         ObservableList<Faculty> facultyList = facultyDatabaseHelper.getFacultyList();
 
-        for (Faculty faculty : facultyList) {
+        for (Faculty faculty : facultyList){
             // sysout check
-            System.out.println("faculty table rec: " + faculty.toString());
+            //System.out.println("faculty table rec: " + faculty.toString());
+            log.info("faculty table rec: " + faculty.toString());
         }
 
         /**\
@@ -220,7 +321,7 @@ public class FacultyDepartmentsController implements  Initializable{
          * I pass the faculty object to the facultyItem.fxml and populate the view
          */
         // Populate the rows like a table
-        Node[] nodes = new Node[facultyList.size()];
+        Node [] nodes = new Node[facultyList.size()];
 
         if (facultyList.size() != 0) {
             for (int i = 0; i < facultyList.size(); i++) {
@@ -229,7 +330,7 @@ public class FacultyDepartmentsController implements  Initializable{
                     //facultyVBox.getChildren().addAll(nodes[i]);
 
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
                     //Parent newRoot = loader.load();
                     //Scene scene = new Scene(newRoot);
                     nodes[i] = (Node) loader.load();
@@ -244,15 +345,14 @@ public class FacultyDepartmentsController implements  Initializable{
                     e.printStackTrace();
                 }
             }
-
         } else {
             // this means that no faculty is found
             // so we gonna display that no faculties are found
-
+            Node nodeThatSaysNoFacultyFound;
             try {
-                Node nodeThatSaysNoFacultyFound;
+
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItemNoContent.fxml"));
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItemNoContent.fxml"));
                 nodeThatSaysNoFacultyFound = (Node) loader.load();
                 facultyVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
             } catch (IOException e) {
@@ -262,5 +362,21 @@ public class FacultyDepartmentsController implements  Initializable{
         }
     }
 
+
+
+    // -------------------------------------------------------------------------------------------------
+
+
+
+    // refreshing and populate rows
+
+/*    public void changeVariableStatusToTrue(){
+        variable = true;
+    }*/
+
+
+
+
+    // --------------------------------------------------------------------------------------------------
 
 }

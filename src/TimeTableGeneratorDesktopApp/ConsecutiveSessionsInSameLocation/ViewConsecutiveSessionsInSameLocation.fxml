@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="borderPaneLocationsHallsInsideBuildingMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ViewConsecutiveSessionsInSameLocationController">
+    <top>
+        <GridPane prefHeight="66.0" prefWidth="770.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="77.59999618530273" minHeight="10.0" prefHeight="77.59999618530273" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="67.5999969482422" minHeight="10.0" prefHeight="28.000003814697266" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox prefHeight="46.0" prefWidth="760.0">
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="txtHeaderLabsHalls" alignment="TOP_LEFT" text="View all consecutive sessions which already set in a location">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets top="10.0" />
+                                    </padding>
+                                </Label>
+                            </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                        </HBox>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </VBox>
+            </children>
+        </GridPane>
+    </top>
+    <center>
+        <ScrollPane prefHeight="430.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <content>
+                <VBox fx:id="locationsVBox" />
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

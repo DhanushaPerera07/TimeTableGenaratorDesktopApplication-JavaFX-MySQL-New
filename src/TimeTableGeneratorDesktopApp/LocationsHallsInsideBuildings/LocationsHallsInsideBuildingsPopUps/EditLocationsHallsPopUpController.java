@@ -128,7 +128,7 @@ public class EditLocationsHallsPopUpController implements Initializable {
         Optional<ButtonType> result = editHallLabAlert.showAndWait();
         if (result.get() == EditBtn){
             editUpdateRecord(locationID); // parameter: facultyID is passed here, it is used to update the record.
-            System.out.println("Hall/lab is edited/updated successfully");
+            //System.out.println("Hall/lab is edited/updated successfully");
         } else {
             System.out.println("Clicked Cancel Button - (edit/update a hall/lab)");
         }
@@ -139,34 +139,54 @@ public class EditLocationsHallsPopUpController implements Initializable {
     /**
      * This method is used to insert a new faculty
      */
+    TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
     public void editUpdateRecord(int locationID){
 
         // local variables created to get the user input from the pop up form
 
         // get user input
-        //int lecturer_emp_id = 1;
 
-        int location_id = locationID; // this is the id of the record which is to be updated
-        String location_name = txtHallLabName.getText();
-        String location_capacity = txtHallLabCapacity.getText();
-        String location_floor = txtHallLabFloor.getText();
-        String location_condition = conditionHallLabComboBox.getValue();
-        int building_building_id = this.buildingID;   // facultyHeadComboBox.getValue();
-        int tag_tag_id = this.tagID; // facultyHeadComboBox.getValue();
+        try {
+            int location_id = locationID; // this is the id of the record which is to be updated
+            String location_name = txtHallLabName.getText();
 
-        // String faculty_delete_status = "N"; // this is not used in here
+            int location_capacity = Integer.parseInt(txtHallLabCapacity.getText());
+            int location_floor = Integer.parseInt(txtHallLabFloor.getText());
+
+            String location_condition = conditionHallLabComboBox.getValue();
+            int building_building_id = this.buildingID;   // facultyHeadComboBox.getValue();
+            //int tag_tag_id = this.tagID; // facultyHeadComboBox.getValue();
+            int tag_tag_id = tagsDatabaseHelper.getTagInstanceByTagName(tagHallLabComboBox.getValue()).getTagID();
+
+            // String faculty_delete_status = "N"; // this is not used in here
+
+            if (location_name.equals("") || location_condition.equals("") || tag_tag_id == 0 || building_building_id == 0 || location_id == 0) {
+                new Alert(Alert.AlertType.ERROR, "Error: Invalid Fields found.\nEmpty / Not selected field found.\nAll fields are required!").show();
+            } else  {
+                try {
+                    // update query
+                    String query = "UPDATE `location` SET location_name = '" +location_name+ "', location_capacity = " +location_capacity+
+                            ", location_floor = " +location_floor+ ", location_condition = '" +location_condition+ "', building_building_id = "
+                            +building_building_id+
+                            ",tag_tag_id = "+tag_tag_id+" WHERE location_id = " +location_id+ "";
 
 
-        // update query
-        String query = "UPDATE `location` SET location_name = '" +location_name+ "', location_capacity = " +location_capacity+
-                ", location_floor = " +location_floor+ ", location_condition = '" +location_condition+ "', building_building_id = "
-                +building_building_id+
-                ",tag_tag_id = "+tag_tag_id+" WHERE location_id = " +location_id+ "";
-
-
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeEditFacultyPopUpForm();
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    new Alert(Alert.AlertType.INFORMATION,"Update successful !").show();
+                    closeEditFacultyPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when updating data").show();
+                    e.printStackTrace();
+                }
+            }//else
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Error: Invalid inputs and\nNumberFormatException,\nlocation capacity,location floor no\nshould be only numbers.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Error: Something went wrong,\nEnter valid inputs,\ncheck inputs again.\nAll fields are required!").show();
+            e.printStackTrace();
+        }
 
     }
 

@@ -1,8 +1,12 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.HallsLabsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
+import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
+import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
+import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.PreferredLocationForSubject;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +22,8 @@ public class LocationItemController implements Initializable {
 
 
     // variable to hold location object
-    Location location;
+    //Location location;
+    PreferredLocationForSubject preferredLocationForSubject;
     int subjectID;
     boolean checkBoxCheckedOrNotAccordingToDataBase;
 
@@ -55,7 +60,62 @@ public class LocationItemController implements Initializable {
 
     }
 
-    public void showPreferredLocationInformationForSubject(Location location, int subjectID) {
+
+    // -------------------------------------------------------------------------------------------------------
+
+    public void showPreferredLocationForSubjectInformationForSubject(PreferredLocationForSubject preferredLocationForSubject, int subjectID) {
+
+        //this.location = location;
+        this.preferredLocationForSubject = preferredLocationForSubject;
+        this.subjectID = subjectID;
+        boolean suitableRoomTrue;
+
+        System.out.println("test preferredLocationForSubject: " + this.preferredLocationForSubject.toString());
+
+        txtLocationHallLabName.setText(this.preferredLocationForSubject.getLocationHallLab().getLocationName());
+        //txtLocationHallLabTag.setText(Integer.toString(location.getTagID()));
+
+        TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
+        Tags tag = tagsDatabaseHelper.getTagInstanceByTagID(this.preferredLocationForSubject.getLocationHallLab().getTagID());
+        txtLocationHallLabTag.setText(tag.getTag());
+
+        txtLocationHallLabCapacity.setText(Integer.toString(this.preferredLocationForSubject.getLocationHallLab().getLocationCapacity()));
+        txtLocationHallLabFloor.setText(Integer.toString(this.preferredLocationForSubject.getLocationHallLab().getLocationFloor()));
+
+        BuildingDatabaseHelper buildingDatabaseHelper = new BuildingDatabaseHelper();
+
+        Building buildingInstance = buildingDatabaseHelper.getBuildingInstance(this.preferredLocationForSubject.getLocationHallLab().getBuildingID());
+
+        txtLocationHallLabBuilding.setText(buildingInstance.getBuildingName());
+
+        txtLocationHallLabSpecializedModule.setText("None");
+
+        txtLocationHallLabCondition.setText(this.preferredLocationForSubject.getLocationHallLab().getLocationCondition());
+
+        /** if location is already marked as a preferred room for the particular subject,
+         * check box is checked otherwise it is not checked..
+         */
+
+        if (this.preferredLocationForSubject.getPreferredLocation().getStatusTrue().equals("Y")) {
+            suitableRoomTrue = true;
+        } else {
+            suitableRoomTrue = false;
+        }
+
+/*        //System.out.println("location.getSuitableRoomTrue() = " + location.getSuitableRoomTrue());
+        if ( == 1) {
+            suitableRoomTrue = true;
+        } else {
+            suitableRoomTrue = false;
+        }*/
+
+        checkBoxCheckedOrNotAccordingToDataBase = suitableRoomTrue; // remember checkBox is checked already
+        checkBoxMarkAsSuitableRoom.setSelected(suitableRoomTrue);
+    }
+
+    // -------------------------------------------------------------------------------------------------------
+
+    /*public void showPreferredLocationInformationForSubject(Location location, int subjectID) {
 
         this.location = location;
         this.subjectID = subjectID;
@@ -76,9 +136,11 @@ public class LocationItemController implements Initializable {
         txtLocationHallLabSpecializedModule.setText("None");
         txtLocationHallLabCondition.setText(location.getLocationCondition());
 
-        /** if location is already marked as a preferred room for the particular subject,
-         * check box is checked otherwise it is not checked..
-         */
+        */
+    /**
+     * if location is already marked as a preferred room for the particular subject,
+     * check box is checked otherwise it is not checked..
+     *//*
 
        //System.out.println("location.getSuitableRoomTrue() = " + location.getSuitableRoomTrue());
         if (location.getSuitableRoomTrue() == 1) {
@@ -89,9 +151,10 @@ public class LocationItemController implements Initializable {
 
         checkBoxCheckedOrNotAccordingToDataBase = suitableRoomTrue; // remember checkBox is checked already
         checkBoxMarkAsSuitableRoom.setSelected(suitableRoomTrue);
-    }
+    }*/
 
     HallsLabsDatabaseHelper hallsLabsDatabaseHelper = new HallsLabsDatabaseHelper();
+
     // have to deal with the changes of the checkbox
     @FXML
     void changeCheckBoxValueOfSuitableRoom(MouseEvent event) {
@@ -101,16 +164,16 @@ public class LocationItemController implements Initializable {
 
         System.out.println("checkbox is clicked");
 
-        if ((checkBoxCheckedOrNotAccordingToDataBase == true && checkBoxMarkAsSuitableRoom.isSelected()) && (checkBoxCheckedOrNotAccordingToDataBase == false && checkBoxMarkAsSuitableRoom.isSelected() == false)){
+        if ((checkBoxCheckedOrNotAccordingToDataBase == true && checkBoxMarkAsSuitableRoom.isSelected()) && (checkBoxCheckedOrNotAccordingToDataBase == false && checkBoxMarkAsSuitableRoom.isSelected() == false)) {
             System.out.println("nothing major happens");
         } else {
             // want to make a change
             // UPDATE preferred_room_for_subject SET status_true = 'Y' WHERE preferred_room_for_subject_id = **** >;
 
-            if (checkBoxCheckedOrNotAccordingToDataBase == true &&  checkBoxMarkAsSuitableRoom.isSelected() == false){
-                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a NOT preferable location";
+            if (checkBoxCheckedOrNotAccordingToDataBase == true && checkBoxMarkAsSuitableRoom.isSelected() == false) {
+                alertHeaderText = "Do you really want to make " + this.preferredLocationForSubject.getLocationHallLab().getLocationName() + " as a NOT preferable location";
             } else {
-                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a preferable location";
+                alertHeaderText = "Do you really want to make " + this.preferredLocationForSubject.getLocationHallLab().getLocationName() + " as a preferable location";
             }
 
 
@@ -123,7 +186,7 @@ public class LocationItemController implements Initializable {
             ButtonType EditBtn = new ButtonType("CONFIRM");
             ButtonType CancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-            editSuitableRoomTrueAlert.getButtonTypes().setAll(EditBtn,CancelBtn);
+            editSuitableRoomTrueAlert.getButtonTypes().setAll(EditBtn, CancelBtn);
 
             Optional<ButtonType> result = editSuitableRoomTrueAlert.showAndWait();
 
@@ -135,12 +198,12 @@ public class LocationItemController implements Initializable {
                 checkBoxSelectedOrNot = false;
             }
 
-            if (result.get() == EditBtn){
-                hallsLabsDatabaseHelper.setPreferredRoomsForSubject(hallsLabsDatabaseHelper.checkPreferredRoomsForSubject(this.subjectID, this.location.getLocationID(), this.location.getTagID(),checkBoxSelectedOrNot));
+            if (result.get() == EditBtn) {
+                hallsLabsDatabaseHelper.setPreferredRoomsForSubject(hallsLabsDatabaseHelper.checkPreferredRoomsForSubject(this.subjectID, this.preferredLocationForSubject.getLocationHallLab().getLocationID(), this.preferredLocationForSubject.getLocationHallLab().getTagID(), checkBoxSelectedOrNot));
 
             } else {
                 checkBoxMarkAsSuitableRoom.setSelected(checkBoxCheckedOrNotAccordingToDataBase);
-                System.out.println("Clicked Cancel Button - (edit/update a faculty)");
+                System.out.println("Clicked Cancel Button - a preferred location for subject)");
             }
 
         }

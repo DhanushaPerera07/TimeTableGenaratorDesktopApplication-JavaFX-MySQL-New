@@ -110,9 +110,9 @@ public class LocationItemForStudentBatchController implements Initializable {
             // UPDATE preferred_room_for_subject SET status_true = 'Y' WHERE preferred_room_for_subject_id = **** >;
 
             if (checkBoxCheckedOrNotAccordingToDataBase == true &&  checkBoxMarkAsSuitableRoom.isSelected() == false){
-                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a NOT preferable location";
+                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a NOT suitable location";
             } else {
-                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a preferable location";
+                alertHeaderText = "Do you really want to make " + this.location.getLocationName() + " as a suitable location";
             }
 
 
@@ -142,7 +142,7 @@ public class LocationItemForStudentBatchController implements Initializable {
 
             } else {
                 checkBoxMarkAsSuitableRoom.setSelected(checkBoxCheckedOrNotAccordingToDataBase);
-                System.out.println("Clicked Cancel Button - (edit/update a faculty)");
+                System.out.println("Clicked Cancel Button - (update a suitable location for student batch)");
             }
 
         }

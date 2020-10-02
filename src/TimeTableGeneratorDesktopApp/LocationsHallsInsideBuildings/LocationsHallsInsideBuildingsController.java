@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings;
 
+import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionsInSameLocationController;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController;
@@ -48,6 +49,9 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
     private TextField locationsHallsInsideSearchTxtBox;
 
     @FXML
+    private Label lblFilterBy;
+
+    @FXML
     private Button btnSearchLocationsHallsInside;
 
     @FXML
@@ -78,7 +82,7 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
 
         // combobox(s) are being initialized
         initializationCombobox();
-
+        populateRows();
         /*
         // Populate the rows like a table
         Node[] nodes = new Node[10];
@@ -100,6 +104,13 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
 
 
     private void initializationCombobox() {
+
+        // set UI components are hidden
+        btnSearchLocationsHallsInside.setVisible(false);
+        lblFilterBy.setVisible(false);
+        locationsHallsInsideFilterByComboBox.setVisible(false);
+        //locationsHallsInsideMoreComboBox.setVisible(false);
+
         // filter by combobox
         locationsHallsInsideFilterByComboBox.getItems().addAll(
                 "Select ALL",
@@ -115,12 +126,125 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
         // filter by combobox
         locationsHallsInsideMoreComboBox.getItems().addAll(
                 "More options",
-                "More Options If Any",
-                "More Options If Any",
-                "Blah Blah"
+                "View Consecutive Sessions in same location"
         );
         locationsHallsInsideMoreComboBox.getSelectionModel().selectFirst(); // selects the first one in the dropdown
 
+        locationsHallsInsideMoreComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+            System.out.println("listener works !");
+            System.out.println("oldValue : " + oldValue);
+            System.out.println("newValue : " + newValue);
+
+            if (newValue.equals("View Consecutive Sessions in same location")){
+                System.out.println("Clicked - Open Pop Up to view consecutive sessions in same location");
+
+                // open up the POP UP
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ConsecutiveSessionsInSameLocation/ViewConsecutiveSessionsInSameLocation.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+
+/*                    ConsecutiveSessionsInSameLocationController consecutiveSessionsInSameLocationController = fxmlLoader.getController();
+                    consecutiveSessionsInSameLocationController.getInformationFromLocationsHallsLabsInsideBuildingsUI(this.locationHallLab);*/
+
+                    Stage stage = new Stage();
+
+                  /*  SingleConsecutiveSessionItemController singleConsecutiveSessionItemController = fxmlLoader.getController();
+                    singleConsecutiveSessionItemController.showConsecutiveSessionInformation(this.locationHallLab);*/
+
+
+                    stage.setTitle("View Consecutive Sessions in Same Location");
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.initOwner(borderPaneLocationsHallsInsideBuildingMain.getScene().getWindow());
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("Exception - When Opening ConsecutiveSessionsInSameLocation.fxml as a pop up ");
+                    e.printStackTrace();
+                }
+            }
+
+
+            locationsHallsInsideMoreComboBox.getSelectionModel().select("More options");
+        });
+
+        locationsHallsInsideSearchTxtBox.textProperty().addListener((v,oldValue,newValue) -> {
+            if(newValue.trim().equals("") || newValue == null){
+                populateRows();
+            } else {
+                long t1  = System.currentTimeMillis();
+                populateRowsAccordingToSearchBoxValue(newValue);
+                long t2  = System.currentTimeMillis();
+                System.out.println("Test sout: time calculation : " + (t2-t1));
+            }
+        });
+
+    } // initComboBox
+
+
+    private void populateRows() {
+        populateHallLabRows();
+    }//
+
+
+    // ------------------------------------------------------------------------------------------------------------
+
+    private void populateRowsAccordingToSearchBoxValue(String newValue) {
+
+        locationsVBox.getChildren().clear();
+
+        ObservableList<LocationHallLab> locationHallLabList = new LocationHallLabDatabaseHelper().getLocationHallLabListByLocationName(newValue,buildingID);
+
+        for (LocationHallLab locationHallLab : locationHallLabList){
+            // sysout check
+            System.out.println("Hall or Lab rec: " + locationHallLab.toString());
+        }
+
+        /**
+         * Dynamically change the rows by getting data from the database
+         * LocationsBuildingItem.fxml is used as the UI, it acts as a customized data row
+         * I pass the building object to the LocationsBuildingItem.fxml and populate the view
+         */
+        // Populate the rows like a table
+        Node [] nodes = new Node[locationHallLabList.size()];
+
+        if (locationHallLabList.size() != 0) {
+            for (int i = 0; i < locationHallLabList.size(); i++) {
+                try {
+                    //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyItem/FacultyItem.fxml"));
+                    //facultyVBox.getChildren().addAll(nodes[i]);
+
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsHallsInsideBuildings/LocationsHallsInsideBuildingsItem/LocationsHallsInsideBuildingsItem.fxml"));
+                    //Parent newRoot = loader.load();
+                    //Scene scene = new Scene(newRoot);
+                    nodes[i] = (Node) loader.load();
+                    LocationsHallsInsideBuildingsItemController locationsHallsInsideBuildingsItemController = loader.getController();
+                    locationsHallsInsideBuildingsItemController.showInformation(locationHallLabList.get(i),this.buildingName);
+                    //facultyItemController = nodes[i].getController;
+                    //nodes[i] = (Node) loader.load();
+
+                    locationsVBox.getChildren().addAll(nodes[i]);
+                } catch (IOException e) {
+                    System.out.println("Error - Hall/Labs inside a building Loading ======================================");
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // this means that no halls or labs are found
+            // so we gonna display that no halls or labs are found
+            Node nodeThatSaysNoFacultyFound;
+            try {
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsHallsInsideBuildings/LocationsHallsInsideBuildingsItem/LocationsHallsInsideBuildingsItemNoContent.fxml"));
+                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                locationsVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
+            } catch (IOException e) {
+                System.out.println("Error - Hall/Labs inside a building Loading ======================================");
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -179,6 +303,9 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
 
 
     public void populateHallLabRows(){
+
+        locationsVBox.getChildren().clear();
+
         ObservableList<LocationHallLab> locationHallLabList = new LocationHallLabDatabaseHelper().getLocationHallLabList(buildingID);
 
         for (LocationHallLab locationHallLab : locationHallLabList){

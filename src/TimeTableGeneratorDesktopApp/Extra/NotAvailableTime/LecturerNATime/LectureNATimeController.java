@@ -82,7 +82,7 @@ public class LectureNATimeController implements Initializable {
         String day =  dayCB.getSelectionModel().getSelectedItem().toString();
         String hour = hourCB.getSelectionModel().getSelectedItem().toString();
 
-        String query = "INSERT INTO lecturernatime (lecID,Day,Hour)" +
+        String query = "INSERT INTO lecturernatime (lecID,DayTM,Hour)" +
                 "VALUES ('"+lecID+"','" +day+ "','" +hour+ "') ";
         executeQuery(query);
         showLecturersNATimes();
@@ -101,7 +101,7 @@ public class LectureNATimeController implements Initializable {
             rs = st.executeQuery(query);
             NATLecturers naTimeLecturers;
             while (rs.next()) {
-                naTimeLecturers = new NATLecturers(rs.getInt("id"),rs.getString("lecID"),rs.getString("Day"),rs.getString("Hour"));
+                naTimeLecturers = new NATLecturers(rs.getInt("id"),rs.getString("lecID"),rs.getString("DayTM"),rs.getString("Hour"));
                 lecturersNATimeList.add(naTimeLecturers);
             }
 
@@ -113,7 +113,7 @@ public class LectureNATimeController implements Initializable {
 
     private void showLecturersNATimes() {
         ObservableList<NATLecturers> list = getLecturersNATImeList();
-        dayCol.setCellValueFactory(new PropertyValueFactory<NATLecturers,String>("Day"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<NATLecturers,String>("DayTM"));
         hourCol.setCellValueFactory(new PropertyValueFactory<NATLecturers,String>("Hour"));
         timeTV.setItems(list);
 
@@ -125,7 +125,7 @@ public class LectureNATimeController implements Initializable {
         String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`lecturernatime` (" +
                 "  `id` INT NOT NULL AUTO_INCREMENT," +
                 "  `lecID` int NULL ," +
-                "  `Day` VARCHAR(45) NULL ," +
+                "  `DayTM` VARCHAR(45) NULL ," +
                 "  `Hour` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
 

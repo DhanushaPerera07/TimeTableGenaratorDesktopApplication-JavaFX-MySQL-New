@@ -184,7 +184,7 @@ public class EditDepartmentPopUpController implements Initializable {
         Optional<ButtonType> result = editFacultyAlert.showAndWait();
         if (result.get() == EditBtn){
             editUpdateRecord(facultyID, departmentID); // parameter: facultyID is passed here, it is used to update the record.
-            System.out.println("Faculty is edited/updated successfully");
+            //System.out.println("Faculty is edited/updated successfully");
         } else {
             System.out.println("Clicked Cancel Button - (edit/update a faculty)");
         }
@@ -194,38 +194,54 @@ public class EditDepartmentPopUpController implements Initializable {
     /**
      * This method is used to insert a new faculty
      */
+    BuildingDatabaseHelper buildingDatabaseHelper = new BuildingDatabaseHelper();
     public void editUpdateRecord(int facultyID, int departmentID){
 
         // local variables created to get the user input from the pop up form
 
-        int department_id = departmentID;
-        String department_name = txtDepartmentName.getText();
-        String department_short_name = txtDepartmentShortName.getText();
-        int department_floor_no = Integer.parseInt(txtDepartmentFloorNo.getText());
-        String department_specialized_for = departmentSpecializedForComboBox.getValue();
-        String department_head = departmentHeadComboBox.getValue();
+        try {
+            int department_id = departmentID;
+            String department_name = txtDepartmentName.getText();
+            String department_short_name = txtDepartmentShortName.getText();
+            int department_floor_no = Integer.parseInt(txtDepartmentFloorNo.getText());
+            String department_specialized_for = departmentSpecializedForComboBox.getValue();
+            String department_head = departmentHeadComboBox.getValue();
 
-        String building = departmentBuildingComboBox.getValue();
-        int department_building_id;
-        if (building == "FOC - Main"){
-            department_building_id = 1;
-        } else {
-            department_building_id = 2;
+            String building = departmentBuildingComboBox.getValue();
+            int department_building_id = buildingDatabaseHelper.getBuildingInstance(building).getBuildingID();
+
+
+            int faculty_faculty_id = this.facultyID;
+            // String department_delete_status = "N";
+
+            if (department_name.equals("") || department_short_name.equals("") || department_specialized_for.equals("") || department_head.equals("")) {
+                new Alert(Alert.AlertType.ERROR, "Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else if (txtDepartmentName.getText() == null || txtDepartmentShortName.getText() == null || departmentSpecializedForComboBox.getValue() == null || departmentHeadComboBox.getValue() == null || departmentBuildingComboBox.getValue() == null || department_building_id == 0) {
+                new Alert(Alert.AlertType.ERROR, "Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else {
+                try {
+                    // update query
+                    String query = "UPDATE `department` SET department_name = '" +department_name+ "', department_short_name = '" +department_short_name+
+                            "', department_floor_no = " +department_floor_no+ ", department_specialized_for = '" +department_specialized_for+ "', department_head = '"
+                            +department_head+
+                            "', department_building_id = "+department_building_id+", faculty_faculty_id = "+faculty_faculty_id+" WHERE department_id = " +department_id+ "";
+
+
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    closeEditFacultyPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR, "Error: Something went wrong when inserting data").show();
+                    e.printStackTrace();
+                }
+            }//else
+        } catch (NullPointerException e) {
+            new Alert(Alert.AlertType.ERROR, "Error NullPointerException: Empty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Error: Invalid inputs\nDepartment floor no should be only a number,\nPlease check again given inputs.\nAll fields are required!").show();
+            e.printStackTrace();
         }
-
-        int faculty_faculty_id = this.facultyID;
-        // String department_delete_status = "N";
-
-        // update query
-        String query = "UPDATE `department` SET department_name = '" +department_name+ "', department_short_name = '" +department_short_name+
-                "', department_floor_no = " +department_floor_no+ ", department_specialized_for = '" +department_specialized_for+ "', department_head = '"
-                +department_head+
-                "', department_building_id = "+department_building_id+", faculty_faculty_id = "+faculty_faculty_id+" WHERE department_id = " +department_id+ "";
-
-
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeEditFacultyPopUpForm();
 
     }
 

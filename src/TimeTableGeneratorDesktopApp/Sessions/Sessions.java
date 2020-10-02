@@ -83,4 +83,18 @@ public class Sessions {
     public void setSessionDuration(int sessionDuration) {
         this.sessionDuration = sessionDuration;
     }
+
+    @Override
+    public String toString() {
+        return "Sessions{" +
+                "sessionID=" + sessionID +
+                ", sessionModule='" + sessionModule + '\'' +
+                ", sessionModuleCode='" + sessionModuleCode + '\'' +
+                ", sessionTag='" + sessionTag + '\'' +
+                ", sessionGroupID='" + sessionGroupID + '\'' +
+                ", sessionStudentCount=" + sessionStudentCount +
+                ", sessionDuration=" + sessionDuration +
+                ", sessionGenID='" + sessionGenID + '\'' +
+                '}';
+    }
 }

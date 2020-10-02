@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class HallViewController implements Initializable {
@@ -35,12 +36,13 @@ public class HallViewController implements Initializable {
     @FXML
     private VBox timeTableVBox;
 
+    ArrayList<String> a = new ArrayList<>();
 
     public void populateHalls(){
 
         timeTableVBox.getChildren().clear();
 
-        ObservableList<Hall> locationList = getLocationListList();
+        ArrayList<String> locationList = getLocationListList();
 
         // Populate the rows like a table
         Node[] nodes = new Node[locationList.size()];
@@ -68,17 +70,14 @@ public class HallViewController implements Initializable {
         }
     }
 
-    public ObservableList<Hall> getLocationListList() {
+    public ArrayList<String> getLocationListList() {
 
-        // ============================================ DATABASE PART ===================================================================================
-
-        // database connection setup
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<Hall> locationList = FXCollections.observableArrayList();
         Connection conn =  databaseHelper.getConnection();
         String query;
-        query = "SELECT * FROM location";
+        query = "SELECT DISTINCT `hall` FROM time_table";
 
         Statement st;
         ResultSet rs;
@@ -89,26 +88,13 @@ public class HallViewController implements Initializable {
 
             Hall hall;
             while (rs.next()) {
-                hall = new Hall(
-                        rs.getInt("location_id"),
-                        rs.getString("location_name"),
-                        rs.getInt("location_capacity"),
-                        rs.getInt("location_floor"),
-                        rs.getString("location_condition"),
-                        rs.getString("location_delete_status"),
-                        rs.getString("location_timestamp"),
-                        rs.getString("location_created"),
-                        rs.getInt("building_building_id"),
-                        rs.getInt("tag_tag_id")
-
-                );
-                locationList.add(hall);
+                String b = rs.getString("hall");
+                a.add(b);
             }
-
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-        return locationList;
+        return a;
     }
 }

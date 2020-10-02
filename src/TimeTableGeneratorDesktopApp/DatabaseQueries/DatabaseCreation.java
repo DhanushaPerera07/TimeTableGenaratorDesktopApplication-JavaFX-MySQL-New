@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.DatabaseQueries;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseConnection;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class DatabaseCreation {
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:"+ DatabaseConnection.portNo +"/", ""+ DatabaseConnection.user +"", ""+ DatabaseConnection.password+"");
             return conn;
         } catch (Exception ex) {
             System.out.println("Error: getConnection() :::: " + ex.getMessage());
@@ -90,7 +91,7 @@ public class DatabaseCreation {
             "  `building_no_of_floors` INT NULL DEFAULT 1,\n" +
             "  `building_capacity` INT NULL,\n" +
             "  `building_center` VARCHAR(45) NULL,\n" +
-            "  `building_condition` VARCHAR(10) NULL,\n" +
+            "  `building_condition` VARCHAR(20) NULL,\n" +
             "  `building_specialized_for` VARCHAR(45) NULL,\n" +
             "  `building_no_of_lecture_halls` INT NULL,\n" +
             "  `building_no_of_tutorial_halls` INT NULL,\n" +
@@ -322,6 +323,8 @@ public class DatabaseCreation {
             "  `group` VARCHAR(25) NULL," +
             "  `lecturer` VARCHAR(25) NULL," +
             "  `sessionId` VARCHAR(25) NULL," +
+            "  `duration` INT NULL," +
+            "  `dayName` VARCHAR(25) NULL," +
             "  PRIMARY KEY (`Id`))";
 
 
@@ -369,6 +372,68 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB";
 
+    String query30 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_session` (\n" +
+            "  `suitable_room_for_session_id` int NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` int NOT NULL,\n" +
+            "  `idsession` int NOT NULL,\n" +
+            "  `status_true` varchar(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`suitable_room_for_session_id`,`location_location_id`,`idsession`),\n" +
+            "  KEY `fk_location_has_session_location1_idx` (`location_location_id`),\n" +
+            "  CONSTRAINT `fk_location_has_session_location2` FOREIGN KEY (`location_location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+            ") ENGINE=InnoDB;";
+
+
+    String query31 = "CREATE TABLE IF NOT EXISTS  `timetabledb`.`session` (" +
+            "  `idsession` int NOT NULL AUTO_INCREMENT," +
+            "  `sessionID` varchar(100) NOT NULL," +
+            "  `sessionTag` varchar(45) NOT NULL," +
+            "  `sessionStudentGroup` varchar(45) NOT NULL," +
+            "  `sessionSubject` varchar(45) NOT NULL," +
+            "  `sessionNoOfStudents` varchar(45) NOT NULL," +
+            "  `sessionDuration` varchar(45) NOT NULL," +
+            "  `sessionModuleCode` varchar(45) NOT NULL," +
+            "        PRIMARY KEY (`idsession`)" +
+            ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8";
+
+
+
+    String query32 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`session_lecturer` (" +
+            "  `idsession_lecturer` int NOT NULL AUTO_INCREMENT," +
+            "  `sessionID` varchar(100) NOT NULL," +
+            "  `sessionLecturerName` varchar(45) NOT NULL," +
+            "  PRIMARY KEY (`idsession_lecturer`)" +
+            ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
+
+
+    String query33 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`consecutive_session_in_same_room` (\n" +
+            "  `consecutive_session_in_same_room_id` INT NOT NULL AUTO_INCREMENT,\n" +
+            "  `location_location_id` INT NOT NULL,\n" +
+            "  `consecutive_session_id` INT NOT NULL,\n" +
+            "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`consecutive_session_in_same_room_id`, `location_location_id`, `consecutive_session_id`),\n" +
+            "  CONSTRAINT `fk_ consecutive_session_in_same_room_location`\n" +
+            "    FOREIGN KEY (`location_location_id`)\n" +
+            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    ON DELETE CASCADE\n" +
+            "    ON UPDATE CASCADE)\n" +
+            "ENGINE = InnoDB;";
+
+    String query34 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`consecetive_sessions` (\n" +
+            "  `id` int NOT NULL AUTO_INCREMENT,\n" +
+            "  `session1ID` varchar(100) DEFAULT NULL,\n" +
+            "  `session2ID` varchar(100) DEFAULT NULL,\n" +
+            "  PRIMARY KEY (`id`)\n" +
+            ")\n";
+
+    String query35 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`cannot_be_reserved_time_for_location` (\n" +
+            "  `cannot_be_reserved_time_for_location_id` int NOT NULL AUTO_INCREMENT,\n" +
+            "  `day` varchar(50) NOT NULL,\n" +
+            "  `location_location_id` int NOT NULL,\n" +
+            "  `timeslot_id` int NOT NULL,\n" +
+            "  `status_true` varchar(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`cannot_be_reserved_time_for_location_id`)\n" +
+            ");";
+
 
     public void createDatabase() {
         try {
@@ -405,6 +470,15 @@ public class DatabaseCreation {
             executeQuery(query27); // suitable room for tag
             executeQuery(query28); // suitable room for student batch
             executeQuery(query29); // suitable room for student subgroup
+            executeQuery(query30); // suitable room for session
+
+            executeQuery(query31); // session
+            executeQuery(query32); // session_lecturer
+
+            executeQuery(query34); // consecutive sessions // soysa's table
+
+            executeQuery(query33); // consecutive_session_in_same_room table //Added by Dhanusha
+            executeQuery(query35); // cannot_be_reserved_time_for_location table //Added by Dhanusha
 
 
 

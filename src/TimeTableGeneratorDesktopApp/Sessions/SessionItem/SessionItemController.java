@@ -5,9 +5,10 @@ import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SessionItemController implements Initializable
@@ -22,8 +24,6 @@ public class SessionItemController implements Initializable
     public Sessions sessionInstance;
     public String sessionGenID;
     public int sessionID;
-
-
 
 
 
@@ -45,6 +45,8 @@ public class SessionItemController implements Initializable
     @FXML
     private Label durationL;
 
+    @FXML
+    private Button deleteSessionBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -116,4 +118,45 @@ public class SessionItemController implements Initializable
             // if an error occurs print an error...
             ex.printStackTrace();
         }
-    }}
+    }
+
+
+    public void deleteSessionRecord(int sessionID, String lecID){
+//        String query = "UPDATE `session` SET location_delete_status = 'Y' WHERE idsession = " + sessionID + "";
+        String query = "DELETE FROM session WHERE idsession =" + sessionID + "";
+        String query1 = "DELETE FROM session_lecturer WHERE sessionID ='" + lecID + "'";
+
+//        String query1 = "UPDATE `session_lecturer` SET location_delete_status = 'Y' WHERE sessionID = '" + lecID + "'";
+
+        executeQuery(query);
+        executeQuery(query1);
+
+
+
+    }
+
+
+    @FXML
+    void deleteSessionAction(ActionEvent event) {
+
+        Alert deleteFacultyAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteFacultyAlert.setTitle("Confirmation");
+        deleteFacultyAlert.setHeaderText("Are you sure to delete this session?");
+
+        ButtonType confirmBtn = new ButtonType("Delete");
+        ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        deleteFacultyAlert.getButtonTypes().setAll(confirmBtn, cancelBtn);
+
+        Optional<ButtonType> result = deleteFacultyAlert.showAndWait();
+        if (result.get() == confirmBtn){
+            deleteSessionRecord(this.sessionInstance.getSessionID(),this.sessionInstance.getSessionGenID());
+        }
+        else {
+
+        }
+
+//        deleteSessionRecord(this.sessionInstance.getSessionID(),this.sessionInstance.getSessionGenID());
+
+    }
+}

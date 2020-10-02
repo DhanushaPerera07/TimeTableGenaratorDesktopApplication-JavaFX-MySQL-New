@@ -10,17 +10,8 @@ public class TimeTable {
     private String group;
     private String lecturer;
     private String sessionId;
-
-    public TimeTable(int id, String timeSlot, String module, String tag, String hall, String group, String lecturer, String sessionId) {
-        Id = id;
-        this.timeSlot = timeSlot;
-        Module = module;
-        this.tag = tag;
-        Hall = hall;
-        this.group = group;
-        this.lecturer = lecturer;
-        this.sessionId = sessionId;
-    }
+    private String dayName;
+    private int duration;
 
     public int getId() {
         return Id;
@@ -52,5 +43,28 @@ public class TimeTable {
 
     public String getSessionId() {
         return sessionId;
+    }
+
+    public String getDayName() {
+        return dayName;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public TimeTable(int id, String timeSlot, String module, String tag, String hall, String group, String lecturer, String sessionId, String dayName, int duration) {
+        Id = id;
+        this.timeSlot = timeSlot;
+        Module = module;
+        this.tag = tag;
+        Hall = hall;
+        this.group = group;
+        this.lecturer = lecturer;
+        this.sessionId = sessionId;
+        this.dayName = dayName;
+        this.duration = duration;
+
+
     }
 }

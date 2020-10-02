@@ -26,37 +26,38 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="92.0" prefWidth="805.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="805.0" style="-fx-background-color: #26408B;">
                <children>
-                  <FontAwesomeIcon glyphName="ARROW_LEFT" size="2em">
+                  <Label text="Faculties" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </FontAwesomeIcon>
-                  <Label text="Faculties">
-                     <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                      <font>
-                        <Font size="20.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
                   </Label>
                </children>
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
             </HBox>
             <GridPane GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.79998779296875" minWidth="10.0" prefWidth="208.39996337890625" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.4000244140625" minWidth="10.0" prefWidth="88.40000000000003" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.20001220703125" minWidth="10.0" prefWidth="59.80002441406248" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.7999877929687" minWidth="10.0" prefWidth="180.5999755859375" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.79999999999995" minWidth="10.0" prefWidth="92.00003662109373" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.800048828125" minWidth="10.0" prefWidth="161.5999877929687" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.7999877929687" minWidth="10.0" prefWidth="161.20002441406257" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.79997558593755" minWidth="10.0" prefWidth="164.60002441406255" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.800048828125" minWidth="10.0" prefWidth="94.19997558593752" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="facultySearchTxtBox">
+                  <TextField fx:id="facultySearchTxtBox" promptText="Search faculty">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -69,7 +70,7 @@
                         <FontAwesomeIcon glyphName="SEARCH" />
                      </graphic>
                   </Button>
-                  <Label text="Filter By" GridPane.columnIndex="2">
+                  <Label fx:id="lblFilterBy" text="Filter By" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -79,7 +80,7 @@
                         <Insets />
                      </GridPane.margin>
                   </ComboBox>
-                  <Button fx:id="btnAddFaculty" mnemonicParsing="false" onAction="#openAddFacultyPopUp" text="Add" GridPane.columnIndex="4">
+                  <Button fx:id="btnAddFaculty" mnemonicParsing="false" onAction="#openAddFacultyPopUp" text="Add" GridPane.columnIndex="5">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -87,7 +88,7 @@
                         <FontAwesomeIcon glyphName="PLUS" />
                      </graphic>
                   </Button>
-                  <ComboBox fx:id="facultyMoreComboBox" prefWidth="141.0" GridPane.columnIndex="5">
+                  <ComboBox fx:id="facultyMoreComboBox" prefWidth="141.0" GridPane.columnIndex="4">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>

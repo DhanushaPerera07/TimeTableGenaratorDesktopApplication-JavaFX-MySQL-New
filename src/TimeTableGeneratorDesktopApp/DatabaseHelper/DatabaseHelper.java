@@ -8,18 +8,12 @@ public class DatabaseHelper {
 
 // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
+  /*  *//** get the database connection here
      */
     public Connection getConnection(){
-        Connection conn;
-        try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
-            return conn;
-        }catch(Exception ex){
-            System.out.println("Error: getConnection() :::: " + ex.getMessage());
-            return null;
-        }
+        return DatabaseConnection.getInstance().getConnection();
     }
+
 
     /** execute the query string
      * @param query string is passed here
