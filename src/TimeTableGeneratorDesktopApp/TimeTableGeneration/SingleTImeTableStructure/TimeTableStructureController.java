@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TimeTableStructureController implements Initializable {
@@ -74,6 +75,7 @@ public class TimeTableStructureController implements Initializable {
     int tempT5 = 0;
     int tempT6 = 0;
     int tempT7 = 0;
+    ArrayList<String> Complicts = new ArrayList();
 
     ObservableList<TimeTable> timeTableList = getTimetableSessions();
 
@@ -428,14 +430,14 @@ public class TimeTableStructureController implements Initializable {
 
         TimeTable yy = new TimeTable(
                 0,
+                "",
                 "---",
                 "---",
                 "---",
                 "---",
                 "---",
-                "---",
-                "---",
-                "---",
+                "",
+                "",
                 0
         );
 
@@ -499,7 +501,83 @@ public class TimeTableStructureController implements Initializable {
 
         }
 
+        for (int i = 0; i < timeTableViewListMonday.size(); i++) {
+            for (int j = 0; j < timeTableViewListMonday.size(); j++) {
 
+                if (!timeTableViewListMonday.get(i).getSessionId().equals(timeTableViewListMonday.get(j).getSessionId())
+                        &&
+                        timeTableViewListMonday.get(i).getTimeSlot().equals(timeTableViewListMonday.get(j).getTimeSlot())
+                ) {
+                  String message =  "The "+ timeTableViewListMonday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListMonday.get(i).getTimeSlot()+"  " +timeTableViewListMonday.get(i).getId()+"  " +timeTableViewListMonday.get(i).getSessionId() + " " + i + " " + j ;
+                }
+            }
+        }
+        for (int i = 0; i < timeTableViewListTuesday.size(); i++) {
+            for (int j = 0; j < timeTableViewListTuesday.size(); j++) {
+
+                if (!timeTableViewListTuesday.get(i).getSessionId().equals(timeTableViewListTuesday.get(j).getSessionId())
+                        &&
+                        timeTableViewListTuesday.get(i).getTimeSlot().equals(timeTableViewListTuesday.get(j).getTimeSlot())
+                ) {
+                    System.out.println("The "+ timeTableViewListTuesday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListTuesday.get(i).getTimeSlot()+"  " +timeTableViewListTuesday.get(i).getId()+"  " +timeTableViewListTuesday.get(i).getSessionId() + " " + i + " " + j );
+                }
+            }
+        }
+        for (int i = 0; i < timeTableViewListWednesday.size(); i++) {
+            for (int j = 0; j < timeTableViewListWednesday.size(); j++) {
+
+                if (!timeTableViewListWednesday.get(i).getSessionId().equals(timeTableViewListWednesday.get(j).getSessionId())
+                        &&
+                        timeTableViewListWednesday.get(i).getTimeSlot().equals(timeTableViewListWednesday.get(j).getTimeSlot())
+                ) {
+                    System.out.println("The "+ timeTableViewListWednesday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListWednesday.get(i).getTimeSlot()+"  " +timeTableViewListWednesday.get(i).getId()+"  " +timeTableViewListWednesday.get(i).getSessionId() + " " + i + " " + j );
+                }
+            }
+        }
+        for (int i = 0; i < timeTableViewListThursday.size(); i++) {
+            for (int j = 0; j < timeTableViewListThursday.size(); j++) {
+
+                if (!timeTableViewListThursday.get(i).getSessionId().equals(timeTableViewListThursday.get(j).getSessionId())
+                        &&
+                        timeTableViewListThursday.get(i).getTimeSlot().equals(timeTableViewListThursday.get(j).getTimeSlot())
+                ) {
+                    System.out.println("The "+ timeTableViewListThursday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListThursday.get(i).getTimeSlot()+"  " +timeTableViewListThursday.get(i).getId()+"  " +timeTableViewListThursday.get(i).getSessionId() + " " + i + " " + j );
+                }
+            }
+        }
+        for (int i = 0; i < timeTableViewListFriday.size(); i++) {
+            for (int j = 0; j < timeTableViewListFriday.size(); j++) {
+
+                if (!timeTableViewListFriday.get(i).getSessionId().equals(timeTableViewListFriday.get(j).getSessionId())
+                        &&
+                        timeTableViewListFriday.get(i).getTimeSlot().equals(timeTableViewListFriday.get(j).getTimeSlot())
+                ) {
+                    System.out.println("The "+ timeTableViewListFriday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListFriday.get(i).getTimeSlot()+"  " +timeTableViewListFriday.get(i).getId()+"  " +timeTableViewListFriday.get(i).getSessionId() + " " + i + " " + j );
+                }
+            }
+        }
+        for (int i = 0; i < timeTableViewListSaturday.size(); i++) {
+            for (int j = 0; j < timeTableViewListSaturday.size(); j++) {
+
+                if (!timeTableViewListSaturday.get(i).getSessionId().equals(timeTableViewListSaturday.get(j).getSessionId())
+                        &&
+                        timeTableViewListSaturday.get(i).getTimeSlot().equals(timeTableViewListSaturday.get(j).getTimeSlot())
+                ) {
+                    System.out.println("The "+ timeTableViewListSaturday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListSaturday.get(i).getTimeSlot()+"  " +timeTableViewListSaturday.get(i).getId()+"  " +timeTableViewListSaturday.get(i).getSessionId() + " " + i + " " + j );
+                }
+            }
+        }
+        for (int i = 0; i < timeTableViewListSunday.size(); i++) {
+            for (int j = 0; j < timeTableViewListSunday.size(); j++) {
+
+                if (!timeTableViewListSunday.get(i).getSessionId().equals(timeTableViewListSunday.get(j).getSessionId())
+                        &&
+                        timeTableViewListSunday.get(i).getTimeSlot().equals(timeTableViewListSunday.get(j).getTimeSlot())
+                ) {
+                    System.out.println("The "+ timeTableViewListSunday.get(i).getLecturer() + "has more than 1 session at " + timeTableViewListSunday.get(i).getTimeSlot()+"  " +timeTableViewListSunday.get(i).getId()+"  " +timeTableViewListSunday.get(i).getSessionId() + " " + i + " " + j );
+                }
+            }
+        }
 
         for (int i = 0; i < timeSlots.size(); i++) {
 
@@ -512,9 +590,7 @@ public class TimeTableStructureController implements Initializable {
                 }
             }else{
                 timeTableViewListMondayX.add(yy);
-
             }
-
 
             if (timeTableViewListTuesday.size()>tempT2){
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListTuesday.get(tempT2).getTimeSlot())) {
@@ -549,7 +625,6 @@ public class TimeTableStructureController implements Initializable {
             }else{
                 timeTableViewListThursdayX.add(yy);
             }
-
 
             if (timeTableViewListFriday.size()>tempT5){
                 if (!timeSlots.get(i).getValue_t().equals(timeTableViewListFriday.get(tempT5).getTimeSlot())) {
