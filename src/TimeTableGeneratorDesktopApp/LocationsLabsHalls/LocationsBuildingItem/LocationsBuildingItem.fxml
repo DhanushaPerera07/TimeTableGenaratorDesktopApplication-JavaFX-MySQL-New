@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="locationsBuildingItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem.LocationsBuildingItemController">
+<VBox fx:id="locationsBuildingItemVBOX" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="765.0" style="-fx-border-color: #26408B; -fx-border-width: 2.5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem.LocationsBuildingItemController">
    <children>
       <GridPane prefHeight="30.0" prefWidth="551.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.99998931884767" minWidth="10.0" prefWidth="147.99998931884767" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0000732421875" minWidth="10.0" prefWidth="374.0000366210937" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.20001220703125" minWidth="0.0" prefWidth="54.79996337890623" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.20001220703125" minWidth="10.0" prefWidth="50.999951171874955" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0000732421875" minWidth="10.0" prefWidth="440.4000122070313" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.20001220703125" minWidth="0.0" prefWidth="47.399951171875045" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.20001220703125" minWidth="10.0" prefWidth="45.800048828125" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,9 +29,9 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <FontAwesomeIcon fx:id="btnEditIcon" glyphName="EDIT" onMouseClicked="#openEditBuildingPopUp" size="2em" GridPane.columnIndex="2" />
-            <FontAwesomeIcon fx:id="btnDeleteIcon" glyphName="TRASH" onMouseClicked="#openDeleteBuildingConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
-            <Label fx:id="txtBuildingName" layoutX="10.0" layoutY="12.0" style="-fx-font-weight: bold;" text="FOC -Main" GridPane.columnIndex="1">
+            <FontAwesomeIcon fx:id="btnEditIcon" fill="#26408b" glyphName="EDIT" onMouseClicked="#openEditBuildingPopUp" size="2em" GridPane.columnIndex="2" />
+            <FontAwesomeIcon fx:id="btnDeleteIcon" fill="#b51016" glyphName="TRASH" onMouseClicked="#openDeleteBuildingConfirmationAlertBoxPopUp" size="2em" GridPane.columnIndex="3" />
+            <Label fx:id="txtBuildingName" layoutX="10.0" layoutY="12.0" style="-fx-font-weight: bold;" text="FOC -Main" textFill="#26408b" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>

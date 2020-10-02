@@ -27,9 +27,9 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Department - Add Department" GridPane.rowIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DEPARTMENT - ADD DEPARTMENT" GridPane.rowIndex="1">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Segoe UI" size="24.0" />
                      </font>
                   </Text>
                </children>
@@ -53,21 +53,48 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Department name:" />
-                  <Label layoutX="25.0" layoutY="44.0" text="Department floor no:" GridPane.rowIndex="5" />
-                  <Label layoutX="25.0" layoutY="101.0" text="Department short name:" GridPane.rowIndex="1" />
-                  <Label layoutX="25.0" layoutY="101.0" text="Department head:" GridPane.rowIndex="6" />
-                  <Label layoutX="25.0" layoutY="214.0" text="Department Building:" GridPane.rowIndex="4" />
-                  <Label layoutX="25.0" layoutY="270.0" text="Department faculty" GridPane.rowIndex="3" />
+                  <Label text="Department name:">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="25.0" layoutY="44.0" text="Department floor no:" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="25.0" layoutY="101.0" text="Department short name:" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="25.0" layoutY="101.0" text="Department head:" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="25.0" layoutY="214.0" text="Department Building:" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="25.0" layoutY="270.0" text="Department faculty" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
                   <TextField fx:id="txtDepartmentName" GridPane.columnIndex="1" />
                   <TextField fx:id="txtDepartmentShortName" layoutX="304.0" layoutY="36.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="departmentBuildingComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="departmentBuildingComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="txtDepartmentFloorNo" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Button fx:id="btnAddDepartmentPopUp" mnemonicParsing="false" onAction="#ActionEventAddDepartmentPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <ComboBox fx:id="departmentHeadComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Label layoutX="25.0" layoutY="165.0" text="Specialized for:" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="departmentSpecializedForComboBox" layoutX="196.0" layoutY="161.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="departmentFacultyLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button fx:id="btnAddDepartmentPopUp" mnemonicParsing="false" onAction="#ActionEventAddDepartmentPopUp" text="ADD" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Button>
+                  <ComboBox fx:id="departmentHeadComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label layoutX="25.0" layoutY="165.0" text="Specialized for:" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Segoe UI" size="13.0" />
+                     </font></Label>
+                  <ComboBox fx:id="departmentSpecializedForComboBox" layoutX="196.0" layoutY="161.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="departmentFacultyLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Segoe UI Black" size="13.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

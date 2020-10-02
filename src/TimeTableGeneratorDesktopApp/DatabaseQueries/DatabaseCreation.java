@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.DatabaseQueries;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseConnection;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class DatabaseCreation {
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:"+ DatabaseConnection.portNo +"/", ""+ DatabaseConnection.user +"", ""+ DatabaseConnection.password+"");
             return conn;
         } catch (Exception ex) {
             System.out.println("Error: getConnection() :::: " + ex.getMessage());
@@ -90,7 +91,7 @@ public class DatabaseCreation {
             "  `building_no_of_floors` INT NULL DEFAULT 1,\n" +
             "  `building_capacity` INT NULL,\n" +
             "  `building_center` VARCHAR(45) NULL,\n" +
-            "  `building_condition` VARCHAR(10) NULL,\n" +
+            "  `building_condition` VARCHAR(20) NULL,\n" +
             "  `building_specialized_for` VARCHAR(45) NULL,\n" +
             "  `building_no_of_lecture_halls` INT NULL,\n" +
             "  `building_no_of_tutorial_halls` INT NULL,\n" +
@@ -425,16 +426,14 @@ public class DatabaseCreation {
             "  PRIMARY KEY (`id`)\n" +
             ")\n";
 
-    String query35 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`cannot_be_reserved_time_for_location`(\n" +
-            "`cannot_be_reserved_time_for_location_id` INT NOT NULL AUTO_INCREMENT,\n" +
-            "`day` VARCHAR(50) NOT NULL,\n" +
-            "`timeslot_id` INT NOT NULL,\n" +
-            "`location_location_id` INT NOT NULL,\n" +
-            "PRIMARY KEY (`cannot_be_reserved_time_for_location_id`),\n" +
-            "CONSTRAINT `fk_cannot_be_reserved_time_for_location` FOREIGN KEY (`location_location_id`)\n" +
-            "REFERENCES `timetabledb`.`location` (`location_id`)\n" +
-            "ON DELETE CASCADE\n" +
-            "ON UPDATE CASCADE);";
+    String query35 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`cannot_be_reserved_time_for_location` (\n" +
+            "  `cannot_be_reserved_time_for_location_id` int NOT NULL AUTO_INCREMENT,\n" +
+            "  `day` varchar(50) NOT NULL,\n" +
+            "  `location_location_id` int NOT NULL,\n" +
+            "  `timeslot_id` int NOT NULL,\n" +
+            "  `status_true` varchar(3) NOT NULL DEFAULT 'Y',\n" +
+            "  PRIMARY KEY (`cannot_be_reserved_time_for_location_id`)\n" +
+            ");";
 
 
     public void createDatabase() {
@@ -480,7 +479,7 @@ public class DatabaseCreation {
             executeQuery(query34); // consecutive sessions // soysa's table
 
             executeQuery(query33); // consecutive_session_in_same_room table //Added by Dhanusha
-            //executeQuery(query35); // cannot_be_reserved_time_for_location table //Added by Dhanusha
+            executeQuery(query35); // cannot_be_reserved_time_for_location table //Added by Dhanusha
 
 
 

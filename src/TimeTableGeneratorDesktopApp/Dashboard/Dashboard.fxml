@@ -13,17 +13,23 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Dashboard.Dashboard">
    <top>
-      <HBox prefHeight="34.0" prefWidth="1000.0" BorderPane.alignment="TOP_LEFT">
+      <HBox prefHeight="34.0" prefWidth="1000.0" BorderPane.alignment="TOP_RIGHT">
          <children>
-            <Label style="-fx-font-family: segoe;" text="Dashboard">
+            <Label alignment="CENTER" style="-fx-font-family: segoe; -fx-background-color: #26408B;" text="Dashboard" textFill="WHITE">
                <HBox.margin>
-                  <Insets left="15.0" />
+                  <Insets />
                </HBox.margin>
                <font>
-                  <Font size="20.0" />
+                  <Font name="Segoe UI" size="18.0" />
                </font>
+               <padding>
+                  <Insets left="100.0" right="100.0" />
+               </padding>
             </Label>
          </children>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
       </HBox>
    </top>
    <center>

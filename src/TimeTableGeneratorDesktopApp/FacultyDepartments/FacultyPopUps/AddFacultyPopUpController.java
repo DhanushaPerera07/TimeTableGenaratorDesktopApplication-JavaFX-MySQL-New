@@ -17,9 +17,11 @@ import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 public class AddFacultyPopUpController implements Initializable {
 
@@ -182,7 +184,7 @@ public class AddFacultyPopUpController implements Initializable {
         Optional<ButtonType> result = addFacultyAlert.showAndWait();
         if (result.get() == AddBtn) {
             insertRecord();
-            System.out.println("Faculty is added successfully");
+            //System.out.println("Faculty is added successfully");
         } else {
             System.out.println("Clicked Cancel Button - (Adding a faculty)");
         }
@@ -196,24 +198,40 @@ public class AddFacultyPopUpController implements Initializable {
 
         // get user input
         //int lecturer_emp_id = 1;
-        String faculty_name = comboBoxFacultyName.getValue().trim();
-        String faculty_short_name = txtFacultyShortName.getText().trim();
-        String faculty_specialized_for = facultySpecializedForComboBox.getValue().trim();
-        String faculty_status = facultyStatusComboBox.getValue().trim();
-        String faculty_head_name = facultyHeadComboBox.getValue().trim();
-        String faculty_delete_status = "N";
 
-/*        if (faculty_name.equals("") || faculty_short_name.equals("") || faculty_specialized_for) {
+        try {
+            String faculty_name = comboBoxFacultyName.getValue().trim();
+            String faculty_short_name = txtFacultyShortName.getText().trim();
+            String faculty_specialized_for = facultySpecializedForComboBox.getValue().trim();
+            String faculty_status = facultyStatusComboBox.getValue().trim();
+            String faculty_head_name = facultyHeadComboBox.getValue().trim();
+            String faculty_delete_status = "N";
 
-        }*/
+            if (faculty_name.equals("") || faculty_short_name.equals("") || faculty_specialized_for.equals("") || faculty_status.equals("") || faculty_head_name.equals("")) {
+                new Alert(Alert.AlertType.ERROR,"Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else if (comboBoxFacultyName.getValue() == null || txtFacultyShortName.getText() == null || facultySpecializedForComboBox.getValue() == null || facultyStatusComboBox.getValue() == null || facultyHeadComboBox.getValue() == null){
+                new Alert(Alert.AlertType.ERROR,"Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else {
 
+                try {
+                    // insert query
+                    String query = "INSERT INTO `faculty` (`faculty_name`,`faculty_short_name`,`faculty_specialized_for`,`faculty_status`,`faculty_head_name`,`faculty_delete_status`) VALUES ('" + faculty_name + "', '" + faculty_short_name + "', '" + faculty_specialized_for + "', '" + faculty_status + "','" + faculty_head_name + "','" + faculty_delete_status + "')";
 
-        // insert query
-        String query = "INSERT INTO `faculty` (`faculty_name`,`faculty_short_name`,`faculty_specialized_for`,`faculty_status`,`faculty_head_name`,`faculty_delete_status`) VALUES ('" + faculty_name + "', '" + faculty_short_name + "', '" + faculty_specialized_for + "', '" + faculty_status + "','" + faculty_head_name + "','" + faculty_delete_status + "')";
-
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeAddFacultyPopUpForm();
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    closeAddFacultyPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when inserting data").show();
+                    e.printStackTrace();
+                }
+            }
+        } catch (NullPointerException e) {
+            new Alert(Alert.AlertType.ERROR,"Error NullPointerException: Empty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,"Error: Something wrong with selected data,\nEmpty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
+        }
 
     }
 

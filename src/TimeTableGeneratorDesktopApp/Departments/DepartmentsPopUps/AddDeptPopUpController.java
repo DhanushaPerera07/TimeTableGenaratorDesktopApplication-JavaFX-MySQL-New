@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
@@ -97,7 +98,7 @@ public class AddDeptPopUpController implements Initializable {
     }
 
 
-    public void getNecessaryDetails(int facultyID,String facultyName){
+    public void getNecessaryDetails(int facultyID, String facultyName) {
         this.facultyID = facultyID;
         this.facultyName = facultyName;
 
@@ -106,10 +107,10 @@ public class AddDeptPopUpController implements Initializable {
         // buildings
         ObservableList<Building> buildingList = getBuildingList();
 
-        if (buildingList.isEmpty()==true) {
+        if (buildingList.isEmpty() == true) {
             departmentBuildingComboBox.getItems().add("");
         } else {
-            for (Building building : buildingList){
+            for (Building building : buildingList) {
                 // sysout check
                 departmentBuildingComboBox.getItems().add(building.getBuildingName());
                 System.out.println("building table rec: " + building.toString());
@@ -127,7 +128,7 @@ public class AddDeptPopUpController implements Initializable {
     }
 
 
-    public void getPermissionToAddTheRecordFromConfirmBox(){
+    public void getPermissionToAddTheRecordFromConfirmBox() {
         System.out.println("Clicked - Open Confirmation AlertBOX before adding a Department Record");
 
         Alert addDepartmentAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -138,12 +139,12 @@ public class AddDeptPopUpController implements Initializable {
         ButtonType AddBtn = new ButtonType("ADD");
         ButtonType CancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        addDepartmentAlert.getButtonTypes().setAll(AddBtn,CancelBtn);
+        addDepartmentAlert.getButtonTypes().setAll(AddBtn, CancelBtn);
 
         Optional<ButtonType> result = addDepartmentAlert.showAndWait();
-        if (result.get() == AddBtn){
+        if (result.get() == AddBtn) {
             insertRecord();
-            System.out.println("Department is added successfully");
+            //System.out.println("Department is added successfully");
         } else {
             System.out.println("Clicked Cancel Button - (Adding a Department)");
         }
@@ -153,35 +154,52 @@ public class AddDeptPopUpController implements Initializable {
     /**
      * This method is used to insert a new Department
      */
-    public void insertRecord(){
+    BuildingDatabaseHelper buildingDatabaseHelper = new BuildingDatabaseHelper();
 
-        // get user input
-        //int lecturer_emp_id = 1;
-        String department_name = txtDepartmentName.getText();
-        String department_short_name = txtDepartmentShortName.getText();
-        int department_floor_no = Integer.parseInt(txtDepartmentFloorNo.getText());
-        String department_specialized_for = departmentSpecializedForComboBox.getValue();
-        String department_head = departmentHeadComboBox.getValue();
+    public void insertRecord() {
 
-        String building = departmentBuildingComboBox.getValue();
-        int department_building_id;
-        if (building == "FOC - Main"){
-            department_building_id = 1;
-        } else {
-            department_building_id = 2;
+        try {
+            // get user input
+            //int lecturer_emp_id = 1;
+            String department_name = txtDepartmentName.getText();
+            String department_short_name = txtDepartmentShortName.getText();
+            int department_floor_no = Integer.parseInt(txtDepartmentFloorNo.getText());
+            String department_specialized_for = departmentSpecializedForComboBox.getValue();
+            String department_head = departmentHeadComboBox.getValue();
+
+            String building = departmentBuildingComboBox.getValue();
+            int department_building_id = buildingDatabaseHelper.getBuildingInstance(building).getBuildingID();
+
+
+            int faculty_faculty_id = this.facultyID;
+            String department_delete_status = "N";
+
+            if (department_name.equals("") || department_short_name.equals("") || department_specialized_for.equals("") || department_head.equals("")) {
+                new Alert(Alert.AlertType.ERROR, "Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else if (txtDepartmentName.getText() == null || txtDepartmentShortName.getText() == null || departmentSpecializedForComboBox.getValue() == null || departmentHeadComboBox.getValue() == null || departmentBuildingComboBox.getValue() == null || department_building_id == 0) {
+                new Alert(Alert.AlertType.ERROR, "Error: Empty / Not selected field found.\nAll fields are required!").show();
+            } else {
+                try {
+                    // insert query
+                    String query = "INSERT INTO `department` (`department_name`,`department_short_name`,`department_floor_no`,`department_specialized_for`,`department_head`,`department_building_id`,`department_delete_status`,`faculty_faculty_id`) VALUES ('" + department_name + "', '" + department_short_name + "'," + department_floor_no + ", '" + department_specialized_for + "','" + department_head + "'," + department_building_id + ",'" + department_delete_status + "'," + faculty_faculty_id + ")";
+
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    closeAddFacultyPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR, "Error: Something went wrong when inserting data").show();
+                    e.printStackTrace();
+                }
+            }
+        } catch (NullPointerException e) {
+            new Alert(Alert.AlertType.ERROR, "Error NullPointerException: Empty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Error: Something wrong with selected data,\nEmpty / Not selected field found.\nAll fields are required!").show();
+            e.printStackTrace();
         }
 
-        int faculty_faculty_id = this.facultyID;
-        String department_delete_status = "N";
-
-        // insert query
-        String query = "INSERT INTO `department` (`department_name`,`department_short_name`,`department_floor_no`,`department_specialized_for`,`department_head`,`department_building_id`,`department_delete_status`,`faculty_faculty_id`) VALUES ('"+department_name+"', '"+department_short_name+"',"+department_floor_no+", '"+department_specialized_for+"','"+department_head+"',"+department_building_id+",'"+department_delete_status+"',"+faculty_faculty_id+")";
-
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeAddFacultyPopUpForm();
-
-    }
+    }// insert record
 
     private void closeAddFacultyPopUpForm() {
         // just used the txtFacultyName here to close the pop up when the record insertion is successfully done.
@@ -192,11 +210,6 @@ public class AddDeptPopUpController implements Initializable {
     }
 
 
-
-
-
-
-
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
     DatabaseHelper databaseHelper = new DatabaseHelper();
@@ -204,7 +217,7 @@ public class AddDeptPopUpController implements Initializable {
     /**
      * this method is to get all the faculties in the faculty table...
      * returns departmentList;
-     * */
+     */
     public ObservableList<Faculty> getFacultyList() {
         ObservableList<Faculty> facultyList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
@@ -241,7 +254,7 @@ public class AddDeptPopUpController implements Initializable {
     /**
      * this method is to get the buildings relevant to the faculty id in the building table...
      * returns getBuildingList;
-     * */
+     */
     public ObservableList<Building> getBuildingList() {
 
         ObservableList<Building> buildingList = FXCollections.observableArrayList();
@@ -249,7 +262,7 @@ public class AddDeptPopUpController implements Initializable {
 
         // get the buildings relevant to the faculty id
         String query;
-        query = "SELECT * FROM building WHERE faculty_faculty_id = "+this.facultyID+" AND building_delete_status = 'N' ORDER BY building_name";
+        query = "SELECT * FROM building WHERE faculty_faculty_id = " + this.facultyID + " AND building_delete_status = 'N' ORDER BY building_name";
 
         Statement st;
         ResultSet rs;
@@ -281,9 +294,6 @@ public class AddDeptPopUpController implements Initializable {
         }
         return buildingList;
     }
-
-
-
 
 
 }

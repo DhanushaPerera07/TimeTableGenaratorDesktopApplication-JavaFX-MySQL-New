@@ -33,15 +33,7 @@ public class ShowAllSubjectsController implements Initializable {
     public static int idmodule = 0;
     public static String moduleName = "";
 
-    public static String filterType = "All";
-    public static String filterValue = "";
     public static String query = "";
-
-    @FXML
-    private Button addModuleBtn;
-
-    @FXML
-    private Button refreshModuleListBtn;
 
     @FXML
     private Pane subjectsPane;
@@ -82,12 +74,6 @@ public class ShowAllSubjectsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        filter1.getItems().removeAll(filter1.getItems());
-        filter1.getItems().addAll(
-                "All", "Year"
-        );
-
         showModules();
     }
 
@@ -111,12 +97,7 @@ public class ShowAllSubjectsController implements Initializable {
         DatabaseHelper databaseHelper = new DatabaseHelper();
         Connection conn = databaseHelper.getConnection();
 
-//        String query = "SELECT * FROM module";
-        if (filterType.equals("All")) {
-            query = "SELECT * FROM module";
-        } else if (filterType.equals("Year")) {
-            query = "Select * from module WHERE offeredYear = '" + filterValue + "'";
-        }
+        query = "SELECT * FROM module";
 
         Statement st;
         ResultSet rs;
@@ -140,32 +121,6 @@ public class ShowAllSubjectsController implements Initializable {
             e.printStackTrace();
         }
         return moduleList;
-    }
-
-    public void getFilterValues(ActionEvent actionEvent) {
-        filterValue = filter2.getSelectionModel().getSelectedItem().toString();
-        filter2.setPromptText("Select");
-        System.out.println(filterValue);
-        showModules();
-    }
-
-    public void selectFilterType(ActionEvent actionEvent) {
-
-        filterType = filter1.getSelectionModel().getSelectedItem().toString();
-
-        if (filterType.equals("All")) {
-            filter2.getItems().removeAll(filter2.getItems());
-            filter2.setPromptText("Select");
-            filter2.getItems().addAll(
-                    "All"
-            );
-        } else if (filterType.equals("Year")) {
-            filter2.getItems().removeAll(filter2.getItems());
-            filter2.setPromptText("Select");
-            filter2.getItems().addAll(
-                    "Year 1", "Year 2", "Year 3", "Year 4"
-            );
-        }
     }
 
 

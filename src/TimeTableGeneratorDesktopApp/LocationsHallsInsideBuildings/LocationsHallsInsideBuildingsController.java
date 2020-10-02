@@ -105,11 +105,11 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
 
     private void initializationCombobox() {
 
-        // set UI components are hiddent
+        // set UI components are hidden
         btnSearchLocationsHallsInside.setVisible(false);
         lblFilterBy.setVisible(false);
         locationsHallsInsideFilterByComboBox.setVisible(false);
-        locationsHallsInsideMoreComboBox.setVisible(false);
+        //locationsHallsInsideMoreComboBox.setVisible(false);
 
         // filter by combobox
         locationsHallsInsideFilterByComboBox.getItems().addAll(

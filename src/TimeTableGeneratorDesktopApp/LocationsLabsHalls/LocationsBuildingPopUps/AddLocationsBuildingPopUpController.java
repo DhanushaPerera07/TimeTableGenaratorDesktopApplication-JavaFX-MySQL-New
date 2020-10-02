@@ -8,16 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -127,27 +125,45 @@ public class AddLocationsBuildingPopUpController implements Initializable {
         // building insertion method
 
         // get user input
-        //int lecturer_emp_id = 1;
-        String building_name = txtBuildingName.getText();
-        String building_no_of_floors = txtBuildingNoOfFloors.getText();
-        String building_capacity = txtBuildingCapacity.getText();
-        String building_center = centerBuildingComboBox.getValue();
-        String building_condition = conditionBuildingComboBox.getValue();
-        String building_specialized_for = specializedForBuildingComboBox.getValue();
-        String fac_name = facultyForBuildingComboBox.getValue();
+        try {
+            String building_name = txtBuildingName.getText();
+            int building_no_of_floors = Integer.parseInt(txtBuildingNoOfFloors.getText());
+            int building_capacity = Integer.parseInt(txtBuildingCapacity.getText());
+            String building_center = centerBuildingComboBox.getValue();
+            String building_condition = conditionBuildingComboBox.getValue();
+            String building_specialized_for = specializedForBuildingComboBox.getValue();
+            String fac_name = facultyForBuildingComboBox.getValue();
 
-        FacultyDatabaseHelper facultyDatabaseHelper = new FacultyDatabaseHelper();
+            FacultyDatabaseHelper facultyDatabaseHelper = new FacultyDatabaseHelper();
 
-        // faculty id is retrieved from database
-        int faculty_faculty_id = facultyDatabaseHelper.getFacultyInstance(fac_name).getId();
-        String building_delete_status = "N";
+            // faculty id is retrieved from database
+            int faculty_faculty_id = facultyDatabaseHelper.getFacultyInstance(fac_name).getId();
+            String building_delete_status = "N";
 
-        // insert query
-        String query = "INSERT INTO `building` (`building_name`,`building_no_of_floors`,`building_capacity`,`building_center`,`building_condition`,`building_specialized_for`,`faculty_faculty_id`,`building_delete_status`) VALUES ('"+building_name+"',"+building_no_of_floors+","+building_capacity+", '"+building_center+"','"+building_condition+"','"+building_specialized_for+"',"+faculty_faculty_id+",'"+building_delete_status+"')";
 
-        // execute the insert query
-        databaseHelper.executeQuery(query);
-        closeAddFacultyPopUpForm();
+            if (building_name.equals("") || building_center.equals("") || building_condition.equals("") || building_specialized_for.equals("") || faculty_faculty_id == 0){
+                new Alert(Alert.AlertType.ERROR,"Error: Empty / Not selected field found.\nAll fields are required!").show();
+            }else {
+                try {
+                    // insert query
+                    String query = "INSERT INTO `building` (`building_name`,`building_no_of_floors`,`building_capacity`,`building_center`,`building_condition`,`building_specialized_for`,`faculty_faculty_id`,`building_delete_status`) VALUES ('"+building_name+"',"+building_no_of_floors+","+building_capacity+", '"+building_center+"','"+building_condition+"','"+building_specialized_for+"',"+faculty_faculty_id+",'"+building_delete_status+"')";
+
+                    // execute the insert query
+                    databaseHelper.executeQuery(query);
+                    new Alert(Alert.AlertType.INFORMATION,"Insert successful !").show();
+                    closeAddFacultyPopUpForm();
+                } catch (Exception e) {
+                    new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when inserting data").show();
+                    e.printStackTrace();
+                }
+            }//else
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR,"Error: Invalid inputs and\nNumberFormatException,\nNo of floors and capacity\nshould be only numbers.\nAll fields are required!").show();
+            e.printStackTrace();
+        } catch (Exception e){
+            new Alert(Alert.AlertType.ERROR,"Error: Something went wrong,\nEnter valid inputs,\ncheck inputs again.\nAll fields are required!").show();
+            e.printStackTrace();
+        }
 
     }
 

@@ -26,16 +26,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-            <HBox>
+            <HBox style="-fx-background-color: #26408B;">
                <children>
-                        <Label fx:id="txtHeaderFaculty" text="Faculty /">
+                        <Label fx:id="txtHeaderFaculty" text="Faculty /" textFill="WHITE">
                             <font>
-                                <Font size="20.0" />
+                                <Font name="Segoe UI" size="18.0" />
                             </font>
                         </Label>
-                  <Label style="-fx-font-weight: bold;" text=": Department">
+                  <Label text=": Department" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -43,18 +43,13 @@
                   </Label>
                </children>
                <GridPane.margin>
-                  <Insets left="50.0" />
+                  <Insets top="20.0" />
                </GridPane.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </HBox>
-                <HBox>
-                    <children>
-                        <FontAwesomeIcon glyphName="ARROW_LEFT" size="2em">
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                        </FontAwesomeIcon>
-                    </children>
-                </HBox>
+                <HBox />
                 <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.79998779296875" minWidth="10.0" prefWidth="208.39996337890625" />
