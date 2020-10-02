@@ -5,6 +5,7 @@ import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionController;
 import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
+import TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView.Hall;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -60,10 +61,12 @@ public class timeTableGenerationController implements Initializable {
     private double hours;
     private int totalTime = 0;
     private int k=0;
-    private int j =0;
-    private boolean Checker = false;
+    private int j =0, l =0;
+    private int Checker = 0;
+    private boolean Checker1 = true;
 
     ArrayList<String> a = new ArrayList<>();
+    ObservableList<Hall> HallList = FXCollections.observableArrayList();
 
     @FXML
     void hallView(ActionEvent event) {
@@ -182,7 +185,7 @@ public class timeTableGenerationController implements Initializable {
                             Sessions session = sessionsList1.get(i);
 
                             for (int k = 0; k < session.getSessionDuration(); k++) {
-                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','B501','"+session.getSessionGroupID()+"','Lecturer"+i+"','"+session.getSessionGenID()+"',"+1+");";
+                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','B402','"+session.getSessionGroupID()+"','Lecturer"+i+"','"+session.getSessionGenID()+"',"+1+");";
                                 executeQuery(query);
                             }
 
@@ -198,6 +201,7 @@ public class timeTableGenerationController implements Initializable {
         }
         setTimeToSession();
         setLecturerToSession();
+        set_a_Hall_ToSession();
     }
 
     public void setLecturerToSession(){
@@ -234,8 +238,6 @@ public class timeTableGenerationController implements Initializable {
                 for ( k = 0; k < LecturersList.size(); k++) {
 
                     if (!TimeTableListValue.get(j).getLecturer().equals(LecturersList.get(k).getLecturerName()) ) {
-//                        && TimeTableListValue.get(i).getTimeSlot().equals(TimeTableListValue.get(j).getTimeSlot())
-
                         String query1 = "UPDATE time_table SET `lecturer` ='" +LecturersList.get(k).getLecturerName()+"' WHERE Id =" +TimeTableListValue.get(i).getId();
                         executeQuery(query1);
                         k=99;
@@ -243,9 +245,85 @@ public class timeTableGenerationController implements Initializable {
                 }
                 }
             }
-//            if (Checker == true) {
-//
-//            }
+        }
+    }
+
+    public void set_a_Hall_ToSession(){
+//        ObservableList<Sessions> sessionsListValue = getAllSessionList();
+        ObservableList<TimeTable> TimeTableListValue = getTimeTableValues();
+
+        for (int i = 0; i < TimeTableListValue.size(); i++) {
+
+
+            Connection conn = getConnection();
+            String  query = "SELECT * FROM location";
+            Statement st;
+            ResultSet rs;
+            try {
+                st = conn.createStatement();
+                rs = st.executeQuery(query);
+                Hall hall;
+                while (rs.next()) {
+                    hall = new Hall(
+                            rs.getInt("location_id"),
+                            rs.getString("location_name"),
+                            rs.getInt("location_capacity"),
+                            rs.getInt("location_floor"),
+                            rs.getString("location_condition"),
+                            rs.getString("location_delete_status"),
+                            rs.getString("location_timestamp"),
+                            rs.getString("location_created"),
+                            rs.getInt("building_building_id"),
+                            rs.getInt("tag_tag_id")
+                    );
+                    HallList.add(hall);
+                }
+            } catch (Exception ex) {
+                // if an error occurs print an error...
+                System.out.println("Error - When department data retrieving ");
+                ex.printStackTrace();
+            }
+        }
+        j=0;
+        for ( j = 0; j < TimeTableListValue.size(); j++) {
+            l=0;
+            for ( l = 0; l < TimeTableListValue.size(); l++) {
+                if (TimeTableListValue.get(j).getTimeSlot().equals(TimeTableListValue.get(l).getTimeSlot()) && TimeTableListValue.get(j).getDayName().equals(TimeTableListValue.get(l).getDayName())) {
+                    System.out.println("founded equality ");
+
+                    for ( k=Checker; k < HallList.size(); k++) {
+                        if(TimeTableListValue.get(j).getHall().equals(TimeTableListValue.get(l).getHall())
+                                &&
+                                    !TimeTableListValue.get(j).getSessionId().equals(TimeTableListValue.get(l).getSessionId())){
+                            if (HallList.get(k).getLocation_name().equals(TimeTableListValue.get(l).getHall())) {
+                                if (HallList.size() < k) {
+                                    System.out.println("Halls not enough");
+                                    l=99;
+                                    j=99;
+                                    Checker1 = false;
+                                }
+                                else{
+                                    k++;
+                                    Checker = k;
+                                    k=99;
+                                }
+                            }
+                        }
+                    }
+                    l = 99;
+                }
+            }
+
+            if (Checker1 == true) {
+                String query1 = "UPDATE time_table SET `Hall` ='" +HallList.get(Checker).getLocation_name()+"' WHERE Id =" +TimeTableListValue.get(j).getId();
+                executeQuery(query1);
+                System.out.println();
+                System.out.println("updated" + HallList.get(Checker).getLocation_name());
+                System.out.println("checker works");
+                k=99;
+                l=99;
+            }
+
 
 
         }

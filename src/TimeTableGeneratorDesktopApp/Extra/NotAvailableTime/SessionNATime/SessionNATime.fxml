@@ -12,7 +12,7 @@
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font></Label>
-      <TableView fx:id="sessionListTV" layoutX="40.0" layoutY="61.0" onMouseClicked="#handleMouseAction" prefHeight="309.0" prefWidth="237.0">
+      <TableView fx:id="sessionListTV" layoutX="40.0" layoutY="89.0" onMouseClicked="#handleMouseAction" prefHeight="281.0" prefWidth="237.0">
         <columns>
           <TableColumn fx:id="moduleCol" prefWidth="75.0" text="Module" />
             <TableColumn fx:id="tagCol" prefWidth="75.0" text="Tag" />
@@ -41,5 +41,10 @@
             <DropShadow />
          </effect>
       </Pane>
+      <TextField fx:id="searchBox" layoutX="41.0" layoutY="61.0" onKeyReleased="#handleMouseAction" onKeyTyped="#searchRecord" prefHeight="23.0" prefWidth="237.0" promptText="search Session">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

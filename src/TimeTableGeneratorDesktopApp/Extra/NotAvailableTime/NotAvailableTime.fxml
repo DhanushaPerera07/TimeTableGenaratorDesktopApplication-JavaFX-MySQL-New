@@ -12,36 +12,25 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.NotAvailableTimeController">
    <children>
-      <Label alignment="CENTER" prefHeight="47.0" prefWidth="800.0" style="-fx-background-color: #152f85;" text="Manage Not Available Time" textFill="WHITE">
+      <Label alignment="CENTER" layoutY="46.0" prefHeight="47.0" prefWidth="429.0" style="-fx-background-color: #152f85;" text="Manage Not Available Time" textFill="WHITE">
          <font>
-            <Font name="Arial Narrow Bold" size="40.0" />
+            <Font name="Arial Narrow Bold" size="25.0" />
          </font></Label>
       <Button layoutX="76.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleBackButton" style="-fx-background-color: trans;" />
-      <Button layoutX="95.0" layoutY="122.0" mnemonicParsing="false" onAction="#ActionEventLecturerSection" prefHeight="206.0" prefWidth="301.0" style="-fx-background-color: #152f85;" text="Lecturers" textFill="WHITE">
+      <Button layoutX="418.0" layoutY="456.0" mnemonicParsing="false" onAction="#ActionEventLecturerSection" prefHeight="45.0" prefWidth="199.0" style="-fx-background-color: #152f85;" text="Lecturers" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
-            <Font name="Bitstream Vera Sans Mono Bold" size="30.0" />
+            <Font name="Bitstream Vera Sans Mono Bold" size="23.0" />
          </font>
          <effect>
             <DropShadow />
          </effect>
       </Button>
-      <Button layoutX="406.0" layoutY="122.0" mnemonicParsing="false" onAction="#ActionEventSessionSection" prefHeight="206.0" prefWidth="301.0" style="-fx-background-color: #152f85;" text="Sessions" textFill="WHITE">
+      <Button layoutX="418.0" layoutY="524.0" mnemonicParsing="false" onAction="#ActionEventSessionSection" prefHeight="41.0" prefWidth="199.0" style="-fx-background-color: #152f85;" text="Sessions" textFill="WHITE">
          <font>
-            <Font name="Bitstream Vera Sans Mono Bold" size="30.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Button>
-      <Button layoutX="95.0" layoutY="332.0" mnemonicParsing="false" onAction="#ActionEventGroupsSection" prefHeight="206.0" prefWidth="301.0" style="-fx-background-color: #152f85;" text="Groups" textFill="WHITE">
-         <font>
-            <Font name="Bitstream Vera Sans Mono Bold" size="30.0" />
+            <Font name="Bitstream Vera Sans Mono Bold" size="23.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -50,9 +39,9 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button layoutX="406.0" layoutY="332.0" mnemonicParsing="false" onAction="#ActionEventsubGroupSection" prefHeight="206.0" prefWidth="301.0" style="-fx-background-color: #152f85;" text="SubGroups" textFill="WHITE">
+      <Button layoutX="184.0" layoutY="456.0" mnemonicParsing="false" onAction="#ActionEventGroupsSection" prefHeight="45.0" prefWidth="199.0" style="-fx-background-color: #152f85;" text="Groups" textFill="WHITE">
          <font>
-            <Font name="Bitstream Vera Sans Mono Bold" size="30.0" />
+            <Font name="Bitstream Vera Sans Mono Bold" size="23.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -61,5 +50,21 @@
             <DropShadow />
          </effect>
       </Button>
+      <Button layoutX="184.0" layoutY="524.0" mnemonicParsing="false" onAction="#ActionEventsubGroupSection" prefHeight="45.0" prefWidth="199.0" style="-fx-background-color: #152f85;" text="SubGroups" textFill="WHITE">
+         <font>
+            <Font name="Bitstream Vera Sans Mono Bold" size="23.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <ImageView fitHeight="277.0" fitWidth="468.0" layoutX="202.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/more+time.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

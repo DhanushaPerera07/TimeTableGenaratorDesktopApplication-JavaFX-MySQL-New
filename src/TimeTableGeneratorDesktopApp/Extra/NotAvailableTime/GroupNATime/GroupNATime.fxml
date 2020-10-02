@@ -21,10 +21,20 @@
                <TableColumn fx:id="batColCen" prefWidth="120.33331298828125" text="Center" />
            </columns>
        </TableView>
-      <Label alignment="CENTER" layoutX="25.0" layoutY="24.0" prefWidth="750.0" style="-fx-background-color: #152f85;" text="Select a Group" textFill="#fcfcfc">
+      <Label layoutX="25.0" layoutY="16.0" prefHeight="34.0" prefWidth="750.0" style="-fx-background-color: #152f85;" text=" Select a Group" textFill="#fcfcfc">
          <font>
                  <Font name="Bitstream Vera Sans Mono Bold Oblique" size="21.0" />
                </font>
+      </Label>
+      <TextField fx:id="searchBox" layoutX="550.0" layoutY="21.0" onKeyPressed="#searchRecord" prefHeight="23.0" prefWidth="206.0" promptText="Ex : ID, Fac, Prog, center etx.">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+      <Label layoutX="486.0" layoutY="20.0" text="Search : " textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
       </Label>
    </children>
 

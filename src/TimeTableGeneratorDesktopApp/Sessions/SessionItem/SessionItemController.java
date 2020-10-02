@@ -6,9 +6,17 @@ import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -25,7 +33,14 @@ public class SessionItemController implements Initializable
     public String sessionGenID;
     public int sessionID;
 
-
+    public static int sessionID2 = 0;
+    public static String sessionModule = "";
+    public static String sessionModuleCode = "";
+    public static String sessionTag = "";
+    public static String sessionGroupID = "";
+    public static int sessionStudentCount = 0;
+    public static int sessionDuration = 0;
+    public static String sessionGenID2 = "";
 
     @FXML
     private Label groupL;
@@ -47,6 +62,12 @@ public class SessionItemController implements Initializable
 
     @FXML
     private Button deleteSessionBtn;
+
+    @FXML
+    private Button updateSessionBtn;
+
+    @FXML
+    private VBox sessionItemVbox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -158,5 +179,50 @@ public class SessionItemController implements Initializable
 
 //        deleteSessionRecord(this.sessionInstance.getSessionID(),this.sessionInstance.getSessionGenID());
 
+    }
+
+
+    @FXML
+    void updateSessionAction(ActionEvent event) {
+
+        sessionID2 = sessionInstance.getSessionID();
+        sessionModule = sessionInstance.getSessionModule();
+        sessionModuleCode = sessionInstance.getSessionModuleCode();
+        sessionTag = sessionInstance.getSessionTag();
+        sessionGroupID = sessionInstance.getSessionGroupID();
+        sessionStudentCount = sessionInstance.getSessionStudentCount();
+        sessionDuration = sessionInstance.getSessionDuration();
+        sessionGenID2 = sessionInstance.getSessionGenID();
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/Sessions/SessionForm/sessionForm.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+
+            stage.setTitle("Edit Session");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(sessionItemVbox.getScene().getWindow());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+//                    String dropTempSessions = "Drop TABLE temp_session_lecturer";
+//                    executeQuery(dropTempSessions);
+                    sessionID2 = 0;
+                    sessionModule = "";
+                    sessionModuleCode = "";
+                    sessionTag = "";
+                    sessionGroupID = "";
+                    sessionStudentCount = 0;
+                    sessionDuration = 0;
+                    sessionGenID2 = "";
+                }
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
