@@ -132,12 +132,20 @@ public class SessionFormController implements Initializable {
                     1,2,3,4,5,6
             );
 
+            addSessionBtn.setVisible(true);
+            updateSessionBtn.setVisible(false);
+
 //            if (sessionGenID.equals("") && sessionTag.equals("") && sessionStudentGroup.equals("") && sessionSubject.equals("") && sessionNoOfStudents==0){
 //                addSessionBtn.setDisable(true);
 //            }
         }
         else {
 //            tfSessionNoStudents.setText(String.valueOf(sessionStudentCount));
+
+
+            addSessionBtn.setVisible(false);
+            updateSessionBtn.setVisible(true);
+
 
             tfSessionNoStudents.setText(String.valueOf(sessionNoOfStudents));
 
