@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
@@ -10,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="workingPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.SetWorkingDaysController">
+<AnchorPane fx:id="workingPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.SetWorkingDaysController">
    <children>
       <Pane layoutX="300.0" layoutY="91.0" prefHeight="299.0" prefWidth="181.0" style="-fx-background-color: #22222222;">
          <children>
@@ -23,13 +28,6 @@
       </Pane>
       <Pane layoutX="21.0" layoutY="91.0" prefHeight="299.0" prefWidth="272.0" style="-fx-background-color: #22222222;">
          <children>
-            <TextField fx:id="field1noDays" layoutX="112.0" layoutY="49.0" />
-            <TextField fx:id="field2noDays" layoutX="112.0" layoutY="87.0" />
-            <TextField fx:id="field3noDays" layoutX="112.0" layoutY="122.0" />
-            <TextField fx:id="field4noDays" layoutX="112.0" layoutY="158.0" />
-            <TextField fx:id="field5noDays" layoutX="112.0" layoutY="193.0" />
-            <TextField fx:id="field6noDays" layoutX="112.0" layoutY="227.0" />
-            <TextField fx:id="field7noDays" layoutX="112.0" layoutY="261.0" />
             <Label fx:id="label1noDays" layoutX="23.0" layoutY="49.0" text="Day 1">
                <font>
                   <Font size="18.0" />
@@ -69,6 +67,13 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
+            <ComboBox fx:id="field1noDays" layoutX="111.0" layoutY="50.0" prefWidth="150.0" />
+            <ComboBox fx:id="field2noDays" layoutX="111.0" layoutY="88.0" prefWidth="150.0" />
+            <ComboBox fx:id="field3noDays" layoutX="111.0" layoutY="123.0" prefWidth="150.0" />
+            <ComboBox fx:id="field4noDays" layoutX="111.0" layoutY="159.0" prefWidth="150.0" />
+            <ComboBox fx:id="field5noDays" layoutX="111.0" layoutY="194.0" prefWidth="150.0" />
+            <ComboBox fx:id="field6noDays" layoutX="111.0" layoutY="228.0" prefWidth="150.0" />
+            <ComboBox fx:id="field7noDays" layoutX="111.0" layoutY="262.0" prefWidth="150.0" />
          </children></Pane>
       <Pane layoutX="21.0" layoutY="14.0" prefHeight="67.0" prefWidth="565.0" style="-fx-background-color: #22222222;">
          <children>

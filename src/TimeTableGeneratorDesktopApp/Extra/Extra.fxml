@@ -101,7 +101,7 @@
          </children>
       </TilePane>
       <Circle fill="#f5f5f5" layoutX="400.0" layoutY="298.0" radius="55.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
-      <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="376.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="376.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/mainIcon.png" />
          </image>
