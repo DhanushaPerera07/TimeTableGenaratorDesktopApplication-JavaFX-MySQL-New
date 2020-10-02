@@ -53,6 +53,9 @@ public class sessionController implements Initializable {
     public static String filterValue = "";
 
     ArrayList<String> subjects = new ArrayList<String>();
+    ArrayList<String> studentGroup = new ArrayList<String>();
+    ArrayList<String> lecturers = new ArrayList<String>();
+
 
 
 
@@ -190,6 +193,9 @@ public class sessionController implements Initializable {
 
     @FXML
     public void selectFilterType(ActionEvent actionEvent) {
+
+        filterType = filter1.getSelectionModel().getSelectedItem().toString();
+
         if(filterType.equals("All")){
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
@@ -200,10 +206,9 @@ public class sessionController implements Initializable {
         else if (filterType.equals("Lecturer")){
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
-            filter2.getItems().addAll(
-                    "All"
-            );
+            filter2.setItems(FXCollections.observableArrayList(getLecturer()));
         }
+
         else if (filterType.equals("Subject")){
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
@@ -212,9 +217,7 @@ public class sessionController implements Initializable {
         else if (filterType.equals("Group ID")){
             filter2.getItems().removeAll(filter2.getItems());
             filter2.setPromptText("Select");
-            filter2.getItems().addAll(
-                    "All"
-            );
+            filter2.setItems(FXCollections.observableArrayList(getStudentGroups()));
         }
         else if (filterType.equals("Duration")){
             filter2.getItems().removeAll(filter2.getItems());
@@ -222,6 +225,53 @@ public class sessionController implements Initializable {
             filter2.getItems().addAll(
                     "1","2","3","4","5","6"
             );
+        }
+    }
+
+    public List<String> getLecturer(){
+        Connection con = getConnection();
+        try {
+            Statement st;
+            ResultSet rs;
+
+            st = con.createStatement();
+            st.executeQuery("SELECT lecturerName FROM lecturer ORDER BY lecturerName");
+            rs = st.getResultSet();
+
+            while (rs.next()){
+                String a = rs.getString("lecturerName");
+                lecturers.add(a);
+            }
+            return lecturers;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<String> getStudentGroups(){
+        Connection con = getConnection();
+        try{
+            Statement st;
+            ResultSet rs;
+            // assume that all objects were all properly defined
+            st = con.createStatement();
+            st.executeQuery("SELECT batchID FROM studentbatches ORDER BY batchID");
+            rs = st.getResultSet();
+            while(rs.next()){
+                String c = rs.getString("batchID");
+                studentGroup.add(c);
+            }
+            st.executeQuery("SELECT subGroupId FROM subgroups ORDER BY subGroupId");
+            rs = st.getResultSet();
+            while (rs.next()){
+                String c = rs.getString("subGroupId");
+                studentGroup.add(c);
+            }
+            return studentGroup;
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -256,6 +306,24 @@ public class sessionController implements Initializable {
         Connection conn = getConnection();
 
         String query = "SELECT * FROM session ";
+//        String query = "";
+
+
+//        if(filterType.equals("All")){
+//            query = "SELECT * FROM session ";
+//        }
+//        else if (filterType.equals("Lecturer")){
+//            query = "Select * from session_lecturer WHERE sessionLecturerName = '" + filterValue + "'";
+//        }
+//        else if (filterType.equals("Subject")){
+//            query = "Select * from session WHERE sessionSubject = '" + filterValue + "'";
+//        }
+//        else if (filterType.equals("Group ID")){
+//            query = "Select * from session WHERE sessionStudentGroup = '" + filterValue + "'";
+//        }
+//        else if (filterType.equals("Duration")){
+//            query = "Select * from session WHERE sessionDuration = '" + filterValue + "'";
+//        }
 
         Statement st;
         ResultSet rs;
@@ -284,4 +352,8 @@ public class sessionController implements Initializable {
         }
         return sessionsList;
     }
+
+    //    public void refreshLecturerListAction(ActionEvent actionEvent) {
+//        showLecturers();
+//    }
 }

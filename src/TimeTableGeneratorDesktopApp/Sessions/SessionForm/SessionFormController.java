@@ -1,5 +1,9 @@
 package TimeTableGeneratorDesktopApp.Sessions.SessionForm;
 
+import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
+import TimeTableGeneratorDesktopApp.Sessions.SessionItem.SessionItemController;
+import TimeTableGeneratorDesktopApp.Sessions.Sessions;
+import TimeTableGeneratorDesktopApp.Sessions.sessionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,12 +21,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SessionFormController implements Initializable {
 
-    @FXML
-    private Label sessionID;
+//    @FXML
+//    private Label sessionID;
 
     @FXML
     private ComboBox<String> comboSubjectBox;
@@ -63,6 +68,7 @@ public class SessionFormController implements Initializable {
     @FXML
     private ListView<String> lecturerList;
 
+    private static int sessionID = 0;
     private static String sessionTag ="";
     private static String sessionStudentGroup = "";
     private static String sessionSubject = "";
@@ -76,28 +82,107 @@ public class SessionFormController implements Initializable {
     int count = 0;
     int sessionid = 0;
 
+//    private static int sessionID2 = 0;
+//    private static String sessionModule = "";
+//    private static String sessionModuleCode = "";
+//    private static String sessionTag2 = "";
+//    private static String sessionGroupID = "";
+//    private static int sessionStudentCount = 0;
+//    private static int sessionDuration2 = 0;
+//    private static String sessionGenID2 = "";
+
+    TimeTableGeneratorDesktopApp.Sessions.SessionItem.SessionItemController sessionItemController = new SessionItemController();
+    TimeTableGeneratorDesktopApp.Sessions.sessionController sessionController = new sessionController();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        print();
 
+//        sessionID2 = sessionItemController.sessionID2;
+//        sessionModule = sessionItemController.sessionModule;
+//        sessionModuleCode = sessionItemController.sessionModuleCode;
+//        sessionTag2 = sessionItemController.sessionTag;
+//        sessionGroupID = sessionItemController.sessionGroupID;
+//        sessionStudentCount = sessionItemController.sessionStudentCount;
+//        sessionDuration2 = sessionItemController.sessionDuration;
+//        sessionGenID2 = sessionItemController.sessionGenID2;
+
+        sessionID = sessionItemController.sessionID2;
+        sessionSubject = sessionItemController.sessionModule;
+//        sessionModuleCode = sessionItemController.sessionModuleCode;
+        sessionTag = sessionItemController.sessionTag;
+        sessionStudentGroup = sessionItemController.sessionGroupID;
+        sessionNoOfStudents = sessionItemController.sessionStudentCount;
+        sessionDuration = sessionItemController.sessionDuration;
+        sessionGenID = sessionItemController.sessionGenID2;
+
+//        sessionGenID2.equals("")
+        if (sessionGenID.equals("")){
+            comboTagBox.getItems().removeAll(comboTagBox.getItems());
+            comboTagBox.setItems(FXCollections.observableArrayList(getTags()));
+
+            comboStudentGroupBox.getItems().removeAll(comboStudentGroupBox.getItems());
+            comboStudentGroupBox.setItems(FXCollections.observableArrayList(getStudentGroups()));
+
+            comboSubjectBox.getItems().removeAll(comboSubjectBox.getItems());
+            comboSubjectBox.setItems(FXCollections.observableArrayList(getSubjects()));
+
+            comboDurationBox.getItems().removeAll(comboDurationBox.getItems());
+            comboDurationBox.getItems().addAll(
+                    1,2,3,4,5,6
+            );
+
+//            if (sessionGenID.equals("") && sessionTag.equals("") && sessionStudentGroup.equals("") && sessionSubject.equals("") && sessionNoOfStudents==0){
+//                addSessionBtn.setDisable(true);
+//            }
+        }
+        else {
+//            tfSessionNoStudents.setText(String.valueOf(sessionStudentCount));
+
+            tfSessionNoStudents.setText(String.valueOf(sessionNoOfStudents));
+
+            comboTagBox.getItems().removeAll(comboTagBox.getItems());
+//            comboTagBox.setPromptText(sessionTag2);
+            comboTagBox.setPromptText(sessionTag);
+            comboTagBox.setItems(FXCollections.observableArrayList(getTags()));
+
+            comboStudentGroupBox.getItems().removeAll(comboStudentGroupBox.getItems());
+//            comboStudentGroupBox.setPromptText(sessionGroupID);
+            comboStudentGroupBox.setPromptText(sessionStudentGroup);
+            comboStudentGroupBox.setItems(FXCollections.observableArrayList(getStudentGroups()));
+
+            comboSubjectBox.getItems().removeAll(comboSubjectBox.getItems());
+//            comboSubjectBox.setPromptText(sessionModule);
+            comboSubjectBox.setPromptText(sessionSubject);
+            comboSubjectBox.setItems(FXCollections.observableArrayList(getSubjects()));
+
+            comboDurationBox.getItems().removeAll(comboDurationBox.getItems());
+//            comboDurationBox.setPromptText(String.valueOf(sessionDuration2));
+            comboDurationBox.setPromptText(String.valueOf(sessionDuration));
+            comboDurationBox.getItems().addAll(
+                    1,2,3,4,5,6
+            );
+
+            getReleventSessionLecturers();
+        }
+
+        print();
         tableCreateQuery();
         getSubjects();
 
-        comboTagBox.getItems().removeAll(comboTagBox.getItems());
-        comboTagBox.setItems(FXCollections.observableArrayList(getTags()));
-
-        comboStudentGroupBox.getItems().removeAll(comboStudentGroupBox.getItems());
-        comboStudentGroupBox.setItems(FXCollections.observableArrayList(getStudentGroups()));
-
-        comboSubjectBox.getItems().removeAll(comboSubjectBox.getItems());
-        comboSubjectBox.setItems(FXCollections.observableArrayList(getSubjects()));
-
-        comboDurationBox.getItems().removeAll(comboDurationBox.getItems());
-        comboDurationBox.getItems().addAll(
-                1,2,3,4,5,6
-        );
+//        comboTagBox.getItems().removeAll(comboTagBox.getItems());
+//        comboTagBox.setItems(FXCollections.observableArrayList(getTags()));
+//
+//        comboStudentGroupBox.getItems().removeAll(comboStudentGroupBox.getItems());
+//        comboStudentGroupBox.setItems(FXCollections.observableArrayList(getStudentGroups()));
+//
+//        comboSubjectBox.getItems().removeAll(comboSubjectBox.getItems());
+//        comboSubjectBox.setItems(FXCollections.observableArrayList(getSubjects()));
+//
+//        comboDurationBox.getItems().removeAll(comboDurationBox.getItems());
+//        comboDurationBox.getItems().addAll(
+//                1,2,3,4,5,6
+//        );
 
 
         getLecturerList();
@@ -156,6 +241,19 @@ public class SessionFormController implements Initializable {
                 "'," +sessionDuration+ ",'OOPTest1') ";
         executeQuery(query);
 
+
+
+//        if (sessionGenID.equals("") && sessionTag.equals("") && sessionStudentGroup.equals("") && sessionSubject.equals("") && sessionNoOfStudents==0){
+//            addSessionBtn.setDisable(true);
+//        }
+
+
+        sessionGenID = "";
+        sessionTag = "";
+        sessionStudentGroup = "";
+        sessionSubject ="";
+        sessionNoOfStudents = 0;
+        sessionDuration = 0;
 //        String query = "INSERT INTO session_lecturer ()"
     }
 
@@ -167,7 +265,7 @@ public class SessionFormController implements Initializable {
     }
 
     public void tableCreateQuery(){
-        String queryTempSessions = "CREATE TABLE temp_session_lecturer (" +
+        String queryTempSessions = "CREATE TABLE IF NOT EXISTS temp_session_lecturer (" +
                 "  `idtemp_session_lecturer` int NOT NULL AUTO_INCREMENT," +
                 "  `temp_lecturer` varchar(45) NOT NULL," +
                 "  PRIMARY KEY (`idtemp_session_lecturer`)" +
@@ -179,6 +277,9 @@ public class SessionFormController implements Initializable {
 
     @FXML
     public void updateSessionForm(ActionEvent actionEvent) {
+        updateRecord();
+        updateLecturerSessionID();
+        saveSessionLecturer();
     }
 
 
@@ -319,6 +420,24 @@ public class SessionFormController implements Initializable {
 
     @FXML
     public void deleteLecturer(MouseEvent mouseEvent) {
+        ObservableList<String> a = savedLecturerList.getSelectionModel().getSelectedItems();
+        String b = a.get(0);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation delete");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure");
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if(action.get() == ButtonType.OK) {
+            System.out.println(a);
+//            String query = "DELETE from session_lecturer Where sessionID = '" + sessionGenID2 + "' AND sessionLecturerName ='" +b + "'" ;
+            String query = "DELETE from session_lecturer Where sessionID = '" + sessionGenID + "' AND sessionLecturerName ='" +b + "'" ;
+            executeQuery(query);
+            getTags();
+        }
+
+
 
     }
 
@@ -385,4 +504,44 @@ public class SessionFormController implements Initializable {
         String query = "Delete from tempTags";
         executeQuery(query);
     }
+
+    public void getReleventSessionLecturers(){
+        ObservableList<String> relevantLecturers = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+//        String  query2 = "SELECT * FROM session_lecturer WHERE sessionID ='" +sessionGenID2 + "'";
+        String  query2 = "SELECT * FROM session_lecturer WHERE sessionID ='" +sessionGenID + "'";
+
+        Statement st;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery(query2);
+            String name;
+            while (rs.next()) {
+                name = rs.getString("sessionLecturerName");
+                relevantLecturers.add(name);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        savedLecturerList.setItems(relevantLecturers);
+    }
+
+    private void updateRecord(){
+
+        String c = "test";
+        sessionNoOfStudents = Integer.parseInt(tfSessionNoStudents.getText());
+        String query = "UPDATE session SET sessionID = '" + sessionGenID + "', sessionTag = '" + sessionTag
+                + "', sessionStudentGroup = '" + sessionStudentGroup + "', sessionSubject = '" + sessionSubject +"', sessionNoOfStudents = " + sessionNoOfStudents
+                + ", sessionDuration = " + sessionDuration + ", sessionModuleCode = '" + c + "' WHERE idsession = " + sessionID + "";
+        executeQuery(query);
+    }
+
+    public void updateLecturerSessionID(){
+        String s = sessionStudentGroup+sessionTag+sessionSubject;
+        String c = sessionItemController.sessionGenID2;
+
+        String query = "UPDATE session_lecturer SET sessionID = '" + s + "' WHERE sessionID = '" + c + "'";
+    }
+
 }
