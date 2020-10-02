@@ -47,10 +47,10 @@ public class DatabaseCreation {
     String query1 = "SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;\n";
     String query2 = "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;";
     String query3 = "SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';";
-    String query4 = "CREATE SCHEMA IF NOT EXISTS `timetabledb` DEFAULT CHARACTER SET utf8 ;\n";
-    String query5 = "USE `timetabledb` ;";
+    String query4 = "CREATE SCHEMA IF NOT EXISTS `"+DatabaseConnection.databaseName+"` DEFAULT CHARACTER SET utf8 ;\n";
+    String query5 = "USE `"+DatabaseConnection.databaseName+"` ;";
 
-    String query6 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`faculty` (\n" +
+    String query6 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`faculty` (\n" +
             "  `faculty_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `faculty_name` VARCHAR(60) NULL,\n" +
             "  `faculty_short_name` VARCHAR(10) NULL,\n" +
@@ -64,7 +64,7 @@ public class DatabaseCreation {
             "ENGINE = InnoDB;\n";
 
 
-    String query7 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`department` (\n" +
+    String query7 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`department` (\n" +
             "  `department_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `department_name` VARCHAR(60) NULL COMMENT 'department name',\n" +
             "  `department_short_name` VARCHAR(15) NULL COMMENT 'short name of the department',\n" +
@@ -85,7 +85,7 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB;";
 
-    String query8 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`building` (\n" +
+    String query8 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`building` (\n" +
             "  `building_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `building_name` VARCHAR(45) NULL,\n" +
             "  `building_no_of_floors` INT NULL DEFAULT 1,\n" +
@@ -110,7 +110,7 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB;";
 
-    String query9 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`location` (\n" +
+    String query9 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`location` (\n" +
             "  `location_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `location_name` VARCHAR(45) NULL DEFAULT NULL,\n" +
             "  `location_capacity` INT NULL DEFAULT NULL,\n" +
@@ -134,7 +134,7 @@ public class DatabaseCreation {
             "DEFAULT CHARACTER SET = utf8";
 
 
-    String query10 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`tags` (\n" +
+    String query10 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`tags` (\n" +
             "  `idtags` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `Tag` VARCHAR(45) NULL COMMENT 'name of the tag\\n\\nex: Lecture, Tutorial, Lab, Lecture+Tutorial, Evalution',\n" +
             "  PRIMARY KEY (`idtags`))\n" +
@@ -142,7 +142,7 @@ public class DatabaseCreation {
 
 
 
-    String query11 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`lecturer` (" +
+    String query11 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`lecturer` (" +
             "  `lid` int NOT NULL AUTO_INCREMENT," +
             "  `lecturerID` varchar(6) NOT NULL," +
             "  `lecturerName` varchar(45) NOT NULL," +
@@ -156,7 +156,7 @@ public class DatabaseCreation {
             ") ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
 
 
-    String query12 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`module` (" +
+    String query12 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`module` (" +
             "  `idmodule` int NOT NULL AUTO_INCREMENT," +
             "  `moduleName` varchar(45) NOT NULL," +
             "  `moduleCode` varchar(45) NOT NULL," +
@@ -172,7 +172,7 @@ public class DatabaseCreation {
 
 
 
-    String query13 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`studentbatches` (" +
+    String query13 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`studentbatches` (" +
             "  `id` int(5) NOT NULL AUTO_INCREMENT," +
             "  `year` varchar(45) NOT NULL," +
             "  `semester` varchar(45) NOT NULL," +
@@ -187,7 +187,7 @@ public class DatabaseCreation {
 
 
 
-    String query14 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`preferred_room_for_subject` (\n" +
+    String query14 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`preferred_room_for_subject` (\n" +
             "  `preferred_room_for_subject_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `subject_subject_id` INT NOT NULL,\n" +
             "  `location_location_id` INT NOT NULL,\n" +
@@ -203,7 +203,7 @@ public class DatabaseCreation {
             "ENGINE = InnoDB\n" +
             "DEFAULT CHARACTER SET = utf8";
 
-    String query15 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`batchstats` (\n" +
+    String query15 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`batchstats` (\n" +
             "  `batch` INT NOT NULL,\n" +
             "  `nofStudents` INT NULL,\n" +
             "  `nofGrouped` INT NULL,\n" +
@@ -213,7 +213,7 @@ public class DatabaseCreation {
             "ENGINE = InnoDB;";
 
 
-    String query16 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`subgroups` (\n" +
+    String query16 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`subgroups` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `subGroupId` VARCHAR(45) NULL,\n" +
             "  `NofStudents` INT NULL,\n" +
@@ -221,7 +221,7 @@ public class DatabaseCreation {
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB;";
 
-    String query17 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`subgroups` (" +
+    String query17 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`subgroups` (" +
             "  `id` INT NOT NULL AUTO_INCREMENT," +
             "  `subGroupId` VARCHAR(45) NULL," +
             "  `NofStudents` INT NULL," +
@@ -230,20 +230,20 @@ public class DatabaseCreation {
             "ENGINE = InnoDB;";
 
 
-    String query18 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`systemtags` (\n" +
+    String query18 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`systemtags` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `systemTag` VARCHAR(45) NULL,\n" +
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB;";
 
 
-    String query19 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`temptags` (\n" +
+    String query19 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`temptags` (\n" +
             "  `Tag` VARCHAR(45) NOT NULL,\n" +
             "  PRIMARY KEY (`Tag`))\n" +
             "ENGINE = InnoDB;";
 
 
-    String query20 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`daysname` (\n" +
+    String query20 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`daysname` (\n" +
             "  `id` INT NOT NULL,\n" +
             "  `day1name` VARCHAR(45) NULL,\n" +
             "  `day2name` VARCHAR(45) NULL,\n" +
@@ -256,21 +256,21 @@ public class DatabaseCreation {
             "ENGINE = InnoDB;";
 
 
-    String query21 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`hours` (\n" +
+    String query21 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`hours` (\n" +
             "  `id` INT NOT NULL,\n" +
             "  `hour1` VARCHAR(45) NULL,\n" +
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB;";
 
 
-    String query22 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`nodays` (\n" +
+    String query22 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`nodays` (\n" +
             "  `idno` INT NOT NULL,\n" +
             "  `noDays` INT NULL,\n" +
             "  PRIMARY KEY (`idno`))\n" +
             "ENGINE = InnoDB;";
 
 
-    String query23 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`timeslots` (\n" +
+    String query23 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`timeslots` (\n" +
             "  `slotsID` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `range_t` VARCHAR(5) NULL,\n" +
             "  `value_t` VARCHAR(20) NULL,\n" +
@@ -299,7 +299,7 @@ public class DatabaseCreation {
 
 
     // added by Dhanusha
-    String query25 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_lecturer` (\n" +
+    String query25 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_lecturer` (\n" +
             "  `suitable_room_for_lecturer_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` INT NOT NULL,\n" +
             "  `lecturer_lid` INT NOT NULL,\n" +
@@ -315,7 +315,7 @@ public class DatabaseCreation {
             "DEFAULT CHARACTER SET = utf8";
 
 
-    String query26 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`time_table` (" +
+    String query26 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`time_table` (" +
             "  `Id` INT NOT NULL AUTO_INCREMENT," +
             "  `timeSlot` VARCHAR(50) NULL," +
             "  `Module` VARCHAR(50) NULL," +
@@ -330,7 +330,7 @@ public class DatabaseCreation {
 
 
     // add by Dhanusha
-    String query27 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_tags` (\n" +
+    String query27 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_tags` (\n" +
             "  `suitable_room_for_tags_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` INT NOT NULL,\n" +
             "  `tags_idtags` INT NOT NULL,\n" +
@@ -345,7 +345,7 @@ public class DatabaseCreation {
             "ENGINE = InnoDB\n" +
             "DEFAULT CHARACTER SET = utf8";
 
-    String query28 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_student_batch` (\n" +
+    String query28 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_student_batch` (\n" +
             "  `suitable_room_for_student_batch_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` INT NOT NULL,\n" +
             "  `studentbatches_id` INT NOT NULL,\n" +
@@ -359,7 +359,7 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB";
 
-    String query29 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_student_subgroups` (\n" +
+    String query29 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_student_subgroups` (\n" +
             "  `suitable_room_for_student_subgroups_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` INT NOT NULL,\n" +
             "  `subgroups_id` INT NOT NULL,\n" +
@@ -373,7 +373,7 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB";
 
-    String query30 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`suitable_room_for_session` (\n" +
+    String query30 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_session` (\n" +
             "  `suitable_room_for_session_id` int NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` int NOT NULL,\n" +
             "  `idsession` int NOT NULL,\n" +
@@ -384,7 +384,7 @@ public class DatabaseCreation {
             ") ENGINE=InnoDB;";
 
 
-    String query31 = "CREATE TABLE IF NOT EXISTS  `timetabledb`.`session` (" +
+    String query31 = "CREATE TABLE IF NOT EXISTS  `"+DatabaseConnection.databaseName+"`.`session` (" +
             "  `idsession` int NOT NULL AUTO_INCREMENT," +
             "  `sessionID` varchar(100) NOT NULL," +
             "  `sessionTag` varchar(45) NOT NULL," +
@@ -398,7 +398,7 @@ public class DatabaseCreation {
 
 
 
-    String query32 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`session_lecturer` (" +
+    String query32 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`session_lecturer` (" +
             "  `idsession_lecturer` int NOT NULL AUTO_INCREMENT," +
             "  `sessionID` varchar(100) NOT NULL," +
             "  `sessionLecturerName` varchar(45) NOT NULL," +
@@ -406,7 +406,7 @@ public class DatabaseCreation {
             ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
 
 
-    String query33 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`consecutive_session_in_same_room` (\n" +
+    String query33 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`consecutive_session_in_same_room` (\n" +
             "  `consecutive_session_in_same_room_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` INT NOT NULL,\n" +
             "  `consecutive_session_id` INT NOT NULL,\n" +
@@ -419,14 +419,14 @@ public class DatabaseCreation {
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB;";
 
-    String query34 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`consecetive_sessions` (\n" +
+    String query34 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`consecetive_sessions` (\n" +
             "  `id` int NOT NULL AUTO_INCREMENT,\n" +
             "  `session1ID` varchar(100) DEFAULT NULL,\n" +
             "  `session2ID` varchar(100) DEFAULT NULL,\n" +
             "  PRIMARY KEY (`id`)\n" +
             ")\n";
 
-    String query35 = "CREATE TABLE IF NOT EXISTS `timetabledb`.`cannot_be_reserved_time_for_location` (\n" +
+    String query35 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`cannot_be_reserved_time_for_location` (\n" +
             "  `cannot_be_reserved_time_for_location_id` int NOT NULL AUTO_INCREMENT,\n" +
             "  `day` varchar(50) NOT NULL,\n" +
             "  `location_location_id` int NOT NULL,\n" +

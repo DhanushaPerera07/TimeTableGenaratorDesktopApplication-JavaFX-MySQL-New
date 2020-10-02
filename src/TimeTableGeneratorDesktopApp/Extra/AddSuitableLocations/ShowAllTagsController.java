@@ -62,6 +62,11 @@ public class ShowAllTagsController implements Initializable {
         try {
             Tags tag = tblTags.getSelectionModel().getSelectedItem();
 
+            if (tag == null){
+                tblTags.getSelectionModel().clearSelection();
+                return;
+            }
+
             System.out.println("Test sout of selected, tagID: " + tag.getTagID() + ", tag name: " + tag.getTag());
 
 
