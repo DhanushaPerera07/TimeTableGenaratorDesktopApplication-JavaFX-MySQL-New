@@ -5,6 +5,8 @@ import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +15,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -60,10 +64,12 @@ public class SubGroupNATimeController implements Initializable {
     }
 
 
+    @FXML
+    private TextField searchBox;
+    StudentBatchesDatabaseHelper studentBatchesDatabaseHelper = new StudentBatchesDatabaseHelper();
 
     public void showBatches() {
 
-        StudentBatchesDatabaseHelper studentBatchesDatabaseHelper = new StudentBatchesDatabaseHelper();
         ObservableList<StudentBatches> list = studentBatchesDatabaseHelper.getBatchesList();
 
         batColYear.setCellValueFactory(new PropertyValueFactory<StudentBatches, String>("year"));
@@ -79,6 +85,46 @@ public class SubGroupNATimeController implements Initializable {
 
     }
 
+
+    @FXML
+    public void searchRecord(KeyEvent ke) {
+        FilteredList<StudentBatches> filterData = new FilteredList<>( studentBatchesDatabaseHelper.getBatchesList(), p -> true);
+        searchBox.textProperty().addListener((obsevable, oldvalue, newvalue) -> {
+            filterData.setPredicate(stud -> {
+                if (newvalue == null || newvalue.isEmpty()) {
+                    return true;
+                }
+                String typedText = newvalue.toLowerCase();
+                if (stud.getBatchID().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (stud.getFaculty().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (stud.getProgramme().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (stud.getCenter().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (stud.getIntake().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (stud.getSemester().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                if (stud.getYear().toLowerCase().indexOf(typedText) != -1) {
+                    return true;
+                }
+                return false;
+            });
+            SortedList<StudentBatches> sortedList = new SortedList<>(filterData);
+            sortedList.comparatorProperty().bind(tvBatches.comparatorProperty());
+            tvBatches.setItems(sortedList);
+
+        });
+
+    }
 
     @FXML
     void handleMouseAction(MouseEvent event) {

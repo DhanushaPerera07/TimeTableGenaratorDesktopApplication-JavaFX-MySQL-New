@@ -106,7 +106,7 @@ public class SetNATimeSubGroupController implements Initializable {
         String day =  dayCB.getSelectionModel().getSelectedItem().toString();
         String hour = hourCB.getSelectionModel().getSelectedItem().toString();
 
-        String query = "INSERT INTO notavailabletimesubgroup (batchID,subGroupID,DayTM,Hour)" +
+        String query = "INSERT INTO notavailabletimesubgroup (batchID,subGroupID,Day,Hour)" +
                 "VALUES ('" +batchID+ "','"+subGroupID+"','" +day+ "','" +hour+ "') ";
         executeQuery(query);
 
@@ -188,7 +188,7 @@ public class SetNATimeSubGroupController implements Initializable {
             rs = st.executeQuery(query);
             NATimeSubGroups naTimeSubGroups;
             while (rs.next()) {
-                naTimeSubGroups = new NATimeSubGroups(rs.getInt("id"),rs.getString("batchID"),rs.getString("subGroupID"),rs.getString("DayTM"),rs.getString("Hour"));
+                naTimeSubGroups = new NATimeSubGroups(rs.getInt("id"),rs.getString("batchID"),rs.getString("subGroupID"),rs.getString("Day"),rs.getString("Hour"));
                 studentSubGroupsNATimeList.add(naTimeSubGroups);
             }
 
@@ -210,7 +210,7 @@ public class SetNATimeSubGroupController implements Initializable {
 
     public void showSubNATimes(){
         ObservableList<NATimeSubGroups> list = getSubGroupsNATImeList();
-        dayCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups,String>("DayTM"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups,String>("Day"));
         hourCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups,String>("Hour"));
         NATtv.setItems(list);
     }

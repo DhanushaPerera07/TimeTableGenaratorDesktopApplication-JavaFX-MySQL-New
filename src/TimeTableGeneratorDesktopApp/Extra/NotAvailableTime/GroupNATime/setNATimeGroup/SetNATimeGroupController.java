@@ -57,8 +57,8 @@ public class SetNATimeGroupController implements Initializable {
         batchRawID = GroupNATimeController.rawID;
 
         batchIDLabel.setText(batchID);
-       tableName="notavailabletimegroup";
-       subGroupTableName ="notavailabletimesubgroup";
+        tableName="notavailabletimegroup";
+        subGroupTableName ="notavailabletimesubgroup";
         createTable();
         setValuesCombo();
         showData();
@@ -76,7 +76,7 @@ public class SetNATimeGroupController implements Initializable {
             rs = st.executeQuery(query);
             NATimeGroups naTimeGroups;
             while (rs.next()) {
-                naTimeGroups = new NATimeGroups(rs.getInt("id"), rs.getString("batchID"), rs.getString("DayTM"),rs.getString("Hour"));
+                naTimeGroups = new NATimeGroups(rs.getInt("id"), rs.getString("batchID"), rs.getString("Day"),rs.getString("Hour"));
                 NATTimeGroupList.add(naTimeGroups);
             }
 
@@ -102,7 +102,7 @@ public class SetNATimeGroupController implements Initializable {
 
                 String subGroupID = rs.getString("subGroupId");
 
-                String subGroupInsertQuery = "INSERT INTO notavailabletimesubgroup (batchID,DayTM,Hour,subGroupID)" +
+                String subGroupInsertQuery = "INSERT INTO notavailabletimesubgroup (batchID,Day,Hour,subGroupID)" +
                         "VALUES ('" +batchID+ "','" +day+ "','" +hour+ "','" +subGroupID+ "') ";
                 executeQuery(subGroupInsertQuery);
 
@@ -117,7 +117,7 @@ public class SetNATimeGroupController implements Initializable {
 
     public void showData() {
         ObservableList<NATimeGroups> list = getTimeList();
-        dayCol.setCellValueFactory(new PropertyValueFactory<NATimeGroups, String>("DayTM"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<NATimeGroups, String>("Day"));
         hourCol.setCellValueFactory(new PropertyValueFactory<NATimeGroups, String>("Hour"));
         tabledayhour.setItems(list);
     }
@@ -139,32 +139,32 @@ public class SetNATimeGroupController implements Initializable {
 
 
     private void createTable() {
-    String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+tableName+"` (" +
-            "  `id` INT NOT NULL AUTO_INCREMENT," +
-            "  `batchID` VARCHAR(45) NULL ," +
-            "  `DayTM` VARCHAR(45) NULL ," +
-            "  `Hour` VARCHAR(45) NULL ," +
-            "  PRIMARY KEY (`id`) );";
+        String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+tableName+"` (" +
+                "  `id` INT NOT NULL AUTO_INCREMENT," +
+                "  `batchID` VARCHAR(45) NULL ," +
+                "  `Day` VARCHAR(45) NULL ," +
+                "  `Hour` VARCHAR(45) NULL ," +
+                "  PRIMARY KEY (`id`) );";
 
 
 
-    String createSubGroupTableQ ="CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+subGroupTableName+"` (" +
-            "  `id` INT NOT NULL AUTO_INCREMENT," +
-            "  `batchID` VARCHAR(45) NULL ," +
-            "  `subGroupID` VARCHAR(45) NULL ,"+
-            "  `DayTM` VARCHAR(45) NULL ," +
-            "  `Hour` VARCHAR(45) NULL ," +
-            "  PRIMARY KEY (`id`) );";
+        String createSubGroupTableQ ="CREATE  TABLE IF NOT EXISTS `timetabledb`.`"+subGroupTableName+"` (" +
+                "  `id` INT NOT NULL AUTO_INCREMENT," +
+                "  `batchID` VARCHAR(45) NULL ," +
+                "  `subGroupID` VARCHAR(45) NULL ,"+
+                "  `Day` VARCHAR(45) NULL ," +
+                "  `Hour` VARCHAR(45) NULL ," +
+                "  PRIMARY KEY (`id`) );";
 
-    executeQuery(createTableQuery);
-    executeQuery(createSubGroupTableQ);
+        executeQuery(createTableQuery);
+        executeQuery(createSubGroupTableQ);
     }
 
     public void insertRecord(){
         day =  dayCB.getSelectionModel().getSelectedItem().toString();
         hour = hourCB.getSelectionModel().getSelectedItem().toString();
 
-        String query = "INSERT INTO notavailabletimegroup (batchID,DayTM,Hour)" +
+        String query = "INSERT INTO notavailabletimegroup (batchID,Day,Hour)" +
                 "VALUES ('" +batchID+ "','" +day+ "','" +hour+ "') ";
         executeQuery(query);
         setSubGroupInformation();
@@ -195,7 +195,7 @@ public class SetNATimeGroupController implements Initializable {
         if(action.get() == ButtonType.OK){
             String query = "DELETE from notavailabletimegroup WHERE id ="+rowID+"";
             executeQuery(query);
-            String query1 = "DELETE from notavailabletimesubgroup WHERE batchID ='"+batchID+"' AND DayTM = '" +day+ "' AND Hour ='"+hour+"'";
+            String query1 = "DELETE from notavailabletimesubgroup WHERE batchID ='"+batchID+"' AND Day = '" +day+ "' AND Hour ='"+hour+"'";
             executeQuery(query1);
             showData();
         }

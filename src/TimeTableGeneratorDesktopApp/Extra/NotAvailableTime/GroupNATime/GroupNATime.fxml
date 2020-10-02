@@ -26,7 +26,7 @@
                  <Font name="Bitstream Vera Sans Mono Bold Oblique" size="21.0" />
                </font>
       </Label>
-      <TextField fx:id="searchBox" layoutX="550.0" layoutY="21.0" prefHeight="23.0" prefWidth="206.0" promptText="Ex : ID, Fac, Prog, center etx.">
+      <TextField fx:id="searchBox" layoutX="550.0" layoutY="21.0" onKeyPressed="#searchRecord" prefHeight="23.0" prefWidth="206.0" promptText="Ex : ID, Fac, Prog, center etx.">
          <font>
             <Font size="10.0" />
          </font>
