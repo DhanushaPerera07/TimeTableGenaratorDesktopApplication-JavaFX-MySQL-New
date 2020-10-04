@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Lecturers;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -30,6 +31,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class lecturersController implements Initializable {
+
+    //Database connection
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public static int lid = 0;
     public static String lecturerName = "";
@@ -111,7 +115,7 @@ public class lecturersController implements Initializable {
                 "  `lecturerRank` varchar(10) NOT NULL," +
                 "  PRIMARY KEY (`lid`)" +
                 ") ";
-    executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
 
@@ -146,7 +150,7 @@ public class lecturersController implements Initializable {
         }
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -167,11 +171,11 @@ public class lecturersController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public ObservableList<Lecturers> getLecturersList(){
         ObservableList<Lecturers> lecturerList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
 //        String query = "SELECT * FROM lecturer";
 

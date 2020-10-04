@@ -61,7 +61,7 @@ public class ShowAllStudentSubGroupsController implements Initializable {
         ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
 
-        String  query = "SELECT * FROM subGroups ORDER BY subGroupId ASC;";
+        String  query = "SELECT * FROM subgroups ORDER BY subGroupId ASC;";
 
         Statement st;
         ResultSet rs;

@@ -7,17 +7,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class DatabaseCreation {
+public class DatabaseCreation extends DatabaseHelper {
 
-    // ===================== DATABASE PART - STARTS HERE =============================================================================
+   /* // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /**
+    *//**
      * get the database connection here
-     */
+     *//*
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:"+ DatabaseConnection.portNo +"/", ""+ DatabaseConnection.user +"", ""+ DatabaseConnection.password+"");
+            conn = DriverManager.getConnection("jdbc:mysql://sql12.freemysqlhosting.net:"+ DatabaseConnection.portNo +"/", ""+ DatabaseConnection.user +"", ""+ DatabaseConnection.password+"");
             return conn;
         } catch (Exception ex) {
             System.out.println("Error: getConnection() :::: " + ex.getMessage());
@@ -25,12 +25,12 @@ public class DatabaseCreation {
         }
     }
 
-    /**
+    *//**
      * execute the query string
      *
      * @param query string is passed here
      *              this query will execute by this method
-     */
+     *//*
     public void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
@@ -40,7 +40,7 @@ public class DatabaseCreation {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
@@ -53,15 +53,15 @@ public class DatabaseCreation {
     String query6 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`faculty` (\n" +
             "  `faculty_id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `faculty_name` VARCHAR(60) NULL,\n" +
-            "  `faculty_short_name` VARCHAR(10) NULL,\n" +
-            "  `faculty_specialized_for` VARCHAR(45) NULL,\n" +
-            "  `faculty_status` VARCHAR(10) NULL DEFAULT 'OK',\n" +
-            "  `faculty_head_name` VARCHAR(45) NULL,\n" +
-            "  `faculty_delete_status` VARCHAR(2) NULL DEFAULT 'N',\n" +
-            "  `faculty_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
-            "  `faculty_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-            "  PRIMARY KEY (`faculty_id`))\n" +
-            "ENGINE = InnoDB;\n";
+            "  `faculty_short_name` VARCHAR(10) NULL," +
+            "  `faculty_specialized_for` VARCHAR(45) NULL," +
+            "  `faculty_status` VARCHAR(10) NULL DEFAULT 'OK'," +
+            "  `faculty_head_name` VARCHAR(45) NULL," +
+            "  `faculty_delete_status` VARCHAR(2) NULL DEFAULT 'N'," +
+           // "  `faculty_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+           // "  `faculty_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP," +
+            "  PRIMARY KEY (`faculty_id`))" +
+            "ENGINE = InnoDB;";
 
 
     String query7 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`department` (\n" +
@@ -73,17 +73,9 @@ public class DatabaseCreation {
             "  `department_head` VARCHAR(45) NULL COMMENT 'Lecturers ID is linked here as FK. this means the head of the department.',\n" +
             "  `department_building_id` INT NULL COMMENT 'FK - to find the building of the department',\n" +
             "  `department_delete_status` VARCHAR(2) NULL COMMENT 'possiable values are:\\nY = Yes --> Mark the Record as deleted\\nN = No --> Mark the Record not as deleted',\n" +
-            "  `department_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'each record when gets updated; datetime is marked',\n" +
-            "  `department_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `faculty_faculty_id` INT NOT NULL,\n" +
-            "  PRIMARY KEY (`department_id`),\n" +
-            "  INDEX `fk_department_faculty_idx` (`faculty_faculty_id` ASC) VISIBLE,\n" +
-            "  CONSTRAINT `fk_department_faculty`\n" +
-            "    FOREIGN KEY (`faculty_faculty_id`)\n" +
-            "    REFERENCES `timetabledb`.`faculty` (`faculty_id`)\n" +
-            "    ON DELETE CASCADE\n" +
-            "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB;";
+            "  PRIMARY KEY (`department_id`)" +
+            ");";
 
     String query8 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`building` (\n" +
             "  `building_id` INT NOT NULL AUTO_INCREMENT,\n" +
@@ -96,19 +88,10 @@ public class DatabaseCreation {
             "  `building_no_of_lecture_halls` INT NULL,\n" +
             "  `building_no_of_tutorial_halls` INT NULL,\n" +
             "  `building_no_of_labs` INT NULL,\n" +
-            "  `building_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
-            "  `building_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `building_delete_status` VARCHAR(2) NULL COMMENT 'possiable values:\\nY = Yes --> Mark as deleted\\nN= No --? Not deleted',\n" +
             "  `faculty_faculty_id` INT NOT NULL,\n" +
-            "  PRIMARY KEY (`building_id`),\n" +
-            "  INDEX `fk_building_faculty1_idx` (`faculty_faculty_id` ASC) VISIBLE,\n" +
-            "  INDEX `building_name_idx` (`building_name` ASC) VISIBLE,\n" +
-            "  CONSTRAINT `fk_building_faculty1`\n" +
-            "    FOREIGN KEY (`faculty_faculty_id`)\n" +
-            "    REFERENCES `timetabledb`.`faculty` (`faculty_id`)\n" +
-            "    ON DELETE CASCADE\n" +
-            "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB;";
+            "  PRIMARY KEY (`building_id`)" +
+            ");";
 
     String query9 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`location` (\n" +
             "  `location_id` INT NOT NULL AUTO_INCREMENT,\n" +
@@ -117,21 +100,10 @@ public class DatabaseCreation {
             "  `location_floor` INT NULL DEFAULT NULL,\n" +
             "  `location_condition` VARCHAR(10) NULL DEFAULT NULL,\n" +
             "  `location_delete_status` VARCHAR(3) NULL DEFAULT NULL,\n" +
-            "  `location_timestamp` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
-            "  `location_created` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
             "  `building_building_id` INT NOT NULL,\n" +
             "  `tag_tag_id` INT NULL DEFAULT NULL,\n" +
-            "  PRIMARY KEY (`location_id`),\n" +
-            "  INDEX `fk_location_building1_idx` (`building_building_id` ASC) VISIBLE,\n" +
-            "  INDEX `location_name_idx` (`location_name` ASC) VISIBLE,\n" +
-            "  CONSTRAINT `fk_location_building1`\n" +
-            "    FOREIGN KEY (`building_building_id`)\n" +
-            "    REFERENCES `timetabledb`.`building` (`building_id`)\n" +
-            "    ON DELETE CASCADE\n" +
-            "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB\n" +
-            "AUTO_INCREMENT = 5\n" +
-            "DEFAULT CHARACTER SET = utf8";
+            "  PRIMARY KEY (`location_id`)" +
+            ");";
 
 
     String query10 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`tags` (\n" +
@@ -153,7 +125,7 @@ public class DatabaseCreation {
             "  `lecturerLevel` int NOT NULL," +
             "  `lecturerRank` varchar(10) NOT NULL," +
             "  PRIMARY KEY (`lid`)" +
-            ") ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+            ") ENGINE=InnoDB;";
 
 
     String query12 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`module` (" +
@@ -167,7 +139,7 @@ public class DatabaseCreation {
             "  `labHour` int NOT NULL," +
             "  `evaluationHour` int NOT NULL," +
             "  PRIMARY KEY (`idmodule`)" +
-            ") ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;";
+            ") ENGINE=InnoDB;";
 
 
 
@@ -183,7 +155,7 @@ public class DatabaseCreation {
             "  `noofstd` int(5) DEFAULT NULL," +
             "  `batchID` varchar(45) DEFAULT NULL," +
             "  PRIMARY KEY (`id`)" +
-            ") ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8";
+            ") ENGINE=InnoDB;";
 
 
 
@@ -193,15 +165,8 @@ public class DatabaseCreation {
             "  `location_location_id` INT NOT NULL,\n" +
             "  `tag_tag_id` INT NOT NULL,\n" +
             "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
-            "  PRIMARY KEY (`preferred_room_for_subject_id`, `subject_subject_id`, `location_location_id`, `tag_tag_id`),\n" +
-            "  INDEX `fk_location_has_subject_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
-            "  CONSTRAINT `fk_location_has_subject_location1`\n" +
-            "    FOREIGN KEY (`location_location_id`)\n" +
-            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
-            "    ON DELETE CASCADE\n" +
-            "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB\n" +
-            "DEFAULT CHARACTER SET = utf8";
+            "  PRIMARY KEY (`preferred_room_for_subject_id`, `subject_subject_id`, `location_location_id`, `tag_tag_id`)" +"" +
+            ");";
 
     String query15 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`batchstats` (\n" +
             "  `batch` INT NOT NULL,\n" +
@@ -230,14 +195,14 @@ public class DatabaseCreation {
             "ENGINE = InnoDB;";
 
 
-    String query18 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`systemtags` (\n" +
+    String query18 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`systemTags` (\n" +
             "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
             "  `systemTag` VARCHAR(45) NULL,\n" +
             "  PRIMARY KEY (`id`))\n" +
             "ENGINE = InnoDB;";
 
 
-    String query19 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`temptags` (\n" +
+    String query19 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`tempTags` (\n" +
             "  `Tag` VARCHAR(45) NOT NULL,\n" +
             "  PRIMARY KEY (`Tag`))\n" +
             "ENGINE = InnoDB;";
@@ -305,14 +270,13 @@ public class DatabaseCreation {
             "  `lecturer_lid` INT NOT NULL,\n" +
             "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
             "  PRIMARY KEY (`suitable_room_for_lecturer_id`, `location_location_id`, `lecturer_lid`),\n" +
-            "  INDEX `fk_location_has_lecturer_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+           // "  INDEX `fk_location_has_lecturer_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_location_has_lecturer_location1`\n" +
             "    FOREIGN KEY (`location_location_id`)\n" +
-            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    REFERENCES `"+DatabaseConnection.databaseName+"`.`location` (`location_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB\n" +
-            "DEFAULT CHARACTER SET = utf8";
+            "ENGINE = InnoDB;";
 
 
     String query26 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`time_table` (" +
@@ -323,7 +287,7 @@ public class DatabaseCreation {
             "  `Hall` VARCHAR(25) NULL," +
             "  `group` VARCHAR(25) NULL," +
             "  `lecturer` VARCHAR(25) NULL," +
-            "  `sessionId` VARCHAR(25) NULL," +
+            "  `sessionId` VARCHAR(100) NULL," +
             "  `duration` INT NULL," +
             "  `dayName` VARCHAR(25) NULL," +
             "  PRIMARY KEY (`Id`))";
@@ -336,14 +300,13 @@ public class DatabaseCreation {
             "  `tags_idtags` INT NOT NULL,\n" +
             "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
             "  PRIMARY KEY (`suitable_room_for_tags_id`, `location_location_id`, `tags_idtags`),\n" +
-            "  INDEX `fk_location_has_tags_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+           // "  INDEX `fk_location_has_tags_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_location_has_tags_location1`\n" +
             "    FOREIGN KEY (`location_location_id`)\n" +
-            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    REFERENCES `"+DatabaseConnection.databaseName+"`.`location` (`location_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB\n" +
-            "DEFAULT CHARACTER SET = utf8";
+            "ENGINE = InnoDB;";
 
     String query28 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_student_batch` (\n" +
             "  `suitable_room_for_student_batch_id` INT NOT NULL AUTO_INCREMENT,\n" +
@@ -351,13 +314,13 @@ public class DatabaseCreation {
             "  `studentbatches_id` INT NOT NULL,\n" +
             "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
             "  PRIMARY KEY (`suitable_room_for_student_batch_id`, `location_location_id`, `status_true`, `studentbatches_id`),\n" +
-            "  INDEX `fk_suitable_room_for_student_batch_location_idx` (`location_location_id` ASC) VISIBLE,\n" +
+            //"  INDEX `fk_suitable_room_for_student_batch_location_idx` (`location_location_id` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_suitable_room_for_student_batch_location`\n" +
             "    FOREIGN KEY (`location_location_id`)\n" +
-            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    REFERENCES `"+DatabaseConnection.databaseName+"`.`location` (`location_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB";
+            "ENGINE = InnoDB;";
 
     String query29 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_student_subgroups` (\n" +
             "  `suitable_room_for_student_subgroups_id` INT NOT NULL AUTO_INCREMENT,\n" +
@@ -365,26 +328,24 @@ public class DatabaseCreation {
             "  `subgroups_id` INT NOT NULL,\n" +
             "  `status_true` VARCHAR(3) NOT NULL DEFAULT 'Y',\n" +
             "  PRIMARY KEY (`suitable_room_for_student_subgroups_id`, `location_location_id`, `subgroups_id`),\n" +
-            "  INDEX `fk_suitable_room_for_student_subgroups_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
+           // "  INDEX `fk_suitable_room_for_student_subgroups_location1_idx` (`location_location_id` ASC) VISIBLE,\n" +
             "  CONSTRAINT `fk_suitable_room_for_student_subgroups_location1`\n" +
             "    FOREIGN KEY (`location_location_id`)\n" +
-            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    REFERENCES `"+DatabaseConnection.databaseName+"`.`location` (`location_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
-            "ENGINE = InnoDB";
+            "ENGINE = InnoDB;";
 
     String query30 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`suitable_room_for_session` (\n" +
             "  `suitable_room_for_session_id` int NOT NULL AUTO_INCREMENT,\n" +
             "  `location_location_id` int NOT NULL,\n" +
             "  `idsession` int NOT NULL,\n" +
             "  `status_true` varchar(3) NOT NULL DEFAULT 'Y',\n" +
-            "  PRIMARY KEY (`suitable_room_for_session_id`,`location_location_id`,`idsession`),\n" +
-            "  KEY `fk_location_has_session_location1_idx` (`location_location_id`),\n" +
-            "  CONSTRAINT `fk_location_has_session_location2` FOREIGN KEY (`location_location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
-            ") ENGINE=InnoDB;";
+            "  PRIMARY KEY (`suitable_room_for_session_id`,`location_location_id`,`idsession`)\n" +
+            ");";
 
 
-    String query31 = "CREATE TABLE IF NOT EXISTS  `"+DatabaseConnection.databaseName+"`.`session` (" +
+    String query31 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`session` (" +
             "  `idsession` int NOT NULL AUTO_INCREMENT," +
             "  `sessionID` varchar(100) NOT NULL," +
             "  `sessionTag` varchar(45) NOT NULL," +
@@ -393,8 +354,8 @@ public class DatabaseCreation {
             "  `sessionNoOfStudents` varchar(45) NOT NULL," +
             "  `sessionDuration` varchar(45) NOT NULL," +
             "  `sessionModuleCode` varchar(45) NOT NULL," +
-            "        PRIMARY KEY (`idsession`)" +
-            ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8";
+            "  PRIMARY KEY (`idsession`)" +
+            ");";
 
 
 
@@ -403,7 +364,7 @@ public class DatabaseCreation {
             "  `sessionID` varchar(100) NOT NULL," +
             "  `sessionLecturerName` varchar(45) NOT NULL," +
             "  PRIMARY KEY (`idsession_lecturer`)" +
-            ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
+            ") ENGINE=InnoDB;";
 
 
     String query33 = "CREATE TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`consecutive_session_in_same_room` (\n" +
@@ -414,7 +375,7 @@ public class DatabaseCreation {
             "  PRIMARY KEY (`consecutive_session_in_same_room_id`, `location_location_id`, `consecutive_session_id`),\n" +
             "  CONSTRAINT `fk_ consecutive_session_in_same_room_location`\n" +
             "    FOREIGN KEY (`location_location_id`)\n" +
-            "    REFERENCES `timetabledb`.`location` (`location_id`)\n" +
+            "    REFERENCES `"+DatabaseConnection.databaseName+"`.`location` (`location_id`)\n" +
             "    ON DELETE CASCADE\n" +
             "    ON UPDATE CASCADE)\n" +
             "ENGINE = InnoDB;";
@@ -436,8 +397,47 @@ public class DatabaseCreation {
             ");";
 
 
+    String createTableQuery = "CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`notavailabletimegroup` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `batchID` VARCHAR(45) NULL ," +
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+
+
+    String createSubGroupTableQ ="CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`notavailabletimesubgroup` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `batchID` VARCHAR(45) NULL ," +
+            "  `subGroupID` VARCHAR(45) NULL ,"+
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+
+    String createTableLecNAQuery = "CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`lecturernatime` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `lecID` int NULL ," +
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+    String createTableSessionsNA = "CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`sessionsnatime` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `sessionID` VARCHAR(100) NULL ," +
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+
+
     public void createDatabase() {
         try {
+            executeQuery(createTableQuery);
+            executeQuery(createSubGroupTableQ);
+            executeQuery(createTableLecNAQuery);
+            executeQuery(createTableSessionsNA);
+
 
             executeQuery(query4);
             executeQuery(query5);

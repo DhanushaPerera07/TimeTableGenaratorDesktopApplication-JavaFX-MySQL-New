@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Subjects.SubjectForm;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
 import TimeTableGeneratorDesktopApp.Subjects.subjectsController;
 import javafx.event.ActionEvent;
@@ -20,6 +21,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class SubjectFormController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public static int idmodule;
     public static String moduleName;
@@ -181,7 +184,7 @@ public class SubjectFormController implements Initializable {
 //        //executeQuery(query);
 //    }
 
-    public Connection getConnection(){
+   /* public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -202,7 +205,7 @@ public class SubjectFormController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public void selectOfferedYear(ActionEvent actionEvent) {
         System.out.println("Selected the year");
@@ -245,7 +248,7 @@ public class SubjectFormController implements Initializable {
                 "VALUES ('" +tfModuleName.getText()+ "','" +tfModuleCode.getText()+ "','" +offeredYear+ "','" +offeredSemester+
                 "'," +lecHour+ "," +tuteHour+ "," +labHour+
                 "," +evaluationHour+ ") ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         System.out.println("Data Inserted");
     }
 
@@ -262,7 +265,7 @@ public class SubjectFormController implements Initializable {
                 + "', offeredYear = '" + offeredYear + "', offeredSemester = '" + offeredSemester +"', lecHour = " + lecHour
                 + ", tuteHour = " + tuteHour +", labHour = " + labHour + ", evaluationHour = " + evaluationHour
                 + " WHERE idmodule = " + idmodule + "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
     public void deleteModuleAction(ActionEvent actionEvent) {
@@ -276,6 +279,6 @@ public class SubjectFormController implements Initializable {
 
     private void deleteRecord(){
         String query = "DELETE FROM module WHERE idmodule =" + idmodule + "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 }

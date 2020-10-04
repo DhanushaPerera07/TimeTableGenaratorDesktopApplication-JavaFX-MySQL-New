@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.setNATimeSubGroup.NATimeSubGroups;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
@@ -16,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import javax.xml.crypto.Data;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,6 +27,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LectureNATimeController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static int lecID;
     public static String lecName;
 
@@ -73,7 +78,7 @@ public class LectureNATimeController implements Initializable {
         pane.setVisible(false);
         showLecturers();
         setValuesCombo();
-        createTable();
+//        createTable();
     }
 
 
@@ -84,7 +89,7 @@ public class LectureNATimeController implements Initializable {
 
         String query = "INSERT INTO lecturernatime (lecID,Day,Hour)" +
                 "VALUES ('"+lecID+"','" +day+ "','" +hour+ "') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         showLecturersNATimes();
         setValuesCombo();
 
@@ -92,7 +97,7 @@ public class LectureNATimeController implements Initializable {
 
     public ObservableList<NATLecturers> getLecturersNATImeList(){
         ObservableList<NATLecturers> lecturersNATimeList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM lecturernatime WHERE lecID = '" +lecID+"'";
         Statement st;
         ResultSet rs;
@@ -129,7 +134,7 @@ public class LectureNATimeController implements Initializable {
                 "  `Hour` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
 
-        executeQuery(createTableQuery);
+        databaseHelper.executeQuery(createTableQuery);
     }
 
     @FXML
@@ -146,7 +151,7 @@ public class LectureNATimeController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from lecturernatime WHERE id ="+rowID+"";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             showLecturersNATimes();
         }
 
@@ -218,7 +223,7 @@ public class LectureNATimeController implements Initializable {
 
     public ObservableList<Lecturers> getLecturersList() {
         ObservableList<Lecturers> lecturersList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM lecturer ORDER BY lecturerName";
         Statement st;
         ResultSet rs;
@@ -257,7 +262,7 @@ public class LectureNATimeController implements Initializable {
     }
 
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -279,6 +284,6 @@ public class LectureNATimeController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 }

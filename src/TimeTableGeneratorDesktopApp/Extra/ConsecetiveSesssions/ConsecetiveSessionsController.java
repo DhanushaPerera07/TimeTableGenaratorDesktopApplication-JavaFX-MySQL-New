@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.Extra.ConsecetiveSesssions;
 
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime.NATLecturers;
 import TimeTableGeneratorDesktopApp.Extra.ParallelSessions.ParallelSession;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
@@ -25,6 +26,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ConsecetiveSessionsController implements Initializable {
+
+    //Database connection
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static String session2 = "";
     public static String session1 = "";
 
@@ -82,7 +87,7 @@ public class ConsecetiveSessionsController implements Initializable {
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM session ";
 
@@ -117,7 +122,7 @@ public class ConsecetiveSessionsController implements Initializable {
     public ObservableList<ConsecetiveSessions> getConsecetiveSessionsList() {
         ObservableList<ConsecetiveSessions> consecetiveSessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM consecetive_sessions ";
 
@@ -207,7 +212,7 @@ public class ConsecetiveSessionsController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from consecetive_sessions WHERE id ="+rowID+"";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             showConsecetiveSessions();
         }
 
@@ -235,7 +240,7 @@ public class ConsecetiveSessionsController implements Initializable {
 
         else{
             String query = "insert into consecetive_sessions (session1ID, session2ID) VALUES ('" +session1+ "','" +session2+ "')";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             ses1Label.setText("Session 1");
             ses2Label.setText("Session 2");
             session2 = "";
@@ -297,10 +302,10 @@ public class ConsecetiveSessionsController implements Initializable {
                 "  `session1ID` VARCHAR(45) NULL ," +
                 "  `session2ID` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -321,5 +326,5 @@ public class ConsecetiveSessionsController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 }

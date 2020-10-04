@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TimeTableStructureController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     TimeTable TimetableValue;
 //    TimeTable timeTable;
@@ -111,7 +114,7 @@ public class TimeTableStructureController implements Initializable {
 
     }
 
-    public Connection getConnection(){
+/*    public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -121,10 +124,10 @@ public class TimeTableStructureController implements Initializable {
             System.out.println("Error: " + ex.getMessage());
             return null;
         }
-    }
+    }*/
 
     public void getDayNames() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM daysname where id = 1";
         Statement st;
         ResultSet rs;
@@ -153,7 +156,7 @@ public class TimeTableStructureController implements Initializable {
 
         ObservableList<TimeTable> timeTableList1 = FXCollections.observableArrayList();
 
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM time_table where lecturer = '"+lecturers.getLecturerName()+"'";
 
         Statement st;
@@ -193,7 +196,7 @@ public class TimeTableStructureController implements Initializable {
 
         ObservableList<TimeTable> timeTableList1 = FXCollections.observableArrayList();
 
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM time_table where Hall = '"+hall.getLocation_name()+"'";
 
         Statement st;
@@ -231,7 +234,7 @@ public class TimeTableStructureController implements Initializable {
 
     public ObservableList<TimeSlot> getTimeSlotsList() {
 
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String  query = "SELECT * FROM timeslots";
 
@@ -263,7 +266,7 @@ public class TimeTableStructureController implements Initializable {
 
     public ObservableList<TimeTable> getTimetableSessions() {
         ObservableList<TimeTable> timeTableList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String  query = "SELECT * FROM time_table";
 
@@ -940,7 +943,7 @@ public class TimeTableStructureController implements Initializable {
 
                 String ss = timeSlotList.get(i).getValue_t();
                 query = "UPDATE time_table SET `timeSlot` = '"+ss+"', `Module` = '"+TimetableValue.getModule()+" "+ss+"' WHERE  Id =" +TimetableValue.getId()+ "";
-                executeQuery(query);
+                databaseHelper.executeQuery(query);
                 System.out.println(ss);
                 System.out.println();
 
@@ -951,7 +954,7 @@ public class TimeTableStructureController implements Initializable {
 
     }
 
-    private void executeQuery(String query) {
+/*    private void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
         try {
@@ -960,6 +963,6 @@ public class TimeTableStructureController implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
 }

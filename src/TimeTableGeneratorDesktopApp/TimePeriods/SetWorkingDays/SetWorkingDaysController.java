@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
 import javafx.collections.FXCollections;
@@ -19,6 +20,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SetWorkingDaysController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public static int noDays;
     public static int   noDaysDB = 0;
@@ -124,7 +127,7 @@ public class SetWorkingDaysController implements Initializable {
                 "  PRIMARY KEY (`id`))" +
                 "ENGINE = InnoDB;";
 
-        executeQuery(query20);
+        databaseHelper.executeQuery(query20);
     }
 
     public void Visible(){
@@ -151,7 +154,7 @@ public class SetWorkingDaysController implements Initializable {
 
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -172,7 +175,7 @@ public class SetWorkingDaysController implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
     @FXML
     public void selectWorkingDays(ActionEvent actionEvent) {
@@ -197,10 +200,10 @@ public class SetWorkingDaysController implements Initializable {
             String query3 = "DELETE from daysname WHERE id =1 ";
             String query4 = "DELETE from timeslots";
 
-            executeQuery(query);
-            executeQuery(query2);
-            executeQuery(query3);
-            executeQuery(query4);
+            databaseHelper.executeQuery(query);
+            databaseHelper.executeQuery(query2);
+            databaseHelper.executeQuery(query3);
+            databaseHelper.executeQuery(query4);
 
 //            Stage stage = (Stage) resetBtn.getScene().getWindow();
 //            stage.close();
@@ -215,10 +218,10 @@ public class SetWorkingDaysController implements Initializable {
     @FXML
     public void insertRecord(){
         String query3 = "DELETE from daysname WHERE id =1 ";
-        executeQuery(query3);
+        databaseHelper.executeQuery(query3);
         
         String query = "INSERT INTO nodays (noDays, idno)  VALUES (" +noDays +",1 )  ON DUPLICATE KEY UPDATE noDays ='" +noDays+ "'" ;
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         getWorkingDays();
         showTextFields();
     }
@@ -226,7 +229,7 @@ public class SetWorkingDaysController implements Initializable {
     public void insertHours(){
         String query = "INSERT INTO hours (id, hour1)  VALUES (1 ,'" +h1.getText() +"') " +
                 " ON DUPLICATE KEY UPDATE hour1 = '" +h1.getText() +"' " ;
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         getWorkingDays();
         showTextFields();
     }
@@ -350,7 +353,7 @@ public class SetWorkingDaysController implements Initializable {
 
 
     public void getWorkingDays() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM nodays";
         Statement st;
         ResultSet rs;
@@ -412,13 +415,13 @@ public class SetWorkingDaysController implements Initializable {
 
 
         System.out.println("day1 test"+day1namex);
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query2 = "DELETE from daysname WHERE id =1 ";
-        executeQuery(query2);
+        databaseHelper.executeQuery(query2);
         String query = "INSERT INTO daysname (id, day1name, day2name, day3name, day4name, day5name, day6name, day7name)  VALUES (1, '"+day1namex+"', '"+day2namex+"', '"+day3namex+"', '"+day4namex+"', '"+day5namex+"', '"+day6namex+"', '"+day7namex+"' ) " +
                 "ON DUPLICATE KEY UPDATE day1name = '"+day1namex+"', day2name = '"+day2namex+"', day3name = '"+day3namex+"', day4name = '"+day4namex+"', day5name = '"+day5namex+"', day6name = '"+day6namex+"', day7name = '"+day7namex+"'";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
 
         insertHours();
 
@@ -431,7 +434,7 @@ public class SetWorkingDaysController implements Initializable {
 
 
     public void getDayNames() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM daysname where id = 1";
         Statement st;
         ResultSet rs;
@@ -507,7 +510,7 @@ public class SetWorkingDaysController implements Initializable {
 
 
     public void getHours() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM hours where id = 1";
         Statement st;
         ResultSet rs;

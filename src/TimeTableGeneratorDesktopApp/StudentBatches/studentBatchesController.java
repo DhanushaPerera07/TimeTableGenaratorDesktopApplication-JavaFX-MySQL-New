@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.StudentBatches;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Main;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -39,6 +40,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class studentBatchesController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static int rowID = 0;
     public static String year = "";
     public static String semester = "";
@@ -141,7 +145,7 @@ public class studentBatchesController implements Initializable {
                 "  PRIMARY KEY (`id`)" +
                 ") ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8";
 
-        executeQuery(studentBatchesTable);
+        databaseHelper.executeQuery(studentBatchesTable);
 
 
         String batchStatsTable = "CREATE TABLE IF NOT EXISTS batchstats(" +
@@ -152,7 +156,7 @@ public class studentBatchesController implements Initializable {
                 "  `nofGroups` int(11) DEFAULT NULL," +
                 "  PRIMARY KEY (`batch`)" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
-        executeQuery(batchStatsTable);
+        databaseHelper.executeQuery(batchStatsTable);
 
 
         String subGroupsTable = "CREATE TABLE IF NOT EXISTS subgroups(" +
@@ -161,9 +165,9 @@ public class studentBatchesController implements Initializable {
                 "  `NofStudents` int(11) DEFAULT NULL," +
                 "  `batchID` int(11) DEFAULT NULL," +
                 "  PRIMARY KEY (`id`)" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8";
+                ");";
 
-        executeQuery(subGroupsTable);
+        databaseHelper.executeQuery(subGroupsTable);
     }
 
 
@@ -266,6 +270,7 @@ public class studentBatchesController implements Initializable {
     @FXML
     void handleMouseAction(MouseEvent event) {
         StudentBatches batch = tvBatches.getSelectionModel().getSelectedItem();
+
 
         rowID = batch.getId();
         year = batch.getYear();
@@ -386,7 +391,7 @@ public class studentBatchesController implements Initializable {
 
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -406,14 +411,14 @@ public class studentBatchesController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public ObservableList<StudentBatches> getBatchesList() {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         if(filterType.equals("All")){
-            query = "SELECT * FROM studentBatches ORDER BY year";
+            query = "SELECT * FROM studentbatches ORDER BY year";
         }else{
             query = "SELECT * from studentbatches WHERE " +filterType+ " = '" +filterValue+ "'";
         }

@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.TimePeriods;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
@@ -33,6 +34,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class WorkingDaysAndHoursController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public String one;
     public String Two;
@@ -158,7 +161,7 @@ public class WorkingDaysAndHoursController implements Initializable {
 
     public ObservableList<TimeSlot> getTimeSlotsList() {
         ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String  query = "SELECT * FROM timeslots";
 
@@ -271,7 +274,7 @@ public class WorkingDaysAndHoursController implements Initializable {
 
 
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -292,10 +295,10 @@ public class WorkingDaysAndHoursController implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public void getDayNames() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM daysname where id = 1";
         Statement st;
         ResultSet rs;

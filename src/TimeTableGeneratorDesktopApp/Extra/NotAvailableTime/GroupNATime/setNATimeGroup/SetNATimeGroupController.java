@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.setNATimeGroup;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.GroupNATimeController;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.batchstats;
@@ -23,6 +24,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SetNATimeGroupController implements Initializable {
+
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static String batchID;
     public static String tableName;
     public static String day;
@@ -59,7 +64,7 @@ public class SetNATimeGroupController implements Initializable {
         batchIDLabel.setText(batchID);
         tableName="notavailabletimegroup";
         subGroupTableName ="notavailabletimesubgroup";
-        createTable();
+//        createTable();
         setValuesCombo();
         showData();
     }
@@ -67,7 +72,7 @@ public class SetNATimeGroupController implements Initializable {
 
     public ObservableList<NATimeGroups> getTimeList() {
         ObservableList<NATimeGroups> NATTimeGroupList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM notavailabletimegroup WHERE batchID = '" +batchID+"'";
         Statement st;
         ResultSet rs;
@@ -89,7 +94,7 @@ public class SetNATimeGroupController implements Initializable {
     public void setSubGroupInformation() {
         System.out.println("Query executed");
         System.out.println(batchRawID);
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM subgroups WHERE batchID = " +batchRawID+"";
         Statement st;
         ResultSet rs;
@@ -104,7 +109,7 @@ public class SetNATimeGroupController implements Initializable {
 
                 String subGroupInsertQuery = "INSERT INTO notavailabletimesubgroup (batchID,Day,Hour,subGroupID)" +
                         "VALUES ('" +batchID+ "','" +day+ "','" +hour+ "','" +subGroupID+ "') ";
-                executeQuery(subGroupInsertQuery);
+                databaseHelper.executeQuery(subGroupInsertQuery);
 
             }
 
@@ -156,8 +161,8 @@ public class SetNATimeGroupController implements Initializable {
                 "  `Hour` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
 
-        executeQuery(createTableQuery);
-        executeQuery(createSubGroupTableQ);
+        databaseHelper.executeQuery(createTableQuery);
+        databaseHelper.executeQuery(createSubGroupTableQ);
     }
 
     public void insertRecord(){
@@ -166,7 +171,7 @@ public class SetNATimeGroupController implements Initializable {
 
         String query = "INSERT INTO notavailabletimegroup (batchID,Day,Hour)" +
                 "VALUES ('" +batchID+ "','" +day+ "','" +hour+ "') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         setSubGroupInformation();
 
         showData();
@@ -194,16 +199,16 @@ public class SetNATimeGroupController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from notavailabletimegroup WHERE id ="+rowID+"";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             String query1 = "DELETE from notavailabletimesubgroup WHERE batchID ='"+batchID+"' AND Day = '" +day+ "' AND Hour ='"+hour+"'";
-            executeQuery(query1);
+            databaseHelper.executeQuery(query1);
             showData();
         }
 
     }
 
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -223,7 +228,7 @@ public class SetNATimeGroupController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
 }

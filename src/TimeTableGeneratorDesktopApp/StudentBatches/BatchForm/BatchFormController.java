@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.StudentBatches.BatchForm;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController;
 //import com.sun.javafx.scene.control.InputField;
 import javafx.collections.FXCollections;
@@ -34,6 +35,9 @@ import java.util.ResourceBundle;
 
 
 public class BatchFormController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static int rowID = 0;
     public static String year = "";
     public static String semester = "";
@@ -345,7 +349,7 @@ public class BatchFormController implements Initializable {
         System.out.println(programme);
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -365,7 +369,7 @@ public class BatchFormController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
     public void BatchsubmitActionHandler(ActionEvent actionEvent){
@@ -421,7 +425,7 @@ public class BatchFormController implements Initializable {
                     "','" +programme+ "','" +center+ "'," +tfNoOfStd.getText()+
                     ",'" +tfBatchID.getText()+ "') ";
 
-            executeQuery(query);
+        databaseHelper.executeQuery(query);
 
 
 
@@ -441,9 +445,9 @@ public class BatchFormController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from studentbatches WHERE id =" +rowID+ "";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             String query2 = "DELETE from batchstats WHERE batch =" +rowID+ "";
-            executeQuery(query2);
+            databaseHelper.executeQuery(query2);
             Stage stage = (Stage) batchFormDelBtn.getScene().getWindow();
             stage.close();
         }
@@ -589,7 +593,7 @@ public class BatchFormController implements Initializable {
                     "', intake = '" +intake+ "', faculty = '" +faculty+ "', programme = '"
                     +programme+ "', center = '" +center+ "', noofstd = " +tfNoOfStd.getText()+ ", batchID = '" +tfBatchID.getText()+
                     "' WHERE id = " +rowID+ "";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
 
 
 //            String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ")";
@@ -611,9 +615,9 @@ public class BatchFormController implements Initializable {
     @FXML
     void ActionEventGroupBatchBtn(ActionEvent event) {
 
-        String queryBatchStats = "INSERT INTO batchStats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ") ON DUPLICATE KEY UPDATE nofStudents ='" +noOfStudents+"'";
+        String queryBatchStats = "INSERT INTO batchstats (batch,nofStudents) VALUES (" +rowID+ "," +noOfStudents+ ") ON DUPLICATE KEY UPDATE nofStudents ='" +noOfStudents+"'";
 
-        executeQuery(queryBatchStats);
+        databaseHelper.executeQuery(queryBatchStats);
 
 
         try{

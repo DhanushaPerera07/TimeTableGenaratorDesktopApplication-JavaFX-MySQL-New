@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Subjects;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -27,6 +28,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class subjectsController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public static int idmodule = 0;
     public static String moduleName = "";
@@ -110,7 +113,7 @@ public class subjectsController implements Initializable {
                 "  `evaluationHour` int NOT NULL," +
                 "  PRIMARY KEY (`idmodule`)" +
                 ") ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
     @FXML
@@ -143,7 +146,7 @@ public class subjectsController implements Initializable {
         }
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -164,11 +167,11 @@ public class subjectsController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public ObservableList<Subjects> getModuleList(){
         ObservableList<Subjects> moduleList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
 //        String query = "SELECT * FROM module";
         if(filterType.equals("All")){

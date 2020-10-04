@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.ParallelSessions;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime.NATLecturers;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
@@ -22,6 +23,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ParallelSessionController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static String session2 = "";
     public static String session1 = "";
 
@@ -81,7 +85,7 @@ public class ParallelSessionController implements Initializable {
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM session ";
 
@@ -116,7 +120,7 @@ public class ParallelSessionController implements Initializable {
     public ObservableList<ParallelSession> getParallelSessionsList() {
         ObservableList<ParallelSession> parallelSessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM parallel_sessions ";
 
@@ -206,7 +210,7 @@ public class ParallelSessionController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from parallel_sessions WHERE id ="+rowID+"";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             showParallelSessions();
         }
 
@@ -234,7 +238,7 @@ public class ParallelSessionController implements Initializable {
 
         else{
             String query = "insert into parallel_sessions (session1ID, session2ID) VALUES ('" +session1+ "','" +session2+ "')";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             ses1Label.setText("Session 1");
             ses2Label.setText("Session 2");
             session2 = "";
@@ -298,10 +302,10 @@ public class ParallelSessionController implements Initializable {
                 "  `session1ID` VARCHAR(45) NULL ," +
                 "  `session2ID` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -322,5 +326,5 @@ public class ParallelSessionController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 }

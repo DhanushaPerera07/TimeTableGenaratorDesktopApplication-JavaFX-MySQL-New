@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Tags;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import javafx.application.Platform;
@@ -34,6 +35,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class    TagsController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static String tester="";
 
     @FXML
@@ -59,32 +63,32 @@ public class    TagsController implements Initializable {
     }
 
     public void createTables(){
-        String  systemTagsTable= "CREATE TABLE IF NOT  EXISTS   (" +
+        String  systemTagsTable= "CREATE TABLE IF NOT EXISTS systemTags(" +
                 "  `id` int(11) NOT NULL AUTO_INCREMENT," +
                 "  `systemTag` varchar(45) DEFAULT NULL," +
                 "  PRIMARY KEY (`id`)" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8";
-        executeQuery(systemTagsTable);
+                ");";
+        databaseHelper.executeQuery(systemTagsTable);
 
         String  tagsTable= "CREATE TABLE IF NOT  EXISTS tags (" +
                 "  `idtags` int(11) NOT NULL AUTO_INCREMENT," +
                 "  `Tag` varchar(45) DEFAULT NULL," +
                 "  PRIMARY KEY (`idtags`)" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8";
-        executeQuery(tagsTable);
+                ");";
+        databaseHelper.executeQuery(tagsTable);
 
         String tempTags= "CREATE TABLE IF NOT  EXISTS temptags (" +
                 "  `Tag` varchar(45) NOT NULL," +
                 "  PRIMARY KEY (`Tag`)" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
-        executeQuery(tempTags);
+                ");";
+        databaseHelper.executeQuery(tempTags);
 
     }
 
 
     public void getValues(){
         ObservableList<String> list = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM systemTags order by systemTag";
         Statement st;
         ResultSet rs;
@@ -101,7 +105,9 @@ public class    TagsController implements Initializable {
             ex.printStackTrace();
         }
 
-        tagsList1.setItems(list);
+        if (tagsList1 != null) {
+            tagsList1.setItems(list);
+        }
     }
 
     @FXML
@@ -148,7 +154,7 @@ public class    TagsController implements Initializable {
         String a = tagsList1.getSelectionModel().getSelectedItem();
         String query = "INSERT INTO tempTags (Tag) " +
                 "VALUES ('" +a+ "') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         getTempValues();
     }
 
@@ -165,14 +171,14 @@ public class    TagsController implements Initializable {
             String a = tagsList3.getSelectionModel().getSelectedItem();
             System.out.println(a);
             String query = "DELETE from tags Where Tag = '" + a + "'";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             getTags();
         }
     }
 
 
     public void setTagList3(){
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM tempTags";
         Statement st;
         ResultSet rs;
@@ -184,19 +190,19 @@ public class    TagsController implements Initializable {
                 tags = rs.getString("Tag");
                 String query = "INSERT INTO tags (Tag) " +
                         "VALUES ('" +tags+ "') ON DUPLICATE KEY UPDATE tag ='" +tags+ "'";
-                executeQuery(query);
+                databaseHelper.executeQuery(query);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         String query = "Delete from tempTags";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
 
     public void getTags(){
         ObservableList<String> TagsList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM tags order by tag";
         Statement st;
         ResultSet rs;
@@ -219,7 +225,7 @@ public class    TagsController implements Initializable {
 
     public void getTempValues(){
         ObservableList<String> tempTagsList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM tempTags";
         Statement st;
         ResultSet rs;
@@ -239,7 +245,7 @@ public class    TagsController implements Initializable {
     }
 
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -259,5 +265,5 @@ public class    TagsController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 }

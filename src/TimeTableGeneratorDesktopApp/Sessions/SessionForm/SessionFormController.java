@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Sessions.SessionForm;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
 import TimeTableGeneratorDesktopApp.Sessions.SessionItem.SessionItemController;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
@@ -26,8 +27,8 @@ import java.util.ResourceBundle;
 
 public class SessionFormController implements Initializable {
 
-//    @FXML
-//    private Label sessionID;
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     @FXML
     private ComboBox<String> comboSubjectBox;
@@ -203,7 +204,7 @@ public class SessionFormController implements Initializable {
 
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -224,10 +225,10 @@ public class SessionFormController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public void print(){
-        Connection connection = getConnection();
+        Connection connection = databaseHelper.getConnection();
         System.out.println("working");
     }
 
@@ -247,7 +248,7 @@ public class SessionFormController implements Initializable {
         String query = "INSERT INTO session (sessionID , sessionTag,sessionStudentGroup,sessionSubject,sessionNoOfStudents,sessionDuration,sessionModuleCode) " +
                 "VALUES ('" +sessionGenID+ "','" +sessionTag+ "','" +sessionStudentGroup+ "','" +sessionSubject+ "','" +sessionNoOfStudents+
                 "'," +sessionDuration+ ",'OOPTest1') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
 
 
 
@@ -279,7 +280,7 @@ public class SessionFormController implements Initializable {
                 "  PRIMARY KEY (`idtemp_session_lecturer`)" +
                 ") ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;";
 
-        executeQuery(queryTempSessions);
+        databaseHelper.executeQuery(queryTempSessions);
 
     }
 
@@ -322,7 +323,7 @@ public class SessionFormController implements Initializable {
 
 
     public List<String> getSubjects(){
-        Connection con = getConnection();
+        Connection con = databaseHelper.getConnection();
         try{
             Statement st;
             ResultSet rs;
@@ -343,7 +344,7 @@ public class SessionFormController implements Initializable {
 
 
     public List<String> getTags(){
-        Connection con = getConnection();
+        Connection con = databaseHelper.getConnection();
         try{
             Statement st;
             ResultSet rs;
@@ -364,7 +365,7 @@ public class SessionFormController implements Initializable {
 
 
     public List<String> getStudentGroups(){
-        Connection con = getConnection();
+        Connection con = databaseHelper.getConnection();
         try{
             Statement st;
             ResultSet rs;
@@ -391,7 +392,7 @@ public class SessionFormController implements Initializable {
 
     public void getLecturerList(){
         ObservableList<String> list = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM lecturer order by lecturerName";
         Statement st;
         ResultSet rs;
@@ -422,7 +423,7 @@ public class SessionFormController implements Initializable {
 
         String query = "INSERT INTO temp_session_lecturer (temp_lecturer)" +
                 "VALUES ('" +i+ "') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         getTempValues();
     }
 
@@ -441,7 +442,7 @@ public class SessionFormController implements Initializable {
             System.out.println(a);
 //            String query = "DELETE from session_lecturer Where sessionID = '" + sessionGenID2 + "' AND sessionLecturerName ='" +b + "'" ;
             String query = "DELETE from session_lecturer Where sessionID = '" + sessionGenID + "' AND sessionLecturerName ='" +b + "'" ;
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             getTags();
         }
 
@@ -455,7 +456,7 @@ public class SessionFormController implements Initializable {
     }
 
     public void checkSessions(){
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query = "SELECT * FROM session";
         Statement st;
         ResultSet rs;
@@ -472,7 +473,7 @@ public class SessionFormController implements Initializable {
 
     public void getTempValues(){
         ObservableList<String> tempLecturerList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM temp_session_lecturer";
         Statement st;
         ResultSet rs;
@@ -492,7 +493,7 @@ public class SessionFormController implements Initializable {
     }
 
     public void saveSessionLecturer(){
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM temp_session_lecturer";
         Statement st;
         ResultSet rs;
@@ -504,18 +505,18 @@ public class SessionFormController implements Initializable {
                 name = rs.getString("temp_lecturer");
                 String query = "INSERT INTO session_lecturer (sessionID,sessionLecturerName) " +
                         "VALUES ('"+sessionGenID+"','" +name+ "') ";
-                executeQuery(query);
+                databaseHelper.executeQuery(query);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         String query = "Delete from tempTags";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
     public void getReleventSessionLecturers(){
         ObservableList<String> relevantLecturers = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 //        String  query2 = "SELECT * FROM session_lecturer WHERE sessionID ='" +sessionGenID2 + "'";
         String  query2 = "SELECT * FROM session_lecturer WHERE sessionID ='" +sessionGenID + "'";
 
@@ -542,7 +543,7 @@ public class SessionFormController implements Initializable {
         String query = "UPDATE session SET sessionID = '" + sessionGenID + "', sessionTag = '" + sessionTag
                 + "', sessionStudentGroup = '" + sessionStudentGroup + "', sessionSubject = '" + sessionSubject +"', sessionNoOfStudents = " + sessionNoOfStudents
                 + ", sessionDuration = " + sessionDuration + ", sessionModuleCode = '" + c + "' WHERE idsession = " + sessionID + "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
     public void updateLecturerSessionID(){

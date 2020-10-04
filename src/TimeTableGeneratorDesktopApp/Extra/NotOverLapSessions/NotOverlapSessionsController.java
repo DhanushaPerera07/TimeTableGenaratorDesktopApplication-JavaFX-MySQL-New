@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotOverLapSessions;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Extra.ParallelSessions.ParallelSession;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
@@ -22,6 +23,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class NotOverlapSessionsController implements Initializable {
+
+    DatabaseHelper databaseHelper =  new DatabaseHelper();
+
     public static String session2="";
     public static String session1="";
     @FXML
@@ -119,7 +123,7 @@ public class NotOverlapSessionsController implements Initializable {
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM session ";
 
@@ -154,7 +158,7 @@ public class NotOverlapSessionsController implements Initializable {
     public ObservableList<NotOverlapSessions> getNotOverlapSessionsList() {
         ObservableList<NotOverlapSessions> notOverlapSessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM not_overlap_sessions ";
 
@@ -244,7 +248,7 @@ public class NotOverlapSessionsController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from not_overlap_sessions WHERE id ="+rowID+"";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             showNotOverlapSessions();
         }
 
@@ -271,7 +275,7 @@ public class NotOverlapSessionsController implements Initializable {
 
         else{
             String query = "insert into not_overlap_sessions (session1ID, session2ID) VALUES ('" +session1+ "','" +session2+ "')";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             ses1Label.setText("Session 1");
             ses2Label.setText("Session 2");
             session1 = "";
@@ -294,10 +298,10 @@ public class NotOverlapSessionsController implements Initializable {
                 "  `session1ID` VARCHAR(45) NULL ," +
                 "  `session2ID` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
-    public Connection getConnection(){
+ /*   public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -318,5 +322,5 @@ public class NotOverlapSessionsController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 }
