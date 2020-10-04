@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Lecturers.LecturerForm;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
 //import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.PreferredRoomForSubjectController;
@@ -26,6 +27,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class LecturerFormController implements Initializable {
+
+    //Database connection
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public int lid;
     public static String lecturerName;
@@ -293,7 +297,7 @@ public class LecturerFormController implements Initializable {
         System.out.println(lecturerDepartment);
     }
 
-    public Connection getConnection(){
+   /* public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -314,7 +318,7 @@ public class LecturerFormController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     private void insertRecord(){
         rank =  lecturerLevel +"." +tfEmployeeID.getText().toString();
@@ -328,7 +332,7 @@ public class LecturerFormController implements Initializable {
                 "','" +lecturerCenter+ "','" +lecturerBuilding+ "'," +lecturerLevel+
                 "," +rank+ ") ";
 
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         System.out.println("Data Inserted");
     }
 
@@ -371,7 +375,7 @@ public class LecturerFormController implements Initializable {
                 + "', lecturerFaculty = '" + lecturerFaculty + "', lecturerDepartment = '" + lecturerDepartment +"', lecturerCenter = '" + lecturerCenter
                 + "', lecturerBuilding = '" + lecturerBuilding +"', lecturerLevel = '" + lecturerLevel + "', lecturerRank = '" + rank
                 + "' WHERE lid = " + lid + "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
     public void deleteLecturerForm(ActionEvent actionEvent) {
@@ -382,7 +386,7 @@ public class LecturerFormController implements Initializable {
 
     private void deleteRecord(){
         String query = "DELETE FROM lecturer WHERE lid =" + lid + "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
 

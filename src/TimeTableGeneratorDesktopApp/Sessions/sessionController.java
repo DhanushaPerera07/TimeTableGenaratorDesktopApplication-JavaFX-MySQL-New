@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Sessions;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Sessions.SessionItem.SessionItemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class sessionController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     @FXML
     private Button addLecturerBtn;
@@ -117,7 +120,7 @@ public class sessionController implements Initializable {
                 "        PRIMARY KEY (`idsession`)" +
                 ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8";
 
-        executeQuery(sessionsTable);
+        databaseHelper.executeQuery(sessionsTable);
 
 
         String session_lecturerTable = "CREATE TABLE IF NOT EXISTS session_lecturer (" +
@@ -126,7 +129,7 @@ public class sessionController implements Initializable {
                 "  `sessionLecturerName` varchar(45) NOT NULL," +
                 "  PRIMARY KEY (`idsession_lecturer`)" +
                 ") ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8";
-        executeQuery(session_lecturerTable);
+        databaseHelper.executeQuery(session_lecturerTable);
 
     }
 
@@ -148,7 +151,7 @@ public class sessionController implements Initializable {
                 @Override
                 public void handle(WindowEvent windowEvent) {
                     String dropTempSessions = "Drop TABLE temp_session_lecturer";
-                    executeQuery(dropTempSessions);
+                    databaseHelper.executeQuery(dropTempSessions);
                     showSessions();
 
                 }
@@ -159,7 +162,7 @@ public class sessionController implements Initializable {
         }
     }
 
-    public Connection getConnection(){
+   /* public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -180,10 +183,10 @@ public class sessionController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public void print(){
-        Connection connection = getConnection();
+        Connection connection = databaseHelper.getConnection();
         System.out.println("working");
     }
 
@@ -229,7 +232,7 @@ public class sessionController implements Initializable {
     }
 
     public List<String> getLecturer(){
-        Connection con = getConnection();
+        Connection con = databaseHelper.getConnection();
         try {
             Statement st;
             ResultSet rs;
@@ -250,7 +253,7 @@ public class sessionController implements Initializable {
     }
 
     public List<String> getStudentGroups(){
-        Connection con = getConnection();
+        Connection con = databaseHelper.getConnection();
         try{
             Statement st;
             ResultSet rs;
@@ -276,7 +279,7 @@ public class sessionController implements Initializable {
     }
 
     public List<String> getSubjects(){
-        Connection con = getConnection();
+        Connection con = databaseHelper.getConnection();
         try{
             Statement st;
             ResultSet rs;
@@ -303,7 +306,7 @@ public class sessionController implements Initializable {
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM session ";
 //        String query = "";

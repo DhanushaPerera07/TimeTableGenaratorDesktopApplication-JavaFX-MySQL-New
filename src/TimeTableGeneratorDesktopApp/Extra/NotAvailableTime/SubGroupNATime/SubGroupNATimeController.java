@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.StudentBatchesDatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.application.Platform;
@@ -33,6 +34,10 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class SubGroupNATimeController implements Initializable {
+
+
+    //DatabaseHelper databaseHelper =  new DatabaseHelper();
+
     public static String batchID = "";
     public static int rawID ;
     @FXML

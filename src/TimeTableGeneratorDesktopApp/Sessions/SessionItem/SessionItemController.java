@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Sessions.SessionItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
@@ -29,6 +30,9 @@ import java.util.ResourceBundle;
 
 public class SessionItemController implements Initializable
 {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public Sessions sessionInstance;
     public String sessionGenID;
     public int sessionID;
@@ -88,7 +92,7 @@ public class SessionItemController implements Initializable
 
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -109,12 +113,12 @@ public class SessionItemController implements Initializable
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public void getLecturersList(){
         ObservableList<sessionLecturers> lecturersList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM session_lecturer where sessionID = '" +sessionGenID+ "'";
 
@@ -149,8 +153,8 @@ public class SessionItemController implements Initializable
 
 //        String query1 = "UPDATE `session_lecturer` SET location_delete_status = 'Y' WHERE sessionID = '" + lecID + "'";
 
-        executeQuery(query);
-        executeQuery(query1);
+        databaseHelper.executeQuery(query);
+        databaseHelper.executeQuery(query1);
 
 
 

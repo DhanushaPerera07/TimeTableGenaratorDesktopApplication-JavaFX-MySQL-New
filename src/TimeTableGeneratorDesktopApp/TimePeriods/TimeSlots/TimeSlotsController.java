@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots;
 
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
 //import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
@@ -24,6 +25,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TimeSlotsController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public int TimeCategory;
 
@@ -80,7 +83,7 @@ public class TimeSlotsController implements Initializable {
 
     public void getWorkingHours(){
 
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query = "SELECT * FROM hours";
 
         Statement st;
@@ -114,7 +117,7 @@ public class TimeSlotsController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "DELETE from timeslots WHERE slotsID =" +hourID+ "";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
 
             Stage stage = (Stage) deleteBtn.getScene().getWindow();
             stage.close();
@@ -123,7 +126,7 @@ public class TimeSlotsController implements Initializable {
 
     public ObservableList<TimeSlot> getTimeSlotsList() {
         ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
           String  query = "SELECT * FROM timeslots";
 
@@ -174,7 +177,7 @@ public class TimeSlotsController implements Initializable {
                 }else{
                     query = "INSERT INTO timeslots (range_t,value_t)  VALUES ('"+range+"', '"+CategoryValuex +"')";
                 }
-                executeQuery(query);
+                databaseHelper.executeQuery(query);
                 Stage stage = (Stage) timeSlotsBtn.getScene().getWindow();
                 stage.close();
 
@@ -199,7 +202,7 @@ public class TimeSlotsController implements Initializable {
                     alert.setHeaderText("Your Working hours per week already reached...!");
                     alert.show();
                 }
-                executeQuery(query);
+                databaseHelper.executeQuery(query);
                 Stage stage = (Stage) timeSlotsBtn.getScene().getWindow();
                 stage.close();
 
@@ -222,7 +225,7 @@ public class TimeSlotsController implements Initializable {
 
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
 
@@ -246,7 +249,7 @@ public class TimeSlotsController implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
 }

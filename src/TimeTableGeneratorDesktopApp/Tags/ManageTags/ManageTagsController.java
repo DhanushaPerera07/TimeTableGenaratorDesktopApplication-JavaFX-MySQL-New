@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Tags.ManageTags;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Tags.TagsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ManageTagsController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static  String tag;
 
     @FXML
@@ -56,7 +60,7 @@ public class ManageTagsController implements Initializable {
 
         String query = "INSERT INTO systemTags (systemTag) " +
                 "VALUES ('" +tag+ "') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
 
     }
 
@@ -71,7 +75,7 @@ public class ManageTagsController implements Initializable {
     @FXML
     public void update(){
         String query = "Update systemTags set systemTag = '" +tfMTag.getText()+ "' where systemTag = '" +tag+ "'";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         getValues();
         tfMTag.setText("");
         TagsController tagsController = new TagsController();
@@ -88,7 +92,7 @@ public class ManageTagsController implements Initializable {
 
         if(action.get() == ButtonType.OK){
             String query = "Delete from systemTags where systemTag = '" +tag+ "'";
-            executeQuery(query);
+            databaseHelper.executeQuery(query);
             getValues();
             tfMTag.setText("");
             TagsController tagsController = new TagsController();
@@ -112,7 +116,7 @@ public class ManageTagsController implements Initializable {
 
     public void getValues(){
         ObservableList<String> list = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String  query2 = "SELECT * FROM systemTags";
         Statement st;
         ResultSet rs;
@@ -134,7 +138,7 @@ public class ManageTagsController implements Initializable {
 
 
 
-    public Connection getConnection(){
+   /* public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -154,7 +158,7 @@ public class ManageTagsController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
 

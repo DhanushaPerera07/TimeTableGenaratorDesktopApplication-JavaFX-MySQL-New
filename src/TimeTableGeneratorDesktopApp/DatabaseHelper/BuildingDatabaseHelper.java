@@ -80,18 +80,20 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
             st = conn.createStatement();
             rs = st.executeQuery(query);
 
-            // set building values to the created building object by fetching from the database
-            building.setBuildingID(rs.getInt("building_id"));
-            building.setBuildingName(rs.getString("building_name"));
-            building.setBuildingNoOfFloors(rs.getInt("building_no_of_floors"));
-            building.setBuildingCapacity(rs.getInt("building_capacity"));
-            building.setBuildingCenter(rs.getString("building_center"));
-            building.setBuildingCondition(rs.getString("building_condition"));
-            building.setBuildingSpecializedFor(rs.getString("building_specialized_for"));
-            building.setBuildingNoOfLectureHalls(rs.getInt("building_no_of_lecture_halls"));
-            building.setBuildingNoOfTutorialHalls(rs.getInt("building_no_of_tutorial_halls"));
-            building.setBuildingNoOfLabs(rs.getInt("building_no_of_labs"));
-            building.setFacultyFacultyId(rs.getInt("faculty_faculty_id"));
+            if (rs.next()) {
+                // set building values to the created building object by fetching from the database
+                building.setBuildingID(rs.getInt("building_id"));
+                building.setBuildingName(rs.getString("building_name"));
+                building.setBuildingNoOfFloors(rs.getInt("building_no_of_floors"));
+                building.setBuildingCapacity(rs.getInt("building_capacity"));
+                building.setBuildingCenter(rs.getString("building_center"));
+                building.setBuildingCondition(rs.getString("building_condition"));
+                building.setBuildingSpecializedFor(rs.getString("building_specialized_for"));
+                building.setBuildingNoOfLectureHalls(rs.getInt("building_no_of_lecture_halls"));
+                building.setBuildingNoOfTutorialHalls(rs.getInt("building_no_of_tutorial_halls"));
+                building.setBuildingNoOfLabs(rs.getInt("building_no_of_labs"));
+                building.setFacultyFacultyId(rs.getInt("faculty_faculty_id"));
+            }
 
 
         } catch (Exception ex) {

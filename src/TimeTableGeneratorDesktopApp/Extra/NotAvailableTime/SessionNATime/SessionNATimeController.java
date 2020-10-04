@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SessionNATime;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class SessionNATimeController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static int sessionRawID ;
     public static String sessionGenID ;
 
@@ -94,7 +98,7 @@ public class SessionNATimeController implements Initializable {
 
 
 
-    public Connection getConnection(){
+   /* public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -103,7 +107,7 @@ public class SessionNATimeController implements Initializable {
             System.out.println("Error: " + ex.getMessage());
             return null;
         }
-    }
+    }*/
 
     @FXML
     public void searchRecord(KeyEvent ke) {
@@ -129,7 +133,7 @@ public class SessionNATimeController implements Initializable {
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String query = "SELECT * FROM session ";
 
@@ -204,7 +208,7 @@ public class SessionNATimeController implements Initializable {
 
         String query = "INSERT INTO sessionsnatime (sessionID,Day,Hour)" +
                 "VALUES ('"+sessionGenID+"','" +day+ "','" +hour+ "') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
 
         showSessionNATimes();
         setValuesCombo();
@@ -224,7 +228,7 @@ public class SessionNATimeController implements Initializable {
 
     public ObservableList<NATSessions> getSessionsNATImeList(){
         ObservableList<NATSessions> sessionsNATimeList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM sessionsnatime WHERE sessionID = '" +sessionGenID+"'";
         System.out.println(sessionGenID);
         Statement st;
@@ -245,8 +249,8 @@ public class SessionNATimeController implements Initializable {
     }
 
 
-    private void executeQuery(String query) {
-        Connection conn = getConnection();
+/*    private void executeQuery(String query) {
+        Connection conn = databaseHelper.getConnection();
         Statement st;
         try{
             st = conn.createStatement();
@@ -254,7 +258,7 @@ public class SessionNATimeController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     public void createTable(){
         String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`sessionsnatime` (" +
@@ -264,7 +268,7 @@ public class SessionNATimeController implements Initializable {
                 "  `Hour` VARCHAR(45) NULL ," +
                 "  PRIMARY KEY (`id`) );";
 
-        executeQuery(createTableQuery);
+        databaseHelper.executeQuery(createTableQuery);
     }
 
 }

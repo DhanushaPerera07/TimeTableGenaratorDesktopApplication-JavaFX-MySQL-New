@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -34,6 +35,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class timeTableGenerationController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         getDayNames();
@@ -60,8 +64,8 @@ public class timeTableGenerationController implements Initializable {
     private String day7;
     private double hours;
     private int totalTime = 0;
-    private int k=0;
-    private int j =0, l =0;
+    private int k = 0;
+    private int j = 0, l = 0;
     private int Checker = 0;
     private boolean Checker1 = true;
 
@@ -174,27 +178,27 @@ public class timeTableGenerationController implements Initializable {
             sessionController sessionController = new sessionController();
             sessionsList1 = sessionController.getSessionsList();
 
-            ArrayList<String> sessionsList =getSessionList();
+            ArrayList<String> sessionsList = getSessionList();
 
-                    String query1 = "DELETE FROM time_table";
-                    executeQuery(query1);
+            String query1 = "DELETE FROM time_table";
+            databaseHelper.executeQuery(query1);
 
-                    for (int i = 0; i < sessionsList1.size(); i++) {
-                        try {
+            for (int i = 0; i < sessionsList1.size(); i++) {
+                try {
 
-                            Sessions session = sessionsList1.get(i);
+                    Sessions session = sessionsList1.get(i);
 
-                            for (int k = 0; k < session.getSessionDuration(); k++) {
-                                String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`) VALUES ('time"+i+"','"+session.getSessionModule()+" ("+session.getSessionTag()+")"+"','"+session.getSessionTag()+"','B402','"+session.getSessionGroupID()+"','Lecturer"+i+"','"+session.getSessionGenID()+"',"+1+");";
-                                executeQuery(query);
-                            }
-
-                        } catch (Exception e) {
-
-                            e.printStackTrace();
-                        }
-                        System.out.println();
+                    for (int k = 0; k < session.getSessionDuration(); k++) {
+                        String query = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`) VALUES ('time" + i + "','" + session.getSessionModule() + " (" + session.getSessionTag() + ")" + "','" + session.getSessionTag() + "','B402','" + session.getSessionGroupID() + "','Lecturer" + i + "','" + session.getSessionGenID() + "'," + 1 + ");";
+                        databaseHelper.executeQuery(query);
                     }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                System.out.println();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -204,7 +208,7 @@ public class timeTableGenerationController implements Initializable {
         set_a_Hall_ToSession();
     }
 
-    public void setLecturerToSession(){
+    public void setLecturerToSession() {
 //        ObservableList<Sessions> sessionsListValue = getAllSessionList();
         ObservableList<TimeTable> TimeTableListValue = getTimeTableValues();
 
@@ -212,8 +216,8 @@ public class timeTableGenerationController implements Initializable {
 
             ObservableList<sessionLecturers> LecturersList = FXCollections.observableArrayList();
 
-            Connection conn = getConnection();
-            String  query = "SELECT * FROM session_lecturer WHERE sessionID = '"+TimeTableListValue.get(i).getSessionId()+"'";
+            Connection conn = databaseHelper.getConnection();
+            String query = "SELECT * FROM session_lecturer WHERE sessionID = '" + TimeTableListValue.get(i).getSessionId() + "'";
             Statement st;
             ResultSet rs;
             try {
@@ -232,31 +236,32 @@ public class timeTableGenerationController implements Initializable {
                 System.out.println("Error - When department data retrieving ");
                 ex.printStackTrace();
             }
-            j=0;k=0;
-            for ( j = 0; j < TimeTableListValue.size(); j++) {
+            j = 0;
+            k = 0;
+            for (j = 0; j < TimeTableListValue.size(); j++) {
 
-                for ( k = 0; k < LecturersList.size(); k++) {
+                for (k = 0; k < LecturersList.size(); k++) {
 
-                    if (!TimeTableListValue.get(j).getLecturer().equals(LecturersList.get(k).getLecturerName()) ) {
-                        String query1 = "UPDATE time_table SET `lecturer` ='" +LecturersList.get(k).getLecturerName()+"' WHERE Id =" +TimeTableListValue.get(i).getId();
-                        executeQuery(query1);
-                        k=99;
-                        j=99;
-                }
+                    if (!TimeTableListValue.get(j).getLecturer().equals(LecturersList.get(k).getLecturerName())) {
+                        String query1 = "UPDATE time_table SET `lecturer` ='" + LecturersList.get(k).getLecturerName() + "' WHERE Id =" + TimeTableListValue.get(i).getId();
+                        databaseHelper.executeQuery(query1);
+                        k = 99;
+                        j = 99;
+                    }
                 }
             }
         }
     }
 
-    public void set_a_Hall_ToSession(){
+    public void set_a_Hall_ToSession() {
 //        ObservableList<Sessions> sessionsListValue = getAllSessionList();
         ObservableList<TimeTable> TimeTableListValue = getTimeTableValues();
 
         for (int i = 0; i < TimeTableListValue.size(); i++) {
 
 
-            Connection conn = getConnection();
-            String  query = "SELECT * FROM location";
+            Connection conn = databaseHelper.getConnection();
+            String query = "SELECT * FROM location";
             Statement st;
             ResultSet rs;
             try {
@@ -271,8 +276,6 @@ public class timeTableGenerationController implements Initializable {
                             rs.getInt("location_floor"),
                             rs.getString("location_condition"),
                             rs.getString("location_delete_status"),
-                            rs.getString("location_timestamp"),
-                            rs.getString("location_created"),
                             rs.getInt("building_building_id"),
                             rs.getInt("tag_tag_id")
                     );
@@ -284,28 +287,27 @@ public class timeTableGenerationController implements Initializable {
                 ex.printStackTrace();
             }
         }
-        j=0;
-        for ( j = 0; j < TimeTableListValue.size(); j++) {
-            l=0;
-            for ( l = 0; l < TimeTableListValue.size(); l++) {
+        j = 0;
+        for (j = 0; j < TimeTableListValue.size(); j++) {
+            l = 0;
+            for (l = 0; l < TimeTableListValue.size(); l++) {
                 if (TimeTableListValue.get(j).getTimeSlot().equals(TimeTableListValue.get(l).getTimeSlot()) && TimeTableListValue.get(j).getDayName().equals(TimeTableListValue.get(l).getDayName())) {
                     System.out.println("founded equality ");
 
-                    for ( k=Checker; k < HallList.size(); k++) {
-                        if(TimeTableListValue.get(j).getHall().equals(TimeTableListValue.get(l).getHall())
+                    for (k = Checker; k < HallList.size(); k++) {
+                        if (TimeTableListValue.get(j).getHall().equals(TimeTableListValue.get(l).getHall())
                                 &&
-                                    !TimeTableListValue.get(j).getSessionId().equals(TimeTableListValue.get(l).getSessionId())){
+                                !TimeTableListValue.get(j).getSessionId().equals(TimeTableListValue.get(l).getSessionId())) {
                             if (HallList.get(k).getLocation_name().equals(TimeTableListValue.get(l).getHall())) {
                                 if (HallList.size() < k) {
                                     System.out.println("Halls not enough");
-                                    l=99;
-                                    j=99;
+                                    l = 99;
+                                    j = 99;
                                     Checker1 = false;
-                                }
-                                else{
+                                } else {
                                     k++;
                                     Checker = k;
-                                    k=99;
+                                    k = 99;
                                 }
                             }
                         }
@@ -315,41 +317,39 @@ public class timeTableGenerationController implements Initializable {
             }
 
             if (Checker1 == true) {
-                String query1 = "UPDATE time_table SET `Hall` ='" +HallList.get(Checker).getLocation_name()+"' WHERE Id =" +TimeTableListValue.get(j).getId();
-                executeQuery(query1);
+                String query1 = "UPDATE time_table SET `Hall` ='" + HallList.get(Checker).getLocation_name() + "' WHERE Id =" + TimeTableListValue.get(j).getId();
+                databaseHelper.executeQuery(query1);
                 System.out.println();
                 System.out.println("updated" + HallList.get(Checker).getLocation_name());
                 System.out.println("checker works");
-                k=99;
-                l=99;
+                k = 99;
+                l = 99;
             }
-
 
 
         }
     }
 
-    public void setTimeToSession(){
+    public void setTimeToSession() {
         String query3 = "DELETE FROM time_table WHERE Module = 'INTERVAL'";
 //        String query2 = "DELETE from daysname WHERE id =1 ";
-        executeQuery(query3);
+        databaseHelper.executeQuery(query3);
 
         String tempSessionId = "non";
         ObservableList<TimeSlot> timeSlotList = getTimeSlotsList1();
 
         ObservableList<TimeTable> timeTableList = getTimeTableValues();
 
-        ArrayList<String> sessionsList2 =getSessionList();
+        ArrayList<String> sessionsList2 = getSessionList();
 
         for (int j = 0; j < sessionsList2.size(); j++) {
             int x = 0;
-             totalTime = 0;
+            totalTime = 0;
             for (int i = 0; i < timeTableList.size(); i++) {
 
 
-                if (sessionsList2.get(j).equals(timeTableList.get(i).getGroup()))
-                {
-                    if (totalTime == hours || totalTime ==hours*2 ||totalTime ==hours*3 || totalTime == hours*4 || totalTime==hours*5) {
+                if (sessionsList2.get(j).equals(timeTableList.get(i).getGroup())) {
+                    if (totalTime == hours || totalTime == hours * 2 || totalTime == hours * 3 || totalTime == hours * 4 || totalTime == hours * 5) {
                         x = 0;
                     }
 
@@ -357,184 +357,184 @@ public class timeTableGenerationController implements Initializable {
 
                         if (totalTime == 4) {
 
-                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day1+"');";
+                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" + timeSlotList.get(x).getValue_t() + "','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL'," + 1 + ",'" + day1 + "');";
 //                            executeQuery(query1);
                             x++;
-                            totalTime = totalTime+1;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day1+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            totalTime = totalTime + 1;
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day1 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
 
-                        }else if (totalTime > 4) {
+                        } else if (totalTime > 4) {
                             x++;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day1+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day1 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
-                        }else{
+                            totalTime = totalTime + 1;
+                        } else {
 
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day1+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day1 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
                             x++;
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
                         }
 
 
-                    }else if (totalTime < hours*2) {
+                    } else if (totalTime < hours * 2) {
 
                         if (totalTime == 14) {
 
-                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day2+"');";
+                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" + timeSlotList.get(x).getValue_t() + "','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL'," + 1 + ",'" + day2 + "');";
 //                            executeQuery(query1);
                             x++;
-                            totalTime = totalTime+1;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day2+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            totalTime = totalTime + 1;
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day2 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
 
-                        }else if (totalTime > 14) {
+                        } else if (totalTime > 14) {
                             x++;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day2+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day2 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
-                        }else{
+                            totalTime = totalTime + 1;
+                        } else {
 
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day2+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day2 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
                             x++;
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
                         }
 
-                    }else if (totalTime < hours*3) {
+                    } else if (totalTime < hours * 3) {
 
                         if (totalTime == 23) {
 
-                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day3+"');";
+                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" + timeSlotList.get(x).getValue_t() + "','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL'," + 1 + ",'" + day3 + "');";
 //                            executeQuery(query1);
                             x++;
-                            totalTime = totalTime+1;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day3+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            totalTime = totalTime + 1;
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day3 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
 
-                        }else if (totalTime > 23) {
+                        } else if (totalTime > 23) {
                             x++;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day3+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day3 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
-                        }else{
+                            totalTime = totalTime + 1;
+                        } else {
 
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day3+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day3 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
                             x++;
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
                         }
 
-                    } else if (totalTime < hours*4) {
+                    } else if (totalTime < hours * 4) {
 
                         if (totalTime == 32) {
 
-                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day4+"');";
+                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" + timeSlotList.get(x).getValue_t() + "','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL'," + 1 + ",'" + day4 + "');";
 //                            executeQuery(query1);
                             x++;
-                            totalTime = totalTime+1;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day4+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            totalTime = totalTime + 1;
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day4 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
 
-                        }else if (totalTime > 32) {
+                        } else if (totalTime > 32) {
                             x++;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day4+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day4 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
-                        }else{
+                            totalTime = totalTime + 1;
+                        } else {
 
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day4+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day4 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
                             x++;
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
                         }
 
-                    } else if (totalTime < hours*5) {
+                    } else if (totalTime < hours * 5) {
 
                         if (totalTime == 41) {
 
-                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" +timeSlotList.get(x).getValue_t()+"','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL',"+1+",'"+day5+"');";
+                            String query1 = "INSERT INTO time_table (`timeSlot`,`Module`,`tag`,`Hall`,`group`,`lecturer`,`sessionId`,`duration`,`dayName`) VALUES ('" + timeSlotList.get(x).getValue_t() + "','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL','INTERVAL'," + 1 + ",'" + day5 + "');";
 //                            executeQuery(query1);
                             x++;
-                            totalTime = totalTime+1;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day5+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            totalTime = totalTime + 1;
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day5 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
 
-                        }else if (totalTime > 41) {
+                        } else if (totalTime > 41) {
                             x++;
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day5+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day5 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
 
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
-                        }else{
+                            totalTime = totalTime + 1;
+                        } else {
 
-                            String query = "UPDATE time_table SET `timeSlot` ='" +timeSlotList.get(x).getValue_t()+"',`dayName` ='"+day5+"' WHERE Id =" +timeTableList.get(i).getId();
-                            executeQuery(query);
+                            String query = "UPDATE time_table SET `timeSlot` ='" + timeSlotList.get(x).getValue_t() + "',`dayName` ='" + day5 + "' WHERE Id =" + timeTableList.get(i).getId();
+                            databaseHelper.executeQuery(query);
                             x++;
 
                             tempSessionId = timeTableList.get(i).getSessionId();
 
-                            totalTime = totalTime+1;
+                            totalTime = totalTime + 1;
                         }
 
-                    } else{
+                    } else {
                         System.out.println("Working hours  not enough to add the total sessions");
                     }
 
@@ -546,7 +546,7 @@ public class timeTableGenerationController implements Initializable {
     }
 
     public void getHoursValues() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM hours where id = 1";
         Statement st;
         ResultSet rs;
@@ -561,7 +561,6 @@ public class timeTableGenerationController implements Initializable {
             }
 
 
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -569,7 +568,7 @@ public class timeTableGenerationController implements Initializable {
     }
 
     public void getDayNames() {
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM daysname where id = 1";
         Statement st;
         ResultSet rs;
@@ -588,7 +587,6 @@ public class timeTableGenerationController implements Initializable {
             }
 
 
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -597,9 +595,9 @@ public class timeTableGenerationController implements Initializable {
 
     public ObservableList<TimeSlot> getTimeSlotsList1() {
         ObservableList<TimeSlot> timeSlotList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
-        String  query = "SELECT * FROM timeslots";
+        String query = "SELECT * FROM timeslots";
 
         Statement st;
         ResultSet rs;
@@ -627,11 +625,11 @@ public class timeTableGenerationController implements Initializable {
         return timeSlotList;
     }
 
-    public ObservableList<TimeTable>  getTimeTableValues(){
+    public ObservableList<TimeTable> getTimeTableValues() {
         ObservableList<TimeTable> timeTableList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
-        String  query = "SELECT * FROM time_table";
+        String query = "SELECT * FROM time_table";
 
         Statement st;
         ResultSet rs;
@@ -671,7 +669,7 @@ public class timeTableGenerationController implements Initializable {
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<TimeTable> sessionsList = FXCollections.observableArrayList();
-        Connection conn =  databaseHelper.getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query;
 
         query = "SELECT DISTINCT `sessionStudentGroup` FROM session";
@@ -703,7 +701,7 @@ public class timeTableGenerationController implements Initializable {
         DatabaseHelper databaseHelper = new DatabaseHelper();
 
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
-        Connection conn =  databaseHelper.getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query;
 
         query = "SELECT * FROM session";
@@ -739,7 +737,7 @@ public class timeTableGenerationController implements Initializable {
         return sessionsList;
     }
 
-    private void executeQuery(String query) {
+   /* private void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
         try {
@@ -761,5 +759,5 @@ public class timeTableGenerationController implements Initializable {
             System.out.println("Error: " + ex.getMessage());
             return null;
         }
-    }
+    }*/
 }

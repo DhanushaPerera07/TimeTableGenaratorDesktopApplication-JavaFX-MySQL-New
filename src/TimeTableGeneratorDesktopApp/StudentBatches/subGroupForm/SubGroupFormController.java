@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.studentBatchesController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SubGroupFormController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
+
     public static int rowID = 0;
     public static String year = "";
     public static String semester = "";
@@ -123,13 +127,13 @@ public class SubGroupFormController implements Initializable {
     private void updateRecord(){
         String query = "UPDATE subgroups SET subGroupId = '" +subIDtf.getText() + "', NofStudents = '" +sgtfNOF.getText() +
                 "'  WHERE id = " + subGroupRawID+ "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
 
     private void deleteRecord(){
         String query = "DELETE from subgroups WHERE id =" +subGroupRawID+ "";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
         showSubGroups();
     }
 
@@ -238,9 +242,9 @@ public class SubGroupFormController implements Initializable {
 
 
     public void insertRecord(){
-        String query = "INSERT INTO subGroups (subGroupId,NofStudents,batchID) " +
+        String query = "INSERT INTO subgroups (subGroupId,NofStudents,batchID) " +
                 "VALUES ('" +subGroupID+ "'," +sgtfNOF.getText()+ ",'" +rowID+"') ";
-        executeQuery(query);
+        databaseHelper.executeQuery(query);
     }
 
 
@@ -252,9 +256,9 @@ public class SubGroupFormController implements Initializable {
 
 
     public void updateStats(){
-        String queryBatchStats = "UPDATE batchStats SET nofGrouped = " +noOfGrpsStds+
+        String queryBatchStats = "UPDATE batchstats SET nofGrouped = " +noOfGrpsStds+
                 ", nofRemain = " +noOfRemsStds+ " WHERE batch = " +rowID+ "";
-        executeQuery(queryBatchStats);
+        databaseHelper.executeQuery(queryBatchStats);
     }
 
 
@@ -263,7 +267,7 @@ public class SubGroupFormController implements Initializable {
     public ObservableList<batchstats> getStats() {
 
         ObservableList<batchstats> statsList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
         String  query = "SELECT * FROM batchstats WHERE batch =" +rowID;
 
@@ -304,9 +308,9 @@ public class SubGroupFormController implements Initializable {
     public ObservableList<subGroups> getSubGroupList() {
 
         ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
 
-        String  query = "SELECT * FROM subGroups WHERE batchID =" +rowID;
+        String  query = "SELECT * FROM subgroups WHERE batchID =" +rowID;
 
         Statement st;
         ResultSet rs;
@@ -341,7 +345,7 @@ public class SubGroupFormController implements Initializable {
 
 
 
-    public Connection getConnection(){
+   /* public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -362,7 +366,7 @@ public class SubGroupFormController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
 }

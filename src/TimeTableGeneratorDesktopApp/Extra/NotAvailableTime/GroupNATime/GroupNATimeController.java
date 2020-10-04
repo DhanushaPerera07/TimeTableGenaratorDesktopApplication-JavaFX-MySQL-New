@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -32,6 +33,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class GroupNATimeController implements Initializable {
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
     public static String batchID = "";
     public static int rawID ;
@@ -74,7 +77,7 @@ public class GroupNATimeController implements Initializable {
 
     public ObservableList<StudentBatches> getBatchesList() {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
-        Connection conn = getConnection();
+        Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM studentBatches ORDER BY year";
         Statement st;
         ResultSet rs;
@@ -114,7 +117,7 @@ public class GroupNATimeController implements Initializable {
 
     }
 
-    public Connection getConnection(){
+    /*public Connection getConnection(){
         Connection conn;
         try{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/timetabledb", "root","root");
@@ -123,7 +126,7 @@ public class GroupNATimeController implements Initializable {
             System.out.println("Error: " + ex.getMessage());
             return null;
         }
-    }
+    }*/
 
 
 
