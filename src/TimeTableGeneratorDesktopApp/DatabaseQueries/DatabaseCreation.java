@@ -397,8 +397,47 @@ public class DatabaseCreation extends DatabaseHelper {
             ");";
 
 
+    String createTableQuery = "CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`notavailabletimegroup` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `batchID` VARCHAR(45) NULL ," +
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+
+
+    String createSubGroupTableQ ="CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`notavailabletimesubgroup` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `batchID` VARCHAR(45) NULL ," +
+            "  `subGroupID` VARCHAR(45) NULL ,"+
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+
+    String createTableLecNAQuery = "CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`lecturernatime` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `lecID` int NULL ," +
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+    String createTableSessionsNA = "CREATE  TABLE IF NOT EXISTS `"+DatabaseConnection.databaseName+"`.`sessionsnatime` (" +
+            "  `id` INT NOT NULL AUTO_INCREMENT," +
+            "  `sessionID` VARCHAR(100) NULL ," +
+            "  `Day` VARCHAR(45) NULL ," +
+            "  `Hour` VARCHAR(45) NULL ," +
+            "  PRIMARY KEY (`id`) );";
+
+
+
     public void createDatabase() {
         try {
+            executeQuery(createTableQuery);
+            executeQuery(createSubGroupTableQ);
+            executeQuery(createTableLecNAQuery);
+            executeQuery(createTableSessionsNA);
+
 
             executeQuery(query4);
             executeQuery(query5);

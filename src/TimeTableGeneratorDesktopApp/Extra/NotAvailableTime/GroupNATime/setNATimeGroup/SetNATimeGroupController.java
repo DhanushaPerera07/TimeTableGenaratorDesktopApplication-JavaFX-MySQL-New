@@ -64,7 +64,7 @@ public class SetNATimeGroupController implements Initializable {
         batchIDLabel.setText(batchID);
         tableName="notavailabletimegroup";
         subGroupTableName ="notavailabletimesubgroup";
-        createTable();
+//        createTable();
         setValuesCombo();
         showData();
     }

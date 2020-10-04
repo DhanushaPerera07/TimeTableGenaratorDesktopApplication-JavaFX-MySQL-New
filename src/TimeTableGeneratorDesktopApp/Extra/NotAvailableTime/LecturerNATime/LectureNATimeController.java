@@ -78,7 +78,7 @@ public class LectureNATimeController implements Initializable {
         pane.setVisible(false);
         showLecturers();
         setValuesCombo();
-        createTable();
+//        createTable();
     }
 
 

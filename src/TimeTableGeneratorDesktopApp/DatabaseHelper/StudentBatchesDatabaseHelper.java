@@ -19,7 +19,7 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM studentBatches ORDER BY year";
+        String query = "SELECT * FROM studentbatches ORDER BY year";
 
 
         Statement st;

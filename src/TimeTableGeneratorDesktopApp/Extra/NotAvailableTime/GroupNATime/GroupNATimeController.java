@@ -78,7 +78,7 @@ public class GroupNATimeController implements Initializable {
     public ObservableList<StudentBatches> getBatchesList() {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
-        String query = "SELECT * FROM studentBatches ORDER BY year";
+        String query = "SELECT * FROM studentbatches ORDER BY year";
         Statement st;
         ResultSet rs;
         try {

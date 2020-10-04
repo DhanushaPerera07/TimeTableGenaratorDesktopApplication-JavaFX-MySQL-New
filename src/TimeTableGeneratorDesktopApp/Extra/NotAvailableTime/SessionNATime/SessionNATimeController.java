@@ -74,7 +74,7 @@ public class SessionNATimeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setNATimePane.setVisible(false);
         setValuesCombo();
-        createTable();
+//        createTable();
         showSessions();
 
 
@@ -260,15 +260,15 @@ public class SessionNATimeController implements Initializable {
         }
     }*/
 
-    public void createTable(){
-        String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`sessionsnatime` (" +
-                "  `id` INT NOT NULL AUTO_INCREMENT," +
-                "  `sessionID` VARCHAR(100) NULL ," +
-                "  `Day` VARCHAR(45) NULL ," +
-                "  `Hour` VARCHAR(45) NULL ," +
-                "  PRIMARY KEY (`id`) );";
-
-        databaseHelper.executeQuery(createTableQuery);
-    }
+//    public void createTable(){
+//        String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`sessionsnatime` (" +
+//                "  `id` INT NOT NULL AUTO_INCREMENT," +
+//                "  `sessionID` VARCHAR(100) NULL ," +
+//                "  `Day` VARCHAR(45) NULL ," +
+//                "  `Hour` VARCHAR(45) NULL ," +
+//                "  PRIMARY KEY (`id`) );";
+//
+//        databaseHelper.executeQuery(createTableQuery);
+//    }
 
 }

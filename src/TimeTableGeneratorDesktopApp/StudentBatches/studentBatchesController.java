@@ -271,6 +271,7 @@ public class studentBatchesController implements Initializable {
     void handleMouseAction(MouseEvent event) {
         StudentBatches batch = tvBatches.getSelectionModel().getSelectedItem();
 
+
         rowID = batch.getId();
         year = batch.getYear();
         semester = batch.getSemester();
