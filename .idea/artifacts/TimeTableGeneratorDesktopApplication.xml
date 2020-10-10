@@ -7,6 +7,11 @@
         <option name="description" value="" />
         <option name="height" value="600" />
         <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/TimeTableGeneratorDesktopApp/icons/applogo.ico" />
+          </JavaFxApplicationIcons>
+        </option>
         <option name="nativeBundle" value="all" />
         <option name="title" value="TimeTable Desktop Application" />
         <option name="vendor" value="CODE 4" />
