@@ -1,10 +1,6 @@
 package TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
-import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Optional;

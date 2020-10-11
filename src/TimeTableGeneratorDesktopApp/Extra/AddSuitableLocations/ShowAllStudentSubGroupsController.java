@@ -1,9 +1,7 @@
 package TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForGroupController;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForSubGroupController;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +22,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -61,14 +60,19 @@ public class ShowAllStudentSubGroupsController implements Initializable {
         ObservableList<subGroups> subGroupList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
 
-        String  query = "SELECT * FROM subgroups ORDER BY subGroupId ASC;";
+        String query = "SELECT * FROM `subgroups` ORDER BY subGroupId ASC;";
 
-        Statement st;
+ /*       Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             subGroups subGroups;
             while (rs.next()) {
                 subGroups = new subGroups(
@@ -81,6 +85,8 @@ public class ShowAllStudentSubGroupsController implements Initializable {
 
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -96,13 +102,13 @@ public class ShowAllStudentSubGroupsController implements Initializable {
         try {
             subGroups studentSubGroup = tvSubGroups.getSelectionModel().getSelectedItem();
 
-            System.out.println("Test sout of selected, studentSubGroupDbID: " + studentSubGroup.getId() + "studentSubGroupBatchID: "+ studentSubGroup.getBatchID());
+            System.out.println("Test sout of selected, studentSubGroupDbID: " + studentSubGroup.getId() + "studentSubGroupBatchID: " + studentSubGroup.getBatchID());
 
 
             SuitableRoomForSubGroupController suitableRoomForSubGroupController = new SuitableRoomForSubGroupController();
             suitableRoomForSubGroupController.getInformationFromShowAllStudentSubGroupUI(studentSubGroup);
 
-            try{
+            try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/suitableRoomForSubGroup.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
 
@@ -115,7 +121,7 @@ public class ShowAllStudentSubGroupsController implements Initializable {
                 stage.setScene(new Scene(root1));
                 stage.show();
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("can't load - suitable locations for a student sub group window");
                 e.printStackTrace();
             }

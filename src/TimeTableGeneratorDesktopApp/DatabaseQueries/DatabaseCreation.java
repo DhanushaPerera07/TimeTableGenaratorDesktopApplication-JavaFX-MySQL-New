@@ -3,9 +3,6 @@ package TimeTableGeneratorDesktopApp.DatabaseQueries;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseConnection;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
 public class DatabaseCreation extends DatabaseHelper {
 

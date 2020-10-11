@@ -1,9 +1,7 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.setNATimeSubGroup.NATimeSubGroups;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
-import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,13 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
-import javax.xml.crypto.Data;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -99,17 +95,26 @@ public class LectureNATimeController implements Initializable {
         ObservableList<NATLecturers> lecturersNATimeList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM lecturernatime WHERE lecID = '" +lecID+"'";
-        Statement st;
+
+
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             NATLecturers naTimeLecturers;
             while (rs.next()) {
                 naTimeLecturers = new NATLecturers(rs.getInt("id"),rs.getString("lecID"),rs.getString("Day"),rs.getString("Hour"));
                 lecturersNATimeList.add(naTimeLecturers);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -225,11 +230,17 @@ public class LectureNATimeController implements Initializable {
         ObservableList<Lecturers> lecturersList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM lecturer ORDER BY lecturerName";
-        Statement st;
+
+
+    /*    Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
             Lecturers lecturers;
             while (rs.next()) {
                 lecturers = new Lecturers(rs.getInt("lid"),
@@ -244,6 +255,8 @@ public class LectureNATimeController implements Initializable {
                 lecturersList.add(lecturers);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

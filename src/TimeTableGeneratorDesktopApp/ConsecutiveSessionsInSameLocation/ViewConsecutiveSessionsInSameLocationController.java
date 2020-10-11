@@ -1,9 +1,7 @@
 package TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation;
 
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.SingleConsecutiveSessionInSameLocationItemAll.ConsecutiveSessionItemAllController;
-import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.SingleConsecutiveSessionItem.SingleConsecutiveSessionItemController;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.ConsecutiveSessionInSameLocationDatabaseHelper;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.ConsecutiveSessionsDatabaseHelper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,8 +109,8 @@ public class ViewConsecutiveSessionsInSameLocationController implements Initiali
     }
 
 
-    @FXML
+   @FXML
     void setOnActionBtnSearch(MouseEvent event) {
-
+       System.out.println("search clicked");
     }
 }

@@ -1,9 +1,7 @@
 package TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.PreferredRoomForSubjectController;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForTagController;
-import TimeTableGeneratorDesktopApp.Subjects.Subjects;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

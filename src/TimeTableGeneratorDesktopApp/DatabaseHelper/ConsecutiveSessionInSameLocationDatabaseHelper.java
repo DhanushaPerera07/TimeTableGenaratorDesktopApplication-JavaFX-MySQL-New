@@ -3,16 +3,13 @@ package TimeTableGeneratorDesktopApp.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionInSameLocation;
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionViewAll;
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionViewModel;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForSession;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
-import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelper {
@@ -36,12 +33,17 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
                 " AND c.consecutive_session_id = " + consecutiveSessionID + "";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             ConsecutiveSessionInSameLocation consecutiveSessionInSameLocation;
             while (rs.next()) {
 
@@ -62,7 +64,11 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
                 consecutiveSessionInSameLocationList.add(consecutiveSessionInSameLocation);
             }
 
-        } catch (Exception ex) {
+        }catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }
+        catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
@@ -98,12 +104,18 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
                 " AND c.consecutive_session_id = " + consecutiveSessionInSameLocationID + "";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             ConsecutiveSessionInSameLocation consecutiveSessionInSameLocation;
             while (rs.next()) {
                 consecutiveSessionInSameLocation = new ConsecutiveSessionInSameLocation(
@@ -116,7 +128,10 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
                 consecutiveSessionInSameLocationList.add(consecutiveSessionInSameLocation);
             }
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
@@ -161,12 +176,15 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
         System.out.println("testing consecutive_session_in_same_room table: " + "consecutive_session_id: " + consecutiveSessionID + " ,LocationID: " + locationID + "");
         String query = "SELECT * FROM consecutive_session_in_same_room WHERE consecutive_session_id = " + this.consecutiveSessionID + " AND location_location_id = " + this.locationID + " ORDER BY consecutive_session_in_same_room_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 ConsecutiveSessionInSameLocation consecutiveSessionInSameLocation = new ConsecutiveSessionInSameLocation();
@@ -179,7 +197,10 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
                 consecutiveSessionInSameLocationList.add(consecutiveSessionInSameLocation);
             }
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When consecutive_session_in_same_room table data retrieving ");
             ex.printStackTrace();
@@ -269,12 +290,15 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
 
         String query = "SELECT * FROM `consecutive_session_in_same_room` WHERE status_true = 'Y' ORDER BY consecutive_session_in_same_room_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             ConsecutiveSessionInSameLocation consecutiveSessionInSameLocation;
             ConsecutiveSessionViewModel consecutiveSessionViewModel;
@@ -310,7 +334,10 @@ public class ConsecutiveSessionInSameLocationDatabaseHelper extends DatabaseHelp
                 //consecutiveSessionInSameLocationList.add(consecutiveSessionInSameLocation);
             }
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }

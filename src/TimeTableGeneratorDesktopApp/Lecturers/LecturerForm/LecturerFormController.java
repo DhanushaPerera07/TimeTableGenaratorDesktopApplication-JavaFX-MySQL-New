@@ -2,10 +2,8 @@ package TimeTableGeneratorDesktopApp.Lecturers.LecturerForm;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
-//import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.PreferredRoomForSubjectController;
+
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForLecturerController;
-import TimeTableGeneratorDesktopApp.Subjects.Subjects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+
 import java.util.ResourceBundle;
 
 public class LecturerFormController implements Initializable {
@@ -206,26 +202,26 @@ public class LecturerFormController implements Initializable {
 
 
 
-            if (lecturerFaculty=="Faculty of Computing"){
+            if (lecturerFaculty.equals("Faculty of Computing")){
                 comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
                 comboDepartmentBox.getItems().addAll(
                         "Computer Science and Software Engineering", "Information Technology", "Computer Science and Network Engineering",
                         "Cyber Security", "Information System Engineering"
                 );
             }
-            else if (lecturerFaculty=="Faculty of Engineering"){
+            else if (lecturerFaculty.equals("Faculty of Engineering")){
                 comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
                 comboDepartmentBox.getItems().addAll(
                         "Civil Engineering","Electrical Engineering"
                 );
             }
-            else if (lecturerFaculty=="Faculty of Business"){
+            else if (lecturerFaculty.equals("Faculty of Business")){
                 comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
                 comboDepartmentBox.getItems().addAll(
                         "Logistic","Human Resources"
                 );
             }
-            else if (lecturerFaculty=="Faculty of Humanities & Science"){
+            else if (lecturerFaculty.equals("Faculty of Humanities & Science")){
                 comboDepartmentBox.getItems().removeAll(comboDepartmentBox.getItems());
                 comboDepartmentBox.getItems().addAll(
                         "Mathematics","English","Law"

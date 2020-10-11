@@ -1,13 +1,12 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class HallsLabsDatabaseHelper extends DatabaseHelper {
@@ -55,16 +54,19 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
-        System.out.println("testing preferred_room_for_subject table: " + "SubjectID:" + subjectID + " ,LocationID: "+ locationID + ", Tag ID : " + tagID);
+        System.out.println("testing preferred_room_for_subject table: " + "SubjectID:" + subjectID + " ,LocationID: " + locationID + ", Tag ID : " + tagID);
         String query = "SELECT * FROM preferred_room_for_subject WHERE subject_subject_id = " + this.subjectID + " AND location_location_id = " + this.locationID + " AND tag_tag_id = " + this.tagID + " ORDER BY preferred_room_for_subject_id";
         //String query = "SELECT * FROM preferred_room_for_subject WHERE status_true = 'Y' AND subject_subject_id = " + this.subjectID + " AND location_location_id = " + this.locationID + " AND tag_tag_id = " + this.tagID + " ORDER BY preferred_room_for_subject_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 PreferredLocation preferredLocation = new PreferredLocation();
@@ -78,6 +80,8 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 preferredLocationsList.add(preferredLocation);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
@@ -152,7 +156,6 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
     }
 
 
-
     // -------------------------- Lecturer part ---------------------------------------------------------------------------------------
 
     /**
@@ -176,15 +179,18 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
-        System.out.println("testing preferred_room_for_subject table: " + "lecturerID:" + lecturerID + " ,LocationID: "+ locationID + "");
+        System.out.println("testing preferred_room_for_subject table: " + "lecturerID:" + lecturerID + " ,LocationID: " + locationID + "");
         String query = "SELECT * FROM suitable_room_for_lecturer WHERE lecturer_lid = " + this.lecturerID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_lecturer_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 SuitableLocationForLecturer suitableLocationForLecturer = new SuitableLocationForLecturer();
@@ -197,6 +203,8 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 suitableLocationForLecturersList.add(suitableLocationForLecturer);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When suitable_room_for_lecturer table data retrieving ");
@@ -271,12 +279,6 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
     }
 
 
-
-
-
-
-
-
     // -------------------------- Tag part ---------------------------------------------------------------------------------------
 
     /**
@@ -300,15 +302,18 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
-        System.out.println("testing preferred_room_for_tags table: " + "tagID:" + tagID + " ,LocationID: "+ locationID + "");
+        System.out.println("testing preferred_room_for_tags table: " + "tagID:" + tagID + " ,LocationID: " + locationID + "");
         String query = "SELECT * FROM suitable_room_for_tags WHERE tags_idtags = " + this.tagID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_tags_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 SuitableLocationForTag suitableLocationForTag = new SuitableLocationForTag();
@@ -321,6 +326,8 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 suitableLocationForTagList.add(suitableLocationForTag);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When suitable_room_for_tags table data retrieving ");
@@ -394,13 +401,6 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
     }
 
 
-
-
-
-
-
-
-
     // -------------------------- Student Batches part ---------------------------------------------------------------------------------------
 
     /**
@@ -424,15 +424,18 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
-        System.out.println("testing preferred_room_for_tags table: " + "tagID:" + tagID + " ,LocationID: "+ locationID + "");
+        System.out.println("testing preferred_room_for_tags table: " + "tagID:" + tagID + " ,LocationID: " + locationID + "");
         String query = "SELECT * FROM suitable_room_for_student_batch WHERE studentbatches_id = " + this.studentBatchID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_student_batch_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 SuitableLocationForStudentBatch suitableLocationForStudentBatch = new SuitableLocationForStudentBatch();
@@ -445,6 +448,8 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 suitableLocationForStudentBatchList.add(suitableLocationForStudentBatch);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When suitable_room_for_student_batch table data retrieving ");
@@ -519,22 +524,6 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // -------------------------- Student Sub Groups part ---------------------------------------------------------------------------------------
 
     /**
@@ -558,15 +547,18 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
-        System.out.println("testing suitable_room_for_student_subgroups table: " + "tagID:" + studentSubGroupID + " ,LocationID: "+ locationID + "");
+        System.out.println("testing suitable_room_for_student_subgroups table: " + "tagID:" + studentSubGroupID + " ,LocationID: " + locationID + "");
         String query = "SELECT * FROM suitable_room_for_student_subgroups WHERE subgroups_id = " + this.studentSubGroupID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_student_subgroups_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 SuitableLocationForStudentSubGroup suitableLocationForStudentSubGroup = new SuitableLocationForStudentSubGroup();
@@ -579,6 +571,8 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 suitableLocationForStudentSubGroupList.add(suitableLocationForStudentSubGroup);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When suitable_room_for_student_subgroups table data retrieving ");
@@ -653,17 +647,6 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     // -------------------------- Session part ---------------------------------------------------------------------------------------
 
     /**
@@ -687,15 +670,18 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         // get database connection
         Connection conn = getConnection();
 
-        System.out.println("testing suitable_room_for_student_subgroups table: " + "sessionID:" + sessionID + " ,LocationID: "+ locationID + "");
+        System.out.println("testing suitable_room_for_student_subgroups table: " + "sessionID:" + sessionID + " ,LocationID: " + locationID + "");
         String query = "SELECT * FROM suitable_room_for_session WHERE idsession = " + this.sessionID + " AND location_location_id = " + this.locationID + " ORDER BY suitable_room_for_session_id";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 SuitableLocationForSession suitableLocationForSession = new SuitableLocationForSession();
@@ -708,6 +694,8 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
                 suitableLocationForSessionList.add(suitableLocationForSession);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When suitable_room_for_session table data retrieving ");
@@ -780,13 +768,6 @@ public class HallsLabsDatabaseHelper extends DatabaseHelper {
         }
 
     }
-
-
-
-
-
-
-
 
 
 }

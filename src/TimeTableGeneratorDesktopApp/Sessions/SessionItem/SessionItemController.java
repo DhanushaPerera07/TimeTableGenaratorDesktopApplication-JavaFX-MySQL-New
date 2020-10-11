@@ -1,7 +1,6 @@
 package TimeTableGeneratorDesktopApp.Sessions.SessionItem;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
 import javafx.collections.FXCollections;
@@ -21,7 +20,6 @@ import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;

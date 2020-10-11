@@ -3,7 +3,6 @@ package TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,11 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class AddLocationsBuildingPopUpController implements Initializable {
 

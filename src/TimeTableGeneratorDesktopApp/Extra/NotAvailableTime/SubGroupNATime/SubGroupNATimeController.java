@@ -1,10 +1,8 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime;
 
-import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.StudentBatchesDatabaseHelper;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -27,10 +25,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class SubGroupNATimeController implements Initializable {

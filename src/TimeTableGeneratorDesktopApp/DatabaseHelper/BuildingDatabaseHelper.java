@@ -1,13 +1,12 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BuildingDatabaseHelper extends DatabaseHelper {
@@ -27,12 +26,12 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
         // SELECT RECORD
         String query = "SELECT * FROM building WHERE building_delete_status = 'N' AND building_id = "+buildingID+"";
 
-        Statement st;
-        ResultSet rs;
-        try{
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
-
+        /*Statement st;
+        ResultSet rs;*/
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+           /* st = conn.createStatement();
+            rs = st.executeQuery(query);*/
             while (rs.next()) {
                 // set building values to the created building object by fetching from the database
                 building.setBuildingID(rs.getInt("building_id"));
@@ -49,6 +48,10 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
             }
 
 
+        }catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error SQLException- When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
@@ -56,6 +59,7 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
         }
 
         return building;
+
 
     }
 
@@ -72,13 +76,14 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
 
 
         // SELECT RECORD
-        String query = "SELECT * FROM building WHERE building_delete_status = 'N' AND building_name = '"+buildingName+"'";
+        String query = "SELECT * FROM `building` WHERE building_delete_status = 'N' AND building_name = '"+buildingName+"'";
 
-        Statement st;
-        ResultSet rs;
-        try{
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
+/*        Statement st;
+        ResultSet rs;*/
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+/*            st = conn.createStatement();
+            rs = st.executeQuery(query);*/
 
             if (rs.next()) {
                 // set building values to the created building object by fetching from the database
@@ -96,6 +101,10 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
             }
 
 
+        }catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error SQLException- When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
@@ -120,12 +129,13 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM building WHERE building_delete_status = 'N' ORDER BY building_name";
 
-        Statement st;
-        ResultSet rs;
+/*        Statement st;
+        ResultSet rs;*/
 
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+/*            st = conn.createStatement();
+            rs = st.executeQuery(query);*/
             Building building;
             while (rs.next()) {
                 building = new Building(
@@ -161,12 +171,13 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM building WHERE building_name LIKE '%"+ newValue +"%' AND building_delete_status = 'N' ORDER BY building_name";
 
-        Statement st;
-        ResultSet rs;
+       /* Statement st;
+        ResultSet rs;*/
 
-        try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+   /*         st = conn.createStatement();
+            rs = st.executeQuery(query);*/
             Building building;
             while (rs.next()) {
                 building = new Building(
@@ -185,6 +196,9 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
                 buildingList.add(building);
             }
 
+        } catch (SQLException ex){
+            // if an error occurs print an error...
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();

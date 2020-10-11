@@ -2,7 +2,6 @@ package TimeTableGeneratorDesktopApp.TimeTableGeneration.LecturerView;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
-import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTable;
 import javafx.collections.FXCollections;

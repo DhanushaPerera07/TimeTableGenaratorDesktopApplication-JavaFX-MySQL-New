@@ -3,20 +3,16 @@ package TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.SingleCon
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionViewModel;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.ConsecutiveSessionInSameLocationDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class SingleConsecutiveSessionItemController implements Initializable {
+public class SingleConsecutiveSessionItemController {
 
     // variables need for hold some values
     public LocationHallLab locationHallLab;
@@ -56,10 +52,10 @@ public class SingleConsecutiveSessionItemController implements Initializable {
     @FXML
     private Text txtNoOfStudents2;
 
-    @Override
+ /*   @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
+    }*/
 
     public void showConsecutiveSessionInformation(ConsecutiveSessionViewModel consecutiveSessionViewModel, LocationHallLab locationHallLab) {
 

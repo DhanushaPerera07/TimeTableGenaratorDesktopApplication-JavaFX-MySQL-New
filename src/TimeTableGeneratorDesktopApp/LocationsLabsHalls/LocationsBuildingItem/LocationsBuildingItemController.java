@@ -1,34 +1,24 @@
 package TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem;
 
-import TimeTableGeneratorDesktopApp.Controller;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
-import TimeTableGeneratorDesktopApp.Departments.DepartmentsController;
-import TimeTableGeneratorDesktopApp.FxmlLoader;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsController;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingPopUps.EditLocationsBuildingPopUpController;
-import com.sun.media.jfxmedia.events.BufferListener;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 

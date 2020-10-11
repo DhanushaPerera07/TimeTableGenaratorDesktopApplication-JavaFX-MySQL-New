@@ -7,15 +7,16 @@ import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
-public class LocationHallLabDatabaseHelper extends DatabaseHelper{
+public class LocationHallLabDatabaseHelper extends DatabaseHelper {
 
     // methods are needed for the Hall/Lab operations
 
     //-------------------------------------------------------------
 
-    public LocationHallLab getLocationHallLabInstanceByID(int locationHallLabID){
+    public LocationHallLab getLocationHallLabInstanceByID(int locationHallLabID) {
 
         // create a LocationHallLab object
         LocationHallLab locationHallLab = null;
@@ -23,14 +24,17 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         // get database connection
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location` WHERE location_delete_status = 'N' AND location_id = '" + locationHallLabID + "' ORDER BY location_name";
+        String query = "SELECT * FROM `" + DatabaseConnection.databaseName + "`.`location` WHERE location_delete_status = 'N' AND location_id = '" + locationHallLabID + "' ORDER BY location_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 locationHallLab = new LocationHallLab(
@@ -44,6 +48,8 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
                 );
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -60,21 +66,25 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
     /**
      * this method is to get all the faculties in the faculty table...
      * returns departmentList;
-     * */
+     */
     public ObservableList<LocationHallLab> getLocationHallLabList(int buildingID) {
 
         ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location` WHERE building_building_id = "+ buildingID +
+        String query = "SELECT * FROM `" + DatabaseConnection.databaseName + "`.`location` WHERE building_building_id = " + buildingID +
                 " AND location_delete_status = 'N' ORDER BY location_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             LocationHallLab locationHallLab;
             while (rs.next()) {
                 locationHallLab = new LocationHallLab(
@@ -89,6 +99,8 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
                 locationHallLabList.add(locationHallLab);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -97,24 +109,28 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
     }
 
 
-
     // --------------------------------------------------------------------------------
 
 
-    public ObservableList<LocationHallLab> getLocationHallLabListByLocationName(String newValue,int buildingID) {
+    public ObservableList<LocationHallLab> getLocationHallLabListByLocationName(String newValue, int buildingID) {
 
         ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName + "`.`location` WHERE location_name LIKE '%"+ newValue +"%' AND building_building_id = "+ buildingID +
+        String query = "SELECT * FROM `" + DatabaseConnection.databaseName + "`.`location` WHERE location_name LIKE '%" + newValue + "%' AND building_building_id = " + buildingID +
                 " AND location_delete_status = 'N' ORDER BY location_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             LocationHallLab locationHallLab;
             while (rs.next()) {
                 locationHallLab = new LocationHallLab(
@@ -129,6 +145,8 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
                 locationHallLabList.add(locationHallLab);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -137,27 +155,31 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
     } //
 
 
-
     // --------------------------------------------------------------------------------
 
 
     /**
      * this method is to get all the locations in the location table...
      * returns locationList;
-     * */
+     */
     public ObservableList<LocationHallLab> getAllLocationHallLabList() {
 
         ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName + "`.`location` ORDER BY location_name";
+        String query = "SELECT * FROM `" + DatabaseConnection.databaseName + "`.`location` ORDER BY location_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             LocationHallLab locationHallLab;
             while (rs.next()) {
                 locationHallLab = new LocationHallLab(
@@ -172,16 +194,14 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
                 locationHallLabList.add(locationHallLab);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
         return locationHallLabList;
     }
-
-
-
-
 
 
     // ------------------------------------------------------------------------------
@@ -192,7 +212,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
         String count = "";
         String query = "SELECT COUNT(location_id) AS NumberOfLectureHall " +
-                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
+                "FROM `" + DatabaseConnection.databaseName + "`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Lecture');";
 
@@ -202,26 +222,28 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
                 "FROM tags WHERE tags.Tag = 'Lecture Hall' OR tags.Tag LIKE 'Lecture%');";*/
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
 
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             if (rs.next()) {
                 count = rs.getString("NumberOfLectureHall");
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
 
-
         return Integer.parseInt(count);
     }
-
 
 
     // ------------------------------------------------------------------------------
@@ -232,22 +254,27 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
         String count = "";
         String query = "SELECT COUNT(location_id) AS NumberOfTutorialHall " +
-                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
+                "FROM `" + DatabaseConnection.databaseName + "`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Tutorial');";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
 
             if (rs.next()) {
                 count = rs.getString("NumberOfTutorialHall");
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -264,16 +291,19 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         String count = "";
         int intCount = 0;
         String query = "SELECT COUNT(l.location_id) AS NumberOfLab " +
-                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
+                "FROM `" + DatabaseConnection.databaseName + "`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'PC-Lab');";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             if (rs.next()) {
                 count = rs.getString("NumberOfLab");
@@ -281,19 +311,24 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
             intCount += Integer.parseInt(count);
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
 
         String query2 = "SELECT COUNT(l.location_id) AS NumberOfLab " +
-                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
+                "FROM `" + DatabaseConnection.databaseName + "`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Lab');";
 
-        try {
+/*        try {
             st = conn.createStatement();
-            rs = st.executeQuery(query2);
+            rs = st.executeQuery(query2);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query2)) {
 
             StudentBatches studentBatch;
 
@@ -303,19 +338,24 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
             intCount += Integer.parseInt(count);
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
 
         String query3 = "SELECT COUNT(l.location_id) AS NumberOfLab " +
-                "FROM `"+ DatabaseConnection.databaseName + "`.`location` AS l " +
+                "FROM `" + DatabaseConnection.databaseName + "`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Practical');";
 
-        try {
+/*        try {
             st = conn.createStatement();
-            rs = st.executeQuery(query3);
+            rs = st.executeQuery(query3);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query3)) {
 
             if (rs.next()) {
                 count += rs.getString("NumberOfLab");
@@ -323,10 +363,11 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
             intCount += Integer.parseInt(count);
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
 
 
         return intCount;

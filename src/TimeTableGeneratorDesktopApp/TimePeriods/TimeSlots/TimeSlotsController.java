@@ -2,21 +2,14 @@ package TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots;
 
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.TimePeriods.WorkingDaysAndHoursController;
-//import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTableGeneration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;

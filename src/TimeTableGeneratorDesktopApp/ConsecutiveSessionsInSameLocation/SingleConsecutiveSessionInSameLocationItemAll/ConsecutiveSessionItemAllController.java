@@ -6,17 +6,14 @@ import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class ConsecutiveSessionItemAllController implements Initializable {
+public class ConsecutiveSessionItemAllController {
 
     public ConsecutiveSessionViewAll consecutiveSessionViewAll;
 
@@ -57,10 +54,10 @@ public class ConsecutiveSessionItemAllController implements Initializable {
     @FXML
     private Button btnUnsetConsecutiveSessionFromLocation;
 
-    @Override
+/*    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
+    }*/
 
     public void showConsecutiveSessionAllInformation(ConsecutiveSessionViewAll consecutiveSessionViewAll) {
         this.consecutiveSessionViewAll = consecutiveSessionViewAll;

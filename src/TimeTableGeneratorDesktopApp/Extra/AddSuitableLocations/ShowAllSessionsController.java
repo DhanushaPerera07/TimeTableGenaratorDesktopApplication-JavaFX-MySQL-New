@@ -1,12 +1,8 @@
 package TimeTableGeneratorDesktopApp.Extra.AddSuitableLocations;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.SessionDatabaseHelper;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.StudentBatchesDatabaseHelper;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForSession;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForGroupController;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SuitableRoomForSessionController;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -5,7 +5,6 @@ import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.PreferredLocation;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.PreferredLocationForSubject;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
@@ -24,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -173,7 +171,7 @@ public class PreferredRoomForSubjectController implements Initializable {
                     locationItemController.showPreferredLocationForSubjectInformationForSubject(preferredLocationForSubjectList.get(i), this.subject_id); // subject id should be got from Menura's part
 
                     locationsVBox.getChildren().addAll(nodes[i]);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println("Error - preferred room for subject Loading ======================================");
                     e.printStackTrace();
                 }

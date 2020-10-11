@@ -1,9 +1,6 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.StudentView;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.Sessions.Sessions;
-import TimeTableGeneratorDesktopApp.Sessions.sessionController;
-import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.TimeTable;
 import javafx.collections.FXCollections;
@@ -17,7 +14,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

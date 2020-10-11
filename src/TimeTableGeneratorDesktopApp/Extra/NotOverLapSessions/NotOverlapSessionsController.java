@@ -1,7 +1,6 @@
 package TimeTableGeneratorDesktopApp.Extra.NotOverLapSessions;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.Extra.ParallelSessions.ParallelSession;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,19 +14,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class NotOverlapSessionsController implements Initializable {
 
-    DatabaseHelper databaseHelper =  new DatabaseHelper();
+    DatabaseHelper databaseHelper = new DatabaseHelper();
 
-    public static String session2="";
-    public static String session1="";
+    public static String session2 = "";
+    public static String session1 = "";
     @FXML
     private TextField searhBox2;
 
@@ -74,7 +70,6 @@ public class NotOverlapSessionsController implements Initializable {
         createTable();
         showNotOverlapSessions();
     }
-
 
 
     @FXML
@@ -127,12 +122,16 @@ public class NotOverlapSessionsController implements Initializable {
 
         String query = "SELECT * FROM session ";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
             Sessions sessions;
             while (rs.next()) {
                 sessions = new Sessions(
@@ -148,6 +147,9 @@ public class NotOverlapSessionsController implements Initializable {
                 sessionsList.add(sessions);
             }
 
+        } catch (SQLException e) {
+            System.out.println("Error SQLException : ");
+            e.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -162,12 +164,16 @@ public class NotOverlapSessionsController implements Initializable {
 
         String query = "SELECT * FROM not_overlap_sessions ";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
             NotOverlapSessions notOverlapSessions;
             while (rs.next()) {
                 notOverlapSessions = new NotOverlapSessions(
@@ -178,13 +184,15 @@ public class NotOverlapSessionsController implements Initializable {
                 notOverlapSessionsList.add(notOverlapSessions);
             }
 
+        } catch (SQLException e) {
+            System.out.println("Error SQLException : ");
+            e.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
         return notOverlapSessionsList;
     }
-
 
 
     public void showNotOverlapSessions() {
@@ -212,11 +220,11 @@ public class NotOverlapSessionsController implements Initializable {
         Sessions sessions = sessionsTV1.getSelectionModel().getSelectedItem();
         session1 = sessions.getSessionGenID();
         System.out.println(session1);
-        try{
+        try {
             ses1Label.setText(session1);
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("can't load new window");
         }
     }
@@ -226,16 +234,16 @@ public class NotOverlapSessionsController implements Initializable {
         Sessions sessions2 = sessionsTV2.getSelectionModel().getSelectedItem();
         session2 = sessions2.getSessionGenID();
 
-        try{
+        try {
             ses2Label.setText(session2);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("can't load new window");
         }
     }
 
     @FXML
-    private void deleteRecord(MouseEvent mouseEvent){
+    private void deleteRecord(MouseEvent mouseEvent) {
 
         NotOverlapSessions notOverlapSessions = pSessionsTV.getSelectionModel().getSelectedItem();
         int rowID = notOverlapSessions.getId();
@@ -246,8 +254,8 @@ public class NotOverlapSessionsController implements Initializable {
         alert.setContentText("Are you sure to delete?");
         Optional<ButtonType> action = alert.showAndWait();
 
-        if(action.get() == ButtonType.OK){
-            String query = "DELETE from not_overlap_sessions WHERE id ="+rowID+"";
+        if (action.get() == ButtonType.OK) {
+            String query = "DELETE from not_overlap_sessions WHERE id =" + rowID + "";
             databaseHelper.executeQuery(query);
             showNotOverlapSessions();
         }
@@ -256,25 +264,21 @@ public class NotOverlapSessionsController implements Initializable {
 
 
     @FXML
-    public void insertParSession(){
-        if (session1.equals("") || session2.equals("")){
+    public void insertParSession() {
+        if (session1.equals("") || session2.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Please make sure to select 2 sessions");
             alert.show();
-        }
-
-        else if(session1.equals(session2)) {
+        } else if (session1.equals(session2)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Both the selected sessions are a same session");
             alert.show();
-        }
-
-        else{
-            String query = "insert into not_overlap_sessions (session1ID, session2ID) VALUES ('" +session1+ "','" +session2+ "')";
+        } else {
+            String query = "insert into not_overlap_sessions (session1ID, session2ID) VALUES ('" + session1 + "','" + session2 + "')";
             databaseHelper.executeQuery(query);
             ses1Label.setText("Session 1");
             ses2Label.setText("Session 2");
@@ -287,13 +291,8 @@ public class NotOverlapSessionsController implements Initializable {
     }
 
 
-
-
-
-
-
-    public void createTable(){
-        String query="CREATE  TABLE IF NOT EXISTS not_overlap_sessions (" +
+    public void createTable() {
+        String query = "CREATE  TABLE IF NOT EXISTS not_overlap_sessions (" +
                 "  `id` INT NOT NULL AUTO_INCREMENT ," +
                 "  `session1ID` VARCHAR(45) NULL ," +
                 "  `session2ID` VARCHAR(45) NULL ," +

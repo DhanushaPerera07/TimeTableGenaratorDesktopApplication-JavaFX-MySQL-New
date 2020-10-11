@@ -1,13 +1,13 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionViewModel;
-import TimeTableGeneratorDesktopApp.Extra.ConsecetiveSesssions.ConsecetiveSessions;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ConsecutiveSessionsDatabaseHelper extends DatabaseHelper{
@@ -35,12 +35,17 @@ public class ConsecutiveSessionsDatabaseHelper extends DatabaseHelper{
                 "WHERE cs.id != csir.consecutive_session_id ;";*/
         //String query = "SELECT * FROM consecetive_sessions;";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             ConsecutiveSessionViewModel consecutiveSessionViewModel;
             while (rs.next()) {
                 consecutiveSessionViewModel = new ConsecutiveSessionViewModel();
@@ -58,7 +63,10 @@ public class ConsecutiveSessionsDatabaseHelper extends DatabaseHelper{
 
             }
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
@@ -88,12 +96,15 @@ public class ConsecutiveSessionsDatabaseHelper extends DatabaseHelper{
                 " WHERE cs.id = " + ID + ";";
         //String query = "SELECT * FROM consecetive_sessions;";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
 
             if (rs.next()) {
@@ -110,7 +121,10 @@ public class ConsecutiveSessionsDatabaseHelper extends DatabaseHelper{
 
             }
 
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
+        }catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }

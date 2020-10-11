@@ -2,17 +2,11 @@ package TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation;
 
 import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.SingleConsecutiveSessionItem.SingleConsecutiveSessionItemController;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.*;
-import TimeTableGeneratorDesktopApp.Extra.ConsecetiveSesssions.ConsecetiveSessions;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationHallLab;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForTag.LocationItemForTagController;
-import TimeTableGeneratorDesktopApp.Tags.Tags;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,10 +17,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ConsecutiveSessionsInSameLocationController implements Initializable {
+
+public class ConsecutiveSessionsInSameLocationController{
 
 
     // variables which used to keep necessary data
@@ -56,13 +49,6 @@ public class ConsecutiveSessionsInSameLocationController implements Initializabl
 
     @FXML
     private VBox locationsVBox;
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
 
 
     public void getInformationFromLocationsHallsLabsInsideBuildingsUI(LocationHallLab locationHallLab) {
@@ -176,5 +162,6 @@ public class ConsecutiveSessionsInSameLocationController implements Initializabl
 
 
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
+        System.out.println("search clicked");
     }
 }

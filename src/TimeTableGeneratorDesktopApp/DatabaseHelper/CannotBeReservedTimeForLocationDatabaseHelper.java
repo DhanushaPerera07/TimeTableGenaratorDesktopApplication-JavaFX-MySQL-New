@@ -2,12 +2,12 @@ package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.ClassedUsed.CannotBeReservedTimeForLocation;
 import TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.ClassedUsed.CannotBeReservedTimeForLocationTM;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CannotBeReservedTimeForLocationDatabaseHelper extends DatabaseHelper {
@@ -32,17 +32,20 @@ public class CannotBeReservedTimeForLocationDatabaseHelper extends DatabaseHelpe
 
         System.out.println("testing preferred_room_for_tags table: " +
                 "timeslotID= " + this.cannotBeReservedTimeForLocation.getTimeSlot().getSlotsID()
-        +       ", LocationID = " + this.cannotBeReservedTimeForLocation.getLocationHallLab().getLocationID() + ", " +
+                + ", LocationID = " + this.cannotBeReservedTimeForLocation.getLocationHallLab().getLocationID() + ", " +
                 "DayName = " + this.cannotBeReservedTimeForLocation.getDayName());
 
         String query = "SELECT * FROM cannot_be_reserved_time_for_location WHERE timeslot_id = " + this.cannotBeReservedTimeForLocation.getTimeSlot().getSlotsID() + " AND location_location_id = " + this.cannotBeReservedTimeForLocation.getLocationHallLab().getLocationID() + " AND day = '" + this.cannotBeReservedTimeForLocation.getDayName() + "'";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 CannotBeReservedTimeForLocationTM cannotBeReservedTimeForLocationTM = new CannotBeReservedTimeForLocationTM();
@@ -55,13 +58,17 @@ public class CannotBeReservedTimeForLocationDatabaseHelper extends DatabaseHelpe
                 if (rs.getString("status_true").equals("Y")) {
                     cannotBeReservedTimeForLocationTM.setStatus_true(true);
                 } else {
-                    cannotBeReservedTimeForLocationTM.setStatus_true(true);
+                    cannotBeReservedTimeForLocationTM.setStatus_true(false); // true was there, I corrected it false
                 }
 
                 // add the preferredLocation object to the observableList
                 cannotBeReservedTimeForLocationTMList.add(cannotBeReservedTimeForLocationTM);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error SQLException - When suitable_room_for_tags table data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When suitable_room_for_tags table data retrieving ");
@@ -118,7 +125,7 @@ public class CannotBeReservedTimeForLocationDatabaseHelper extends DatabaseHelpe
                 try {
                     // insert query
                     //status_true default value = 'Y', did not include in the insert into query
-                    query = "INSERT INTO `cannot_be_reserved_time_for_location` (`day`,`location_location_id`,`timeslot_id`) VALUES ('"+this.cannotBeReservedTimeForLocation.getDayName()+"',"+this.cannotBeReservedTimeForLocation.getLocationHallLab().getLocationID()+","+ this.cannotBeReservedTimeForLocation.getTimeSlot().getSlotsID()+")";
+                    query = "INSERT INTO `cannot_be_reserved_time_for_location` (`day`,`location_location_id`,`timeslot_id`) VALUES ('" + this.cannotBeReservedTimeForLocation.getDayName() + "'," + this.cannotBeReservedTimeForLocation.getLocationHallLab().getLocationID() + "," + this.cannotBeReservedTimeForLocation.getTimeSlot().getSlotsID() + ")";
 
                     // execute the insert query
                     executeQuery(query);

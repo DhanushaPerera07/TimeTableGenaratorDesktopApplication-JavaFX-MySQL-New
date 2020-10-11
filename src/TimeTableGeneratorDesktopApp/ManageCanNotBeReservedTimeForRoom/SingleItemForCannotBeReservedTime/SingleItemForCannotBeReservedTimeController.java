@@ -1,14 +1,12 @@
 package TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.SingleItemForCannotBeReservedTime;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.CannotBeReservedTimeForLocationDatabaseHelper;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.ClassedUsed.CannotBeReservedTimeForLocation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Optional;

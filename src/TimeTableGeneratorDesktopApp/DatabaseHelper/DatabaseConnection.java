@@ -1,8 +1,5 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
-import TimeTableGeneratorDesktopApp.Controller;
-import TimeTableGeneratorDesktopApp.DatabaseQueries.DatabaseCreation;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 

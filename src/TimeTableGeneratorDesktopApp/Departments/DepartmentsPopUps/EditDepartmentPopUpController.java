@@ -3,7 +3,6 @@ package TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,9 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -111,7 +108,7 @@ public class EditDepartmentPopUpController implements Initializable {
      * here we are getting the faculty instance which is selected by the user to edit
      * @param department
      */
-    public void getNecessaryFacultyDetails(Department department, int facultyID, String facultyName){
+    public void getNecessaryFacultyDetails(Department department, int facultyID, String facultyName) throws SQLException {
         this.department = department;
         this.facultyID = facultyID;
         this.facultyName = facultyName;
@@ -122,7 +119,7 @@ public class EditDepartmentPopUpController implements Initializable {
     /**
      *  set the form fields to existing values
      */
-    public void setFormFieldsToExistingValues(){
+    public void setFormFieldsToExistingValues() throws SQLException {
         // set the form fields to existing values
         txtDepartmentName.setText(department.getName());
         txtDepartmentShortName.setText(department.getShortName());

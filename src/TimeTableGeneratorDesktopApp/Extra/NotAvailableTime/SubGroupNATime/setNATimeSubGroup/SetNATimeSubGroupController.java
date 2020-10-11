@@ -1,33 +1,22 @@
 package TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.setNATimeSubGroup;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.GroupNATimeController;
-import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.GroupNATime.setNATimeGroup.NATimeGroups;
 import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.SubGroupNATime.SubGroupNATimeController;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -68,7 +57,7 @@ public class SetNATimeSubGroupController implements Initializable {
     private TableColumn<NATimeSubGroups, String> hourCol;
 
     @FXML
-    private TableColumn<subGroups,String> subGroupCol;
+    private TableColumn<subGroups, String> subGroupCol;
 
     @FXML
     private Label head;
@@ -85,7 +74,7 @@ public class SetNATimeSubGroupController implements Initializable {
         setValuesCombo();
     }
 
-    public void invisible(){
+    public void invisible() {
         NATtv.setVisible(false);
         rectangle.setVisible(false);
         dayCB.setVisible(false);
@@ -95,7 +84,7 @@ public class SetNATimeSubGroupController implements Initializable {
         addBtn.setVisible(false);
     }
 
-    public void visible(){
+    public void visible() {
         NATtv.setVisible(true);
         rectangle.setVisible(true);
         dayCB.setVisible(true);
@@ -106,12 +95,12 @@ public class SetNATimeSubGroupController implements Initializable {
     }
 
     @FXML
-    public void insertRecord(){
-        String day =  dayCB.getSelectionModel().getSelectedItem().toString();
+    public void insertRecord() {
+        String day = dayCB.getSelectionModel().getSelectedItem().toString();
         String hour = hourCB.getSelectionModel().getSelectedItem().toString();
 
         String query = "INSERT INTO notavailabletimesubgroup (batchID,subGroupID,Day,Hour)" +
-                "VALUES ('" +batchID+ "','"+subGroupID+"','" +day+ "','" +hour+ "') ";
+                "VALUES ('" + batchID + "','" + subGroupID + "','" + day + "','" + hour + "') ";
         databaseHelper.executeQuery(query);
 
         showData();
@@ -142,60 +131,77 @@ public class SetNATimeSubGroupController implements Initializable {
     }*/
 
 
-    private void setValuesCombo(){
+    private void setValuesCombo() {
         dayCB.getItems().removeAll(dayCB.getItems());
         dayCB.setPromptText("Select");
         dayCB.getItems().addAll(
-                "Monday", "Tuesday" , "Wednesday", "Friday" , "Saturday", "Sunday"
+                "Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"
         );
 
 
         hourCB.getItems().removeAll(hourCB.getItems());
         hourCB.setPromptText("Select");
         hourCB.getItems().addAll(
-                "8.00", "9.00" , "10.00", "11.00" , "12.00", "13.00","14.00","15.00","16.00"
+                "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00"
         );
     }
 
 
-    public ObservableList<subGroups> getSubGroupsList(){
+    public ObservableList<subGroups> getSubGroupsList() {
         ObservableList<subGroups> studentSubGroupsList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
-        String query = "SELECT * FROM subgroups WHERE batchID = " +batchRawID+"";
-        Statement st;
+        String query = "SELECT * FROM subgroups WHERE batchID = " + batchRawID + "";
+
+
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             subGroups subGroups;
             while (rs.next()) {
-                subGroups = new subGroups(rs.getInt("id"),rs.getString("subGroupId"),rs.getInt("NofStudents"),rs.getInt("batchID"));
+                subGroups = new subGroups(rs.getInt("id"), rs.getString("subGroupId"), rs.getInt("NofStudents"), rs.getInt("batchID"));
                 studentSubGroupsList.add(subGroups);
 
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return studentSubGroupsList;
     }
 
-    public ObservableList<NATimeSubGroups> getSubGroupsNATImeList(){
+    public ObservableList<NATimeSubGroups> getSubGroupsNATImeList() {
         ObservableList<NATimeSubGroups> studentSubGroupsNATimeList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
-        String query = "SELECT * FROM notavailabletimesubgroup WHERE batchID = '" +batchID+"' AND subGroupID ='" +subGroupID+ "'";
+        String query = "SELECT * FROM notavailabletimesubgroup WHERE batchID = '" + batchID + "' AND subGroupID ='" + subGroupID + "'";
         System.out.println(batchID);
-        Statement st;
+
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             NATimeSubGroups naTimeSubGroups;
             while (rs.next()) {
-                naTimeSubGroups = new NATimeSubGroups(rs.getInt("id"),rs.getString("batchID"),rs.getString("subGroupID"),rs.getString("Day"),rs.getString("Hour"));
+                naTimeSubGroups = new NATimeSubGroups(rs.getInt("id"), rs.getString("batchID"), rs.getString("subGroupID"), rs.getString("Day"), rs.getString("Hour"));
                 studentSubGroupsNATimeList.add(naTimeSubGroups);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -206,16 +212,16 @@ public class SetNATimeSubGroupController implements Initializable {
         ObservableList<subGroups> list = getSubGroupsList();
         subGroupCol.setCellValueFactory(new PropertyValueFactory<subGroups, String>("subGroupId"));
         subGroupsTV.setItems(list);
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             head.setText("There are no sub groups");
             subGroupsTV.setVisible(false);
         }
     }
 
-    public void showSubNATimes(){
+    public void showSubNATimes() {
         ObservableList<NATimeSubGroups> list = getSubGroupsNATImeList();
-        dayCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups,String>("Day"));
-        hourCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups,String>("Hour"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups, String>("Day"));
+        hourCol.setCellValueFactory(new PropertyValueFactory<NATimeSubGroups, String>("Hour"));
         NATtv.setItems(list);
     }
 
@@ -226,18 +232,18 @@ public class SetNATimeSubGroupController implements Initializable {
         subGroupRawID = subGroups.getId();
         subGroupID = subGroups.getSubGroupId();
 
-        try{
+        try {
             head.setText("Add not Available Time for the sub group");
             showSubNATimes();
             visible();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("can't load new window");
         }
     }
 
     @FXML
-    private void deleteRecord(MouseEvent mouseEvent){
+    private void deleteRecord(MouseEvent mouseEvent) {
 
         NATimeSubGroups timeSubGroups = NATtv.getSelectionModel().getSelectedItem();
         int rowID = timeSubGroups.getId();
@@ -248,8 +254,8 @@ public class SetNATimeSubGroupController implements Initializable {
         alert.setContentText("Are you sure to delete?");
         Optional<ButtonType> action = alert.showAndWait();
 
-        if(action.get() == ButtonType.OK){
-            String query = "DELETE from notavailabletimesubgroup WHERE id ="+rowID+"";
+        if (action.get() == ButtonType.OK) {
+            String query = "DELETE from notavailabletimesubgroup WHERE id =" + rowID + "";
             databaseHelper.executeQuery(query);
             showData();
             showSubNATimes();

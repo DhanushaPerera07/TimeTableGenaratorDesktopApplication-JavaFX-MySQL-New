@@ -2,11 +2,7 @@ package TimeTableGeneratorDesktopApp.FacultyDepartments;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
-import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
-import TimeTableGeneratorDesktopApp.FxmlLoader;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,17 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 

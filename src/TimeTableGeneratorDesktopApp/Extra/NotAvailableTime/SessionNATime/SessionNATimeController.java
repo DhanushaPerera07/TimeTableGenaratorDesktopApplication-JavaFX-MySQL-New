@@ -16,8 +16,8 @@ import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -25,8 +25,8 @@ public class SessionNATimeController implements Initializable {
 
     DatabaseHelper databaseHelper = new DatabaseHelper();
 
-    public static int sessionRawID ;
-    public static String sessionGenID ;
+    public static int sessionRawID;
+    public static String sessionGenID;
 
     @FXML
     private Pane setNATimePane;
@@ -39,7 +39,6 @@ public class SessionNATimeController implements Initializable {
 
     @FXML
     private TableColumn<NATSessions, String> dayCol;
-
 
 
     @FXML
@@ -81,18 +80,18 @@ public class SessionNATimeController implements Initializable {
     }
 
 
-    private void setValuesCombo(){
+    private void setValuesCombo() {
         dayCB.getItems().removeAll(dayCB.getItems());
         dayCB.setPromptText("Select");
         dayCB.getItems().addAll(
-                "Monday", "Tuesday" , "Wednesday", "Friday" , "Saturday", "Sunday"
+                "Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"
         );
 
 
         hourCB.getItems().removeAll(hourCB.getItems());
         hourCB.setPromptText("Select");
         hourCB.getItems().addAll(
-                "8.00", "9.00" , "10.00", "11.00" , "12.00", "13.00","14.00","15.00","16.00"
+                "8.00", "9.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00"
         );
     }
 
@@ -137,12 +136,17 @@ public class SessionNATimeController implements Initializable {
 
         String query = "SELECT * FROM session ";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             Sessions sessions;
             while (rs.next()) {
                 sessions = new Sessions(
@@ -161,7 +165,8 @@ public class SessionNATimeController implements Initializable {
             }
 
 
-
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -182,7 +187,6 @@ public class SessionNATimeController implements Initializable {
     }
 
 
-
     @FXML
     void handleMouseAction(MouseEvent event) {
         setNATimePane.setVisible(true);
@@ -190,24 +194,24 @@ public class SessionNATimeController implements Initializable {
         sessionRawID = sessions.getSessionID();
         sessionGenID = sessions.getSessionGenID();
 
-        try{
+        try {
 
             showSessionNATimes();
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("can't load new window");
         }
     }
 
 
     @FXML
-    public void insertRecord(){
-        String day =  dayCB.getSelectionModel().getSelectedItem().toString();
+    public void insertRecord() {
+        String day = dayCB.getSelectionModel().getSelectedItem().toString();
         String hour = hourCB.getSelectionModel().getSelectedItem().toString();
 
         String query = "INSERT INTO sessionsnatime (sessionID,Day,Hour)" +
-                "VALUES ('"+sessionGenID+"','" +day+ "','" +hour+ "') ";
+                "VALUES ('" + sessionGenID + "','" + day + "','" + hour + "') ";
         databaseHelper.executeQuery(query);
 
         showSessionNATimes();
@@ -218,30 +222,39 @@ public class SessionNATimeController implements Initializable {
 
     private void showSessionNATimes() {
         ObservableList<NATSessions> list = getSessionsNATImeList();
-        dayCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Day"));
-        hourCol.setCellValueFactory(new PropertyValueFactory<NATSessions,String>("Hour"));
+        dayCol.setCellValueFactory(new PropertyValueFactory<NATSessions, String>("Day"));
+        hourCol.setCellValueFactory(new PropertyValueFactory<NATSessions, String>("Hour"));
         NATimeTV.setItems(list);
 
 
     }
 
 
-    public ObservableList<NATSessions> getSessionsNATImeList(){
+    public ObservableList<NATSessions> getSessionsNATImeList() {
         ObservableList<NATSessions> sessionsNATimeList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
-        String query = "SELECT * FROM sessionsnatime WHERE sessionID = '" +sessionGenID+"'";
+        String query = "SELECT * FROM sessionsnatime WHERE sessionID = '" + sessionGenID + "'";
         System.out.println(sessionGenID);
-        Statement st;
+
+
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             NATSessions naTimeSessions;
             while (rs.next()) {
-                naTimeSessions = new NATSessions(rs.getInt("id"),rs.getString("sessionID"),rs.getString("Day"),rs.getString("Hour"));
+                naTimeSessions = new NATSessions(rs.getInt("id"), rs.getString("sessionID"), rs.getString("Day"), rs.getString("Hour"));
                 sessionsNATimeList.add(naTimeSessions);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -260,15 +273,15 @@ public class SessionNATimeController implements Initializable {
         }
     }*/
 
-//    public void createTable(){
-//        String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`sessionsnatime` (" +
-//                "  `id` INT NOT NULL AUTO_INCREMENT," +
-//                "  `sessionID` VARCHAR(100) NULL ," +
-//                "  `Day` VARCHAR(45) NULL ," +
-//                "  `Hour` VARCHAR(45) NULL ," +
-//                "  PRIMARY KEY (`id`) );";
-//
-//        databaseHelper.executeQuery(createTableQuery);
-//    }
+/*    public void createTable(){
+        String createTableQuery = "CREATE  TABLE IF NOT EXISTS `timetabledb`.`sessionsnatime` (" +
+                "  `id` INT NOT NULL AUTO_INCREMENT," +
+                "  `sessionID` VARCHAR(100) NULL ," +
+                "  `Day` VARCHAR(45) NULL ," +
+                "  `Hour` VARCHAR(45) NULL ," +
+                "  PRIMARY KEY (`id`) );";
+
+        databaseHelper.executeQuery(createTableQuery);
+    }*/
 
 }

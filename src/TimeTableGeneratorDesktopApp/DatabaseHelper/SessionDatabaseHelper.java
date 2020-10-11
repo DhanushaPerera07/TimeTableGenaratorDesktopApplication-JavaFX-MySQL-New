@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SessionDatabaseHelper extends DatabaseHelper {
@@ -18,12 +19,17 @@ public class SessionDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM session ";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             Sessions sessions;
             while (rs.next()) {
                 sessions = new Sessions(
@@ -39,6 +45,8 @@ public class SessionDatabaseHelper extends DatabaseHelper {
                 sessionsList.add(sessions);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -59,12 +67,17 @@ public class SessionDatabaseHelper extends DatabaseHelper {
         String query = "SELECT * FROM session AS s " +
                 "WHERE s.sessionID = '" + sessionID + "'";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             // Sessions session;
             if (rs.next()) {
                 session = new Sessions(
@@ -80,6 +93,8 @@ public class SessionDatabaseHelper extends DatabaseHelper {
                 //sessionsList.add(sessions);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();

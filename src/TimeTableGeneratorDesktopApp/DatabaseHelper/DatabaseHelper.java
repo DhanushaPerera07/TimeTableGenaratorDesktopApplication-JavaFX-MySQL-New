@@ -1,7 +1,7 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseHelper {
@@ -19,14 +19,23 @@ public class DatabaseHelper {
      * @param query string is passed here
      * this query will execute by this method
      */
+    Statement st;
     public void executeQuery(String query) {
         Connection conn = getConnection();
-        Statement st;
+
         try{
             st = conn.createStatement();
             st.executeUpdate(query);
-        }catch (Exception ex){
+        }catch (SQLException ex){
             ex.printStackTrace();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        } finally {
+            try {
+                st.close();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

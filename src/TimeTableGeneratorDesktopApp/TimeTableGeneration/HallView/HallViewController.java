@@ -1,9 +1,7 @@
 package TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 
-import TimeTableGeneratorDesktopApp.StudentBatches.subGroupForm.subGroups;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,11 +1,11 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
 import TimeTableGeneratorDesktopApp.ManageCanNotBeReservedTimeForRoom.ClassedUsed.DayTM;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DaysDatabaseHelper extends DatabaseHelper {
@@ -18,12 +18,16 @@ public class DaysDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM daysname;";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             if (rs.next()) {
                 dayTMClassObject = new DayTM(
@@ -38,6 +42,9 @@ public class DaysDatabaseHelper extends DatabaseHelper {
                 );
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();

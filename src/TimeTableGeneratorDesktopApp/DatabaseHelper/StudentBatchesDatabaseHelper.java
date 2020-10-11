@@ -6,12 +6,14 @@ import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class StudentBatchesDatabaseHelper extends DatabaseHelper {
 
     /**
      * Get all the batches from the database
+     *
      * @return observableList<StudentBatches> // all the batches
      */
     public ObservableList<StudentBatches> getBatchesList() {
@@ -22,11 +24,14 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
         String query = "SELECT * FROM studentbatches ORDER BY year";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             StudentBatches studentBatch;
 
@@ -45,13 +50,13 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
                 studentBatchesList.add(studentBatch);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return studentBatchesList;
     }
-
-
 
 
     // ------------------------------------------------------------------------------
@@ -65,11 +70,14 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
                 "FROM studentbatches;";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             StudentBatches studentBatch;
 
@@ -77,12 +85,13 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
                 count = rs.getString("NumberOfStudentBatches");
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return Integer.parseInt(count);
     }
-
 
 
     // ------------------------------------------------------------------------------
@@ -96,11 +105,14 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
                 "FROM subgroups;";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             StudentBatches studentBatch;
 
@@ -108,6 +120,8 @@ public class StudentBatchesDatabaseHelper extends DatabaseHelper {
                 count = rs.getString("NumberOfStudentSubGroup");
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

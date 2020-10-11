@@ -2,8 +2,6 @@ package TimeTableGeneratorDesktopApp.LocationsLabsHalls;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem.LocationsBuildingItemController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +25,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;

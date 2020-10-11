@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -229,12 +229,16 @@ public class AddDeptPopUpController implements Initializable {
 
         String query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' ORDER BY faculty_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
             Faculty faculty;
             while (rs.next()) {
                 faculty = new Faculty(
@@ -248,6 +252,10 @@ public class AddDeptPopUpController implements Initializable {
                 facultyList.add(faculty);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -269,12 +277,17 @@ public class AddDeptPopUpController implements Initializable {
         String query;
         query = "SELECT * FROM building WHERE faculty_faculty_id = " + this.facultyID + " AND building_delete_status = 'N' ORDER BY building_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             Building building;
             while (rs.next()) {
                 building = new Building(
@@ -293,6 +306,10 @@ public class AddDeptPopUpController implements Initializable {
                 buildingList.add(building);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();

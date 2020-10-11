@@ -27,7 +27,6 @@ import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
@@ -79,11 +78,17 @@ public class GroupNATimeController implements Initializable {
         ObservableList<StudentBatches> studentBatchesList = FXCollections.observableArrayList();
         Connection conn = databaseHelper.getConnection();
         String query = "SELECT * FROM studentbatches ORDER BY year";
-        Statement st;
+
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             StudentBatches studentBatch;
             while (rs.next()) {
                 studentBatch = new StudentBatches(rs.getInt("id"), rs.getString("year"), rs.getString("semester"),

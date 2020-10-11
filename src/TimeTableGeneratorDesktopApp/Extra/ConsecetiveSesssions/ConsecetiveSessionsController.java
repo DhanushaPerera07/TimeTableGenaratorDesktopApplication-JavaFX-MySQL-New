@@ -2,10 +2,7 @@ package TimeTableGeneratorDesktopApp.Extra.ConsecetiveSesssions;
 
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.Extra.NotAvailableTime.LecturerNATime.NATLecturers;
-import TimeTableGeneratorDesktopApp.Extra.ParallelSessions.ParallelSession;
 import TimeTableGeneratorDesktopApp.Sessions.Sessions;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,8 +16,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -81,9 +78,6 @@ public class ConsecetiveSessionsController implements Initializable {
     }
 
 
-
-
-
     public ObservableList<Sessions> getSessionsList() {
         ObservableList<Sessions> sessionsList = FXCollections.observableArrayList();
         //Connection conn = getConnection();
@@ -91,12 +85,17 @@ public class ConsecetiveSessionsController implements Initializable {
 
         String query = "SELECT * FROM session ";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             Sessions sessions;
             while (rs.next()) {
                 sessions = new Sessions(
@@ -112,6 +111,9 @@ public class ConsecetiveSessionsController implements Initializable {
                 sessionsList.add(sessions);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -126,12 +128,17 @@ public class ConsecetiveSessionsController implements Initializable {
 
         String query = "SELECT * FROM consecetive_sessions ";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             ConsecetiveSessions consecetiveSessions1;
             while (rs.next()) {
                 consecetiveSessions1 = new ConsecetiveSessions(
@@ -142,13 +149,15 @@ public class ConsecetiveSessionsController implements Initializable {
                 consecetiveSessionsList.add(consecetiveSessions1);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
         }
         return consecetiveSessionsList;
     }
-
 
 
     public void showConsecetiveSessions() {
@@ -176,11 +185,11 @@ public class ConsecetiveSessionsController implements Initializable {
         Sessions sessions = sessionsTV1.getSelectionModel().getSelectedItem();
         session1 = sessions.getSessionGenID();
         System.out.println(session1);
-        try{
+        try {
             ses1Label.setText(session1);
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("can't load new window");
         }
     }
@@ -190,16 +199,16 @@ public class ConsecetiveSessionsController implements Initializable {
         Sessions sessions2 = sessionsTV2.getSelectionModel().getSelectedItem();
         session2 = sessions2.getSessionGenID();
 
-        try{
+        try {
             ses2Label.setText(session2);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("can't load new window");
         }
     }
 
     @FXML
-    private void deleteRecord(MouseEvent mouseEvent){
+    private void deleteRecord(MouseEvent mouseEvent) {
 
         ConsecetiveSessions consecetiveSessions = pSessionsTV.getSelectionModel().getSelectedItem();
         int rowID = consecetiveSessions.getId();
@@ -210,8 +219,8 @@ public class ConsecetiveSessionsController implements Initializable {
         alert.setContentText("Are you sure to delete?");
         Optional<ButtonType> action = alert.showAndWait();
 
-        if(action.get() == ButtonType.OK){
-            String query = "DELETE from consecetive_sessions WHERE id ="+rowID+"";
+        if (action.get() == ButtonType.OK) {
+            String query = "DELETE from consecetive_sessions WHERE id =" + rowID + "";
             databaseHelper.executeQuery(query);
             showConsecetiveSessions();
         }
@@ -220,38 +229,32 @@ public class ConsecetiveSessionsController implements Initializable {
 
 
     @FXML
-    public void insertParSession(){
+    public void insertParSession() {
 
-        if (session1.equals("") || session2.equals("")){
+        if (session1.equals("") || session2.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Please make sure to select 2 sessions");
             alert.show();
-        }
-
-        else if(session1.equals(session2)) {
+        } else if (session1.equals(session2)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Both the selected sessions are a same session");
             alert.show();
-        }
-
-        else{
-            String query = "insert into consecetive_sessions (session1ID, session2ID) VALUES ('" +session1+ "','" +session2+ "')";
+        } else {
+            String query = "insert into consecetive_sessions (session1ID, session2ID) VALUES ('" + session1 + "','" + session2 + "')";
             databaseHelper.executeQuery(query);
             ses1Label.setText("Session 1");
             ses2Label.setText("Session 2");
             session2 = "";
-            session1="";
+            session1 = "";
 
             showConsecetiveSessions();
         }
 
     }
-
-
 
 
     @FXML
@@ -296,8 +299,8 @@ public class ConsecetiveSessionsController implements Initializable {
         });
     }
 
-    public void createTable(){
-        String query="CREATE  TABLE IF NOT EXISTS  consecetive_sessions  (" +
+    public void createTable() {
+        String query = "CREATE  TABLE IF NOT EXISTS  consecetive_sessions  (" +
                 "  `id` INT NOT NULL AUTO_INCREMENT ," +
                 "  `session1ID` VARCHAR(45) NULL ," +
                 "  `session2ID` VARCHAR(45) NULL ," +

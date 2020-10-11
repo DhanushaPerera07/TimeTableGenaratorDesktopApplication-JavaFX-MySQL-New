@@ -1,15 +1,11 @@
 package TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings;
 
-import TimeTableGeneratorDesktopApp.ConsecutiveSessionsInSameLocation.ConsecutiveSessionsInSameLocationController;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
+
 import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsItem.LocationsHallsInsideBuildingsItemController;
 import TimeTableGeneratorDesktopApp.LocationsHallsInsideBuildings.LocationsHallsInsideBuildingsPopUps.AddLocationsHallsPopUpController;
 import TimeTableGeneratorDesktopApp.LocationsLabsHalls.Building;
-import TimeTableGeneratorDesktopApp.LocationsLabsHalls.LocationsBuildingItem.LocationsBuildingItemController;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,10 +24,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class LocationsHallsInsideBuildingsController implements Initializable {
@@ -225,7 +217,7 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
                     //nodes[i] = (Node) loader.load();
 
                     locationsVBox.getChildren().addAll(nodes[i]);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println("Error - Hall/Labs inside a building Loading ======================================");
                     e.printStackTrace();
                 }
@@ -338,7 +330,7 @@ public class LocationsHallsInsideBuildingsController implements Initializable {
                     //nodes[i] = (Node) loader.load();
 
                     locationsVBox.getChildren().addAll(nodes[i]);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println("Error - Hall/Labs inside a building Loading ======================================");
                     e.printStackTrace();
                 }

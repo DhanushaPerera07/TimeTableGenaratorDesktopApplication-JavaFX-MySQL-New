@@ -1,9 +1,7 @@
 package TimeTableGeneratorDesktopApp.Sessions.SessionForm;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.Lecturers.lecturersController;
 import TimeTableGeneratorDesktopApp.Sessions.SessionItem.SessionItemController;
-import TimeTableGeneratorDesktopApp.Sessions.Sessions;
 import TimeTableGeneratorDesktopApp.Sessions.sessionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;

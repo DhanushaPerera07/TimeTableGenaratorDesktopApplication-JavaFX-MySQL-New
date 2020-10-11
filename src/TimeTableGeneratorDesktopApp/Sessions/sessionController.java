@@ -23,8 +23,8 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -234,17 +234,24 @@ public class sessionController implements Initializable {
     public List<String> getLecturer(){
         Connection con = databaseHelper.getConnection();
         try {
-            Statement st;
+/*            Statement st;
             ResultSet rs;
 
             st = con.createStatement();
             st.executeQuery("SELECT lecturerName FROM lecturer ORDER BY lecturerName");
-            rs = st.getResultSet();
+            rs = st.getResultSet();*/
 
-            while (rs.next()){
-                String a = rs.getString("lecturerName");
-                lecturers.add(a);
+            try (Statement st = con.createStatement();
+                 ResultSet rs = st.executeQuery("SELECT lecturerName FROM lecturer ORDER BY lecturerName")) {
+
+                while (rs.next()) {
+                    String a = rs.getString("lecturerName");
+                    lecturers.add(a);
+                }
+            } catch (SQLException ex){
+                ex.printStackTrace();
             }
+
             return lecturers;
         }catch (Exception e){
             e.printStackTrace();
@@ -261,16 +268,20 @@ public class sessionController implements Initializable {
             st = con.createStatement();
             st.executeQuery("SELECT batchID FROM studentbatches ORDER BY batchID");
             rs = st.getResultSet();
+
             while(rs.next()){
                 String c = rs.getString("batchID");
                 studentGroup.add(c);
             }
+
             st.executeQuery("SELECT subGroupId FROM subgroups ORDER BY subGroupId");
             rs = st.getResultSet();
+
             while (rs.next()){
                 String c = rs.getString("subGroupId");
                 studentGroup.add(c);
             }
+
             return studentGroup;
         }catch(Exception e) {
             e.printStackTrace();
@@ -281,16 +292,22 @@ public class sessionController implements Initializable {
     public List<String> getSubjects(){
         Connection con = databaseHelper.getConnection();
         try{
-            Statement st;
+/*            Statement st;
             ResultSet rs;
             // assume that all objects were all properly defined
             st = con.createStatement();
             st.executeQuery("SELECT moduleName FROM module ORDER BY moduleName");
-            rs = st.getResultSet();
-            while(rs.next()){
-                String c = rs.getString("moduleName");
-                subjects.add(c);
+            rs = st.getResultSet();*/
+
+            try (Statement st = con.createStatement();
+                 ResultSet rs = st.executeQuery("SELECT moduleName FROM module ORDER BY moduleName")) {
+
+                while (rs.next()) {
+                    String c = rs.getString("moduleName");
+                    subjects.add(c);
+                }
             }
+
             return subjects;
         }catch(Exception e) {
             e.printStackTrace();
@@ -328,12 +345,17 @@ public class sessionController implements Initializable {
 //            query = "Select * from session WHERE sessionDuration = '" + filterValue + "'";
 //        }
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             Sessions sessions;
             while (rs.next()) {
                 sessions = new Sessions(

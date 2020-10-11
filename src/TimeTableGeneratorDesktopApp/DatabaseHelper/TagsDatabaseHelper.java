@@ -1,21 +1,23 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TagsDatabaseHelper extends DatabaseHelper {
 
 
-    /** pass tag id as the parameter and get the tag instance
+    /**
+     * pass tag id as the parameter and get the tag instance
+     *
      * @param tagID
      */
-    public Tags getTagInstanceByTagID(int tagID){
+    public Tags getTagInstanceByTagID(int tagID) {
         // create a faculty object
         Tags tag = new Tags();
 
@@ -36,6 +38,8 @@ public class TagsDatabaseHelper extends DatabaseHelper {
 
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When TAGs data retrieving ");
@@ -45,10 +49,12 @@ public class TagsDatabaseHelper extends DatabaseHelper {
         return tag;
     }
 
-    /** pass tag name as the parameter and get the tag id
+    /**
+     * pass tag name as the parameter and get the tag id
+     *
      * @param tagName
      */
-    public Tags getTagInstanceByTagName(String tagName){
+    public Tags getTagInstanceByTagName(String tagName) {
         // create a faculty object
         Tags tag = new Tags();
 
@@ -69,6 +75,8 @@ public class TagsDatabaseHelper extends DatabaseHelper {
 
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When TAGs data retrieving ");
@@ -104,6 +112,8 @@ public class TagsDatabaseHelper extends DatabaseHelper {
                 tagList.add(tag);
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();

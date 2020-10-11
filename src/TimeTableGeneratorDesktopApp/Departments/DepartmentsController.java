@@ -3,12 +3,7 @@ package TimeTableGeneratorDesktopApp.Departments;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DepartmentDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsItem.DeptItemController;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps.AddDeptPopUpController;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem.FacultyItemController;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,10 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class DepartmentsController implements Initializable {
@@ -86,7 +78,7 @@ public class DepartmentsController implements Initializable {
     }
 
 
-    public void initializeComboBoxes(){
+    public void initializeComboBoxes() {
 
         // some UI components are disabled
         lblFilterBy.setVisible(false);
@@ -112,8 +104,8 @@ public class DepartmentsController implements Initializable {
         // prompt text
         departmentMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
 
-        departmentSearchTxtBox.textProperty().addListener((v,oldValue,newValue) -> {
-            if(newValue.trim().equals("") || newValue == null){
+        departmentSearchTxtBox.textProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue.trim().equals("") || newValue == null) {
                 populateRows();
             } else {
                 populateRowsAccordingToSearchBoxValue(newValue);
@@ -130,7 +122,7 @@ public class DepartmentsController implements Initializable {
 
         ObservableList<Department> departmentsList = departmentDatabaseHelper.getDepartmentsList(this.facultyID);
 
-        for (Department department : departmentsList){
+        for (Department department : departmentsList) {
             // sysout check
             System.out.println("faculty table rec: " + department.toString());
         }
@@ -143,7 +135,7 @@ public class DepartmentsController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[departmentsList.size()];
 
-        if(departmentsList.size() != 0) {
+        if (departmentsList.size() != 0) {
             for (int i = 0; i < departmentsList.size(); i++) {
                 try {
                     //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
@@ -154,11 +146,11 @@ public class DepartmentsController implements Initializable {
 
                     nodes[i] = (Node) loader.load();
                     DeptItemController deptItemController = loader.getController();
-                    deptItemController.showInformation(departmentsList.get(i),this.facultyID,this.facultyName);
+                    deptItemController.showInformation(departmentsList.get(i), this.facultyID, this.facultyName);
 
                     DepartmentsVBox.getChildren().addAll(nodes[i]);
 
-                } catch (IOException e) {
+                } catch (IOException | SQLException e) {
                     System.out.println("Error - DepartmentItem Loading ======================================");
                     e.printStackTrace();
                 }
@@ -187,9 +179,9 @@ public class DepartmentsController implements Initializable {
 
         DepartmentsVBox.getChildren().clear();
 
-        ObservableList<Department> departmentsList = departmentDatabaseHelper.getDepartmentListByDepartmentName(newValue,this.facultyID);
+        ObservableList<Department> departmentsList = departmentDatabaseHelper.getDepartmentListByDepartmentName(newValue, this.facultyID);
 
-        for (Department department : departmentsList){
+        for (Department department : departmentsList) {
             // sysout check
             System.out.println("faculty table rec: " + department.toString());
         }
@@ -202,7 +194,7 @@ public class DepartmentsController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[departmentsList.size()];
 
-        if(departmentsList.size() != 0) {
+        if (departmentsList.size() != 0) {
             for (int i = 0; i < departmentsList.size(); i++) {
                 try {
                     //nodes[i] = FXMLLoader.load(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsItem/DepartmentItem.fxml"));
@@ -213,11 +205,11 @@ public class DepartmentsController implements Initializable {
 
                     nodes[i] = (Node) loader.load();
                     DeptItemController deptItemController = loader.getController();
-                    deptItemController.showInformation(departmentsList.get(i),this.facultyID,this.facultyName);
+                    deptItemController.showInformation(departmentsList.get(i), this.facultyID, this.facultyName);
 
                     DepartmentsVBox.getChildren().addAll(nodes[i]);
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.out.println("Error - DepartmentItem Loading ======================================");
                     e.printStackTrace();
                 }
@@ -233,7 +225,7 @@ public class DepartmentsController implements Initializable {
                 nodeSaysThatDepartmentListIsEmpty = (Node) loader.load();
                 DepartmentsVBox.getChildren().addAll(nodeSaysThatDepartmentListIsEmpty);
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("Error - DepartmentItemNoContent Loading ======================================");
                 e.printStackTrace();
             }
@@ -242,6 +234,7 @@ public class DepartmentsController implements Initializable {
     }
 
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
+        System.out.println("Search btn Clicked");
     }
 
     public void openAddDepartmentPopUp(MouseEvent mouseEvent) {
@@ -249,13 +242,13 @@ public class DepartmentsController implements Initializable {
         System.out.println("Clicked - Open pop up to edit Department Record");
 
         // open up the POP UP
-        try{
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/Departments/DepartmentsPopUps/addDepartmentPopUp.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
             // pass necessary details to AddDeptPopUpController
             AddDeptPopUpController addDeptPopUpController = fxmlLoader.getController();
-            addDeptPopUpController.getNecessaryDetails(this.facultyID,this.facultyName);
+            addDeptPopUpController.getNecessaryDetails(this.facultyID, this.facultyName);
 
             Stage stage = new Stage();
 
@@ -265,7 +258,7 @@ public class DepartmentsController implements Initializable {
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception - When Opening addDepartmentPopUp.fxml as a pop up ");
             e.printStackTrace();
         }
@@ -275,23 +268,23 @@ public class DepartmentsController implements Initializable {
     /**
      * This method will get the faculty ID and faculty name from the faculty screen
      * then we can use this id to show the related departments under than faculty.
+     *
      * @param facultyID
      * @param facultyName
      */
-    public  void getFacultyIdFromFacultyScreen(int facultyID,String facultyName){
+    public void getFacultyIdFromFacultyScreen(int facultyID, String facultyName) {
         // find the relevant department under that faculty ID
         this.facultyID = facultyID;
         this.facultyName = facultyName;
         txtHeaderFaculty.setText(facultyName);
-        if(facultyName==null || facultyName=="") {
+        if (facultyName == null || facultyName.equals("")) {
             System.out.println("Department - Error: Faculty name is null or empty");
-        }else {
+        } else {
             System.out.println("Department - Faculty Name shows as the header successfully");
         }
 
         populateRows();
     }
-
 
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
@@ -342,7 +335,6 @@ public class DepartmentsController implements Initializable {
         }
         return departmentList;
     }*/
-
 
 
 }

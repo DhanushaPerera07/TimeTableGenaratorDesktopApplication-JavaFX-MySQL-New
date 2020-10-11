@@ -1,10 +1,8 @@
 package TimeTableGeneratorDesktopApp.TimePeriods;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import TimeTableGeneratorDesktopApp.TimePeriods.SetWorkingDays.WorkingDays;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
-import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlotsController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,17 +16,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import javax.swing.*;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;

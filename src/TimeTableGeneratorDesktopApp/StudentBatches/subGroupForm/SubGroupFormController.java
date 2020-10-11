@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Optional;

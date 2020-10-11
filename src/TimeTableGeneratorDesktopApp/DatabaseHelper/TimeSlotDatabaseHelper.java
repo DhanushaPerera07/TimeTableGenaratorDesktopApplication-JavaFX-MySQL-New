@@ -6,9 +6,10 @@ import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
-public class TimeSlotDatabaseHelper extends DatabaseHelper{
+public class TimeSlotDatabaseHelper extends DatabaseHelper {
 
     public ObservableList<TimeSlot> getAllTimeSlotsFromTimeslotsTable() {
 
@@ -16,15 +17,20 @@ public class TimeSlotDatabaseHelper extends DatabaseHelper{
 
         Connection conn = getConnection();
 
-        String  query = "SELECT * FROM timeslots";
+        String query = "SELECT * FROM timeslots";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
 
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             TimeSlot timeSlot;
             while (rs.next()) {
                 timeSlot = new TimeSlot(
@@ -36,6 +42,8 @@ public class TimeSlotDatabaseHelper extends DatabaseHelper{
 
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             System.out.println("Error - When time slots data retrieving ");
             ex.printStackTrace();

@@ -7,7 +7,6 @@ import TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps.EditDepartment
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,14 +19,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class DeptItemController implements Initializable {
+public class DeptItemController {
 
 
     // holds the department id
@@ -68,10 +63,10 @@ public class DeptItemController implements Initializable {
 
     // ============================================================================================================
 
-    @Override
+  /*  @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    }
+    }*/
 
     // ============================================================================================================
 
@@ -132,7 +127,7 @@ public class DeptItemController implements Initializable {
      * we update the DepartmentItem.fxml UI using those data
      * @param department
      */
-    public void showInformation(Department department, int facultyID, String facultyName) {
+    public void showInformation(Department department, int facultyID, String facultyName) throws SQLException {
         // we get the department obj as the parameter.
 
         // hold the department obj/instance, then we can use this instance when we open the edit pop up

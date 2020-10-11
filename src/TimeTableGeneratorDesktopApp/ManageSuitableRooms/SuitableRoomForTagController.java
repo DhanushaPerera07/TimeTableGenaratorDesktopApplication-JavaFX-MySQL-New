@@ -2,11 +2,9 @@ package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseConnection;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
-import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.SuitableLocationForTag;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationForTag.LocationItemForTagController;
-import TimeTableGeneratorDesktopApp.ManageSuitableRooms.SingleLocationItem.LocationItemController;
 import TimeTableGeneratorDesktopApp.Tags.Tags;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

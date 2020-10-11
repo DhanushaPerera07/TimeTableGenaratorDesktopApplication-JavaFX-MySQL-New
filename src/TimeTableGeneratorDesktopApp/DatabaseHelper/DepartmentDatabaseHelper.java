@@ -1,14 +1,13 @@
 package TimeTableGeneratorDesktopApp.DatabaseHelper;
 
-import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
-import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
 import TimeTableGeneratorDesktopApp.StudentBatches.StudentBatches;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DepartmentDatabaseHelper extends DatabaseHelper {
@@ -26,11 +25,14 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM faculty WHERE faculty_delete_status = 'N' AND faculty_name = '" + departmentName + "' ORDER BY faculty_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 // set values to the created department obj by fetching from the database
@@ -45,6 +47,10 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
             }
 
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
@@ -60,8 +66,8 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
 
     /**
      * @param facultyID is used to get the department records for a particular faculty
-     * this method is to get all the departments in the department table...
-     * returns departmentList;
+     *                  this method is to get all the departments in the department table...
+     *                  returns departmentList;
      */
     public ObservableList<Department> getDepartmentsList(int facultyID) {
         ObservableList<Department> departmentList = FXCollections.observableArrayList();
@@ -69,12 +75,16 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM department WHERE department_delete_status = 'N' AND faculty_faculty_id = " + facultyID + " ORDER BY department_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
             Department department;
             while (rs.next()) {
                 department = new Department(
@@ -90,6 +100,10 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
                 departmentList.add(department);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error SQLException - When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
@@ -110,14 +124,18 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
         ObservableList<Department> departmentList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM department WHERE department_delete_status = 'N' AND department_name LIKE '%"+ departmentName +"%' AND faculty_faculty_id = " + facultyID + " ORDER BY department_name";
+        String query = "SELECT * FROM department WHERE department_delete_status = 'N' AND department_name LIKE '%" + departmentName + "%' AND faculty_faculty_id = " + facultyID + " ORDER BY department_name";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
             Department department;
             while (rs.next()) {
                 department = new Department(
@@ -133,14 +151,18 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
                 departmentList.add(department);
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             System.out.println("Error - When department data retrieving ");
             ex.printStackTrace();
         }
-        return departmentList;
-        }
 
+        return departmentList;
+    }
 
 
     // ------------------------------------------------------------------------------
@@ -154,11 +176,14 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
                 "FROM department;";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             StudentBatches studentBatch;
 
@@ -166,6 +191,10 @@ public class DepartmentDatabaseHelper extends DatabaseHelper {
                 count = rs.getString("NumberOfDepartment");
             }
 
+        } catch (SQLException ex) {
+            // if an error occurs print an error...
+            System.out.println("Error - When department data retrieving ");
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

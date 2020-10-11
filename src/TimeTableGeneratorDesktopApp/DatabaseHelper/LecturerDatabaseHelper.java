@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LecturerDatabaseHelper extends DatabaseHelper {
@@ -23,11 +24,14 @@ public class LecturerDatabaseHelper extends DatabaseHelper {
                 "FROM lecturer;";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
 
             StudentBatches studentBatch;
 
@@ -35,6 +39,8 @@ public class LecturerDatabaseHelper extends DatabaseHelper {
                 count = rs.getString("NumberOfLecturer");
             }
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -51,11 +57,16 @@ public class LecturerDatabaseHelper extends DatabaseHelper {
 
         String query = "SELECT * FROM lecturer";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+
+
             Lecturers lecturers;
             while (rs.next()) {
                 lecturers = new Lecturers(
@@ -71,6 +82,8 @@ public class LecturerDatabaseHelper extends DatabaseHelper {
                 );
                 lecturerList.add(lecturers);
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

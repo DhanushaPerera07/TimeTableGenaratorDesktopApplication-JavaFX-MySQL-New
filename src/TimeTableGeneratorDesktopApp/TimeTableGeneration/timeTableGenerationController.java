@@ -6,7 +6,6 @@ import TimeTableGeneratorDesktopApp.Sessions.sessionController;
 import TimeTableGeneratorDesktopApp.Sessions.sessionLecturers;
 import TimeTableGeneratorDesktopApp.TimePeriods.TimeSlots.TimeSlot;
 import TimeTableGeneratorDesktopApp.TimeTableGeneration.HallView.Hall;
-import TimeTableGeneratorDesktopApp.TimeTableGeneration.SingleTImeTableStructure.TimeTableStructureController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,17 +14,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
