@@ -87,7 +87,7 @@ public class PreferredRoomForSubjectController implements Initializable {
             selectTagComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
 
         }
-        selectTagComboBox.getSelectionModel().select("Lec");
+        selectTagComboBox.getSelectionModel().selectFirst();
 
         selectTagComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             System.out.println("listener works !");
@@ -134,15 +134,16 @@ public class PreferredRoomForSubjectController implements Initializable {
 
         String tagName = tag.getTag();
 
-        if (tagName.equals("Lecture") || tagName.equals("Lec") ) {
+        if (tagName.equals("Lecture") || tagName.equals("Lec")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        } else if (tagName.equals("Tute") || tagName.equals("Tutorial")) {
+        } else if (tagName.equals("Tutorial") || tagName.equals("Tute")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        } else if (tagName.equals("Lec+ Tute") || tagName.equals("Lecture + Tutorial")) {
+        } else if (tagName.equals("Lecture + Tutorial") || tagName.equals("Lec + Tute")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        } else if (tagName.equals("Lab")) {
+        } else if (tagName.equals("Lab") || tagName.equals("Practical") || tagName.equals("PC-Lab")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         }
+
         else if (tagName.equals("Evaluation")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else {
@@ -168,8 +169,6 @@ public class PreferredRoomForSubjectController implements Initializable {
 
                     nodes[i] = (Node) loader.load();
                     LocationItemController locationItemController = loader.getController();
-
-                    System.out.println("test preferredLocationForSubjectList.get(i): " + preferredLocationForSubjectList.get(i));
 
                     locationItemController.showPreferredLocationForSubjectInformationForSubject(preferredLocationForSubjectList.get(i), this.subject_id); // subject id should be got from Menura's part
 
@@ -302,32 +301,46 @@ public class PreferredRoomForSubjectController implements Initializable {
                 PreferredLocationForSubject preferredLocationForSubject = new PreferredLocationForSubject();
                 //preferredLocationForSubject.setLocationHallLab(locationList.get(i));
 
-                for (int j = 0; j < preferredLocationList.size(); j++) {
-                    int subjectID = preferredLocationList.get(j).getSubjectSubjectID();
-                    int preferredLocationID = preferredLocationList.get(j).getLocationLocationID();
-                    int preferredLocationTagID = preferredLocationList.get(j).getTagTagID();
-                    String preferredLocationStatusTrue = preferredLocationList.get(j).getStatusTrue();
+                if (preferredLocationList.size() > 0) {
+                    for (int j = 0; j < preferredLocationList.size(); j++) {
+                        int subjectID = preferredLocationList.get(j).getSubjectSubjectID();
+                        int preferredLocationID = preferredLocationList.get(j).getLocationLocationID();
+                        int preferredLocationTagID = preferredLocationList.get(j).getTagTagID();
+                        String preferredLocationStatusTrue = preferredLocationList.get(j).getStatusTrue();
 
-                    int locationID = locationList.get(i).getLocationID();
-                    // tagID
+                        int locationID = locationList.get(i).getLocationID();
+                        // tagID
 
-                    if (subjectID == this.subject_id && preferredLocationID == locationID && preferredLocationTagID == tagID){
-                        preferredLocationForSubject.setLocationHallLab(locationList.get(i));
-                        preferredLocationForSubject.setPreferredLocation(preferredLocationList.get(j));
-                        break;
+                        if (subjectID == this.subject_id && preferredLocationID == locationID && preferredLocationTagID == tagID) {
+                            preferredLocationForSubject.setLocationHallLab(locationList.get(i));
+                            preferredLocationForSubject.setPreferredLocation(preferredLocationList.get(j));
+                            break;
 
-                    } else {
+                        } else {
 
-                        preferredLocationForSubject.setLocationHallLab(locationList.get(i));
-                        preferredLocationForSubject.setPreferredLocation(new PreferredLocation());
+                            preferredLocationForSubject.setLocationHallLab(locationList.get(i));
+                            preferredLocationForSubject.setPreferredLocation(new PreferredLocation());
 
+                        }
+
+                    }
+
+                    if (locationList.get(i).getTagID() == tagID) {
+                        preferredLocationForSubjectsList.add(preferredLocationForSubject);
+                    }
+                } else {
+
+                    preferredLocationForSubject.setLocationHallLab(locationList.get(i));
+                    System.out.println("Test location.get(i): " + locationList.get(i).toString());
+                    preferredLocationForSubject.setPreferredLocation(new PreferredLocation());
+
+                    if (locationList.get(i).getTagID() == tagID) {
+                        preferredLocationForSubjectsList.add(preferredLocationForSubject);
                     }
 
                 }
 
-                if (locationList.get(i).getTagID() == tagID) {
-                    preferredLocationForSubjectsList.add(preferredLocationForSubject);
-                }
+
 
             }
 

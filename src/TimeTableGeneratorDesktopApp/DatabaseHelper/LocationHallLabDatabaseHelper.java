@@ -23,7 +23,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         // get database connection
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM location WHERE location_delete_status = 'N' AND location_id = '" + locationHallLabID + "' ORDER BY location_name";
+        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location` WHERE location_delete_status = 'N' AND location_id = '" + locationHallLabID + "' ORDER BY location_name";
 
         Statement st;
         ResultSet rs;
@@ -66,7 +66,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM location WHERE building_building_id = "+ buildingID +
+        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location` WHERE building_building_id = "+ buildingID +
                 " AND location_delete_status = 'N' ORDER BY location_name";
 
         Statement st;
@@ -106,7 +106,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM location WHERE location_name LIKE '%"+ newValue +"%' AND building_building_id = "+ buildingID +
+        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName + "`.`location` WHERE location_name LIKE '%"+ newValue +"%' AND building_building_id = "+ buildingID +
                 " AND location_delete_status = 'N' ORDER BY location_name";
 
         Statement st;
@@ -150,7 +150,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         ObservableList<LocationHallLab> locationHallLabList = FXCollections.observableArrayList();
         Connection conn = getConnection();
 
-        String query = "SELECT * FROM location ORDER BY location_name";
+        String query = "SELECT * FROM `"+ DatabaseConnection.databaseName + "`.`location` ORDER BY location_name";
 
         Statement st;
         ResultSet rs;
@@ -192,7 +192,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
         String count = "";
         String query = "SELECT COUNT(location_id) AS NumberOfLectureHall " +
-                "FROM location AS l " +
+                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Lecture');";
 
@@ -232,7 +232,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
         String count = "";
         String query = "SELECT COUNT(location_id) AS NumberOfTutorialHall " +
-                "FROM location AS l " +
+                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Tutorial');";
 
@@ -264,7 +264,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
         String count = "";
         int intCount = 0;
         String query = "SELECT COUNT(l.location_id) AS NumberOfLab " +
-                "FROM location AS l " +
+                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'PC-Lab');";
 
@@ -287,7 +287,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
 
         String query2 = "SELECT COUNT(l.location_id) AS NumberOfLab " +
-                "FROM location AS l " +
+                "FROM `"+ DatabaseConnection.databaseName +"`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Lab');";
 
@@ -309,7 +309,7 @@ public class LocationHallLabDatabaseHelper extends DatabaseHelper{
 
 
         String query3 = "SELECT COUNT(l.location_id) AS NumberOfLab " +
-                "FROM location AS l " +
+                "FROM `"+ DatabaseConnection.databaseName + "`.`location` AS l " +
                 "WHERE l.tag_tag_id = (SELECT tags.idtags " +
                 "FROM tags WHERE tags.Tag = 'Practical');";
 
