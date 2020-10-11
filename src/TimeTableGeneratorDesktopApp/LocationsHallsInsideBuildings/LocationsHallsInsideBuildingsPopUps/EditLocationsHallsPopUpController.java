@@ -173,7 +173,7 @@ public class EditLocationsHallsPopUpController implements Initializable {
 
                     // execute the insert query
                     databaseHelper.executeQuery(query);
-                    new Alert(Alert.AlertType.INFORMATION,"Update successful !").show();
+                    /*new Alert(Alert.AlertType.INFORMATION,"Update successful !").show();*/
                     closeEditFacultyPopUpForm();
                 } catch (Exception e) {
                     new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when updating data").show();
@@ -196,6 +196,11 @@ public class EditLocationsHallsPopUpController implements Initializable {
         Stage stage = (Stage) txtHallLabName.getScene().getWindow();
         System.out.println("Succeed edit/update of the Hall/Lab - closing pop up form");
         stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Update successful!");
+        alert.setContentText("Record Update successful!\nPlease refresh the screen to view changes");
+        alert.show();
     }
 
 

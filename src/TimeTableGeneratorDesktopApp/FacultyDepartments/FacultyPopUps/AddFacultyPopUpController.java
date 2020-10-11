@@ -241,6 +241,11 @@ public class AddFacultyPopUpController implements Initializable {
         Stage stage = (Stage) comboBoxFacultyName.getScene().getWindow();
         System.out.println("Succeed insertion of a new faculty - closing pop up form");
         stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Insertion successfully!");
+        alert.setContentText("Record Insertion successfully!\nPlease refresh the screen to view changes");
+        alert.show();
     }
 
 

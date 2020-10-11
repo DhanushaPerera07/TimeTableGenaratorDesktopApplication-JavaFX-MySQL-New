@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseConnection;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Lecturers.Lecturers;
 import TimeTableGeneratorDesktopApp.ManageSuitableRooms.ClassesUsed.Location;
@@ -161,7 +162,7 @@ public class SuitableRoomForLecturerController implements Initializable {
         // if the filter by combo box value is set as ALL, get all the departments
         String query;
 
-        query = "SELECT * FROM timetabledb.location";
+        query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location`";
 
         Statement st;
         ResultSet rs;
@@ -212,7 +213,7 @@ public class SuitableRoomForLecturerController implements Initializable {
         String query;
 
         query = "SELECT * \n" +
-                "FROM timetabledb.suitable_room_for_lecturer AS sl\n" +
+                "FROM `"+ DatabaseConnection.databaseName +"`.`suitable_room_for_lecturer` AS sl\n" +
                 "WHERE sl.location_location_id = "+locationID+" AND sl.lecturer_lid = "+lecturerID+"";
 
 

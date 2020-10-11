@@ -293,10 +293,20 @@ public class LocationsHallsInsideBuildingsItemController implements Initializabl
             // execute the insert query
             databaseHelper.executeQuery(query);
 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Deleted successfully!");
+            alert.setContentText("Record Deleted successfully! Please refresh the screen to view changes");
+            alert.show();
 
             System.out.println("Faculty is deleted successfully");
         } catch (Exception e) {
             System.out.println("Error: When Deleting a location (updating location, delete_status = 'Y') record");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error: Not Deleted!");
+            alert.setContentText("Record is not Deleted successfully!");
+            alert.show();
+
             e.printStackTrace();
         }
 

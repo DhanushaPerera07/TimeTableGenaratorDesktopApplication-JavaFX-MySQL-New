@@ -1,6 +1,7 @@
 package TimeTableGeneratorDesktopApp.Departments.DepartmentsItem;
 
 import TimeTableGeneratorDesktopApp.DatabaseHelper.BuildingDatabaseHelper;
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.Department;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsPopUps.EditDepartmentPopUpController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -158,8 +159,8 @@ public class DeptItemController implements Initializable {
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
-     */
+ /*   *//** get the database connection here
+     *//*
     public Connection getConnection(){
         Connection conn;
         try{
@@ -171,10 +172,10 @@ public class DeptItemController implements Initializable {
         }
     }
 
-    /** execute the query string
+    *//** execute the query string
      * @param query string is passed here
      * this query will execute by this method
-     */
+     *//*
     private void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
@@ -184,7 +185,7 @@ public class DeptItemController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
     /**
@@ -193,15 +194,28 @@ public class DeptItemController implements Initializable {
      * It is done as a database good practise.
      * Any record is not deleted from the database.
      */
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
     public void deleteDepartmentRecord(int departmentID) throws IOException {
 
         // delete query
         String query = "UPDATE `department` SET department_delete_status = 'Y' WHERE department_id = "+departmentID+"";
 
-        // execute the insert query
-        executeQuery(query);
-
-        System.out.println("Department is deleted successfully");
+        try {
+            // execute the insert query
+            databaseHelper.executeQuery(query);
+            System.out.println("Department is deleted successfully");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Deleted successfully!");
+            alert.setContentText("Record Deleted successfully! Please refresh the screen to view changes");
+            alert.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error: Not Deleted!");
+            alert.setContentText("Record is not Deleted successfully!");
+            alert.show();
+            e.printStackTrace();
+        }
 
     }
 }

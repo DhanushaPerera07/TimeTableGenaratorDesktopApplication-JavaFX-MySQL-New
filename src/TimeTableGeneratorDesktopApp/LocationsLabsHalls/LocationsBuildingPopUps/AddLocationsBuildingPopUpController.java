@@ -150,8 +150,8 @@ public class AddLocationsBuildingPopUpController implements Initializable {
 
                     // execute the insert query
                     databaseHelper.executeQuery(query);
-                    new Alert(Alert.AlertType.INFORMATION,"Insert successful !").show();
-                    closeAddFacultyPopUpForm();
+                   /* new Alert(Alert.AlertType.INFORMATION,"Insert successful !").show();*/
+                    closeAddLocationsBuildingPopUpForm();
                 } catch (Exception e) {
                     new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when inserting data").show();
                     e.printStackTrace();
@@ -167,12 +167,17 @@ public class AddLocationsBuildingPopUpController implements Initializable {
 
     }
 
-    private void closeAddFacultyPopUpForm() {
+    private void closeAddLocationsBuildingPopUpForm() {
         // just used the txtBuildingName here to close the pop up when the record insertion is successfully done.
 
         Stage stage = (Stage) txtBuildingName.getScene().getWindow();
         System.out.println("Succeed insertion of a new building - closing pop up form");
         stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Insertion successfully!");
+        alert.setContentText("Record Insertion successfully!\nPlease refresh the screen to view changes");
+        alert.show();
     }
 
 

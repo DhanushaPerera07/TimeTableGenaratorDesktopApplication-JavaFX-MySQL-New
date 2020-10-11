@@ -338,15 +338,14 @@ public class EditFacultyPopUpController implements Initializable {
     private void closeEditFacultyPopUpForm() {
         // just used the txtFacultyName here to close the pop up when the record editing/update is successfully done.
 
-/*        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
-
-        FacultyDepartmentsController facultyDepartmentsController = loader.getController();
-        facultyDepartmentsController.populateAndRefreshFacultyDataRow();*/
-
         Stage stage = (Stage) comboBoxFacultyName.getScene().getWindow();
         System.out.println("Succeed edit/update of the faculty - closing pop up form");
         stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Update successfully!");
+        alert.setContentText("Record Update successfully!\nPlease refresh the screen to view changes");
+        alert.show();
 
     }
 

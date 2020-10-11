@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.ManageSuitableRooms;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseConnection;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.LocationHallLabDatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.TagsDatabaseHelper;
@@ -86,7 +87,7 @@ public class PreferredRoomForSubjectController implements Initializable {
             selectTagComboBox.getItems().add(tag.getTag()); // tag name is displayed in the combo box
 
         }
-        selectTagComboBox.getSelectionModel().select("Lecture");
+        selectTagComboBox.getSelectionModel().select("Lec");
 
         selectTagComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
             System.out.println("listener works !");
@@ -133,13 +134,16 @@ public class PreferredRoomForSubjectController implements Initializable {
 
         String tagName = tag.getTag();
 
-        if (tagName.equals("Lecture")) {
+        if (tagName.equals("Lecture") || tagName.equals("Lec") ) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        } else if (tagName.equals("Tutorial")) {
+        } else if (tagName.equals("Tute") || tagName.equals("Tutorial")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        } else if (tagName.equals("Lecture + Tutorial")) {
+        } else if (tagName.equals("Lec+ Tute") || tagName.equals("Lecture + Tutorial")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        } else if (tagName.equals("Evaluation")) {
+        } else if (tagName.equals("Lab")) {
+            preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
+        }
+        else if (tagName.equals("Evaluation")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(0);
@@ -164,6 +168,8 @@ public class PreferredRoomForSubjectController implements Initializable {
 
                     nodes[i] = (Node) loader.load();
                     LocationItemController locationItemController = loader.getController();
+
+                    System.out.println("test preferredLocationForSubjectList.get(i): " + preferredLocationForSubjectList.get(i));
 
                     locationItemController.showPreferredLocationForSubjectInformationForSubject(preferredLocationForSubjectList.get(i), this.subject_id); // subject id should be got from Menura's part
 
@@ -264,7 +270,7 @@ public class PreferredRoomForSubjectController implements Initializable {
         String query;
 
         query = "SELECT ps.* " +
-                "FROM preferred_room_for_subject AS ps";
+                "FROM `"+ DatabaseConnection.databaseName +"`.`preferred_room_for_subject` AS ps";
 
         Statement st;
         ResultSet rs;

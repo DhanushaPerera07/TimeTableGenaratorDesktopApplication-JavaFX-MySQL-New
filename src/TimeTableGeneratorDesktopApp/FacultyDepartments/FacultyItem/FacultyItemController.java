@@ -1,5 +1,6 @@
 package TimeTableGeneratorDesktopApp.FacultyDepartments.FacultyItem;
 
+import TimeTableGeneratorDesktopApp.DatabaseHelper.DatabaseHelper;
 import TimeTableGeneratorDesktopApp.DatabaseHelper.FacultyDatabaseHelper;
 import TimeTableGeneratorDesktopApp.Departments.DepartmentsController;
 import TimeTableGeneratorDesktopApp.FacultyDepartments.Faculty;
@@ -176,8 +177,8 @@ public class FacultyItemController implements Initializable {
 
     // ===================== DATABASE PART - STARTS HERE =============================================================================
 
-    /** get the database connection here
-     */
+   /* *//** get the database connection here
+     *//*
     public Connection getConnection(){
         Connection conn;
         try{
@@ -189,10 +190,10 @@ public class FacultyItemController implements Initializable {
         }
     }
 
-    /** execute the query string
+    *//** execute the query string
      * @param query string is passed here
      * this query will execute by this method
-     */
+     *//*
     private void executeQuery(String query) {
         Connection conn = getConnection();
         Statement st;
@@ -202,7 +203,7 @@ public class FacultyItemController implements Initializable {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
     /**
@@ -211,23 +212,29 @@ public class FacultyItemController implements Initializable {
      * It is done as a database good practise.
      * Any record is not deleted from the database.
      */
+
+    DatabaseHelper databaseHelper = new DatabaseHelper();
     public void deleteFacultyRecord(int facultyID) throws IOException {
 
         // delete query
         String query = "UPDATE `faculty` SET faculty_delete_status = 'Y' WHERE faculty_id = "+facultyID+"";
 
-        // execute the insert query
-        executeQuery(query);
+        try {
+            // execute the insert query
+            databaseHelper.executeQuery(query);
+            System.out.println("Faculty is deleted successfully");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Deleted successfully!");
+            alert.setContentText("Record Deleted successfully! Please refresh the screen to view changes");
+            alert.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error: Not Deleted!");
+            alert.setContentText("Record is not Deleted successfully!");
+            alert.show();
 
-        /* // ERROR in this code segment
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("TimeTableGeneratorDesktopApp/FacultyDepartments/FacultyDepartments.fxml"));
-        loader.load();
-        FacultyDepartmentsController facultyDepartmentsController = loader.getController();
-        facultyDepartmentsController.populateAndRefreshFacultyDataRow();
-         */
-
-        System.out.println("Faculty is deleted successfully");
+            e.printStackTrace();
+        }
 
     }
 

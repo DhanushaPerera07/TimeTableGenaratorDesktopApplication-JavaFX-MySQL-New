@@ -207,6 +207,11 @@ public class AddDeptPopUpController implements Initializable {
         Stage stage = (Stage) txtDepartmentName.getScene().getWindow();
         System.out.println("Succeed insertion of a new faculty - closing pop up form");
         stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Insertion successfully!");
+        alert.setContentText("Record Insertion successfully!\nPlease refresh the screen to view changes");
+        alert.show();
     }
 
 

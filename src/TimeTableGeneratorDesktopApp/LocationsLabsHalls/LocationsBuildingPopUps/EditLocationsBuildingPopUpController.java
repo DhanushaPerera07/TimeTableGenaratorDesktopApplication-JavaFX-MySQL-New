@@ -185,8 +185,8 @@ public class EditLocationsBuildingPopUpController implements Initializable {
 
                 // execute the insert query
                 databaseHelper.executeQuery(query);
-                new Alert(Alert.AlertType.INFORMATION,"Update successful !").show();
-                closeAddBuildingPopUpForm();
+                /*new Alert(Alert.AlertType.INFORMATION,"Update successful !").show();*/
+                closeEditBuildingPopUpForm();
 
             } catch (Exception e) {
                 new Alert(Alert.AlertType.ERROR,"Error: Something went wrong when updating data").show();
@@ -202,12 +202,17 @@ public class EditLocationsBuildingPopUpController implements Initializable {
 
     }
 
-    private void closeAddBuildingPopUpForm() {
+    private void closeEditBuildingPopUpForm() {
         // just used the txtBuildingName here to close the pop up when the record insertion is successfully done.
 
         Stage stage = (Stage) txtBuildingName.getScene().getWindow();
         System.out.println("Succeed editing of the building - closing pop up form");
         stage.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Update successfully!");
+        alert.setContentText("Record Update successful!\nPlease refresh the screen to view changes");
+        alert.show();
     }
 
 
