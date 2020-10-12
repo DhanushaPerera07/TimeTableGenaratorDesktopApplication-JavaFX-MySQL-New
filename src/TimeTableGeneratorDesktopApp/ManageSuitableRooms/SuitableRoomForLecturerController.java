@@ -113,7 +113,7 @@ public class SuitableRoomForLecturerController implements Initializable {
 
 
 
-        /**
+        /*
          * Dynamically change the rows by getting data from the database
          * locationItemForLecturer.fxml is used as the UI, it acts as a customized data row
          * I pass the building object to the locationItemForLecturer.fxml and populate the view
@@ -121,12 +121,14 @@ public class SuitableRoomForLecturerController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[locationList.size()];
 
-        if (locationList.size() >= 0) {  // location table is not empty, there are some locations (halls/ lab)
+        //changed if (locationList.size() >= 0), = removed
+        if (locationList.size() > 0) {  // location table is not empty, there are some locations (halls/ lab)
             for (int i = 0; i < locationList.size(); i++) {
                 try {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/SingleLocationForLecturer/locationItemForLecturer.fxml"));
-                    nodes[i] = (Node) loader.load();
+                    nodes[i] = loader.load(); // remove (node)
+                    //nodes[i] = (Node) loader.load(); // remove (node)
                     LocationItemForLecturerController locationItemForLecturerController = loader.getController();
                     //System.out.println("Test: locationList.get(i),this.subject_id: " + locationList.get(i) + " and" +this.subject_id);
                     locationItemForLecturerController.showPreferredLocationInformationForLecturer(locationList.get(i), this.lecturerID); // lecturer id should be got from Menura's part
@@ -162,12 +164,17 @@ public class SuitableRoomForLecturerController implements Initializable {
 
         query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location`";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             Location location;
             while (rs.next()) {
                 location = new Location(
@@ -215,12 +222,17 @@ public class SuitableRoomForLecturerController implements Initializable {
                 "WHERE sl.location_location_id = "+locationID+" AND sl.lecturer_lid = "+lecturerID+"";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             SuitableLocationForLecturer suitableLocationForLecturer;
             while (rs.next()) {
                 suitableLocationForLecturer = new SuitableLocationForLecturer(

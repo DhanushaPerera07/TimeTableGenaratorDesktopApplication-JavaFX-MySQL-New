@@ -99,8 +99,7 @@ public class SuitableRoomForGroupController implements Initializable {
         }
 
 
-        /**
-         * Dynamically change the rows by getting data from the database
+        /* Dynamically change the rows by getting data from the database
          * locationItemForLecturer.fxml is used as the UI, it acts as a customized data row
          * I pass the building object to the locationItemForLecturer.fxml and populate the view
          */
@@ -155,12 +154,17 @@ public class SuitableRoomForGroupController implements Initializable {
 
         query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location`";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             Location location;
             while (rs.next()) {
                 location = new Location(
@@ -208,12 +212,17 @@ public class SuitableRoomForGroupController implements Initializable {
                 "WHERE ssb.location_location_id = "+locationID+" AND ssb.studentbatches_id = "+studentBatchID+"";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             SuitableLocationForStudentBatch suitableLocationForStudentBatch;
             while (rs.next()) {
                 suitableLocationForStudentBatch = new SuitableLocationForStudentBatch(
@@ -241,7 +250,7 @@ public class SuitableRoomForGroupController implements Initializable {
 
     @FXML
     void setOnActionBtnSearch(MouseEvent event) {
-
+        System.out.println("Search button clicked !");
     }
 
 

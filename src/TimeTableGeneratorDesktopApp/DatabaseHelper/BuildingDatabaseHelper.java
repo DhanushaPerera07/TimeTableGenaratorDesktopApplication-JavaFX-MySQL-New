@@ -154,6 +154,10 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
                 buildingList.add(building);
             }
 
+        } catch(SQLException ex){
+            // if an error occurs print an error...
+            System.out.println("Error SQLException - found");
+            ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...
             ex.printStackTrace();
@@ -198,6 +202,7 @@ public class BuildingDatabaseHelper extends DatabaseHelper {
 
         } catch (SQLException ex){
             // if an error occurs print an error...
+            System.out.println("Error - SQLException found !");
             ex.printStackTrace();
         } catch (Exception ex) {
             // if an error occurs print an error...

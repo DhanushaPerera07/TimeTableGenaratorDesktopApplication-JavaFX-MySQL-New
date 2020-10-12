@@ -116,7 +116,8 @@ public class SuitableRoomForTagController implements Initializable {
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/SingleLocationForTag/locationItemForTag.fxml"));
                     //Parent newRoot = loader.load();
                     //Scene scene = new Scene(newRoot);
-                    nodes[i] = (Node) loader.load();
+                    //nodes[i] = (Node) loader.load(); // removed redundant (node)
+                    nodes[i] = loader.load();
                     LocationItemForTagController locationItemController = loader.getController();
                     //System.out.println("Test: locationList.get(i),this.subject_id: " + locationList.get(i) + " and" +this.subject_id);
                     locationItemController.showPreferredLocationInformationForTag(locationList.get(i), this.tag.getTagID()); // tag id should be got from Soyza's part
@@ -154,12 +155,17 @@ public class SuitableRoomForTagController implements Initializable {
 
         query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location`";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             Location location;
             while (rs.next()) {
                 location = new Location(
@@ -207,12 +213,17 @@ public class SuitableRoomForTagController implements Initializable {
                 "WHERE pt.location_location_id = "+locationID+" AND pt.tags_idtags = "+tagID+"";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             SuitableLocationForTag suitableLocationForTag;
             while (rs.next()) {
                 suitableLocationForTag = new SuitableLocationForTag(
@@ -239,5 +250,6 @@ public class SuitableRoomForTagController implements Initializable {
 
 
     public void setOnActionBtnSearch(MouseEvent mouseEvent) {
+        System.out.println("Search button clicked !");
     }
 }

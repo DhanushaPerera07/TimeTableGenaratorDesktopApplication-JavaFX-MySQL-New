@@ -214,7 +214,7 @@ public class CanNotBeReservedTimeForRoomController implements Initializable {
         }
 
 
-        /**
+        /*
          * Dynamically change the rows by getting data from the database
          * locationItemForLecturer.fxml is used as the UI, it acts as a customized data row
          * I pass the building object to the locationItemForLecturer.fxml and populate the view
@@ -288,12 +288,15 @@ public class CanNotBeReservedTimeForRoomController implements Initializable {
                 "FROM cannot_be_reserved_time_for_location AS crt " +
                 "WHERE crt.location_location_id = " + locationHallLab.getLocationID() + " AND crt.timeslot_id = "+ timeSlotID + " AND crt.day = '"+ dayName +"' ;";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
 
             CannotBeReservedTimeForLocationTM cannotBeReservedTimeForLocationTM;
             if (rs.next()) {

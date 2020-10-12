@@ -183,12 +183,17 @@ public class SuitableRoomForSessionController implements Initializable {
 
         query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location`";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             Location location;
             while (rs.next()) {
                 location = new Location(
@@ -236,12 +241,17 @@ public class SuitableRoomForSessionController implements Initializable {
                 "WHERE ss.location_location_id = "+locationID+" AND ss.idsession = "+sessionID+"";
 
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             SuitableLocationForSession suitableLocationForSession;
             while (rs.next()) {
                 suitableLocationForSession = new SuitableLocationForSession(

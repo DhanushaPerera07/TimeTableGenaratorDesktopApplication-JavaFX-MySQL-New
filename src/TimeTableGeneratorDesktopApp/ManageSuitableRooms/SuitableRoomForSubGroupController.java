@@ -113,7 +113,8 @@ public class SuitableRoomForSubGroupController implements Initializable {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/SingleLocationForStudentSubGroup/locationItemForStudentSubGroup.fxml"));
 
-                    nodes[i] = (Node) loader.load();
+                    //nodes[i] = (Node) loader.load(); // removed (node)
+                    nodes[i] = loader.load();
                     LocationItemForStudentSubGroupController locationItemForStudentSubGroupController = loader.getController();
                     //System.out.println("Test: locationList.get(i),this.subject_id: " + locationList.get(i) + " and" +this.subject_id);
                     locationItemForStudentSubGroupController.showPreferredLocationInformationForStudentSubGroup(locationList.get(i), this.studentSubGroup.getId()); // studentSubGroup ID should be got from Soyza's part
@@ -152,12 +153,17 @@ public class SuitableRoomForSubGroupController implements Initializable {
 
         query = "SELECT * FROM `"+ DatabaseConnection.databaseName +"`.`location`";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             Location location;
             while (rs.next()) {
                 location = new Location(
@@ -238,7 +244,7 @@ public class SuitableRoomForSubGroupController implements Initializable {
 
     @FXML
     void setOnActionBtnSearch(MouseEvent event) {
-
+        System.out.println("Search button clicked !");
     }
 
 

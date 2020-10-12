@@ -125,7 +125,7 @@ public class PreferredRoomForSubjectController implements Initializable {
         locationsVBox.getChildren().clear();
 
         TagsDatabaseHelper tagsDatabaseHelper = new TagsDatabaseHelper();
-        Tags tag = new Tags();
+        Tags tag;
         tag = tagsDatabaseHelper.getTagInstanceByTagName(selectTagComboBox.getValue());
 
         ObservableList<PreferredLocationForSubject> preferredLocationForSubjectList;
@@ -140,9 +140,7 @@ public class PreferredRoomForSubjectController implements Initializable {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else if (tagName.equals("Lab") || tagName.equals("Practical") || tagName.equals("PC-Lab")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
-        }
-
-        else if (tagName.equals("Evaluation")) {
+        } else if (tagName.equals("Evaluation")) {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(tag.getTagID());
         } else {
             preferredLocationForSubjectList = getPreferredLocationForSubjectList(0);
@@ -150,7 +148,7 @@ public class PreferredRoomForSubjectController implements Initializable {
 
         System.out.println("Test sout: preferredLocationForSubjectList = " + preferredLocationForSubjectList.size());
 
-        /**
+        /*
          * Dynamically change the rows by getting data from the database
          * locationItemForLecturer.fxml is used as the UI, it acts as a customized data row
          * I pass the building object to the locationItemForLecturer.fxml and populate the view
@@ -158,14 +156,16 @@ public class PreferredRoomForSubjectController implements Initializable {
         // Populate the rows like a table
         Node[] nodes = new Node[preferredLocationForSubjectList.size()];
 
-        if (preferredLocationForSubjectList.size() >= 0) {  // location table is not empty, there are some locations (halls/ lab)
+        // change if = sign removed
+        if (preferredLocationForSubjectList.size() > 0) {  // location table is not empty, there are some locations (halls/ lab)
             for (int i = 0; i < preferredLocationForSubjectList.size(); i++) {
                 try {
 
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/ManageSuitableRooms/SingleLocationItem/locationItem.fxml"));
 
-                    nodes[i] = (Node) loader.load();
+                    nodes[i] = loader.load(); // remove casting
+                    //nodes[i] = (Node) loader.load(); // remove casting
                     LocationItemController locationItemController = loader.getController();
 
                     locationItemController.showPreferredLocationForSubjectInformationForSubject(preferredLocationForSubjectList.get(i), this.subject_id); // subject id should be got from Menura's part
@@ -269,12 +269,17 @@ public class PreferredRoomForSubjectController implements Initializable {
         query = "SELECT ps.* " +
                 "FROM `"+ DatabaseConnection.databaseName +"`.`preferred_room_for_subject` AS ps";
 
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             PreferredLocation preferredLocation;
             while (rs.next()) {
 
@@ -354,14 +359,9 @@ public class PreferredRoomForSubjectController implements Initializable {
     // ---------------------------------------------------------------------------------------------------------------
 
 
-    /**
-     * Get selected rooms and save
-     *
-     * @param event
-     */
     @FXML
     void SavePreferredRoomForSubject(MouseEvent event) {
-
+        System.out.println("Saved subject method"); // this method is not used
     }
 
 

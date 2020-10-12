@@ -97,7 +97,7 @@ public class LocationsLabsHallsController implements Initializable {
         locationsMoreComboBox.setPromptText("More"); // I use this drop down, if I have to deal with a new function
 
         locationsSearchTxtBox.textProperty().addListener((v,oldValue,newValue) -> {
-            if(newValue.trim().equals("") || newValue == null){
+            if(newValue.trim().equals("")){ // || newValue == null
                 populateRows();
             } else {
                 populateRowsAccordingToSearchBoxValue(newValue);
@@ -117,7 +117,7 @@ public class LocationsLabsHallsController implements Initializable {
             System.out.println("building table rec: " + building.toString());
         }
 
-        /**
+        /*
          * Dynamically change the rows by getting data from the database
          * LocationsBuildingItem.fxml is used as the UI, it acts as a customized data row
          * I pass the building object to the LocationsBuildingItem.fxml and populate the view
@@ -135,7 +135,8 @@ public class LocationsLabsHallsController implements Initializable {
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItem.fxml"));
                     //Parent newRoot = loader.load();
                     //Scene scene = new Scene(newRoot);
-                    nodes[i] = (Node) loader.load();
+                    nodes[i] = loader.load(); // remove (Node)
+                    //nodes[i] = (Node) loader.load(); // remove (Node)
                     LocationsBuildingItemController locationsBuildingItemController = loader.getController();
                     locationsBuildingItemController.showInformation(buildingList.get(i));
                     //facultyItemController = nodes[i].getController;
@@ -155,7 +156,8 @@ public class LocationsLabsHallsController implements Initializable {
 
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItemNoContent.fxml"));
-                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                nodeThatSaysNoFacultyFound = loader.load(); // remove (Node)
+                //nodeThatSaysNoFacultyFound = (Node) loader.load(); // remove (Node)
                 locationsVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
             } catch (IOException e) {
                 System.out.println("Error - Locations: Buildings Loading ======================================");
@@ -176,7 +178,7 @@ public class LocationsLabsHallsController implements Initializable {
             System.out.println("building table rec: " + building.toString());
         }
 
-        /**
+        /*
          * Dynamically change the rows by getting data from the database
          * LocationsBuildingItem.fxml is used as the UI, it acts as a customized data row
          * I pass the building object to the LocationsBuildingItem.fxml and populate the view
@@ -194,7 +196,8 @@ public class LocationsLabsHallsController implements Initializable {
                     loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItem.fxml"));
                     //Parent newRoot = loader.load();
                     //Scene scene = new Scene(newRoot);
-                    nodes[i] = (Node) loader.load();
+                    nodes[i] = loader.load(); // remove casting
+                    //nodes[i] = (Node) loader.load(); // remove casting (Node)
                     LocationsBuildingItemController locationsBuildingItemController = loader.getController();
                     locationsBuildingItemController.showInformation(buildingList.get(i));
                     //facultyItemController = nodes[i].getController;
@@ -214,7 +217,8 @@ public class LocationsLabsHallsController implements Initializable {
 
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingItem/LocationsBuildingItemNoContent.fxml"));
-                nodeThatSaysNoFacultyFound = (Node) loader.load();
+                nodeThatSaysNoFacultyFound = loader.load(); //remove casting
+                //nodeThatSaysNoFacultyFound = (Node) loader.load(); //remove casting
                 locationsVBox.getChildren().addAll(nodeThatSaysNoFacultyFound);
             } catch (IOException e) {
                 System.out.println("Error - Locations: Buildings Loading ======================================");
@@ -235,7 +239,8 @@ public class LocationsLabsHallsController implements Initializable {
         // open up the POP UP
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/TimeTableGeneratorDesktopApp/LocationsLabsHalls/LocationsBuildingPopUps/addLocationsBuildingPopUp.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root1 = fxmlLoader.load(); // removed (Parent)
+            //Parent root1 = (Parent) fxmlLoader.load(); // removed (Parent)
             Stage stage = new Stage();
 
             stage.setTitle("Add a building");
@@ -273,20 +278,27 @@ public class LocationsLabsHallsController implements Initializable {
 
         // if the filter by combo box value is set as ALL, get all the departments
         String query;
-        if (locationsFilterByComboBox.equals("Select ALL")) {
+
+        // commented this if
+   /*     if (locationsFilterByComboBox.getValue().equals("Select ALL")) {
             query = "SELECT * FROM building WHERE building_delete_status = 'N' ORDER BY building_name";
-        } else {
-            query = "SELECT * FROM building WHERE building_delete_status = 'N' ORDER BY building_name";
+        } else {*/
+            query = "SELECT * FROM `building` WHERE building_delete_status = 'N' ORDER BY building_name";
             // query = "SELECT * from faculty WHERE " +filterType+ " = '" +filterValue+ "'";
-        }
+        //}
 
 //        String query = "SELECT * FROM department";
-        Statement st;
+/*        Statement st;
         ResultSet rs;
 
         try {
             st = conn.createStatement();
-            rs = st.executeQuery(query);
+            rs = st.executeQuery(query);*/
+
+        try(Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query)){
+
+
             Building building;
             while (rs.next()) {
                 building = new Building(
